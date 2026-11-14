@@ -1,0 +1,13 @@
+[project]
+name = "cesson"
+version = "0.1.0"
+description = "Collecteurs de données publiques de Cesson au quotidien"
+requires-python = ">=3.12"
+dependencies = ["pydantic>=2.10", "httpx>=0.28", "pyyaml>=6"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "respx>=0.22"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]

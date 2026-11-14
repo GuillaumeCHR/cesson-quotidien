@@ -1,0 +1,12 @@
+# Cesson au quotidien : planification des collecteurs sur le VPS (crontab -e de l'utilisateur cesson).
+# Les cadences suivent le document d'architecture. Chaque ligne publie dans /srv/cesson/public,
+# servi par nginx derrière le CDN (Cache-Control court, voir nginx.conf).
+CESSON=/srv/cesson/backend
+CESSON_ALERTE_URL=https://ntfy.sh/remplacer-par-un-sujet-prive
+PATH=/usr/bin:/bin
+
+# Quotidien, 6h05 : hauteur de la Vilaine (carte informative ; les alertes viendront de Vigicrues)
+5 6 * * *     cd $CESSON && .venv/bin/python -m cesson collecter vilaine --sortie /srv/cesson/public --etat /srv/cesson/etat >> /srv/cesson/log/collecte.log 2>&1
+
+# Contrôle de santé toutes les heures : sort en erreur (et cron envoie un mail) si une source est en retard.
+17 * * * *    cd $CESSON && .venv/bin/python -m cesson sante --etat /srv/cesson/etat > /dev/null

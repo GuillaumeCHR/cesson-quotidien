@@ -1,0 +1,274 @@
+{
+  "$defs": {
+    "Coord": {
+      "additionalProperties": false,
+      "properties": {
+        "lat": {
+          "maximum": 90,
+          "minimum": -90,
+          "title": "Lat",
+          "type": "number"
+        },
+        "lon": {
+          "maximum": 180,
+          "minimum": -180,
+          "title": "Lon",
+          "type": "number"
+        }
+      },
+      "required": [
+        "lat",
+        "lon"
+      ],
+      "title": "Coord",
+      "type": "object"
+    },
+    "DonneesVilaine": {
+      "additionalProperties": false,
+      "properties": {
+        "station": {
+          "$ref": "#/$defs/Lieu"
+        },
+        "mesure": {
+          "$ref": "#/$defs/Mesure"
+        },
+        "serie_24h": {
+          "items": {
+            "$ref": "#/$defs/PointSerie"
+          },
+          "title": "Serie 24H",
+          "type": "array"
+        }
+      },
+      "required": [
+        "station",
+        "mesure",
+        "serie_24h"
+      ],
+      "title": "DonneesVilaine",
+      "type": "object"
+    },
+    "Etat": {
+      "enum": [
+        "ok",
+        "perime",
+        "erreur"
+      ],
+      "title": "Etat",
+      "type": "string"
+    },
+    "Lieu": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "nom": {
+          "title": "Nom",
+          "type": "string"
+        },
+        "type": {
+          "title": "Type",
+          "type": "string"
+        },
+        "coord": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Coord"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "adresse": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Adresse"
+        },
+        "source": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source"
+        },
+        "url": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Url"
+        }
+      },
+      "required": [
+        "id",
+        "nom",
+        "type"
+      ],
+      "title": "Lieu",
+      "type": "object"
+    },
+    "Mesure": {
+      "additionalProperties": false,
+      "properties": {
+        "station": {
+          "title": "Station",
+          "type": "string"
+        },
+        "grandeur": {
+          "title": "Grandeur",
+          "type": "string"
+        },
+        "valeur": {
+          "title": "Valeur",
+          "type": "number"
+        },
+        "unite": {
+          "title": "Unite",
+          "type": "string"
+        },
+        "horodatage": {
+          "format": "date-time",
+          "title": "Horodatage",
+          "type": "string"
+        },
+        "tendance": {
+          "$ref": "#/$defs/Tendance",
+          "default": "inconnue"
+        }
+      },
+      "required": [
+        "station",
+        "grandeur",
+        "valeur",
+        "unite",
+        "horodatage"
+      ],
+      "title": "Mesure",
+      "type": "object"
+    },
+    "Meta": {
+      "additionalProperties": false,
+      "description": "Accompagne chaque fichier publié : source, licence et fraîcheur.",
+      "properties": {
+        "source": {
+          "title": "Source",
+          "type": "string"
+        },
+        "licence": {
+          "title": "Licence",
+          "type": "string"
+        },
+        "url_source": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Url Source"
+        },
+        "recupere_le": {
+          "format": "date-time",
+          "title": "Recupere Le",
+          "type": "string"
+        },
+        "valide_jusqu_a": {
+          "format": "date-time",
+          "title": "Valide Jusqu A",
+          "type": "string"
+        },
+        "etat": {
+          "$ref": "#/$defs/Etat",
+          "default": "ok"
+        }
+      },
+      "required": [
+        "source",
+        "licence",
+        "recupere_le",
+        "valide_jusqu_a"
+      ],
+      "title": "Meta",
+      "type": "object"
+    },
+    "PointSerie": {
+      "additionalProperties": false,
+      "properties": {
+        "horodatage": {
+          "format": "date-time",
+          "title": "Horodatage",
+          "type": "string"
+        },
+        "valeur": {
+          "title": "Valeur",
+          "type": "number"
+        }
+      },
+      "required": [
+        "horodatage",
+        "valeur"
+      ],
+      "title": "PointSerie",
+      "type": "object"
+    },
+    "Tendance": {
+      "enum": [
+        "hausse",
+        "stable",
+        "baisse",
+        "inconnue"
+      ],
+      "title": "Tendance",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "module": {
+      "title": "Module",
+      "type": "string"
+    },
+    "version_schema": {
+      "default": 1,
+      "title": "Version Schema",
+      "type": "integer"
+    },
+    "meta": {
+      "$ref": "#/$defs/Meta"
+    },
+    "donnees": {
+      "$ref": "#/$defs/DonneesVilaine"
+    }
+  },
+  "required": [
+    "module",
+    "meta",
+    "donnees"
+  ],
+  "title": "FichierModule[DonneesVilaine]",
+  "type": "object"
+}

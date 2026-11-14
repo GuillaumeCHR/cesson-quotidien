@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Les préférences (tuiles, favoris) suivent l'utilisateur sur un nouveau téléphone ; le cache de données, non. -->
+<data-extraction-rules>
+    <cloud-backup>
+        <exclude domain="file" path="donnees/" />
+    </cloud-backup>
+    <device-transfer>
+        <exclude domain="file" path="donnees/" />
+    </device-transfer>
+</data-extraction-rules>

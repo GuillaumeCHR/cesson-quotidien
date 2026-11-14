@@ -1,0 +1,74 @@
+{
+  "$defs": {
+    "EntreeManifest": {
+      "additionalProperties": false,
+      "properties": {
+        "fichier": {
+          "title": "Fichier",
+          "type": "string"
+        },
+        "version": {
+          "title": "Version",
+          "type": "string"
+        },
+        "recupere_le": {
+          "format": "date-time",
+          "title": "Recupere Le",
+          "type": "string"
+        },
+        "valide_jusqu_a": {
+          "format": "date-time",
+          "title": "Valide Jusqu A",
+          "type": "string"
+        },
+        "etat": {
+          "$ref": "#/$defs/Etat"
+        }
+      },
+      "required": [
+        "fichier",
+        "version",
+        "recupere_le",
+        "valide_jusqu_a",
+        "etat"
+      ],
+      "title": "EntreeManifest",
+      "type": "object"
+    },
+    "Etat": {
+      "enum": [
+        "ok",
+        "perime",
+        "erreur"
+      ],
+      "title": "Etat",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "version_schema": {
+      "default": 1,
+      "title": "Version Schema",
+      "type": "integer"
+    },
+    "genere_le": {
+      "format": "date-time",
+      "title": "Genere Le",
+      "type": "string"
+    },
+    "modules": {
+      "additionalProperties": {
+        "$ref": "#/$defs/EntreeManifest"
+      },
+      "title": "Modules",
+      "type": "object"
+    }
+  },
+  "required": [
+    "genere_le",
+    "modules"
+  ],
+  "title": "Manifest",
+  "type": "object"
+}
