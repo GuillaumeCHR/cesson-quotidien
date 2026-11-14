@@ -1,0 +1,365 @@
+{
+  "$defs": {
+    "Coord": {
+      "additionalProperties": false,
+      "properties": {
+        "lat": {
+          "maximum": 90,
+          "minimum": -90,
+          "title": "Lat",
+          "type": "number"
+        },
+        "lon": {
+          "maximum": 180,
+          "minimum": -180,
+          "title": "Lon",
+          "type": "number"
+        }
+      },
+      "required": [
+        "lat",
+        "lon"
+      ],
+      "title": "Coord",
+      "type": "object"
+    },
+    "DonneesMeteo": {
+      "additionalProperties": false,
+      "properties": {
+        "lieu": {
+          "$ref": "#/$defs/Lieu"
+        },
+        "actuelle": {
+          "$ref": "#/$defs/MeteoActuelle"
+        },
+        "jours": {
+          "items": {
+            "$ref": "#/$defs/MeteoJour"
+          },
+          "title": "Jours",
+          "type": "array"
+        },
+        "heures": {
+          "items": {
+            "$ref": "#/$defs/MeteoHeure"
+          },
+          "title": "Heures",
+          "type": "array"
+        }
+      },
+      "required": [
+        "lieu",
+        "actuelle",
+        "jours",
+        "heures"
+      ],
+      "title": "DonneesMeteo",
+      "type": "object"
+    },
+    "Etat": {
+      "enum": [
+        "ok",
+        "perime",
+        "erreur"
+      ],
+      "title": "Etat",
+      "type": "string"
+    },
+    "Lieu": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "nom": {
+          "title": "Nom",
+          "type": "string"
+        },
+        "type": {
+          "title": "Type",
+          "type": "string"
+        },
+        "coord": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Coord"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "adresse": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Adresse"
+        },
+        "source": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source"
+        },
+        "url": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Url"
+        }
+      },
+      "required": [
+        "id",
+        "nom",
+        "type"
+      ],
+      "title": "Lieu",
+      "type": "object"
+    },
+    "Meta": {
+      "additionalProperties": false,
+      "description": "Accompagne chaque fichier publié : source, licence et fraîcheur.",
+      "properties": {
+        "source": {
+          "title": "Source",
+          "type": "string"
+        },
+        "licence": {
+          "title": "Licence",
+          "type": "string"
+        },
+        "url_source": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Url Source"
+        },
+        "recupere_le": {
+          "format": "date-time",
+          "title": "Recupere Le",
+          "type": "string"
+        },
+        "valide_jusqu_a": {
+          "format": "date-time",
+          "title": "Valide Jusqu A",
+          "type": "string"
+        },
+        "etat": {
+          "$ref": "#/$defs/Etat",
+          "default": "ok"
+        }
+      },
+      "required": [
+        "source",
+        "licence",
+        "recupere_le",
+        "valide_jusqu_a"
+      ],
+      "title": "Meta",
+      "type": "object"
+    },
+    "MeteoActuelle": {
+      "additionalProperties": false,
+      "properties": {
+        "horodatage": {
+          "format": "date-time",
+          "title": "Horodatage",
+          "type": "string"
+        },
+        "temperature": {
+          "title": "Temperature",
+          "type": "number"
+        },
+        "ressentie": {
+          "title": "Ressentie",
+          "type": "number"
+        },
+        "code": {
+          "title": "Code",
+          "type": "integer"
+        },
+        "libelle": {
+          "title": "Libelle",
+          "type": "string"
+        },
+        "jour": {
+          "title": "Jour",
+          "type": "boolean"
+        },
+        "vent_kmh": {
+          "title": "Vent Kmh",
+          "type": "number"
+        },
+        "rafales_kmh": {
+          "title": "Rafales Kmh",
+          "type": "number"
+        },
+        "precipitation_mm": {
+          "title": "Precipitation Mm",
+          "type": "number"
+        }
+      },
+      "required": [
+        "horodatage",
+        "temperature",
+        "ressentie",
+        "code",
+        "libelle",
+        "jour",
+        "vent_kmh",
+        "rafales_kmh",
+        "precipitation_mm"
+      ],
+      "title": "MeteoActuelle",
+      "type": "object"
+    },
+    "MeteoHeure": {
+      "additionalProperties": false,
+      "properties": {
+        "horodatage": {
+          "format": "date-time",
+          "title": "Horodatage",
+          "type": "string"
+        },
+        "temperature": {
+          "title": "Temperature",
+          "type": "number"
+        },
+        "code": {
+          "title": "Code",
+          "type": "integer"
+        },
+        "libelle": {
+          "title": "Libelle",
+          "type": "string"
+        },
+        "jour": {
+          "title": "Jour",
+          "type": "boolean"
+        },
+        "precipitation_mm": {
+          "title": "Precipitation Mm",
+          "type": "number"
+        }
+      },
+      "required": [
+        "horodatage",
+        "temperature",
+        "code",
+        "libelle",
+        "jour",
+        "precipitation_mm"
+      ],
+      "title": "MeteoHeure",
+      "type": "object"
+    },
+    "MeteoJour": {
+      "additionalProperties": false,
+      "properties": {
+        "date": {
+          "format": "date",
+          "title": "Date",
+          "type": "string"
+        },
+        "min": {
+          "title": "Min",
+          "type": "number"
+        },
+        "max": {
+          "title": "Max",
+          "type": "number"
+        },
+        "code": {
+          "title": "Code",
+          "type": "integer"
+        },
+        "libelle": {
+          "title": "Libelle",
+          "type": "string"
+        },
+        "precipitation_mm": {
+          "title": "Precipitation Mm",
+          "type": "number"
+        },
+        "rafales_max_kmh": {
+          "title": "Rafales Max Kmh",
+          "type": "number"
+        },
+        "lever": {
+          "format": "date-time",
+          "title": "Lever",
+          "type": "string"
+        },
+        "coucher": {
+          "format": "date-time",
+          "title": "Coucher",
+          "type": "string"
+        }
+      },
+      "required": [
+        "date",
+        "min",
+        "max",
+        "code",
+        "libelle",
+        "precipitation_mm",
+        "rafales_max_kmh",
+        "lever",
+        "coucher"
+      ],
+      "title": "MeteoJour",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "module": {
+      "title": "Module",
+      "type": "string"
+    },
+    "version_schema": {
+      "default": 1,
+      "title": "Version Schema",
+      "type": "integer"
+    },
+    "meta": {
+      "$ref": "#/$defs/Meta"
+    },
+    "donnees": {
+      "$ref": "#/$defs/DonneesMeteo"
+    }
+  },
+  "required": [
+    "module",
+    "meta",
+    "donnees"
+  ],
+  "title": "FichierModule[DonneesMeteo]",
+  "type": "object"
+}

@@ -11,7 +11,7 @@ Périmètre fonctionnel, en 6 domaines :
 - **Se déplacer** : bus et métro STAR, trains à la halte de Cesson-Sévigné, vélos en libre-service, parcs-relais, carburants, bornes de recharge.
 - **Équipements** : piscine, médiathèque, Pont des Arts, golf municipal, Base Sports Nature, déchèterie.
 - **Sortir** : spectacles du Carré Sévigné, cinéma Le Sévigné, agenda de la ville.
-- **Environnement et risques** : niveau de la Vilaine, vigilance crues, vigilance météo, qualité de l'air.
+- **Environnement et risques** : météo, niveau de la Vilaine, vigilance crues, vigilance météo, qualité de l'air.
 - **Pratique** : collecte des déchets, défibrillateurs, accessibilité des lieux publics.
 - **Actualités** : fil de la ville, lien vers la chaîne WhatsApp municipale.
 
@@ -47,6 +47,7 @@ Toutes les données passent par des fichiers JSON statiques avant d'atteindre l'
 | Niveau de la Vilaine | [Hub'Eau Hydrométrie](https://www.data.gouv.fr/dataservices/hubeau-hydrometrie/reuses), station de Pont Briand (J709063002), hauteur H en mm | REST JSON, Licence Ouverte | Quotidien (carte informative) | Non |
 | Vigilance crues | [Flux Vigicrues des tronçons](https://www.data.gouv.fr/datasets/troncons-de-cours-deau-vigicrues-simplifies-avec-niveau-de-vigilance-crues) | GeoJSON, champ NivSituVigiCruEnt | 2 fois par jour au moins | Non |
 | Qualité de l'air | [API Atmo Data](https://atmo-France.org/sites/federation/files/medias/documents/2023-10/FAQ_API_Atmo_Data_20231010_0.pdf) (Air Breizh) | REST, filtre code\_zone = 35051 | Chaque jour à 14h | Oui |
+| Météo (prévisions) | [Open-Meteo](https://open-meteo.com/), modèles Météo-France AROME et ARPEGE | REST JSON, CC BY 4.0 ; pas de probabilité de pluie avec ces modèles, d'où des cumuls en mm | Horaire | Non |
 | Vigilance météo | API Météo-France (portail-api) | REST | Plusieurs fois par jour | Oui (à confirmer) |
 | Carburants | [Flux instantané v2](https://data.economie.gouv.fr/explore/dataset/prix-des-carburants-en-france-flux-instantane-v2/table/?flg=fr-fr) | REST, prix, horaires et services par station | 10 min | Non |
 | Bornes de recharge | Fichier national IRVE (data.gouv) | CSV | Hebdomadaire | Non |
@@ -92,7 +93,7 @@ Chaque source a un collecteur Python dédié, lancé à la cadence que sa donné
 | Sur le téléphone, en direct | Prochains passages STAR | Aucun |
 | 2 min | Trains (GTFS-RT TU), filtrés sur la halte | Serveur avec cron fiable |
 | 10 à 15 min | Vigicrues, carburants, alertes STAR et SNCF | Serveur avec cron fiable |
-| Horaire | Actualités, vigilance météo | Serveur |
+| Horaire | Météo, actualités, vigilance météo | Serveur |
 | Quotidien | Hauteur de la Vilaine (6h05), GTFS STAR (0h30), GTFS SNCF, qualité de l'air (14h15), spectacles, cinéma, déchèterie | Serveur |
 | Hebdomadaire ou mensuel | Défibrillateurs, bornes, acceslibre, contrôle des YAML | Serveur |
 
@@ -154,7 +155,7 @@ L'app est écrite en Kotlin avec Jetpack Compose, et organisée en un module Gra
 | Push | Firebase Cloud Messaging, par sujets | Seul moyen fiable de réveiller un téléphone en veille |
 | Architecture | MVVM, un module Gradle par domaine | Ajouter ou retirer un module sans toucher au reste |
 
-**Modules Gradle** : `core` (modèle, cache, manifest), `transport` (STAR, trains, vélos, parcs-relais), `eau` (Vilaine, vigilance crues), `equipements`, `agenda`, `environnement` (air, météo), `pratique` (déchets, défibrillateurs, accessibilité, carburants, bornes), `actus`, `widget`.
+**Modules Gradle** : `core` (modèle, cache, manifest), `transport` (STAR, trains, vélos, parcs-relais), `eau` (Vilaine, vigilance crues), `equipements`, `agenda`, `environnement` (météo, air, vigilance météo), `pratique` (déchets, défibrillateurs, accessibilité, carburants, bornes), `actus`, `widget`.
 
 **Temps réel.** Les prochains passages STAR sont demandés directement à l'API data.explore.star.fr, en JSON. Pour les trains, le backend décode le GTFS-RT national (protobuf, toute la France) et publie un `trains.json` allégé, limité à la halte de Cesson. Le téléphone n'a ainsi jamais à télécharger le flux national.
 
@@ -215,14 +216,16 @@ L'app compte 5 onglets et un widget d'accueil. L'onglet Aujourd'hui répond seul
 
 | Écran | Contenu | Données |
 | --- | --- | --- |
-| Aujourd'hui | Bandeau d'alertes ; tuiles que l'utilisateur ordonne et masque (écran Personnaliser) ; équipements suivis ouverts ou fermés ; prochaine collecte ; prochains départs à Cesson-ViaSilva et à la halte ; Vilaine ; qualité de l'air | Tous modules, version résumée |
+| Aujourd'hui | Bandeau d'alertes ; tuiles que l'utilisateur ordonne et masque (écran Personnaliser) ; météo (actuelle, prochaines heures, aujourd'hui et demain) ; équipements suivis ouverts ou fermés ; prochaine collecte ; prochains départs à Cesson-ViaSilva et à la halte ; Vilaine ; qualité de l'air | Tous modules, version résumée |
 | Bouger | Pôle Cesson-ViaSilva ; halte ferroviaire ; lignes passant par Cesson ; vélos ; parcs-relais ; carburants ; bornes de recharge | STAR, SNCF, carburants, IRVE |
 | Sortir | Carré Sévigné ; cinéma Le Sévigné ; Pont des Arts et médiathèque ; golf ; Base Sports Nature ; piscine | Agenda, équipements, Vilaine (sur le golf et la base nautique) |
 | Pratique | Collecte par secteur ; déchèterie ; défibrillateurs ; accessibilité des lieux | YAML collecte, Rennes Métropole, Géo'DAE, acceslibre |
 | Actus | Fil de la ville ; lien d'abonnement à la chaîne WhatsApp | RSS de la ville |
 | Widget | Prochaine collecte, niveau de la Vilaine, prochain métro b ou train | Cache local |
 
-**Accueil personnalisable.** Comme l'app de Nantes, l'utilisateur ordonne et masque ses tuiles, ce qui répond à la diversité des usages. Le réordonnancement passe par des boutons « monter / descendre » compatibles TalkBack. Une tuile ajoutée par une mise à jour apparaît en fin d'accueil sans effacer l'ordre choisi.
+**Accueil personnalisable.** Comme l'app de Nantes, l'utilisateur ordonne et masque ses tuiles, ce qui répond à la diversité des usages. Le réordonnancement passe par des boutons « monter / descendre » compatibles TalkBack. Un appui long sur une carte propose « Masquer cette carte » (avec Annuler) ou « Personnaliser l'accueil » ; ces actions sont aussi offertes à TalkBack. Une tuile ajoutée par une mise à jour apparaît en fin d'accueil sans effacer l'ordre choisi.
+
+**Météo.** Carte informative. Elle mentionne les rafales au-delà de 50 km/h, sans couleur de vigilance : seule la vigilance officielle de Météo-France peut afficher jaune, orange ou rouge et déclencher une alerte.
 
 **Vos idées / signaler une erreur.** Pour une app non officielle, c'est le moyen le plus rapide de corriger un horaire faux. La rubrique ouvre l'application mail avec un message pré-rempli : aucun serveur, aucun compte. Chaque carte porte un lien « Signaler une erreur » qui joint le module, la valeur affichée et l'heure de la donnée.
 

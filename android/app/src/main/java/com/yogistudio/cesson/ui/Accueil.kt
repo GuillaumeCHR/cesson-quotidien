@@ -1,5 +1,22 @@
 package com.yogistudio.cesson.ui
 
+import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.foundation.layout.Box
+import androidx.compose.material.icons.rounded.Tune
+import androidx.compose.material.icons.rounded.VisibilityOff
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.SnackbarDuration
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.SnackbarResult
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
+import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalHapticFeedback
+import androidx.compose.ui.semantics.CustomAccessibilityAction
+import androidx.compose.ui.semantics.customActions
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -21,6 +38,7 @@ import androidx.compose.material.icons.rounded.KeyboardArrowUp
 import androidx.compose.material.icons.rounded.Pool
 import androidx.compose.material.icons.rounded.Train
 import androidx.compose.material.icons.rounded.Water
+import androidx.compose.material.icons.rounded.WbCloudy
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -53,6 +71,8 @@ import com.yogistudio.cesson.core.ui.CarteDonnee
 import com.yogistudio.cesson.core.ui.TexteBientot
 import com.yogistudio.cesson.eau.CarteVilaine
 import com.yogistudio.cesson.eau.vilaine
+import com.yogistudio.cesson.environnement.CarteMeteo
+import com.yogistudio.cesson.environnement.meteo
 import kotlinx.coroutines.launch
 
 /**
@@ -68,6 +88,10 @@ data class Tuile(
 )
 
 val TUILES: List<Tuile> = listOf(
+    Tuile("meteo", "Météo", Icons.Rounded.WbCloudy) { app ->
+        val etat by remember(app) { app.depot.meteo() }.collectAsStateWithLifecycle(EtatModule.Absent)
+        CarteMeteo(etat)
+    },
     Tuile("vilaine", "La Vilaine", Icons.Rounded.Water) { app ->
         val etat by remember(app) { app.depot.vilaine() }.collectAsStateWithLifecycle(EtatModule.Absent)
         CarteVilaine(etat)
@@ -105,6 +129,7 @@ fun EcranAujourdhui(app: CessonApp, onPersonnaliser: () -> Unit) {
     val bandeauVu by app.preferences.bandeauNonOfficielVu.collectAsState(initial = true)
     val enCours by app.depot.rafraichissementEnCours.collectAsStateWithLifecycle()
     val erreur by app.depot.derniereErreur.collectAsStateWithLifecycle()
+    val messages = remember { SnackbarHostState() }
     val cfg = config ?: return
     val visibles = ordonnerTuiles(TUILES.map { it.id }, cfg.ordre)
         .filter { it !in cfg.masquees }
@@ -135,7 +160,23 @@ fun EcranAujourdhui(app: CessonApp, onPersonnaliser: () -> Unit) {
                     }
                 }
             }
-            items(visibles, key = { it.id }) { it.contenu(app) }
+            items(visibles, key = { it.id }) { tuile ->
+                TuileMasquable(
+                    tuile = tuile,
+                    app = app,
+                    onMasquer = {
+                        val avant = cfg
+                        val ordre = ordonnerTuiles(TUILES.map { it.id }, cfg.ordre)
+                        portee.launch {
+                            app.preferences.enregistrerAccueil(ConfigAccueil(ordre, cfg.masquees + tuile.id))
+                            val r = messages.showSnackbar("Carte « ${tuile.titre} » masquée", actionLabel = "Annuler",
+                                duration = SnackbarDuration.Long)
+                            if (r == SnackbarResult.ActionPerformed) app.preferences.enregistrerAccueil(avant)
+                        }
+                    },
+                    onPersonnaliser = onPersonnaliser,
+                )
+            }
             if (visibles.isEmpty()) {
                 item("vide") {
                     Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.fillMaxWidth()) {
@@ -144,6 +185,47 @@ fun EcranAujourdhui(app: CessonApp, onPersonnaliser: () -> Unit) {
                     }
                 }
             }
+        }
+        SnackbarHost(messages, Modifier.align(Alignment.BottomCenter))
+    }
+}
+
+/**
+ * Appui long sur une carte : menu « Masquer cette carte » / « Personnaliser l'accueil ».
+ * Les mêmes actions sont proposées à TalkBack (menu des actions), l'appui long n'y étant pas
+ * découvrable. Les boutons de la carte (« Signaler une erreur »…) gardent leur propre clic.
+ */
+@Composable
+private fun TuileMasquable(tuile: Tuile, app: CessonApp, onMasquer: () -> Unit, onPersonnaliser: () -> Unit) {
+    var menu by remember { mutableStateOf(false) }
+    val haptique = LocalHapticFeedback.current
+    Box(
+        Modifier
+            .pointerInput(tuile.id) {
+                detectTapGestures(onLongPress = {
+                    haptique.performHapticFeedback(HapticFeedbackType.LongPress)
+                    menu = true
+                })
+            }
+            .semantics {
+                customActions = listOf(
+                    CustomAccessibilityAction("Masquer cette carte") { onMasquer(); true },
+                    CustomAccessibilityAction("Personnaliser l'accueil") { onPersonnaliser(); true },
+                )
+            },
+    ) {
+        tuile.contenu(app)
+        DropdownMenu(expanded = menu, onDismissRequest = { menu = false }) {
+            DropdownMenuItem(
+                text = { Text("Masquer cette carte") },
+                leadingIcon = { Icon(Icons.Rounded.VisibilityOff, contentDescription = null) },
+                onClick = { menu = false; onMasquer() },
+            )
+            DropdownMenuItem(
+                text = { Text("Personnaliser l'accueil") },
+                leadingIcon = { Icon(Icons.Rounded.Tune, contentDescription = null) },
+                onClick = { menu = false; onPersonnaliser() },
+            )
         }
     }
 }

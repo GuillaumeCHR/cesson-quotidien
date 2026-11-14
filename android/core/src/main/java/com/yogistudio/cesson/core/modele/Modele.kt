@@ -9,6 +9,7 @@ import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 import kotlinx.serialization.json.Json
 import java.time.Instant
+import java.time.LocalDate
 import java.time.OffsetDateTime
 
 /*
@@ -37,6 +38,15 @@ object InstantSerializer : KSerializer<Instant> {
 }
 
 typealias Horodatage = @Serializable(with = InstantSerializer::class) Instant
+
+/** Dates sans heure du backend (« 2026-11-15 »). */
+object LocalDateSerializer : KSerializer<LocalDate> {
+    override val descriptor = PrimitiveSerialDescriptor("LocalDate", PrimitiveKind.STRING)
+    override fun serialize(encoder: Encoder, value: LocalDate) = encoder.encodeString(value.toString())
+    override fun deserialize(decoder: Decoder): LocalDate = LocalDate.parse(decoder.decodeString())
+}
+
+typealias JourCalendaire = @Serializable(with = LocalDateSerializer::class) LocalDate
 
 @Serializable
 enum class Etat {
