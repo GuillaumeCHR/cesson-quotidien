@@ -17,6 +17,7 @@ import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Contrast
+import androidx.compose.material.icons.rounded.ViewAgenda
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
@@ -73,6 +74,31 @@ fun EcranReglages(app: CessonApp) {
                             aide?.let {
                                 Text(it, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                             }
+                        }
+                    }
+                }
+            }
+        }
+        val detaille by app.preferences.accueilDetaille.collectAsStateWithLifecycle(false)
+        CarteDonnee("Cartes de l'accueil", Icons.Rounded.ViewAgenda) {
+            Column(Modifier.selectableGroup()) {
+                listOf(
+                    Triple(false, "Compactes", "L'essentiel d'un coup d'œil : moins de détails, moins de défilement"),
+                    Triple(true, "Détaillées", "Toutes les informations, comme dans les autres onglets"),
+                ).forEach { (valeur, libelle, aide) ->
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier.fillMaxWidth()
+                            .selectable(selected = detaille == valeur, role = Role.RadioButton) {
+                                portee.launch { app.preferences.enregistrerAccueilDetaille(valeur) }
+                            }
+                            .padding(vertical = 6.dp),
+                    ) {
+                        RadioButton(selected = detaille == valeur, onClick = null)
+                        Spacer(Modifier.width(12.dp))
+                        Column {
+                            Text(libelle, style = MaterialTheme.typography.bodyLarge)
+                            Text(aide, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                         }
                     }
                 }

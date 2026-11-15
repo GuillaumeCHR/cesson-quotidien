@@ -58,10 +58,15 @@ def test_fermeture_pour_vidange():
     assert jour.connu and jour.plages == [] and jour.motif == "Fermeture pour vidange"
 
 
-def test_hors_saison_n_est_pas_ferme():
-    # Aucune période publiée pour la Base Sports Nature en novembre : « non communiqué », pas « fermé ».
+def test_base_sports_nature_fermee_hors_saison():
+    # Équipement saisonnier : en novembre, fermé « hors saison » (et non « horaires non communiqués »).
     jour = espace(donnees(), "base_sports_nature", "eau_calme").jours[0]
-    assert not jour.connu and jour.plages == []
+    assert jour.connu and jour.plages == [] and jour.motif == "Hors saison"
+
+
+def test_base_sports_nature_en_pleine_saison():
+    jeudi = espace(donnees(datetime(2026, 7, 9, 8, 0, tzinfo=timezone.utc)), "base_sports_nature", "eaux_vives").jours[0]
+    assert jeudi.date.weekday() == 3 and heures(jeudi) == ["19:00-20:00"] and jeudi.periode == "Pleine saison"
 
 
 def test_golf_hiver_et_remarque_de_periode():

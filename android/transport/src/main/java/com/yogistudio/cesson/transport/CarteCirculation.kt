@@ -21,6 +21,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import com.yogistudio.cesson.core.donnees.EtatModule
 import com.yogistudio.cesson.core.ui.CarteDonnee
+import com.yogistudio.cesson.core.ui.LocalCompact
 import com.yogistudio.cesson.core.ui.Pastille
 import com.yogistudio.cesson.core.ui.TexteBientot
 import com.yogistudio.cesson.core.ui.Ton
@@ -47,10 +48,21 @@ fun CarteCirculation(etat: EtatModule<DonneesCirculation>, modifier: Modifier = 
         is EtatModule.Disponible -> {
             val d = etat.fichier.donnees
             CarteDonnee("Circulation", Icons.Rounded.DirectionsCar, modifier, etat.fraicheur, maintenant) {
-                Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
-                    Text("Rocade est de Rennes", style = MaterialTheme.typography.titleSmall, modifier = Modifier.semantics { heading() })
-                    d.rocadeEst.forEach { s -> LigneSens(s) }
+                // Compact : la rocade (deux sens, sans le détail des portes) et seulement les axes de Cesson qui bouchonnent.
+                val compact = LocalCompact.current
+                Column(verticalArrangement = Arrangement.spacedBy(if (compact) 6.dp else 10.dp)) {
+                    if (!compact) Text("Rocade est de Rennes", style = MaterialTheme.typography.titleSmall, modifier = Modifier.semantics { heading() })
+                    d.rocadeEst.forEach { s -> LigneSens(if (compact) s.copy(ralentissements = emptyList()) else s) }
                     val axes = axesASignaler(d)
+                    if (compact) {
+                        axes.take(2).forEach { a ->
+                            Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth()) {
+                                Text(a.nom, style = MaterialTheme.typography.bodyMedium, modifier = Modifier.weight(1f))
+                                Pastille(a.etat.libelle(), ton(a.etat))
+                            }
+                        }
+                        return@Column
+                    }
                     HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
                     Text("Dans Cesson", style = MaterialTheme.typography.titleSmall, modifier = Modifier.semantics { heading() })
                     if (axes.isEmpty()) {

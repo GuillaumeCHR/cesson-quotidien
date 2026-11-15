@@ -31,6 +31,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.yogistudio.cesson.core.donnees.EtatModule
 import com.yogistudio.cesson.core.ui.CarteDonnee
+import com.yogistudio.cesson.core.ui.LocalCompact
 import com.yogistudio.cesson.core.ui.Palette
 import com.yogistudio.cesson.core.ui.TexteBientot
 import com.yogistudio.cesson.core.ui.rememberMaintenant
@@ -53,7 +54,9 @@ fun CarteCollecte(
         is EtatModule.Disponible -> {
             val d = etat.fichier.donnees
             CarteDonnee("Ma collecte de déchets", Icons.Rounded.DeleteOutline, modifier, etat.fraicheur, maintenant) {
-                Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                // Compact : le rappel du soir, puis chaque bac et sa date ; le réglage du rappel et les conseils en détaillé.
+                val compact = LocalCompact.current
+                Column(verticalArrangement = Arrangement.spacedBy(if (compact) 8.dp else 10.dp)) {
                     val ceSoir = aSortirCeSoir(d, maintenant)
                     if (ceSoir.isNotEmpty()) RappelCeSoir(ceSoir)
                     avisEnCours(d, maintenant).forEach { Note(it.texte) }
@@ -61,7 +64,8 @@ fun CarteCollecte(
                     if (prochaines.all { it.passage == null }) {
                         TexteBientot("Le calendrier suivant n'est pas encore dans l'app. Il est distribué chaque septembre.")
                     }
-                    prochaines.forEach { LigneBac(it, maintenant) }
+                    prochaines.forEach { LigneBac(it, maintenant, regle = !compact) }
+                    if (compact) return@Column
                     reglageRappel()
                     Text(
                         "${d.public}. En immeuble, les jours peuvent différer." + (d.conseil?.let { "\n$it" } ?: ""),
@@ -81,7 +85,7 @@ private fun Bac(bac: String) {
 }
 
 @Composable
-private fun LigneBac(p: ProchaineCollecte, maintenant: Instant) {
+private fun LigneBac(p: ProchaineCollecte, maintenant: Instant, regle: Boolean = true) {
     val quand = p.passage?.let { formaterJourCollecte(it.date, maintenant) } ?: "date non connue"
     val decale = p.passage?.decalePar
     Row(
@@ -101,7 +105,7 @@ private fun LigneBac(p: ProchaineCollecte, maintenant: Instant) {
                     Pastille("Décalé", Ton.ALERTE)
                 }
             }
-            Text(
+            if (regle || decale != null) Text(
                 decale?.let { "Décalé d'un jour : $it" } ?: p.flux.regle.replaceFirstChar { it.uppercase() },
                 style = MaterialTheme.typography.bodySmall,
                 color = if (decale != null) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurfaceVariant,

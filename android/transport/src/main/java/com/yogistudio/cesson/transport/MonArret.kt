@@ -44,6 +44,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.yogistudio.cesson.core.ui.CarteDonnee
+import com.yogistudio.cesson.core.ui.LocalCompact
 import com.yogistudio.cesson.core.ui.TexteBientot
 
 /**
@@ -80,8 +81,11 @@ fun CarteMonArret(
             client, lignes, nomArret = arretSuivi, titre = "Mon arrêt de bus : $arretSuivi", modifier = modifier,
             onAlerter = onAlerter, alerteArmee = armee?.let { it.ligne to it.destination },
         ) {
-            PiedAlerte(armee, delaiAlerte, onAnnulerAlerte, onDelaiAlerte)
-            TextButton(onClick = { choix = true }, enabled = arrets.isNotEmpty()) { Text("Changer d'arrêt") }
+            // Compact : l'alerte armée reste visible (avec « Annuler ») ; le réglage du délai et le changement
+            // d'arrêt sont dans la version détaillée et dans l'onglet Bouger.
+            val compact = LocalCompact.current
+            PiedAlerte(armee, delaiAlerte, onAnnulerAlerte, onDelaiAlerte, reglage = !compact)
+            if (!compact) TextButton(onClick = { choix = true }, enabled = arrets.isNotEmpty()) { Text("Changer d'arrêt") }
         }
     }
     if (choix) {
@@ -154,7 +158,7 @@ fun ChoixArret(
  * Pour armer, une cloche sur chaque direction.
  */
 @Composable
-private fun PiedAlerte(alerte: AlerteBus?, delai: Int, onAnnuler: () -> Unit, onDelai: (Int) -> Unit) {
+private fun PiedAlerte(alerte: AlerteBus?, delai: Int, onAnnuler: () -> Unit, onDelai: (Int) -> Unit, reglage: Boolean = true) {
     Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
         if (alerte != null) {
             val heure = com.yogistudio.cesson.core.ui.formaterHeure(java.time.Instant.ofEpochSecond(alerte.heureVisee), java.time.Instant.now())
@@ -167,7 +171,7 @@ private fun PiedAlerte(alerte: AlerteBus?, delai: Int, onAnnuler: () -> Unit, on
                 TextButton(onClick = onAnnuler) { Text("Annuler") }
             }
         }
-        Row(verticalAlignment = Alignment.CenterVertically) {
+        if (reglage) Row(verticalAlignment = Alignment.CenterVertically) {
             Text("Touchez une cloche pour être prévenu", style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.weight(1f))
             IconButton(onClick = { onDelai((delai - 1).coerceIn(DELAIS_ALERTE)) }, enabled = delai > DELAIS_ALERTE.first) {

@@ -43,6 +43,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.yogistudio.cesson.core.donnees.EtatModule
 import com.yogistudio.cesson.core.ui.CarteDonnee
+import com.yogistudio.cesson.core.ui.LocalCompact
 import com.yogistudio.cesson.core.ui.FuseauCesson
 import com.yogistudio.cesson.core.ui.Pastille
 import com.yogistudio.cesson.core.ui.Ton
@@ -73,7 +74,8 @@ fun CarteEquipements(
                 Column {
                     d.equipements.forEachIndexed { i, e ->
                         if (i > 0) HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
-                        LigneEquipement(e, maintenant) { detail = e.lieu.id }
+                        if (LocalCompact.current) LigneEquipementCompacte(e, maintenant) { detail = e.lieu.id }
+                        else LigneEquipement(e, maintenant) { detail = e.lieu.id }
                     }
                 }
             }
@@ -106,6 +108,30 @@ private fun LigneEquipement(e: Equipement, maintenant: Instant, onOuvrir: () -> 
             LigneEtat(null, etats.first().second, maintenant)
         } else {
             etats.forEach { (espace, o) -> LigneEtat(espace.nom, o, maintenant) }
+        }
+    }
+}
+
+/** Compact : une ligne par équipement, son nom et une pastille (ouvert si l'un de ses espaces l'est). */
+@Composable
+private fun LigneEquipementCompacte(e: Equipement, maintenant: Instant, onOuvrir: () -> Unit) {
+    val ouvertures = e.espaces.map { ouverture(it, maintenant) }
+    val o = ouvertures.firstOrNull { it is Ouverture.Ouvert } ?: ouvertures.firstOrNull { it is Ouverture.Ferme } ?: ouvertures.firstOrNull()
+    Row(
+        Modifier.fillMaxWidth()
+            .clickable(role = Role.Button, onClickLabel = "Voir les horaires de la semaine", onClick = onOuvrir)
+            .padding(vertical = 8.dp)
+            .semantics(mergeDescendants = true) {},
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Text(e.lieu.nom, style = MaterialTheme.typography.bodyMedium, modifier = Modifier.weight(1f), maxLines = 1)
+        if (o != null) {
+            val (pastille, precision) = etiquetteOuverture(o, maintenant)
+            precision?.let {
+                Text(it, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant, maxLines = 1)
+                Spacer(Modifier.width(8.dp))
+            }
+            Pastille(pastille, when (o) { is Ouverture.Ouvert -> Ton.OUVERT; is Ouverture.Ferme -> Ton.FERME; else -> Ton.NEUTRE })
         }
     }
 }

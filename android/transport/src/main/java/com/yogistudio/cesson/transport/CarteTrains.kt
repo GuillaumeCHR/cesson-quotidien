@@ -37,6 +37,7 @@ import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.repeatOnLifecycle
 import com.yogistudio.cesson.core.donnees.EtatModule
 import com.yogistudio.cesson.core.ui.CarteDonnee
+import com.yogistudio.cesson.core.ui.LocalCompact
 import com.yogistudio.cesson.core.ui.Palette
 import com.yogistudio.cesson.core.ui.StyleChiffres
 import com.yogistudio.cesson.core.ui.TexteBientot
@@ -73,8 +74,10 @@ fun CarteTrains(etat: EtatModule<DonneesTrains>, rafraichir: suspend () -> Unit,
         is EtatModule.Disponible -> {
             val d = etat.fichier.donnees
             CarteDonnee("Trains à Halte-Cesson", Icons.Rounded.Train, modifier, etat.fraicheur, maintenant) {
-                Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                    if (!d.tempsReelDisponible) {
+                // Compact : le prochain train de chaque direction, sans le numéro du TER.
+                val compact = LocalCompact.current
+                Column(verticalArrangement = Arrangement.spacedBy(if (compact) 8.dp else 12.dp)) {
+                    if (!d.tempsReelDisponible && !compact) {
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             Icon(Icons.Rounded.Info, contentDescription = null, modifier = Modifier.size(16.dp),
                                 tint = MaterialTheme.colorScheme.onSurfaceVariant)
@@ -84,12 +87,12 @@ fun CarteTrains(etat: EtatModule<DonneesTrains>, rafraichir: suspend () -> Unit,
                         }
                     }
                     d.directions.forEach { dir ->
-                        val trains = departsDeLaDirection(d, dir.id, maintenant).take(PAR_DIRECTION)
-                        Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                        val trains = departsDeLaDirection(d, dir.id, maintenant).take(if (compact) 1 else PAR_DIRECTION)
+                        Column(verticalArrangement = Arrangement.spacedBy(if (compact) 2.dp else 6.dp)) {
                             Text(dir.libelle, style = MaterialTheme.typography.titleSmall,
                                 modifier = Modifier.semantics { heading() })
                             if (trains.isEmpty()) TexteBientot("Plus de train aujourd'hui.")
-                            trains.forEach { LigneTrain(it, maintenant) }
+                            trains.forEach { LigneTrain(it, maintenant, numero = !compact) }
                         }
                     }
                 }
@@ -99,7 +102,7 @@ fun CarteTrains(etat: EtatModule<DonneesTrains>, rafraichir: suspend () -> Unit,
 }
 
 @Composable
-private fun LigneTrain(t: DepartTrain, maintenant: Instant) {
+private fun LigneTrain(t: DepartTrain, maintenant: Instant, numero: Boolean = true) {
     val prevue = formaterHeure(t.heureTheorique, maintenant)
     val reelle = t.heureReelle?.takeIf { t.statut == StatutTrain.RETARD }?.let { formaterHeure(it, maintenant) }
     val statut = libelleStatut(t)
@@ -138,7 +141,7 @@ private fun LigneTrain(t: DepartTrain, maintenant: Instant) {
                 Spacer(Modifier.width(10.dp))
                 Text(t.destination, style = MaterialTheme.typography.bodyMedium)
             }
-            Text("TER ${t.ligne} · n° ${t.numero}", style = MaterialTheme.typography.bodySmall,
+            if (numero) Text("TER ${t.ligne} · n° ${t.numero}", style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant)
         }
         PastilleStatut(t.statut, statut)

@@ -37,6 +37,7 @@ import androidx.compose.ui.unit.sp
 import com.yogistudio.cesson.core.donnees.EtatModule
 import com.yogistudio.cesson.core.modele.Tendance
 import com.yogistudio.cesson.core.ui.CarteDonnee
+import com.yogistudio.cesson.core.ui.LocalCompact
 import com.yogistudio.cesson.core.ui.StyleChiffres
 import com.yogistudio.cesson.core.ui.TexteBientot
 import com.yogistudio.cesson.core.ui.formaterDeHeure
@@ -89,17 +90,19 @@ fun CarteVilaine(
                                 color = MaterialTheme.colorScheme.onSurfaceVariant)
                         }
                     }
-                    if (d.serie24h.size >= 2) {
+                    // Compact : vigilance, hauteur et tendance ; la courbe, le repère et le lien restent en détaillé.
+                    val compact = LocalCompact.current
+                    if (!compact && d.serie24h.size >= 2) {
                         CourbeSerie(d.serie24h, Modifier.fillMaxWidth().height(56.dp))
                         Text("Dernières 24 h", style = MaterialTheme.typography.labelSmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant)
                     }
-                    Text(
+                    if (!compact) Text(
                         "Repère : crue du 26 octobre 1966, 3,73 m.",
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
-                    TextButton(onClick = { uri.openUri(d.station.url ?: URL_VIGICRUES) }) {
+                    if (!compact) TextButton(onClick = { uri.openUri(d.station.url ?: URL_VIGICRUES) }) {
                         Text("Voir sur Vigicrues")
                         Spacer(Modifier.width(4.dp))
                         Icon(Icons.AutoMirrored.Rounded.OpenInNew, contentDescription = null, modifier = Modifier.size(16.dp))

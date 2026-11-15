@@ -30,6 +30,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.yogistudio.cesson.core.donnees.EtatModule
 import com.yogistudio.cesson.core.ui.CarteDonnee
+import com.yogistudio.cesson.core.ui.LocalCompact
 import com.yogistudio.cesson.core.ui.Pastille
 import com.yogistudio.cesson.core.ui.TexteBientot
 import com.yogistudio.cesson.core.ui.Ton
@@ -55,14 +56,16 @@ fun CarteActus(etat: EtatModule<DonneesActus>, flux: String, modifier: Modifier 
         is EtatModule.Disponible -> {
             val articles = etat.fichier.donnees.flux.firstOrNull { it.id == flux }?.articles.orEmpty()
             CarteDonnee(titre, icone, modifier, etat.fraicheur, maintenant) {
+                // Compact : les 3 derniers titres, sans extrait.
+                val compact = LocalCompact.current
                 Column {
                     if (articles.isEmpty()) TexteBientot("Aucune actualité pour le moment.")
-                    val visibles = if (tout) articles else articles.take(NB_REPLIE)
+                    val visibles = if (compact) articles.take(3) else if (tout) articles else articles.take(NB_REPLIE)
                     visibles.forEachIndexed { i, a ->
                         if (i > 0) HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
-                        LigneArticle(a, maintenant)
+                        LigneArticle(a, maintenant, extrait = !compact)
                     }
-                    if (articles.size > NB_REPLIE) {
+                    if (!compact && articles.size > NB_REPLIE) {
                         TextButton(onClick = { tout = !tout }) {
                             Text(if (tout) "Afficher moins" else "Afficher les ${articles.size} articles")
                         }
@@ -74,14 +77,14 @@ fun CarteActus(etat: EtatModule<DonneesActus>, flux: String, modifier: Modifier 
 }
 
 @Composable
-private fun LigneArticle(a: Article, maintenant: Instant) {
+private fun LigneArticle(a: Article, maintenant: Instant, extrait: Boolean = true) {
     val uri = LocalUriHandler.current
     val date = formaterDateArticle(a.date, maintenant)
     Column(
         Modifier
             .fillMaxWidth()
             .clickable(role = Role.Button, onClickLabel = "Lire l'article sur le site") { runCatching { uri.openUri(a.lien) } }
-            .padding(vertical = 10.dp)
+            .padding(vertical = if (extrait) 10.dp else 6.dp)
             .semantics(mergeDescendants = true) {
                 contentDescription = buildString {
                     append("$date. ${a.titre}.")
@@ -104,7 +107,7 @@ private fun LigneArticle(a: Article, maintenant: Instant) {
         }
         Text(a.titre, style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold), maxLines = 3,
             overflow = TextOverflow.Ellipsis)
-        a.extrait?.let {
+        if (extrait) a.extrait?.let {
             Text(it, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant,
                 maxLines = 2, overflow = TextOverflow.Ellipsis)
         }

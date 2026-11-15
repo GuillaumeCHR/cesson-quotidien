@@ -22,6 +22,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -32,6 +33,12 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import com.yogistudio.cesson.core.donnees.Fraicheur
 import java.time.Instant
+
+/**
+ * Accueil en mode compact (réglage « Cartes de l'accueil ») : chaque carte n'y garde que l'essentiel, et la ligne
+ * « Mis à jour… » ne s'affiche que si les données sont anciennes. Fourni par l'écran d'accueil seulement.
+ */
+val LocalCompact = staticCompositionLocalOf { false }
 
 /**
  * Carte de donnée commune à tous les modules : titre, contenu, puis la ligne de fraîcheur
@@ -48,13 +55,17 @@ fun CarteDonnee(
     contenu: @Composable () -> Unit,
 ) {
     val fond = MaterialTheme.colorScheme.surfaceContainerLowest
+    val compact = LocalCompact.current
     Card(
         modifier = modifier.fillMaxWidth(),
         shape = RoundedCornerShape(22.dp),
         colors = CardDefaults.cardColors(containerColor = fond),
         elevation = CardDefaults.cardElevation(defaultElevation = 1.dp),
     ) {
-        Column(Modifier.padding(start = 18.dp, end = 18.dp, top = 16.dp, bottom = 14.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+        Column(
+            Modifier.padding(start = 18.dp, end = 18.dp, top = if (compact) 12.dp else 16.dp, bottom = if (compact) 12.dp else 14.dp),
+            verticalArrangement = Arrangement.spacedBy(if (compact) 8.dp else 12.dp),
+        ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 // Pastille d'icône, comme les épingles de l'intro.
                 Box(
@@ -67,7 +78,7 @@ fun CarteDonnee(
                 Text(titre, style = MaterialTheme.typography.titleMedium, modifier = Modifier.semantics { heading() })
             }
             if (repliable) ContenuRepliable(fond, contenu = contenu) else contenu()
-            if (fraicheur != null) {
+            if (fraicheur != null && (!compact || fraicheur.estPerimee(maintenant))) {
                 HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
                 LigneFraicheur(fraicheur, maintenant)
             }

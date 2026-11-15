@@ -156,6 +156,9 @@ class CollecteurEquipements(Collecteur[DonneesEquipements]):
                         plages = plages_du_jour(semaine, jour) if semaine else []
                         jours_publies.append(JourHoraire(date=jour, connu=True, motif=exc.motif,
                                                          plages=[Plage(debut=a, fin=b) for a, b in plages]))
+                    elif p is None and e.get("saisonnier"):
+                        # Équipement ouvert seulement en saison : hors des périodes saisies, il est fermé.
+                        jours_publies.append(JourHoraire(date=jour, connu=True, motif="Hors saison"))
                     elif p is None:
                         jours_publies.append(JourHoraire(date=jour, connu=False))
                     elif feries_mode == FERIES_A_VERIFIER and ferie(jour):

@@ -3,6 +3,8 @@ package com.yogistudio.cesson.ui
 import com.yogistudio.cesson.actus.cinema
 import com.yogistudio.cesson.actus.CarteCinema
 import com.yogistudio.cesson.actus.CarteCanaux
+import com.yogistudio.cesson.core.ui.LocalCompact
+import androidx.compose.runtime.CompositionLocalProvider
 import com.yogistudio.cesson.actus.CarteBilletterie
 import com.yogistudio.cesson.pratique.CarteIdentite
 import com.yogistudio.cesson.pratique.CarteSignalement
@@ -337,9 +339,13 @@ fun EcranFamilles(app: CessonApp, onPersonnaliser: () -> Unit) =
 @Composable
 fun EcranAujourdhui(app: CessonApp, onPersonnaliser: () -> Unit) {
     val vigilance by remember(app) { app.depot.vigicrues() }.collectAsStateWithLifecycle(EtatModule.Absent)
-    // Vigilance crues jaune ou plus : toujours en tête, hors des cartes personnalisables.
-    EcranTuiles(app, ONGLET_ACCUEIL, onPersonnaliser,
-        entete = if (vigilance.enAlerte()) ({ BandeauCrue(vigilance) }) else null)
+    // Cartes compactes par défaut à l'accueil (réglage « Cartes de l'accueil ») ; les autres onglets restent détaillés.
+    val detaille by app.preferences.accueilDetaille.collectAsStateWithLifecycle(false)
+    CompositionLocalProvider(LocalCompact provides !detaille) {
+        // Vigilance crues jaune ou plus : toujours en tête, hors des cartes personnalisables.
+        EcranTuiles(app, ONGLET_ACCUEIL, onPersonnaliser,
+            entete = if (vigilance.enAlerte()) ({ BandeauCrue(vigilance) }) else null)
+    }
 }
 
 @Composable

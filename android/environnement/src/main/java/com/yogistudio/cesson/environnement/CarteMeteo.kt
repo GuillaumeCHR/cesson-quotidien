@@ -33,6 +33,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.yogistudio.cesson.core.donnees.EtatModule
 import com.yogistudio.cesson.core.ui.CarteDonnee
+import com.yogistudio.cesson.core.ui.LocalCompact
 import com.yogistudio.cesson.core.ui.FuseauCesson
 import com.yogistudio.cesson.core.ui.StyleChiffres
 import com.yogistudio.cesson.core.ui.TexteBientot
@@ -92,14 +93,15 @@ fun CarteMeteo(etat: EtatModule<DonneesMeteo>, modifier: Modifier = Modifier) {
                                 style = MaterialTheme.typography.bodyMedium)
                         }
                     }
-                    val creneaux = prochainsCreneaux(d.heures, maintenant)
+                    val compact = LocalCompact.current  // compact : l'instant, le jour, les rafales s'il y en a
+                    val creneaux = if (compact) emptyList() else prochainsCreneaux(d.heures, maintenant)
                     if (creneaux.isNotEmpty()) {
                         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
                             creneaux.forEach { Creneau(it) }
                         }
                     }
-                    demain?.let { LigneJour("Demain", it) }
-                    aujourdhui?.let {
+                    if (!compact) demain?.let { LigneJour("Demain", it) }
+                    if (!compact) aujourdhui?.let {
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             Icon(Icons.Rounded.WbTwilight, contentDescription = null, modifier = Modifier.size(18.dp),
                                 tint = MaterialTheme.colorScheme.onSurfaceVariant)

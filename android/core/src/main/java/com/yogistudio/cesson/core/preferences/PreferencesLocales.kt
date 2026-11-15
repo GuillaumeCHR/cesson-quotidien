@@ -32,6 +32,7 @@ class PreferencesLocales(private val context: Context) {
     private val carburant = stringPreferencesKey("carburant_suivi")
     private val arret = stringPreferencesKey("arret_suivi")
     private val rappelCollecte = booleanPreferencesKey("rappel_collecte")
+    private val cleAccueilDetaille = booleanPreferencesKey("accueil_detaille")
     private val dernierRappel = stringPreferencesKey("rappel_collecte_dernier")
 
     // L'accueil garde ses clés d'origine ; chaque onglet a les siennes (« onglet_bouger_ordre »…).
@@ -63,6 +64,13 @@ class PreferencesLocales(private val context: Context) {
 
     suspend fun enregistrerAffichage(mode: String) {
         context.preferencesCesson.edit { it[cleAffichage] = mode }
+    }
+
+    /** Cartes de l'accueil détaillées ; par défaut compactes (l'essentiel). */
+    val accueilDetaille: Flow<Boolean> = context.preferencesCesson.data.map { it[cleAccueilDetaille] ?: false }
+
+    suspend fun enregistrerAccueilDetaille(detaille: Boolean) {
+        context.preferencesCesson.edit { it[cleAccueilDetaille] = detaille }
     }
 
     /** Alerte de passage armée (JSON d'AlerteBus), null sans alerte. */

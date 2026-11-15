@@ -20,6 +20,9 @@ jour si tout concorde.
 - **equipements.yaml** : horaires de la piscine, de la médiathèque, du golf, de la Base Sports Nature, de la
   déchèterie, des services urbanisme et police municipale. Ajouter les périodes de vacances scolaires annoncées,
   les fermetures exceptionnelles et les ouvertures de jours fériés (voir l'en-tête du fichier pour la syntaxe).
+- **Base Sports Nature** (`saisonnier: true`) : hors des périodes saisies, l'app la dit fermée « hors saison ».
+  De mars à juin, guetter l'annonce de la saison suivante sur sa page et la saisir avant l'ouverture (même
+  structure que 2026 : pleine saison, après-saison ; eau calme, eaux vives), puis mettre à jour la remarque.
 - **collecte.yaml** : calendrier des collectes de Rennes Métropole. Un nouveau calendrier sort chaque année
   (en général fin août, valable d'octobre à septembre) : dès qu'il est en ligne sur la page « Gestion des
   déchets », mettre à jour `calendrier`, `valable_du`, `valable_au` et les règles, puis vérifier que les tests

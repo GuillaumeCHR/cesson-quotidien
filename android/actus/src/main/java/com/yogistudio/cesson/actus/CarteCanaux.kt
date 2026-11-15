@@ -25,6 +25,7 @@ import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import com.yogistudio.cesson.core.ui.CarteDonnee
+import com.yogistudio.cesson.core.ui.LocalCompact
 
 /** Un canal d'information extérieur : on y renvoie, on n'en reprend rien (WhatsApp, Facebook l'interdisent). */
 data class Canal(val nom: String, val detail: String, val lien: String, @DrawableRes val logo: Int)
@@ -60,7 +61,7 @@ fun CarteCanaux(canaux: List<Canal> = CANAUX) {
                     Spacer(Modifier.width(12.dp))
                     Column(Modifier.weight(1f)) {
                         Text(c.nom, style = MaterialTheme.typography.bodyLarge)
-                        Text(c.detail, style = MaterialTheme.typography.bodySmall,
+                        if (!LocalCompact.current) Text(c.detail, style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant)
                     }
                     Icon(Icons.AutoMirrored.Rounded.OpenInNew, contentDescription = null,

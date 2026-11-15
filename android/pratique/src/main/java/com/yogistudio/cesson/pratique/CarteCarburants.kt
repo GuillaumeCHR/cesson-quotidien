@@ -30,6 +30,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.yogistudio.cesson.core.donnees.EtatModule
 import com.yogistudio.cesson.core.ui.CarteDonnee
+import com.yogistudio.cesson.core.ui.LocalCompact
 import com.yogistudio.cesson.core.ui.StyleChiffres
 import com.yogistudio.cesson.core.ui.TexteBientot
 import com.yogistudio.cesson.core.ui.formaterHeure
@@ -68,8 +69,11 @@ fun CarteCarburants(
                 fraicheur = etat.fraicheur,
                 maintenant = maintenant,
             ) {
-                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                    Row(Modifier.horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                // Compact : le carburant suivi et ses deux stations les moins chères, sans le choix ni les détails.
+                val compact = LocalCompact.current
+                Column(verticalArrangement = Arrangement.spacedBy(if (compact) 4.dp else 8.dp)) {
+                    if (compact) Text(libelle, style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.primary)
+                    else Row(Modifier.horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                         proposes.forEach { (code, nom) ->
                             FilterChip(selected = code == choisi, onClick = { onChoisir(code) }, label = { Text(nom) })
                         }
@@ -77,7 +81,7 @@ fun CarteCarburants(
                     if (lignes.isEmpty()) {
                         TexteBientot("Aucune station de Cesson ne vend ce carburant.")
                     }
-                    lignes.forEach { LigneStation(it, libelle, maintenant) }
+                    (if (compact) lignes.take(2) else lignes).forEach { LigneStation(it, libelle, maintenant, details = !compact) }
                 }
             }
         }
@@ -85,7 +89,7 @@ fun CarteCarburants(
 }
 
 @Composable
-private fun LigneStation(ligne: LigneCarburant, libelle: String, maintenant: Instant) {
+private fun LigneStation(ligne: LigneCarburant, libelle: String, maintenant: Instant, details: Boolean = true) {
     val uri = LocalUriHandler.current
     val lieu = ligne.station.lieu
     val (valeur, detail) = when (ligne) {
@@ -125,7 +129,7 @@ private fun LigneStation(ligne: LigneCarburant, libelle: String, maintenant: Ins
                     Pastille("Le moins cher", Ton.OUVERT)
                 }
             }
-            if (detail.isNotEmpty()) {
+            if (details && detail.isNotEmpty()) {
                 Text(detail, style = MaterialTheme.typography.bodySmall,
                     color = if (ligne is LigneCarburant.Prix && ligne.ancien) MaterialTheme.colorScheme.error
                     else MaterialTheme.colorScheme.onSurfaceVariant)

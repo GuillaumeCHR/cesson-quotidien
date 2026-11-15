@@ -127,7 +127,11 @@ equipements:
     nom: Base Sports Nature
     url: https://www.ville-cesson-sevigne.fr/contacts/base-sports-nature/
     verifie_le: 2026-11-15
-    remarque: Locations de canoë, kayak, paddle et rafting en saison seulement ; dates de la saison suivante à reporter ici dès leur publication.
+    remarque: "Locations de canoë, kayak, paddle et rafting en saison seulement. Saison 2026 : du 6 juillet au 13 septembre ; la saison 2027 n'est pas encore annoncée (sans doute à des dates proches)."
+    # Dates de la saison suivante à reporter ici dès leur publication.
+    # Ouverte seulement en saison : hors des périodes ci-dessous, l'app affiche « Fermé · hors saison ».
+    # La saison suivante doit donc être saisie avant son ouverture (la tâche hebdomadaire y veille).
+    saisonnier: true
     espaces:
       eau_calme:
         nom: Location eau calme

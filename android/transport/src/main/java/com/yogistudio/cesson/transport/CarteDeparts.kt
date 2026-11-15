@@ -40,6 +40,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.repeatOnLifecycle
 import com.yogistudio.cesson.core.ui.CarteDonnee
+import com.yogistudio.cesson.core.ui.LocalCompact
 import com.yogistudio.cesson.core.ui.StyleChiffres
 import com.yogistudio.cesson.core.ui.TexteBientot
 import com.yogistudio.cesson.core.ui.formaterDepuis
@@ -94,19 +95,22 @@ fun CarteDeparts(
     CarteDonnee(titre, Icons.Rounded.DirectionsBus, modifier, maintenant = maintenant) {
         val recus = etat.departs
         val directions = recus?.let { regrouper(departsUtiles(it, maintenant)) }
-        Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+        // Compact : 4 directions, 2 passages chacune, sans la légende.
+        val compact = LocalCompact.current
+        Column(verticalArrangement = Arrangement.spacedBy(if (compact) 8.dp else 10.dp)) {
             when {
                 recus == null && !etat.erreur -> TexteBientot("Interrogation de STAR…")
                 recus == null -> LigneHorsConnexion("Impossible de joindre STAR pour le moment.")
                 directions.isNullOrEmpty() -> TexteBientot("Aucun départ annoncé dans les prochaines heures.")
-                else -> directions.take(8).forEach {
-                    LigneDirection(it, couleurs[it.ligne], maintenant, onAlerter, alerteArmee == (it.ligne to it.destination))
+                else -> directions.take(if (compact) 4 else 8).forEach {
+                    val dir = if (compact) it.copy(departs = it.departs.take(2)) else it
+                    LigneDirection(dir, couleurs[it.ligne], maintenant, onAlerter, alerteArmee == (it.ligne to it.destination))
                 }
             }
             if (recus != null && etat.erreur) {
                 LigneHorsConnexion("STAR injoignable : horaires reçus ${formaterDepuis(etat.recusA!!, maintenant)}.")
             }
-            Row(verticalAlignment = Alignment.CenterVertically) {
+            if (!compact) Row(verticalAlignment = Alignment.CenterVertically) {
                 Icon(Icons.Rounded.Sensors, contentDescription = null, modifier = Modifier.size(14.dp),
                     tint = MaterialTheme.colorScheme.primary)
                 Spacer(Modifier.width(4.dp))
