@@ -1,5 +1,13 @@
 package com.yogistudio.cesson.ui
 
+import com.yogistudio.cesson.core.donnees.EtatModule
+import com.yogistudio.cesson.pratique.CARBURANT_PAR_DEFAUT
+import com.yogistudio.cesson.pratique.carburants
+import com.yogistudio.cesson.pratique.carburantsProposes
+import androidx.compose.material.icons.rounded.LocalGasStation
+import androidx.compose.material3.FilterChip
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import com.yogistudio.cesson.rappels.ReglageRappelCollecte
 import com.yogistudio.cesson.rappels.AlertesBus
 import com.yogistudio.cesson.transport.AlerteBus
@@ -99,6 +107,7 @@ fun EcranReglages(app: CessonApp) {
             }
         }
         CarteNotifications(app)
+        CarteMonCarburant(app)
         val detaille by app.preferences.cartesDetaillees.collectAsStateWithLifecycle(false)
         CarteDonnee("Cartes", Icons.Rounded.ViewAgenda) {
             Column(Modifier.selectableGroup()) {
@@ -185,6 +194,29 @@ private fun CarteNotifications(app: CessonApp) {
                         formaterHeure(Instant.ofEpochSecond(a.heureVisee), Instant.now()) + ".",
                         style = MaterialTheme.typography.bodySmall, modifier = Modifier.weight(1f))
                     TextButton(onClick = { portee.launch { AlertesBus.annuler(context) } }) { Text("Annuler") }
+                }
+            }
+        }
+    }
+}
+
+/** Carburant affiché par défaut sur la carte des prix (le choisir sur la carte le change aussi). */
+@OptIn(ExperimentalLayoutApi::class)
+@Composable
+private fun CarteMonCarburant(app: CessonApp) {
+    val portee = rememberCoroutineScope()
+    val carburants by remember(app) { app.depot.carburants() }.collectAsStateWithLifecycle(EtatModule.Absent)
+    val proposes = (carburants as? EtatModule.Disponible)?.fichier?.donnees?.let(::carburantsProposes).orEmpty()
+    val suivi by app.preferences.carburantSuivi.collectAsStateWithLifecycle(null)
+    CarteDonnee("Mon carburant", Icons.Rounded.LocalGasStation) {
+        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            Text("Carburant affiché par défaut sur la carte des prix.", style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant)
+            if (proposes.isEmpty()) Text("Liste des carburants pas encore reçue.", style = MaterialTheme.typography.bodyMedium)
+            FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                proposes.forEach { (code, nom) ->
+                    FilterChip(selected = code == (suivi ?: CARBURANT_PAR_DEFAUT),
+                        onClick = { portee.launch { app.preferences.enregistrerCarburant(code) } }, label = { Text(nom) })
                 }
             }
         }

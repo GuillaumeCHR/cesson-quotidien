@@ -69,11 +69,10 @@ fun CarteCarburants(
                 fraicheur = etat.fraicheur,
                 maintenant = maintenant,
             ) {
-                // Compact : le carburant suivi et ses deux stations les moins chères, sans le choix ni les détails.
+                // Compact : le choix du carburant et ses deux stations les moins chères, sans les détails.
                 val compact = LocalCompact.current
                 Column(verticalArrangement = Arrangement.spacedBy(if (compact) 4.dp else 8.dp)) {
-                    if (compact) Text(libelle, style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.primary)
-                    else Row(Modifier.horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    Row(Modifier.horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                         proposes.forEach { (code, nom) ->
                             FilterChip(selected = code == choisi, onClick = { onChoisir(code) }, label = { Text(nom) })
                         }

@@ -54,7 +54,7 @@ fun CarteCollecte(
         is EtatModule.Disponible -> {
             val d = etat.fichier.donnees
             CarteDonnee("Ma collecte de déchets", Icons.Rounded.DeleteOutline, modifier, etat.fraicheur, maintenant) {
-                // Compact : le rappel du soir, puis chaque bac et sa date ; le réglage du rappel et les conseils en détaillé.
+                // Compact : le rappel du soir, chaque bac et sa date, et l'interrupteur du rappel ; les conseils en détaillé.
                 val compact = LocalCompact.current
                 Column(verticalArrangement = Arrangement.spacedBy(if (compact) 8.dp else 10.dp)) {
                     val ceSoir = aSortirCeSoir(d, maintenant)
@@ -65,8 +65,8 @@ fun CarteCollecte(
                         TexteBientot("Le calendrier suivant n'est pas encore dans l'app. Il est distribué chaque septembre.")
                     }
                     prochaines.forEach { LigneBac(it, maintenant, regle = !compact) }
-                    if (compact) return@Column
                     reglageRappel()
+                    if (compact) return@Column
                     Text(
                         "${d.public}. En immeuble, les jours peuvent différer." + (d.conseil?.let { "\n$it" } ?: ""),
                         style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant,

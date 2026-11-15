@@ -81,10 +81,10 @@ fun CarteMonArret(
             client, lignes, nomArret = arretSuivi, titre = "Mon arrêt de bus : $arretSuivi", modifier = modifier,
             onAlerter = onAlerter, alerteArmee = armee?.let { it.ligne to it.destination },
         ) {
-            // Compact : l'alerte armée reste visible (avec « Annuler ») ; le réglage du délai et le changement
-            // d'arrêt sont dans la version détaillée et dans l'onglet Bouger.
+            // Compact : l'alerte (cloches, délai, alerte armée) reste complète ; seul le changement d'arrêt est réservé
+            // à la version détaillée.
             val compact = LocalCompact.current
-            PiedAlerte(armee, delaiAlerte, onAnnulerAlerte, onDelaiAlerte, reglage = !compact)
+            PiedAlerte(armee, delaiAlerte, onAnnulerAlerte, onDelaiAlerte)
             if (!compact) TextButton(onClick = { choix = true }, enabled = arrets.isNotEmpty()) { Text("Changer d'arrêt") }
         }
     }

@@ -48,14 +48,16 @@ fun CarteCirculation(etat: EtatModule<DonneesCirculation>, modifier: Modifier = 
         is EtatModule.Disponible -> {
             val d = etat.fichier.donnees
             CarteDonnee("Circulation", Icons.Rounded.DirectionsCar, modifier, etat.fraicheur, maintenant) {
-                // Compact : la rocade (deux sens, sans le détail des portes) et seulement les axes de Cesson qui bouchonnent.
+                // Compact : la rocade (deux sens, sans le détail des portes), puis « Dans Cesson » : 3 axes au plus, sans vitesses.
                 val compact = LocalCompact.current
                 Column(verticalArrangement = Arrangement.spacedBy(if (compact) 6.dp else 10.dp)) {
                     if (!compact) Text("Rocade est de Rennes", style = MaterialTheme.typography.titleSmall, modifier = Modifier.semantics { heading() })
                     d.rocadeEst.forEach { s -> LigneSens(if (compact) s.copy(ralentissements = emptyList()) else s) }
                     val axes = axesASignaler(d)
                     if (compact) {
-                        axes.take(2).forEach { a ->
+                        Text("Dans Cesson", style = MaterialTheme.typography.titleSmall, modifier = Modifier.semantics { heading() })
+                        if (axes.isEmpty()) Text("Pas de ralentissement sur les grands axes.", style = MaterialTheme.typography.bodyMedium)
+                        axes.take(3).forEach { a ->
                             Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth()) {
                                 Text(a.nom, style = MaterialTheme.typography.bodyMedium, modifier = Modifier.weight(1f))
                                 Pastille(a.etat.libelle(), ton(a.etat))
