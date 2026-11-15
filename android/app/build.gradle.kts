@@ -80,6 +80,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.work.runtime)
     implementation(libs.androidx.glance.appwidget)
+    implementation(libs.osmdroid.android)
     implementation(libs.androidx.glance.material3)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.navigation.compose)

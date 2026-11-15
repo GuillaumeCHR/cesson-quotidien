@@ -68,6 +68,9 @@ chmod -R go-w "$CODE"
 "$CODE/.venv/bin/pip" install -q -e "$CODE"
 
 etape "nginx (local uniquement, port 8080)"
+# Cache des tuiles de la carte (contexte http) : voir tuiles.py.
+install -d -o www-data -g www-data -m 750 /var/cache/nginx/cesson-tuiles
+install -m 644 "$ICI/tuiles-http.conf" /etc/nginx/conf.d/cesson-tuiles.conf
 install -m 644 "$ICI/nginx.conf" /etc/nginx/sites-available/cesson
 ln -sf /etc/nginx/sites-available/cesson /etc/nginx/sites-enabled/cesson
 rm -f /etc/nginx/sites-enabled/default

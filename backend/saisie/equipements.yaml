@@ -15,10 +15,12 @@
 # vérifier », et chaque fermeture annoncée s'ajoute en exception.
 #
 # Mettre à jour « verifie_le » à chaque relecture de la source.
+# « coord » : position de l'entrée, relevée sur OpenStreetMap (pour la carte de l'app).
 
 equipements:
   piscine:
     nom: Piscine municipale
+    coord: {lat: 48.11925, lon: -1.6023}  # OpenStreetMap
     adresse: Rue de l'Hôtel de Ville, Cesson-Sévigné
     telephone: "02 99 83 52 00"
     url: https://www.ville-cesson-sevigne.fr/contacts/piscine-municipale/
@@ -69,6 +71,7 @@ equipements:
 
   mediatheque:
     nom: Médiathèque
+    coord: {lat: 48.11688, lon: -1.60283}  # OpenStreetMap
     adresse: Centre culturel Le Pont des Arts, Cesson-Sévigné
     url: https://www.ville-cesson-sevigne.fr/contacts/mediatheque/
     verifie_le: 2026-11-15
@@ -82,6 +85,7 @@ equipements:
 
   golf:
     nom: Golf municipal
+    coord: {lat: 48.13095, lon: -1.58476}  # OpenStreetMap
     url: https://www.ville-cesson-sevigne.fr/contacts/golf/
     verifie_le: 2026-11-15
     remarque: Les week-ends et jours fériés ont les mêmes horaires de club-house.
@@ -125,6 +129,7 @@ equipements:
 
   base_sports_nature:
     nom: Base Sports Nature
+    coord: {lat: 48.11477, lon: -1.60739}  # OpenStreetMap
     url: https://www.ville-cesson-sevigne.fr/contacts/base-sports-nature/
     verifie_le: 2026-11-15
     remarque: "Locations de canoë, kayak, paddle et rafting en saison seulement. Saison 2026 : du 6 juillet au 13 septembre ; la saison 2027 n'est pas encore annoncée (sans doute à des dates proches)."
@@ -162,6 +167,7 @@ equipements:
 
   decheterie:
     nom: Déchèterie
+    coord: {lat: 48.10674, lon: -1.60222}  # OpenStreetMap
     adresse: Route de Chantepie, Cesson-Sévigné
     telephone: "02 23 62 26 22"
     url: https://www.ville-cesson-sevigne.fr/gestion-des-dechets/
@@ -176,6 +182,7 @@ equipements:
 
   service_urbanisme:
     nom: Service urbanisme
+    coord: {lat: 48.12018, lon: -1.60365}  # OpenStreetMap
     adresse: Mairie annexe, 1 place de la Chalotais, Cesson-Sévigné
     telephone: "02 99 83 52 00"
     url: https://www.ville-cesson-sevigne.fr/contacts/service-urbanisme/
@@ -189,6 +196,7 @@ equipements:
 
   police_municipale:
     nom: Police municipale
+    coord: {lat: 48.11859, lon: -1.60436}  # OpenStreetMap
     adresse: Hôtel des Polices, 6 mail de Bourgchevreuil, Cesson-Sévigné
     telephone: "02 99 83 52 14"
     url: https://www.ville-cesson-sevigne.fr/contacts/lhotel-des-polices-police-municipale-et-police-nationale/

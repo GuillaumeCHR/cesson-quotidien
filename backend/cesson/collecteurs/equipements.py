@@ -18,7 +18,7 @@ import yaml
 from ..commun.collecteur import Collecteur, ErreurValidation
 from ..commun.feries import ferie
 from ..commun.horaires import PARIS, HoraireInvalide, jours, lire, plages_du_jour
-from ..commun.modele import ExceptionHoraire, Horaire, Lieu, Modele
+from ..commun.modele import Coord, ExceptionHoraire, Horaire, Lieu, Modele
 
 SAISIE = Path(__file__).resolve().parents[2] / "saisie" / "equipements.yaml"
 # Équipements municipaux fermés les jours fériés, sauf quand la source dit autre chose.
@@ -180,6 +180,7 @@ class CollecteurEquipements(Collecteur[DonneesEquipements]):
                                       remarque=en_cours.get("remarque") if en_cours else None))
             equipements.append(Equipement(
                 lieu=Lieu(id=f"equipement:{eid}", nom=e["nom"], type="equipement", adresse=e.get("adresse"),
+                          coord=Coord(**e["coord"]) if e.get("coord") else None,
                           source="Ville de Cesson-Sévigné", url=e.get("url")),
                 telephone=e.get("telephone"), verifie_le=e["verifie_le"], remarque=e.get("remarque"),
                 espaces=espaces, horaires=horaires,

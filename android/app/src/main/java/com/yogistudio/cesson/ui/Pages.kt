@@ -102,7 +102,9 @@ fun EcranSources(app: CessonApp) {
         item {
             Text(
                 "Prochains passages du métro et des bus : STAR (Rennes Métropole, Keolis Rennes), en temps réel, " +
-                    "sous licence ODbL. L'app les demande directement à STAR.\n\n" +
+                    "sous licence ODbL. L'app les demande directement à STAR, comme l'occupation du parc relais.\n\n" +
+                    "Carte de Cesson : © les contributeurs d'OpenStreetMap (ODbL). Tuiles de la Fondation OpenStreetMap, " +
+                    "relayées et gardées en cache par le serveur de l'app : OpenStreetMap ne voit pas les utilisateurs.\n\n" +
                     "Polices Atkinson Hyperlegible et Roboto Flex, sous licence SIL Open Font License 1.1.",
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,

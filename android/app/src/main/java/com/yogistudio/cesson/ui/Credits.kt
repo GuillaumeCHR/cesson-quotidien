@@ -81,7 +81,8 @@ private val CREDITS = listOf(
     Bloc("Prix à la pompe", "Ministère de l'Économie (data.economie.gouv.fr)",
         "Chaque prix garde sa date : un prix d'il y a dix jours n'est jamais « le moins cher »."),
     Bloc("Cartographie", "Les contributrices et contributeurs d'OpenStreetMap",
-        "La carte de l'intro, c'est leur travail bénévole, sous ODbL : contour de la commune, quartiers, bois et la Vilaine."),
+        "La carte de l'intro et la carte de Cesson, c'est leur travail bénévole, sous ODbL. Les tuiles viennent des " +
+            "serveurs de la Fondation OpenStreetMap, relayées par le serveur de l'app ; affichées avec osmdroid (Apache 2.0)."),
     Bloc("Horaires et calendriers", "Ville de Cesson-Sévigné et Rennes Métropole",
         "Recopiés à la main depuis leurs sites, avec la date de vérification. La page officielle fait foi."),
     Bloc("Figurants du générique d'ouverture", "Les épingles, les horaires et les « ouvert, fermé »",

@@ -47,6 +47,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import kotlinx.coroutines.flow.first
 import com.yogistudio.cesson.CessonApp
+import androidx.compose.material.icons.rounded.Map
 import com.yogistudio.cesson.ui.intro.CessonAppLogotype
 import kotlinx.serialization.Serializable
 import kotlin.reflect.KClass
@@ -58,6 +59,7 @@ import kotlin.reflect.KClass
 @Serializable object RouteFamilles
 @Serializable data class RoutePersonnaliser(val onglet: String)
 @Serializable object RouteGuide
+@Serializable object RouteCarte
 @Serializable object RouteReglages
 @Serializable object RouteSources
 @Serializable object RouteAPropos
@@ -90,6 +92,7 @@ fun AppCesson(app: CessonApp) {
         }
         destination?.hasRoute(RouteGuide::class) == true -> "Guide de démarrage"
         destination?.hasRoute(RouteReglages::class) == true -> "Réglages"
+        destination?.hasRoute(RouteCarte::class) == true -> "Carte de Cesson"
         destination?.hasRoute(RouteSources::class) == true -> "Sources et licences"
         destination?.hasRoute(RouteAPropos::class) == true -> "À propos"
         destination?.hasRoute(RouteVosIdees::class) == true -> "Vos idées"
@@ -114,6 +117,9 @@ fun AppCesson(app: CessonApp) {
                     }
                 },
                 actions = {
+                    if (onglet != null) IconButton(onClick = { nav.navigate(RouteCarte) }) {
+                        Icon(Icons.Rounded.Map, contentDescription = "Carte de Cesson-Sévigné")
+                    }
                     onglet?.tuiles?.let { t ->
                         IconButton(onClick = { nav.navigate(RoutePersonnaliser(t.id)) }) {
                             Icon(Icons.Rounded.Tune, contentDescription = "Personnaliser ${t.nom}")
@@ -156,6 +162,7 @@ fun AppCesson(app: CessonApp) {
                 EcranPersonnaliser(app, ONGLETS_PERSONNALISABLES.firstOrNull { it.id == id } ?: ONGLET_ACCUEIL)
             }
             composable<RouteReglages> { EcranReglages(app) }
+            composable<RouteCarte> { EcranCarte(app) }
             composable<RouteGuide> { EcranGuide(app, onTerminer = { nav.popBackStack() }) }
             composable<RouteSources> { EcranSources(app) }
             composable<RouteAPropos> { EcranAPropos(onVosIdees = { nav.navigate(RouteVosIdees) }) }
