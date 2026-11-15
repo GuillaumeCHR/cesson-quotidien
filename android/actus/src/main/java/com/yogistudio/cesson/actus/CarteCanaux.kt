@@ -1,6 +1,11 @@
 package com.yogistudio.cesson.actus
 
+import androidx.annotation.DrawableRes
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.width
+import androidx.compose.ui.res.painterResource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -22,18 +27,20 @@ import androidx.compose.ui.unit.dp
 import com.yogistudio.cesson.core.ui.CarteDonnee
 
 /** Un canal d'information extérieur : on y renvoie, on n'en reprend rien (WhatsApp, Facebook l'interdisent). */
-data class Canal(val nom: String, val detail: String, val lien: String)
+data class Canal(val nom: String, val detail: String, val lien: String, @DrawableRes val logo: Int)
 
 val CANAUX = listOf(
     Canal(
         "Chaîne WhatsApp de la ville",
         "Les informations officielles de la mairie, directement dans WhatsApp.",
         "https://whatsapp.com/channel/0029VanQ89PHgZWkYAaXKN2Z",
+        R.drawable.logo_whatsapp,
     ),
     Canal(
         "Cesson Entraide, groupe Facebook",
         "Groupe d'habitants pour s'entraider entre voisins. Non officiel.",
         "https://www.facebook.com/groups/648693025948534",
+        R.drawable.logo_facebook,
     ),
 )
 
@@ -49,6 +56,8 @@ fun CarteCanaux(canaux: List<Canal> = CANAUX) {
                         .padding(vertical = 8.dp),
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
+                    Image(painterResource(c.logo), contentDescription = null, modifier = Modifier.size(20.dp))
+                    Spacer(Modifier.width(12.dp))
                     Column(Modifier.weight(1f)) {
                         Text(c.nom, style = MaterialTheme.typography.bodyLarge)
                         Text(c.detail, style = MaterialTheme.typography.bodySmall,
