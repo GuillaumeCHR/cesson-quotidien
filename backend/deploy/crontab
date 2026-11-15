@@ -17,6 +17,9 @@ PATH=/usr/bin:/bin
 # Toutes les 15 min (3, 18, 33, 48) : vigilance crues du tronçon Vilaine amont
 3-59/15 * * * * cd $CESSON && .venv/bin/python -m cesson collecter vigicrues --sortie /srv/cesson/public --etat /srv/cesson/etat >> /srv/cesson/log/collecte.log 2>&1
 
+# Toutes les 2 min de 5h à 23h59 : trains à la halte (GTFS extrait une fois par jour, GTFS-RT à chaque passage)
+*/2 5-23 * * *  cd $CESSON && .venv/bin/python -m cesson collecter trains --sortie /srv/cesson/public --etat /srv/cesson/etat >> /srv/cesson/log/collecte.log 2>&1
+
 # Toutes les 10 min (1, 11, 21…) : prix des carburants des stations de Cesson
 1-59/10 * * * * cd $CESSON && .venv/bin/python -m cesson collecter carburants --sortie /srv/cesson/public --etat /srv/cesson/etat >> /srv/cesson/log/collecte.log 2>&1
 

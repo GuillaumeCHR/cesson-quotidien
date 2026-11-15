@@ -81,6 +81,8 @@ import com.yogistudio.cesson.pratique.CarteCarburants
 import com.yogistudio.cesson.pratique.carburants
 import com.yogistudio.cesson.transport.CarteDeparts
 import com.yogistudio.cesson.transport.CarteMonArret
+import com.yogistudio.cesson.transport.CarteTrains
+import com.yogistudio.cesson.transport.trains
 import com.yogistudio.cesson.transport.lignesStar
 import kotlinx.coroutines.launch
 
@@ -108,10 +110,7 @@ val TUILES: List<Tuile> = listOf(
     },
     Tuile("arrets", "Prochains départs à Cesson-ViaSilva", Icons.Rounded.DirectionsBus) { app -> DepartsViaSilva(app) },
     Tuile("mon_arret", "Mon arrêt", Icons.Rounded.DirectionsBus) { app -> MonArret(app) },
-    Tuile("trains", "Halte de Cesson-Sévigné", Icons.Rounded.Train) {
-        CarteBientot("Halte de Cesson-Sévigné", Icons.Rounded.Train,
-            "Prochains trains vers Rennes et Vitré, bientôt ici.")
-    },
+    Tuile("trains", "Halte de Cesson-Sévigné", Icons.Rounded.Train) { app -> TrainsHalte(app) },
     Tuile("collecte", "Ma collecte", Icons.Rounded.DeleteOutline) {
         CarteBientot("Ma collecte", Icons.Rounded.DeleteOutline,
             "Choisissez bientôt votre secteur pour connaître la prochaine collecte.")
@@ -136,6 +135,13 @@ val TUILES: List<Tuile> = listOf(
 fun DepartsViaSilva(app: CessonApp) {
     val lignes by remember(app) { app.depot.lignesStar() }.collectAsStateWithLifecycle(EtatModule.Absent)
     CarteDeparts(app.star, (lignes as? EtatModule.Disponible)?.fichier?.donnees)
+}
+
+/** Trains à la halte : données du backend, relues toutes les 2 min tant que la carte est visible. */
+@Composable
+fun TrainsHalte(app: CessonApp) {
+    val etat by remember(app) { app.depot.trains() }.collectAsStateWithLifecycle(EtatModule.Absent)
+    CarteTrains(etat, rafraichir = { app.depot.rafraichir() })
 }
 
 /** Carte « Mon arrêt » : l'arrêt choisi reste dans les préférences du téléphone. */

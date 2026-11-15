@@ -72,6 +72,8 @@ Trois limites de ce temps réel conditionnent l'affichage :
 
 Chaque départ affiche l'heure théorique et un statut : « à l'heure », « +7 min », « supprimé », ou « horaire théorique » quand le temps réel manque pour ce train.
 
+**Mise en œuvre.** Le collecteur n'extrait du GTFS national (5 à 6 Mo, 84 Mo de `stop_times`) que les trains qui desservent la halte, une fois par jour, dans un fichier d'état couvrant 8 jours. Toutes les 2 min, il lit le GTFS-RT national (≈ 0,6 Mo) et rapproche les trains par numéro et date de départ, plus stables que le `trip_id`. Un retard publié pour une gare précédente se propage jusqu'à Cesson.
+
 ### Focus : les lignes qui passent par Cesson
 
 Le module transport met en avant les seules lignes qui desservent la commune, métro b en tête. La liste n'est pas saisie à la main : le collecteur la déduit chaque nuit du GTFS. Il retient toute ligne dont au moins un arrêt est situé dans le périmètre communal (code INSEE 35051). Une refonte du réseau STAR est ainsi prise en compte sans intervention.

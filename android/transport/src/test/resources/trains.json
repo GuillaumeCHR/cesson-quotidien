@@ -1,0 +1,119 @@
+{
+  "module": "trains",
+  "version_schema": 1,
+  "meta": {
+    "source": "SNCF (GTFS et GTFS-RT, transport.data.gouv.fr)",
+    "licence": "Licence Ouverte 2.0",
+    "url_source": "https://transport.data.gouv.fr/datasets/horaires-sncf",
+    "recupere_le": "2026-11-15T07:45:53.128487Z",
+    "valide_jusqu_a": "2026-11-15T07:55:53.128487Z",
+    "etat": "ok"
+  },
+  "donnees": {
+    "halte": {
+      "id": "sncf:87334490",
+      "nom": "Halte de Cesson-Sévigné",
+      "type": "gare",
+      "coord": {
+        "lat": 48.11281,
+        "lon": -1.60211
+      },
+      "adresse": "Chemin du Bois de la Justice, Cesson-Sévigné",
+      "source": "SNCF",
+      "url": "https://www.ter.sncf.com/bretagne/se-deplacer/gares/cesson-sevigne-87334490"
+    },
+    "directions": [
+      {
+        "id": "rennes",
+        "libelle": "Vers Rennes"
+      },
+      {
+        "id": "est",
+        "libelle": "Vers Vitré, Laval, Le Mans"
+      }
+    ],
+    "departs": [
+      {
+        "arret": "sncf:87334490",
+        "ligne": "P4",
+        "mode": "train",
+        "destination": "Laval",
+        "heure_theorique": "2026-11-15T11:02:00Z",
+        "statut": "theorique",
+        "numero": "857668",
+        "direction": "est"
+      },
+      {
+        "arret": "sncf:87334490",
+        "ligne": "P4",
+        "mode": "train",
+        "destination": "Rennes",
+        "heure_theorique": "2026-11-15T12:51:00Z",
+        "statut": "theorique",
+        "numero": "857665",
+        "direction": "rennes"
+      },
+      {
+        "arret": "sncf:87334490",
+        "ligne": "P4",
+        "mode": "train",
+        "destination": "Laval",
+        "heure_theorique": "2026-11-15T16:05:00Z",
+        "statut": "theorique",
+        "numero": "857674",
+        "direction": "est"
+      },
+      {
+        "arret": "sncf:87334490",
+        "ligne": "P4",
+        "mode": "train",
+        "destination": "Rennes",
+        "heure_theorique": "2026-11-15T17:55:00Z",
+        "statut": "theorique",
+        "numero": "857671",
+        "direction": "rennes"
+      },
+      {
+        "arret": "sncf:87334490",
+        "ligne": "C4",
+        "mode": "train",
+        "destination": "Rennes",
+        "heure_theorique": "2026-11-16T05:42:00Z",
+        "statut": "theorique",
+        "numero": "855205",
+        "direction": "rennes"
+      },
+      {
+        "arret": "sncf:87334490",
+        "ligne": "P4",
+        "mode": "train",
+        "destination": "Laval",
+        "heure_theorique": "2026-11-16T06:01:00Z",
+        "statut": "theorique",
+        "numero": "857656",
+        "direction": "est"
+      },
+      {
+        "arret": "sncf:87334490",
+        "ligne": "C4",
+        "mode": "train",
+        "destination": "Rennes",
+        "heure_theorique": "2026-11-16T06:08:00Z",
+        "statut": "theorique",
+        "numero": "855207",
+        "direction": "rennes"
+      },
+      {
+        "arret": "sncf:87334490",
+        "ligne": "C4",
+        "mode": "train",
+        "destination": "Vitré",
+        "heure_theorique": "2026-11-16T06:28:00Z",
+        "statut": "theorique",
+        "numero": "855206",
+        "direction": "est"
+      }
+    ],
+    "temps_reel_disponible": true
+  }
+}
