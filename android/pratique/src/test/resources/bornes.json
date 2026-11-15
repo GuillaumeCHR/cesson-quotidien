@@ -1,0 +1,358 @@
+{
+  "module": "bornes",
+  "version_schema": 1,
+  "meta": {
+    "source": "Base nationale des IRVE (data.gouv.fr)",
+    "licence": "Licence Ouverte 2.0",
+    "url_source": "https://transport.data.gouv.fr/datasets/fichier-consolide-des-bornes-de-recharge-pour-vehicules-electriques",
+    "recupere_le": "2026-11-15T11:09:06.578047Z",
+    "valide_jusqu_a": "2026-11-29T11:09:06.578047Z",
+    "etat": "ok"
+  },
+  "donnees": {
+    "stations": [
+      {
+        "lieu": {
+          "id": "irve:FRALLPEVCARSRECES",
+          "nom": "Rennes Cesson",
+          "type": "station_recharge",
+          "coord": {
+            "lat": 48.11275,
+            "lon": -1.59067
+          },
+          "adresse": "Carrefour Rennes Cesson, Route De Domloup, Zac La Rigourdiere, 35510 Cesson-Sévigné",
+          "source": "IRVE"
+        },
+        "enseigne": "Carrefour Energies",
+        "operateur": "Allego",
+        "h24": true,
+        "points": 12,
+        "puissance_max": 300.0,
+        "prises": [
+          "Type 2",
+          "Combo CCS",
+          "Domestique (E/F)"
+        ],
+        "gratuit": false,
+        "acces": "Accès libre"
+      },
+      {
+        "lieu": {
+          "id": "irve:FRSSDPSCHUMACHER355102",
+          "nom": "Volvo - Rennes (PDL2)",
+          "type": "station_recharge",
+          "coord": {
+            "lat": 48.108597,
+            "lon": -1.615407
+          },
+          "adresse": "1 All. de Bray, 35510 Cesson-Sévigné",
+          "source": "IRVE"
+        },
+        "enseigne": "DRIVECO",
+        "operateur": "DRIVECO Partner Network",
+        "h24": false,
+        "points": 5,
+        "puissance_max": 200.0,
+        "prises": [
+          "Type 2",
+          "Combo CCS",
+          "Domestique (E/F)"
+        ],
+        "gratuit": false,
+        "horaires": "Mo 08:30-12:00, Mo 13:30-18:30, Tu 08:30-12:00, Tu 13:30-18:30, We 08:30-12:00, We 13:30-18:30, Th 08:30-12:00, Th 13:30-18:30, Fr 08:30-12:00, Fr 13:30-18:30, Sa 09:00-12:00, Sa 14:00-18:00",
+        "acces": "Accès libre"
+      },
+      {
+        "lieu": {
+          "id": "irve:FRIZFPFAST52",
+          "nom": "IZIVIA FAST - McDonald's - Rennes Cesson",
+          "type": "station_recharge",
+          "coord": {
+            "lat": 48.11357870000001,
+            "lon": -1.6202
+          },
+          "adresse": "Rue de Rennes 35510 Cesson-Sévigné",
+          "source": "IRVE"
+        },
+        "enseigne": "IZIVIA FAST",
+        "operateur": "IZIVIA",
+        "h24": true,
+        "points": 6,
+        "puissance_max": 150.0,
+        "prises": [
+          "Type 2",
+          "Combo CCS"
+        ],
+        "gratuit": false,
+        "acces": "Accès libre"
+      },
+      {
+        "lieu": {
+          "id": "irve:FRSSDPHLMQ",
+          "nom": "Mercedes étoile pro - Rennes",
+          "type": "station_recharge",
+          "coord": {
+            "lat": 48.11559,
+            "lon": -1.58017
+          },
+          "adresse": "60 rue de la rigourdiere, 35510 Cesson Sevigne",
+          "source": "IRVE"
+        },
+        "enseigne": "DRIVECO",
+        "operateur": "DRIVECO Partner Network",
+        "h24": true,
+        "points": 5,
+        "puissance_max": 150.0,
+        "prises": [
+          "Type 2",
+          "Combo CCS"
+        ],
+        "gratuit": false,
+        "acces": "Accès libre"
+      },
+      {
+        "lieu": {
+          "id": "irve:FRS35P35051003B1",
+          "nom": "40 rue de bray",
+          "type": "station_recharge",
+          "coord": {
+            "lat": 48.107662,
+            "lon": -1.614937
+          },
+          "adresse": "48 rue de bray 35510 CESSON SEVIGNE",
+          "source": "IRVE"
+        },
+        "enseigne": "OUEST CHARGE",
+        "operateur": "Bouygues Energies et Services",
+        "h24": true,
+        "points": 2,
+        "puissance_max": 54.0,
+        "prises": [
+          "Type 2",
+          "Combo CCS",
+          "CHAdeMO"
+        ],
+        "gratuit": false,
+        "acces": "Accès libre"
+      },
+      {
+        "lieu": {
+          "id": "irve:FRS35P35051001",
+          "nom": "Rue de bray",
+          "type": "station_recharge",
+          "coord": {
+            "lat": 48.1085532,
+            "lon": -1.6103129
+          },
+          "adresse": "48 rue de Bray, 35510 CESSON SEVIGNE",
+          "source": "IRVE"
+        },
+        "enseigne": "Ouest Charge",
+        "operateur": "Bouygues Energies & Services",
+        "h24": true,
+        "points": 2,
+        "puissance_max": 50.4,
+        "prises": [
+          "Type 2",
+          "Combo CCS",
+          "CHAdeMO"
+        ],
+        "gratuit": false,
+        "acces": "Accès libre"
+      },
+      {
+        "lieu": {
+          "id": "irve:FRSSDPCMPZ",
+          "nom": "Centre Porsche - Rennes",
+          "type": "station_recharge",
+          "coord": {
+            "lat": 48.105016,
+            "lon": -1.616047
+          },
+          "adresse": "13 Rue des Mesliers, 35510 Cesson-Sévigné",
+          "source": "IRVE"
+        },
+        "enseigne": "DRIVECO",
+        "operateur": "DRIVECO Partner Network",
+        "h24": false,
+        "points": 7,
+        "puissance_max": 50.0,
+        "prises": [
+          "Type 2",
+          "Combo CCS"
+        ],
+        "gratuit": false,
+        "horaires": "Mo 09:00-12:00, Mo 14:00-17:00, Tu 09:00-12:00, Tu 14:00-17:00, We 09:00-12:00, We 14:00-17:00, Th 09:00-12:00, Th 14:00-17:00, Fr 09:00-12:00, Fr 14:00-17:00, Sa 09:30-12:00, Sa 14:00-16:30",
+        "acces": "Accès libre"
+      },
+      {
+        "lieu": {
+          "id": "irve:FRSSDPGCAHYUNDAI355101",
+          "nom": "Hyundai - GCH - Rennes",
+          "type": "station_recharge",
+          "coord": {
+            "lat": 48.11419,
+            "lon": -1.598292
+          },
+          "adresse": "9 Rte de Paris, 35510 Cesson-Sévigné",
+          "source": "IRVE"
+        },
+        "enseigne": "DRIVECO",
+        "operateur": "DRIVECO Partner Network",
+        "h24": false,
+        "points": 3,
+        "puissance_max": 50.0,
+        "prises": [
+          "Type 2",
+          "Combo CCS"
+        ],
+        "gratuit": false,
+        "horaires": "Mo 08:00-12:00, Mo 14:00-19:00, Tu 08:00-12:00, Tu 14:00-19:00, We 08:00-12:00, We 14:00-19:00, Th 08:00-12:00, Th 14:00-19:00, Fr 08:00-12:00, Fr 14:00-19:00, Sa 09:00-12:00, Sa 14:00-18:00",
+        "acces": "Accès libre"
+      },
+      {
+        "lieu": {
+          "id": "irve:FRS35P35051002B1",
+          "nom": "6 mail de bourgchevreuil",
+          "type": "station_recharge",
+          "coord": {
+            "lat": 48.118191,
+            "lon": -1.604842
+          },
+          "adresse": "6 mail de bourgchevreuil 35510 CESSON SEVIGNE",
+          "source": "IRVE"
+        },
+        "enseigne": "OUEST CHARGE",
+        "operateur": "Bouygues Energies et Services",
+        "h24": true,
+        "points": 2,
+        "puissance_max": 24.0,
+        "prises": [
+          "Type 2",
+          "Domestique (E/F)"
+        ],
+        "gratuit": false,
+        "acces": "Accès libre"
+      },
+      {
+        "lieu": {
+          "id": "irve:FRS35P35051002",
+          "nom": "6 mail de bourgchevreuil",
+          "type": "station_recharge",
+          "coord": {
+            "lat": 48.118191,
+            "lon": -1.604842
+          },
+          "adresse": "Mail De Bourgchevreuil 6, 35510 CESSON SEVIGNE",
+          "source": "IRVE"
+        },
+        "enseigne": "Ouest Charge",
+        "operateur": "Bouygues Energies & Services",
+        "h24": true,
+        "points": 2,
+        "puissance_max": 22.08,
+        "prises": [
+          "Type 2",
+          "Domestique (E/F)"
+        ],
+        "gratuit": false,
+        "acces": "Accès libre"
+      },
+      {
+        "lieu": {
+          "id": "irve:FRSSDPSCHUMACHER355101",
+          "nom": "Volvo - Rennes (PDL1)",
+          "type": "station_recharge",
+          "coord": {
+            "lat": 48.108597,
+            "lon": -1.615407
+          },
+          "adresse": "1 All. de Bray, 35510 Cesson-Sévigné",
+          "source": "IRVE"
+        },
+        "enseigne": "DRIVECO",
+        "operateur": "DRIVECO Partner Network",
+        "h24": false,
+        "points": 8,
+        "puissance_max": 22.08,
+        "prises": [
+          "Type 2",
+          "Domestique (E/F)"
+        ],
+        "gratuit": false,
+        "horaires": "Mo 08:30-12:00, Mo 13:30-18:30, Tu 08:30-12:00, Tu 13:30-18:30, We 08:30-12:00, We 13:30-18:30, Th 08:30-12:00, Th 13:30-18:30, Fr 08:30-12:00, Fr 13:30-18:30, Sa 09:00-12:00, Sa 14:00-18:00",
+        "acces": "Accès libre"
+      },
+      {
+        "lieu": {
+          "id": "irve:FRQVI3505331",
+          "nom": "62 Rue de la Rigourdière",
+          "type": "station_recharge",
+          "coord": {
+            "lat": 48.1159523,
+            "lon": -1.5768504
+          },
+          "adresse": "62 Rue de la Rigourdière 35510 CESSON-SÉVIGNÉ",
+          "source": "IRVE"
+        },
+        "enseigne": "QOVOLTIS",
+        "operateur": "QOVOLTIS",
+        "h24": true,
+        "points": 4,
+        "puissance_max": 22.0,
+        "prises": [
+          "Type 2"
+        ],
+        "gratuit": false,
+        "acces": "Accès libre"
+      },
+      {
+        "lieu": {
+          "id": "irve:FRZMAE22AC50782",
+          "nom": "Mazda - Rennes",
+          "type": "station_recharge",
+          "coord": {
+            "lat": 48.115374,
+            "lon": -1.586281
+          },
+          "adresse": "46 Rue de la Rigourdière 35510 Cesson-Sévigné",
+          "source": "IRVE"
+        },
+        "enseigne": "Mazda - Rennes",
+        "operateur": "ZEBORNE",
+        "h24": false,
+        "points": 1,
+        "puissance_max": 22.0,
+        "prises": [
+          "Type 2"
+        ],
+        "gratuit": true,
+        "horaires": "Mo-Fr 08:15-19:00,Sat 09:00-18:00",
+        "acces": "Accès libre"
+      },
+      {
+        "lieu": {
+          "id": "irve:FRQWCEJ8VF7",
+          "nom": "Parking rue de la Touche Lambert",
+          "type": "station_recharge",
+          "coord": {
+            "lat": 48.13348087441522,
+            "lon": -1.6238547306930093
+          },
+          "adresse": "Rue de la Touche Lambert, 35510 Cesson-Sévigné",
+          "source": "IRVE"
+        },
+        "enseigne": "Qwello",
+        "operateur": "Qwello",
+        "h24": true,
+        "points": 4,
+        "puissance_max": 11.0,
+        "prises": [
+          "Type 2"
+        ],
+        "gratuit": false,
+        "acces": "Accès libre"
+      }
+    ]
+  }
+}

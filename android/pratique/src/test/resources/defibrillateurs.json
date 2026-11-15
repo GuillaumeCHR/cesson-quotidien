@@ -1,0 +1,1649 @@
+{
+  "module": "defibrillateurs",
+  "version_schema": 1,
+  "meta": {
+    "source": "Géo'DAE, base nationale des défibrillateurs (ministère de la Santé)",
+    "licence": "Licence Ouverte 2.0",
+    "url_source": "https://geodae.atlasante.fr/",
+    "recupere_le": "2026-11-15T11:09:05.111311Z",
+    "valide_jusqu_a": "2026-11-29T11:09:05.111311Z",
+    "etat": "ok"
+  },
+  "donnees": {
+    "defibrillateurs": [
+      {
+        "lieu": {
+          "id": "dae:47898",
+          "nom": "Carré Sévigné",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.118,
+            "lon": -1.599
+          },
+          "adresse": "rue du Bac, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": true,
+        "libre_acces": true,
+        "horaires": "24/7",
+        "precision": "Accessible 24/24"
+      },
+      {
+        "lieu": {
+          "id": "dae:62610",
+          "nom": "Défibrillateur",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.1129,
+            "lon": -1.58874
+          },
+          "source": "Géo'DAE"
+        },
+        "exterieur": true,
+        "libre_acces": true,
+        "horaires": "24/7",
+        "precision": "A gauche derrière les caisses sur la paroi latérale du meuble des arrières caisses"
+      },
+      {
+        "lieu": {
+          "id": "dae:47913",
+          "nom": "Golf municipal",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.1268,
+            "lon": -1.58848
+          },
+          "adresse": "boulevard de Dezerseul, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": true,
+        "libre_acces": true,
+        "horaires": "24/7",
+        "precision": "Accessible 24/24"
+      },
+      {
+        "lieu": {
+          "id": "dae:47918",
+          "nom": "O.C.C Cesson",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.1239,
+            "lon": -1.58982
+          },
+          "adresse": "boulevard de Dezerseul, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": true,
+        "libre_acces": true,
+        "precision": "Accessible Lundi Mardi Jeudi Vendredi Samedi Dimanche 8h30/22h30 (accès badge ou clés)"
+      },
+      {
+        "lieu": {
+          "id": "dae:47916",
+          "nom": "Stade Eaux vives",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.1145,
+            "lon": -1.60836
+          },
+          "adresse": "Rue de Paris, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": true,
+        "libre_acces": true,
+        "precision": "Accessible Lundi Mardi Jeudi Vendredi 14h-18h30"
+      },
+      {
+        "lieu": {
+          "id": "dae:24492",
+          "nom": "18 La Touche Martin 35510 Cesson-Sévigné",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.1552,
+            "lon": -1.59346
+          },
+          "adresse": "18 La Touche Martin 35510 Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": true
+      },
+      {
+        "lieu": {
+          "id": "dae:175667",
+          "nom": "AFTRAL - Cesson-Sévigné",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.103172,
+            "lon": -1.621158
+          },
+          "adresse": "Rue des Charmilles\t35510\tCesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": true
+      },
+      {
+        "lieu": {
+          "id": "dae:59057",
+          "nom": "Avenue des Champs Blancs",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.1334,
+            "lon": -1.61826
+          },
+          "adresse": "Avenue des Champs Blancs, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": true,
+        "horaires": "24/7"
+      },
+      {
+        "lieu": {
+          "id": "dae:70287",
+          "nom": "B&B Hotel Rennes Est Cesson Sevigne",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.1139,
+            "lon": -1.6005
+          },
+          "adresse": "Rue de Paris, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": true,
+        "horaires": "Mo 06:30-12:00,14:00-21:30; Tu 06:30-12:00,14:00-21:30; We 06:30-12:00,14:00-21:30; Th 06:30-12:00,14:00-21:30; Fr 06:30-12:00,14:00-21:30; Sa 07:00-12:30,14:00-20:30; Su 07:00-12:30,14:00-20:30; PH 07:00-12:30,14:00-20:30",
+        "precision": "Au niveau de l'accueil apres la machine a café"
+      },
+      {
+        "lieu": {
+          "id": "dae:150921",
+          "nom": "BUR 07 RENNES Cesson Sévigné",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.1045,
+            "lon": -1.6265
+          },
+          "adresse": "Rue de l'Erbonière, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": true
+      },
+      {
+        "lieu": {
+          "id": "dae:114499",
+          "nom": "CEGID - Cesson-Sévigné",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.1356,
+            "lon": -1.62288
+          },
+          "adresse": "Avenue des Champs Blancs, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": true,
+        "precision": "Dans le couloir du 5ème étage"
+      },
+      {
+        "lieu": {
+          "id": "dae:47914",
+          "nom": "Centre culturel Pont des Arts",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.1172,
+            "lon": -1.60269
+          },
+          "adresse": "rue de l’Hôtel de Ville, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": true,
+        "precision": "Accessible Lundi Mardi Mercredi Jeudi Vendredi 9h-12h30/ 14h-18h30"
+      },
+      {
+        "lieu": {
+          "id": "dae:47910",
+          "nom": "Centre de Loisirs",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.1181,
+            "lon": -1.60184
+          },
+          "adresse": "mail de Bourgchevreuil, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": true,
+        "precision": "Accessible Lundi Mardi Jeudi Vendredi Samedi Dimanche 8H30-17H30"
+      },
+      {
+        "lieu": {
+          "id": "dae:47921",
+          "nom": "Centre technique Municipal",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.1083,
+            "lon": -1.59749
+          },
+          "adresse": "rue des Buttes, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": true,
+        "precision": "Accessible Lundi Mardi Jeudi Vendredi 7h45-17h"
+      },
+      {
+        "lieu": {
+          "id": "dae:47911",
+          "nom": "Cinéma",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.1184,
+            "lon": -1.61058
+          },
+          "adresse": "rue du Muguet, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": true,
+        "precision": "Accessible uniquement selon les séances du cinéma"
+      },
+      {
+        "lieu": {
+          "id": "dae:90233",
+          "nom": "DAE-Geodis 9 rue de Bray",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.1068,
+            "lon": -1.62825
+          },
+          "adresse": "Rue de Bray, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": true,
+        "precision": "Attention ! interphone à l'entrée. rdc bureau, à l'entrée des bureaux côté quai. "
+      },
+      {
+        "lieu": {
+          "id": "dae:90232",
+          "nom": "DAE-Geodis rue du Buisson",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.106,
+            "lon": -1.63106
+          },
+          "adresse": "rue du Buisson, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": true,
+        "precision": "attenttion ! interphones. Prendre le cheminement dépôt et retrait colis. DAE au dessus de la machine à affranchir dans le hall d'accueil"
+      },
+      {
+        "lieu": {
+          "id": "dae:89252",
+          "nom": "DAE-Lycée Sévigné (35)",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.1163,
+            "lon": -1.5993
+          },
+          "adresse": "Rue de la Chalotais, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": true
+      },
+      {
+        "lieu": {
+          "id": "dae:109304",
+          "nom": "Dae",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.1064,
+            "lon": -1.62301
+          },
+          "adresse": "Rue de Bray, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": true
+      },
+      {
+        "lieu": {
+          "id": "dae:58364",
+          "nom": "Dae 301",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.1334,
+            "lon": -1.61826
+          },
+          "adresse": "Avenue des Champs Blancs, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": true
+      },
+      {
+        "lieu": {
+          "id": "dae:99461",
+          "nom": "Dae Ad'Ex Ouest",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.1003,
+            "lon": -1.61859
+          },
+          "adresse": "Rue du Bignon, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": true,
+        "precision": "face à l’entrée, après l'escalier"
+      },
+      {
+        "lieu": {
+          "id": "dae:30291",
+          "nom": "Dae-Prolians Cesson",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.1062,
+            "lon": -1.62485
+          },
+          "adresse": "Rue de Bray, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": true
+      },
+      {
+        "lieu": {
+          "id": "dae:189511",
+          "nom": "Ecofac Rennes Sas Rhadamante",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.127884,
+            "lon": -1.613547
+          },
+          "adresse": "Rue Robert de Moucon, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": true,
+        "horaires": "Mo-Fr 08:00-19:00; Sa-Su off"
+      },
+      {
+        "lieu": {
+          "id": "dae:47909",
+          "nom": "Eglise",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.1171,
+            "lon": -1.60465
+          },
+          "adresse": "place de l’Église, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": true,
+        "precision": "Disponible de 9h30 18h30"
+      },
+      {
+        "lieu": {
+          "id": "dae:47912",
+          "nom": "Espace citoyen",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.1196,
+            "lon": -1.60281
+          },
+          "adresse": "place Waltrop, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": true,
+        "precision": "Accessible Lundi Mercredi Jeudi 8h30-12h/13h-17h30\nMardi 13h-17h30\nVendredi 8h30-12h/13h-16h\nSamedi 9h-12h"
+      },
+      {
+        "lieu": {
+          "id": "dae:73449",
+          "nom": "Fred Easy Automatique",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.1144,
+            "lon": -1.62261
+          },
+          "adresse": "51 Rue de Rennes, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": true,
+        "precision": "Derrière l'accueil"
+      },
+      {
+        "lieu": {
+          "id": "dae:83343",
+          "nom": "Fred Easy D.E.A Online",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.1301,
+            "lon": -1.62218
+          },
+          "adresse": "9 rue duschene Germain, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": true,
+        "precision": "Dans le hall d'entrée."
+      },
+      {
+        "lieu": {
+          "id": "dae:83344",
+          "nom": "Fred Easy D.E.A Online",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.1338,
+            "lon": -1.62307
+          },
+          "adresse": "Rue de la Touche Lambert, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": true,
+        "precision": "Dans le hall d'accueil."
+      },
+      {
+        "lieu": {
+          "id": "dae:83347",
+          "nom": "Fred Easy D.E.A Online",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.1296,
+            "lon": -1.62924
+          },
+          "adresse": "1 Rue Du Chêne Germain, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": true,
+        "precision": "Côté patio."
+      },
+      {
+        "lieu": {
+          "id": "dae:83342",
+          "nom": "Fred Pa-1 Entierement Automatique",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.13,
+            "lon": -1.62209
+          },
+          "adresse": "28 rue du Chêne germain, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": true,
+        "precision": "Accueil"
+      },
+      {
+        "lieu": {
+          "id": "dae:83345",
+          "nom": "Fred Pa-1 Entierement Automatique",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.1337,
+            "lon": -1.62319
+          },
+          "adresse": "7 rue de la touche lambert, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": true,
+        "precision": "Accueil"
+      },
+      {
+        "lieu": {
+          "id": "dae:676",
+          "nom": "Grand Frais Gestion",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.1166,
+            "lon": -1.58306
+          },
+          "adresse": "15 Bis Rue de la Rigoudière, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": true
+      },
+      {
+        "lieu": {
+          "id": "dae:47900",
+          "nom": "Groupe Scolaire Beausoleil",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.1162,
+            "lon": -1.60924
+          },
+          "adresse": "rue des Écoles, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": true,
+        "precision": "Accessible Lundi Mardi Jeudi Vendredi 8h30-17h00 Mercredi 8h30 12h30"
+      },
+      {
+        "lieu": {
+          "id": "dae:47899",
+          "nom": "Groupe Scolaire Bourgchevreuil",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.1242,
+            "lon": -1.59954
+          },
+          "adresse": "boulevard de Dezerseul, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": true,
+        "precision": "Accessible Lundi Mardi Jeudi Vendredi 8h30-17h00 Mercredi 8h30 12h30"
+      },
+      {
+        "lieu": {
+          "id": "dae:38654",
+          "nom": "IMT Atlantique - 2 rue de la Châtaigneraie - Hall d'entrée",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.1201,
+            "lon": -1.62879
+          },
+          "adresse": "rue de la Châtaigneraie, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": true,
+        "precision": "L au V 8h/12h 13h30/17h"
+      },
+      {
+        "lieu": {
+          "id": "dae:47919",
+          "nom": "Maire annexe manifestation 1",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.12,
+            "lon": -1.60394
+          },
+          "adresse": "Place de la Chalotais, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": true,
+        "precision": "Accessible Lundi Mardi Jeudi Vendredi 8h30-17h00\nMercredi 8h30-12h30"
+      },
+      {
+        "lieu": {
+          "id": "dae:58365",
+          "nom": "Mv Group - R+4",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.1334,
+            "lon": -1.61826
+          },
+          "adresse": "Avenue des Champs Blancs, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": true
+      },
+      {
+        "lieu": {
+          "id": "dae:58375",
+          "nom": "Mv Group - Rdc",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.1334,
+            "lon": -1.61826
+          },
+          "adresse": "Avenue des Champs Blancs, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": true
+      },
+      {
+        "lieu": {
+          "id": "dae:38859",
+          "nom": "Onet Services Rennes - 11 rue de l'Oseraie - SAS entre les bureau et l'atelier",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.104874,
+            "lon": -1.624024
+          },
+          "adresse": "rue de l'Oseraie, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": true,
+        "horaires": "Mo 09:00-12:00,14:00-17:00; Tu 09:00-12:00,14:00-17:00; We 09:00-12:00,14:00-17:00; Th 09:00-12:00,14:00-17:00; Fr 09:00-12:00,14:00-17:00",
+        "precision": "L au V 9h/12h 14h/17h"
+      },
+      {
+        "lieu": {
+          "id": "dae:169208",
+          "nom": "Orange",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.129875,
+            "lon": -1.62273
+          },
+          "adresse": "Rue du Chêne Germain, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": true
+      },
+      {
+        "lieu": {
+          "id": "dae:61771",
+          "nom": "Ovh Cesson Sevigne - 031197",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.1274,
+            "lon": -1.62391
+          },
+          "adresse": "Avenue de Belle Fontaine, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": true,
+        "precision": "Entrée des bureaux"
+      },
+      {
+        "lieu": {
+          "id": "dae:47917",
+          "nom": "Piscine municipale",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.1192,
+            "lon": -1.60232
+          },
+          "adresse": "Place Waltrop, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": true,
+        "precision": "Accessible Lundi Mardi Jeudi Vendredi 8h-22h\nSamedi Dimanche 9h-19h"
+      },
+      {
+        "lieu": {
+          "id": "dae:69594",
+          "nom": "Region Bretagne",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.127876,
+            "lon": -1.6259583
+          },
+          "adresse": "Avenue de Belle Fontaine, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": true,
+        "precision": "A l'accueil."
+      },
+      {
+        "lieu": {
+          "id": "dae:96306",
+          "nom": "Rue de la Châtaigneraie",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.1203,
+            "lon": -1.62864
+          },
+          "adresse": "Rue de la Châtaigneraie, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": true,
+        "horaires": "Mo-Su 09:00-18:00",
+        "precision": "Accueil"
+      },
+      {
+        "lieu": {
+          "id": "dae:47922",
+          "nom": "Salle Beausoleil",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.1155,
+            "lon": -1.61054
+          },
+          "adresse": "place de Sévigné, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": true,
+        "precision": "Accessible Lundi Mardi Jeudi Vendredi Samedi Dimanche 8H30-22H30 (accès badge ou clés)"
+      },
+      {
+        "lieu": {
+          "id": "dae:99567",
+          "nom": "See You Sun",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.1132,
+            "lon": -1.60487
+          },
+          "adresse": "Avenue des Peupliers, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": true
+      },
+      {
+        "lieu": {
+          "id": "dae:182317",
+          "nom": "Self Signal",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.105804,
+            "lon": -1.6284475
+          },
+          "adresse": "Rue de Bray, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": true
+      },
+      {
+        "lieu": {
+          "id": "dae:178572",
+          "nom": "Spoticar",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.106064,
+            "lon": -1.617934
+          },
+          "adresse": "Rue des Mesliers, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": true
+      },
+      {
+        "lieu": {
+          "id": "dae:113372",
+          "nom": "Station Via Silva Ligne B",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.1315,
+            "lon": -1.62009
+          },
+          "adresse": "Boulevard des Alliés, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": true,
+        "precision": "Equipement disponible sur les horaires d'ouverture du métro : 5h15 - 00h30 du lundi au mercredi, 5h15 - 1h30 du jeudi au samedi, 7h15 - 00h30 le dimanche."
+      },
+      {
+        "lieu": {
+          "id": "dae:47915",
+          "nom": "Tennis municipal",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.1182,
+            "lon": -1.60013
+          },
+          "adresse": "boulevard de Dezerseul, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": true,
+        "precision": "Accessible Lundi Mardi Jeudi Vendredi 9h-12h30/14h-18h30 Samedi Dimanche accès badge ou clés (contacter astreinte)"
+      },
+      {
+        "lieu": {
+          "id": "dae:150146",
+          "nom": "Tereva - 40 rue Bignon - Forum de La Rocade",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.100357,
+            "lon": -1.6137395
+          },
+          "adresse": "rue Bignon, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": true,
+        "horaires": "Mo 08:00-12:00,13:30-17:30; Tu 08:00-12:00,13:30-17:30; We 08:00-12:00,13:30-17:30; Th 08:00-12:00,13:30-17:30; Fr 08:00-12:00,13:30-16:30; Sa 09:00-12:00",
+        "precision": "L au J 8h-12h/13h30 à 17h30 V  8h-12h/13h30-16h30 S  9h-12h"
+      },
+      {
+        "lieu": {
+          "id": "dae:17075",
+          "nom": "ibis Styles Rennes Cesson",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.1325,
+            "lon": -1.63453
+          },
+          "adresse": "Route de Fougères, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": true,
+        "horaires": "24/7",
+        "precision": "A gauche après le babyfoot - près des toilettes"
+      },
+      {
+        "lieu": {
+          "id": "dae:87308",
+          "nom": "station atalante ligne B",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.1271,
+            "lon": -1.62805
+          },
+          "adresse": "Avenue de Belle Fontaine, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": true,
+        "precision": "Equipement disponible sur les horaires d'ouverture du métro : 5h15 - 00h30 du lundi au mercredi, 5h15 - 1h30 du jeudi au samedi, 7h15 - 00h30 le dimanche."
+      },
+      {
+        "lieu": {
+          "id": "dae:67648",
+          "nom": "Basic-Fit Cesson Sévigné 4072",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.1066,
+            "lon": -1.61703
+          },
+          "adresse": "rue des Mesliers, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": false
+      },
+      {
+        "lieu": {
+          "id": "dae:47905",
+          "nom": "Boulodrome",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.1164,
+            "lon": -1.5919
+          },
+          "adresse": "Route de la Valette, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": false
+      },
+      {
+        "lieu": {
+          "id": "dae:50394",
+          "nom": "Chubb France - Cesson Sevigne",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.1043,
+            "lon": -1.62887
+          },
+          "adresse": "Rue du Bas Village, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": false,
+        "horaires": "Mo-Fr 08:30-17:30; Sa-Su off; PH off"
+      },
+      {
+        "lieu": {
+          "id": "dae:184793",
+          "nom": "Citeos Rennes",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.102226,
+            "lon": -1.627732
+          },
+          "adresse": "Rue des Landelles, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": false
+      },
+      {
+        "lieu": {
+          "id": "dae:170933",
+          "nom": "Coralis",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.13314,
+            "lon": -1.6294808
+          },
+          "adresse": "Route de Fougères, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": false,
+        "horaires": "24/7",
+        "precision": "RECEPTION DU LAIT (REP3)"
+      },
+      {
+        "lieu": {
+          "id": "dae:96472",
+          "nom": "DAE - The Peak",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.1324,
+            "lon": -1.62156
+          },
+          "adresse": "Boulevard des Alliés, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": false,
+        "precision": "Le DAE est placé à l'accueil du bâtiment \"The Peak\". Les horaires d'ouverture de l'accueil sont : 08h30-12h00 et 14h00-17h30."
+      },
+      {
+        "lieu": {
+          "id": "dae:124839",
+          "nom": "DAE Training Academy Rennes Salle",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.1027,
+            "lon": -1.62641
+          },
+          "adresse": "Rue du Bas Village, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": false
+      },
+      {
+        "lieu": {
+          "id": "dae:29461",
+          "nom": "DAE-Axians-Rennes",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.1129,
+            "lon": -1.60442
+          },
+          "adresse": "Avenue des Peupliers, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": false,
+        "precision": "A droite dans le SAS d'entrée. Disponible pendant les jours et heures ouvrés : du lundi au vendredi de 8h30 à 12h et de 13h30 à 17h00 hors jours fériés"
+      },
+      {
+        "lieu": {
+          "id": "dae:25747",
+          "nom": "DAE-EURIAL Cesson",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.1342,
+            "lon": -1.62869
+          },
+          "adresse": "Route de Fougères, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": false,
+        "precision": "Le DAE n'est pas accessible au public."
+      },
+      {
+        "lieu": {
+          "id": "dae:22205",
+          "nom": "DAE-Mitsubishi Electric",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.1165,
+            "lon": -1.63341
+          },
+          "adresse": "Allée de Beaulieu, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": false,
+        "precision": "Dans le bureau d'accueil"
+      },
+      {
+        "lieu": {
+          "id": "dae:37612",
+          "nom": "DEA Résidence du Château - EHPAD- Cesson Sévigné",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.1146,
+            "lon": -1.61916
+          },
+          "adresse": "Allée de la Touche Ablin, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": false,
+        "precision": "Etablissement sécurisé par digicodes "
+      },
+      {
+        "lieu": {
+          "id": "dae:146584",
+          "nom": "Dae 166 Grand Frais Cesson-Sévigné",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.1169,
+            "lon": -1.58315
+          },
+          "adresse": "BIS RUE DE LA RIGOUDIÈRE, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": false
+      },
+      {
+        "lieu": {
+          "id": "dae:133615",
+          "nom": "Dae Appart City - Rennes Cesson Sevigne",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.1301,
+            "lon": -1.62926
+          },
+          "adresse": "BIS RUE DU CHENE GERMAIN, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": false
+      },
+      {
+        "lieu": {
+          "id": "dae:140335",
+          "nom": "Dae Caisse D Epargne Bretagne Pays De Loire - Caisse D Epargne Cesson",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.1314,
+            "lon": -1.62504
+          },
+          "adresse": "AV  DU CHENE GERMAIN CS17637 -CEBPL- Millennial Park, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": false
+      },
+      {
+        "lieu": {
+          "id": "dae:143955",
+          "nom": "Dae Chantier Touraudaisvest - Trdvst - St02",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.1203,
+            "lon": -1.63025
+          },
+          "adresse": "Rue de la Châtaigneraie, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": false
+      },
+      {
+        "lieu": {
+          "id": "dae:130738",
+          "nom": "Dae Dalkia",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.1013,
+            "lon": -1.6259
+          },
+          "adresse": "RUE DES LANDELLES, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": false
+      },
+      {
+        "lieu": {
+          "id": "dae:124600",
+          "nom": "Dae Edf Cesson",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.1281,
+            "lon": -1.62384
+          },
+          "adresse": "Avenue de Belle Fontaine, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": false
+      },
+      {
+        "lieu": {
+          "id": "dae:140053",
+          "nom": "Dae La Robinetterie Industrielle - Cesson Sevigne",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.1,
+            "lon": -1.6214
+          },
+          "adresse": "rue du Chêne Morand, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": false
+      },
+      {
+        "lieu": {
+          "id": "dae:137649",
+          "nom": "Dae Net Plus",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.1156,
+            "lon": -1.57645
+          },
+          "adresse": "A RUE DE LA RIGOURDIERE, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": false
+      },
+      {
+        "lieu": {
+          "id": "dae:140440",
+          "nom": "Dae Scarabee Cesson Sevigne",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.1131,
+            "lon": -1.60748
+          },
+          "adresse": "AVENUE DES PEUPLIERS, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": false
+      },
+      {
+        "lieu": {
+          "id": "dae:140441",
+          "nom": "Dae Scarabee Paris",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.1136,
+            "lon": -1.60688
+          },
+          "adresse": "RUE DE PARIS, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": false
+      },
+      {
+        "lieu": {
+          "id": "dae:139526",
+          "nom": "Dae Snc Toscan Hotel",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.0993,
+            "lon": -1.61501
+          },
+          "adresse": "RUE DU BIGNON FORUM DE LA ROCADE, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": false
+      },
+      {
+        "lieu": {
+          "id": "dae:171025",
+          "nom": "Dae Tessi",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.103184,
+            "lon": -1.6211658
+          },
+          "adresse": "rue des charmilles, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": false,
+        "precision": "accueil"
+      },
+      {
+        "lieu": {
+          "id": "dae:135144",
+          "nom": "Dae Vehicule Mobile - Cesson Sevigne",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.1147,
+            "lon": -1.63158
+          },
+          "adresse": "RUE DE RENNES, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": false
+      },
+      {
+        "lieu": {
+          "id": "dae:68983",
+          "nom": "Dalkia Cesson-Sevigne",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.1015,
+            "lon": -1.62667
+          },
+          "adresse": "Rue des Landelles, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": false,
+        "precision": "Accueil au rez de chaussée - accès par badge"
+      },
+      {
+        "lieu": {
+          "id": "dae:47901",
+          "nom": "Espace Sportif Bourgchevreuil",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.1185,
+            "lon": -1.5996
+          },
+          "adresse": "boulevard des Métairies, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": false,
+        "precision": "Accessible Lundi Mardi Jeudi Vendredi Samedi Dimanche 8H30-22H30 (accès badge ou clés)"
+      },
+      {
+        "lieu": {
+          "id": "dae:177482",
+          "nom": "Esri France",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.113197,
+            "lon": -1.604869
+          },
+          "adresse": "Avenue des Peupliers, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": false
+      },
+      {
+        "lieu": {
+          "id": "dae:69592",
+          "nom": "Fred Easy",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.127735,
+            "lon": -1.6259117
+          },
+          "adresse": "Avenue de Belle Fontaine, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": false,
+        "precision": "CAFETARIA"
+      },
+      {
+        "lieu": {
+          "id": "dae:168826",
+          "nom": "Fred Pa-1 Entierement Automatique",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.10614,
+            "lon": -1.626554
+          },
+          "adresse": "Rue de Bray, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": false
+      },
+      {
+        "lieu": {
+          "id": "dae:168828",
+          "nom": "Fred Pa-1 Entierement Automatique",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.105408,
+            "lon": -1.629467
+          },
+          "adresse": "Rue de Bray, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": false
+      },
+      {
+        "lieu": {
+          "id": "dae:55574",
+          "nom": "Free reseau",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.1044,
+            "lon": -1.62882
+          },
+          "adresse": "rue de l'erbonniere 35510, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": false
+      },
+      {
+        "lieu": {
+          "id": "dae:47903",
+          "nom": "Halle des Sports",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.1168,
+            "lon": -1.59947
+          },
+          "adresse": "Champagne, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": false
+      },
+      {
+        "lieu": {
+          "id": "dae:81912",
+          "nom": "Hypermarche Carrefour",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.11289,
+            "lon": -1.5921351
+          },
+          "adresse": "Route de Domloup, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": false,
+        "precision": "ENTREE PRINCIPALE DU MAGASIN FACE AU POINT SECURITE"
+      },
+      {
+        "lieu": {
+          "id": "dae:95703",
+          "nom": "Inorix -  Route de Domloup - PC Sécurité Galerie",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.112732,
+            "lon": -1.592028
+          },
+          "adresse": "Route de Domloup, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": false,
+        "horaires": "Mo 08:30-21:00; Tu 08:30-21:00; We 08:30-21:00; Th 08:30-21:00; Fr 08:30-21:00; Sa 08:30-21:00",
+        "precision": "L au S 8h30/21H"
+      },
+      {
+        "lieu": {
+          "id": "dae:190819",
+          "nom": "Kone Cesson Sevigne",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.110233,
+            "lon": -1.584406
+          },
+          "adresse": "Route de Domloup, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": false,
+        "horaires": "Mo 08:30-12:30,13:30-18:00; Tu 08:30-12:30,13:30-18:00; We 08:30-12:30,13:30-18:00; Th 08:30-12:30,13:30-18:00; Fr 08:30-12:30,13:30-18:00; Sa off; Su off; PH off"
+      },
+      {
+        "lieu": {
+          "id": "dae:67021",
+          "nom": "MGEN 35 - 4 rue du Chene Germain - Millenial Parck",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.131844,
+            "lon": -1.626183
+          },
+          "adresse": "rue du Chene Germain, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": false,
+        "horaires": "Mo 08:00-18:30; Tu 08:00-18:30; We 08:00-18:30; Th 08:00-18:30; Fr 08:00-18:30",
+        "precision": "L au V 8h/18h30"
+      },
+      {
+        "lieu": {
+          "id": "dae:67022",
+          "nom": "MGEN 35 - 4 rue du Chene Germain - Millenial Parck",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.131927,
+            "lon": -1.626195
+          },
+          "adresse": "rue du Chene Germain, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": false,
+        "horaires": "Mo 08:00-18:30; Tu 08:00-18:30; We 08:00-18:30; Th 08:00-18:30; Fr 08:00-18:30",
+        "precision": "L au V 8h/18h30"
+      },
+      {
+        "lieu": {
+          "id": "dae:60726",
+          "nom": "Manurob",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.1033,
+            "lon": 1.62877
+          },
+          "adresse": "RUE DES LANDELLES, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": false
+      },
+      {
+        "lieu": {
+          "id": "dae:24152",
+          "nom": "Mercedes Cesson-Sévigné",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.1152,
+            "lon": -1.57888
+          },
+          "adresse": "Rue de la Rigourdière, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": false,
+        "precision": "Ouverture du lundi au vendredi 7h30-12h30 / 13h45-18h30 et samedi 7h00-12h00"
+      },
+      {
+        "lieu": {
+          "id": "dae:64376",
+          "nom": "Newloc - Cesson Sevigne",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.1162,
+            "lon": -1.58222
+          },
+          "adresse": "Rue de la Rigourdière, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": false
+      },
+      {
+        "lieu": {
+          "id": "dae:169209",
+          "nom": "Orange",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.129875,
+            "lon": -1.62273
+          },
+          "adresse": "Rue du Chêne Germain, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": false,
+        "precision": "CAFET"
+      },
+      {
+        "lieu": {
+          "id": "dae:47904",
+          "nom": "Palais des Sports",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.1149,
+            "lon": -1.5964
+          },
+          "adresse": "Allée de Champagné, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": false
+      },
+      {
+        "lieu": {
+          "id": "dae:69593",
+          "nom": "Region Bretagne",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.119495,
+            "lon": -1.630832
+          },
+          "adresse": "Rue de la Châtaigneraie, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": false,
+        "precision": "A c?t? de l'accueil."
+      },
+      {
+        "lieu": {
+          "id": "dae:47902",
+          "nom": "Salle Paul Janson",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.119,
+            "lon": -1.59754
+          },
+          "adresse": "boulevard de Dezerseul, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": false
+      },
+      {
+        "lieu": {
+          "id": "dae:107270",
+          "nom": "Silicon Laboratories France",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.1318,
+            "lon": -1.62615
+          },
+          "adresse": "Rue du Chêne Germain, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": false,
+        "precision": "DAE disponible le mercredi mais personne non joingnable par telephone. De même personne non joingnable par telephone lors de ses congés"
+      },
+      {
+        "lieu": {
+          "id": "dae:174662",
+          "nom": "Sirca",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.111874,
+            "lon": -1.6128
+          },
+          "adresse": "Avenue des Peupliers, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": false
+      },
+      {
+        "lieu": {
+          "id": "dae:149372",
+          "nom": "Societe Generale Dr Grand Ouest",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.1378,
+            "lon": -1.62083
+          },
+          "adresse": "Rue Claude Chappe, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": false
+      },
+      {
+        "lieu": {
+          "id": "dae:103574",
+          "nom": "Société bleu - Cesson Sévigné",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.1344,
+            "lon": -1.62161
+          },
+          "adresse": "Avenue des Champs Blancs, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": false
+      },
+      {
+        "lieu": {
+          "id": "dae:173762",
+          "nom": "Speedpark Rennes - 11 rue de Paris - C.C. Carrefour Rennes Cesson",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.11227,
+            "lon": -1.591026
+          },
+          "adresse": "rue de Paris, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": false,
+        "horaires": "OFF",
+        "precision": "D 11h-00h / L Ma J 13h-00h / Me 11h-00h / V 13h-1h / S 11h-01h"
+      },
+      {
+        "lieu": {
+          "id": "dae:47906",
+          "nom": "Touche Ablin",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.1186,
+            "lon": -1.61764
+          },
+          "adresse": "allée de la Vieille Hublais, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": false
+      },
+      {
+        "lieu": {
+          "id": "dae:85628",
+          "nom": "Vestiaire de la Valette",
+          "type": "defibrillateur",
+          "coord": {
+            "lat": 48.1175,
+            "lon": -1.59044
+          },
+          "adresse": "Route de la Valette, Cesson-Sévigné",
+          "source": "Géo'DAE"
+        },
+        "exterieur": false,
+        "libre_acces": false,
+        "precision": "Accès suivant exploitation du site. DAE situé à l'entrée du site, à droite"
+      }
+    ]
+  }
+}

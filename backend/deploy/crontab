@@ -32,5 +32,8 @@ PATH=/usr/bin:/bin
 # Toutes les 10 min (1, 11, 21…) : prix des carburants des stations de Cesson
 1-59/10 * * * * cd $CESSON && .venv/bin/python -m cesson collecter carburants --sortie /srv/cesson/public --etat /srv/cesson/etat >> /srv/cesson/log/collecte.log 2>&1
 
+# Hebdomadaire, lundi 3h15 : défibrillateurs (Géo'DAE) et bornes de recharge (IRVE)
+15 3 * * 1    cd $CESSON && .venv/bin/python -m cesson collecter defibrillateurs bornes --sortie /srv/cesson/public --etat /srv/cesson/etat >> /srv/cesson/log/collecte.log 2>&1
+
 # Contrôle de santé toutes les heures : sort en erreur (et cron envoie un mail) si une source est en retard.
 17 * * * *    cd $CESSON && .venv/bin/python -m cesson sante --etat /srv/cesson/etat > /dev/null

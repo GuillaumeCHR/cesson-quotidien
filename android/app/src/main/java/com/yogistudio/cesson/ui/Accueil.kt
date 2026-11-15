@@ -1,5 +1,13 @@
 package com.yogistudio.cesson.ui
 
+import com.yogistudio.cesson.pratique.defibrillateurs
+import com.yogistudio.cesson.pratique.bornes
+import com.yogistudio.cesson.pratique.CarteDefibrillateurs
+import com.yogistudio.cesson.pratique.CarteBornes
+import com.yogistudio.cesson.position.rememberDemandePosition
+import com.yogistudio.cesson.position.Position
+import androidx.compose.material.icons.rounded.ElectricCar
+import androidx.compose.material.icons.rounded.Favorite
 import com.yogistudio.cesson.transport.circulation
 import com.yogistudio.cesson.transport.CarteCirculation
 import androidx.compose.material.icons.rounded.DirectionsCar
@@ -108,15 +116,27 @@ private val DECHETERIE_TUILE = Tuile("decheterie", "Déchèterie", Icons.Rounded
     EquipementsCesson(app, titre = "Déchèterie") { it.lieu.id == DECHETERIE }
 }
 
+private val DEFIBRILLATEURS = Tuile("defibrillateurs", "Défibrillateurs", Icons.Rounded.Favorite) { app ->
+    val etat by remember(app) { app.depot.defibrillateurs() }.collectAsStateWithLifecycle(EtatModule.Absent)
+    val position by Position.actuelle.collectAsStateWithLifecycle()
+    val demande = rememberDemandePosition()
+    CarteDefibrillateurs(etat, position, demande.enCours, demande.demander)
+}
+private val BORNES = Tuile("bornes", "Bornes de recharge", Icons.Rounded.ElectricCar) { app ->
+    val etat by remember(app) { app.depot.bornes() }.collectAsStateWithLifecycle(EtatModule.Absent)
+    val position by Position.actuelle.collectAsStateWithLifecycle()
+    val demande = rememberDemandePosition()
+    CarteBornes(etat, position, demande.enCours, demande.demander)
+}
 val ONGLET_ACCUEIL = OngletTuiles(ACCUEIL, "l'accueil",
     listOf(METEO, VILAINE, VIASILVA, MON_ARRET, TRAINS, CIRCULATION, COLLECTE, MES_EQUIPEMENTS, CARBURANTS, AIR))
-val ONGLET_BOUGER = OngletTuiles("bouger", "l'onglet Bouger", listOf(VIASILVA, TRAINS, MON_ARRET, CIRCULATION, CARBURANTS))
+val ONGLET_BOUGER = OngletTuiles("bouger", "l'onglet Bouger", listOf(VIASILVA, TRAINS, MON_ARRET, CIRCULATION, CARBURANTS, BORNES))
 val ONGLET_SORTIR = OngletTuiles("sortir", "l'onglet Sortir", listOf(EQUIPEMENTS_LOISIRS))
 private val USAGES_EAU = Tuile("usages_eau", "Usage de l'eau", Icons.Rounded.WaterDrop) { app ->
     val etat by remember(app) { app.depot.usagesEau() }.collectAsStateWithLifecycle(EtatModule.Absent)
     CarteUsagesEau(etat)
 }
-val ONGLET_PRATIQUE = OngletTuiles("pratique", "l'onglet Pratique", listOf(COLLECTE, USAGES_EAU, DECHETERIE_TUILE))
+val ONGLET_PRATIQUE = OngletTuiles("pratique", "l'onglet Pratique", listOf(COLLECTE, USAGES_EAU, DECHETERIE_TUILE, DEFIBRILLATEURS))
 private val ACTUS_VILLE = Tuile("actus_ville", "Actualités de la ville", Icons.Rounded.Newspaper) { ActusCesson(it, FLUX_VILLE) }
 val ONGLET_ACTUS = OngletTuiles("actus", "l'onglet Actus", listOf(ACTUS_VILLE))
 
@@ -261,7 +281,7 @@ fun EcranAujourdhui(app: CessonApp, onPersonnaliser: () -> Unit) {
 @Composable
 fun EcranBouger(app: CessonApp, onPersonnaliser: () -> Unit) =
     EcranTuiles(app, ONGLET_BOUGER, onPersonnaliser, pied = {
-        item("a-venir") { CarteAVenir(Icons.Rounded.DirectionsBus, listOf("Vélos en libre-service et parcs-relais", "Bornes de recharge")) }
+        item("a-venir") { CarteAVenir(Icons.Rounded.DirectionsBus, listOf("Vélos en libre-service et parcs-relais")) }
     })
 
 @Composable
@@ -277,8 +297,7 @@ fun EcranSortir(app: CessonApp, onPersonnaliser: () -> Unit) =
 fun EcranPratique(app: CessonApp, onPersonnaliser: () -> Unit) =
     EcranTuiles(app, ONGLET_PRATIQUE, onPersonnaliser, pied = {
         item("a-venir") {
-            CarteAVenir(Icons.Rounded.VolunteerActivism, listOf("Demandes d'urbanisme", "Défibrillateurs",
-                "Accessibilité des lieux publics", "Bornes de recharge"))
+            CarteAVenir(Icons.Rounded.VolunteerActivism, listOf("Demandes d'urbanisme", "Accessibilité des lieux publics"))
         }
     })
 

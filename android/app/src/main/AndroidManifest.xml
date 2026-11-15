@@ -5,6 +5,10 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- Rappels de collecte, demandée seulement quand l'utilisateur les active. -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <!-- « Les plus proches de moi » (défibrillateurs, bornes) : demandée au premier appui, position jamais enregistrée
+         ni envoyée, seulement utilisée pour trier une liste sur le téléphone. -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <queries>
         <intent>
