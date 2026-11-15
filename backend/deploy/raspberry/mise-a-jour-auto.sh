@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Mise à jour automatique du Pi depuis GitHub (lancée toutes les 15 min par cesson-mise-a-jour.timer).
+# Mise à jour automatique du Pi depuis GitHub (lancée toutes les heures par cesson-mise-a-jour.timer).
 #
 # Le Pi tient une copie du dépôt public (sans identifiant). Quand la branche main avance, il ne s'y met que si
 # les tests de ce commit ont réussi sur GitHub (workflow « Tests » : backend et android), puis relance
@@ -31,7 +31,7 @@ etats = [runs.get(n) for n in ("backend", "android")]
 print("ok" if all(e == ("completed", "success") for e in etats) else
       "attente" if any(e is None or e[0] != "completed" for e in etats) else "echec")')
 case $etat in
-    attente) exit 0 ;;  # tests en cours : on repassera dans 15 min
+    attente) exit 0 ;;  # tests en cours : on repassera dans une heure
     echec) [[ $(cat "$DEJA.refuse" 2>/dev/null) == "$SHA" ]] || {
                alerte "Commit ${SHA:0:7} non déployé : ses tests ont échoué sur GitHub."; echo "$SHA" > "$DEJA.refuse"; }
            exit 0 ;;

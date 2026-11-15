@@ -1,10 +1,10 @@
 [Unit]
-Description=Cesson'App : chercher une mise à jour toutes les 15 minutes
+Description=Cesson'App : chercher une mise à jour toutes les heures
 
 [Timer]
 OnBootSec=5min
-OnUnitActiveSec=15min
-RandomizedDelaySec=60
+OnUnitActiveSec=1h
+RandomizedDelaySec=5min
 
 [Install]
 WantedBy=timers.target

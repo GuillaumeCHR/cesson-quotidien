@@ -2,7 +2,7 @@
 
 Chaque semaine, une tâche Claude relit les sources saisies à la main et répare ce qui a décroché. Elle **propose**
 ses changements dans une pull request : elle ne pousse jamais sur `main`. Le mainteneur relit et fusionne ; le Pi
-se met à jour tout seul un quart d'heure après (si les tests passent sur GitHub).
+se met à jour tout seul dans l'heure qui suit (si les tests passent sur GitHub).
 
 ## 1. État du serveur
 

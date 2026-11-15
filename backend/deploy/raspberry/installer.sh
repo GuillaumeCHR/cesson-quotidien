@@ -86,7 +86,7 @@ SUJET=$(cat "$SUJET_FICHIER")
 sed "s#^CESSON_ALERTE_URL=.*#CESSON_ALERTE_URL=https://ntfy.sh/$SUJET#" "$SOURCE/deploy/crontab" \
     | crontab -u cesson -
 
-etape "Mise à jour automatique depuis GitHub (toutes les 15 min)"
+etape "Mise à jour automatique depuis GitHub (toutes les heures)"
 # Le Pi suit la branche main du dépôt public, seulement vers des commits dont les tests ont réussi.
 install -m 755 "$ICI/mise-a-jour-auto.sh" /usr/local/sbin/cesson-mise-a-jour
 install -m 644 "$ICI/cesson-mise-a-jour.service" "$ICI/cesson-mise-a-jour.timer" /etc/systemd/system/
