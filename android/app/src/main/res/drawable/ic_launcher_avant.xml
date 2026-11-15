@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Icône Cesson'App : un repère de carte posé sur la Vilaine, comme dans l'intro. Zone sûre : cercle de 66dp. -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="108dp" android:height="108dp" android:viewportWidth="108" android:viewportHeight="108">
-    <!-- Arbre -->
-    <path android:fillColor="#2F6B4F" android:pathData="M54,28 C64,28 71,36 71,45 C71,54 64,60 54,60 C44,60 37,54 37,45 C37,36 44,28 54,28 Z" />
-    <path android:fillColor="#2F6B4F" android:pathData="M51.5,56h5v12h-5z" />
-    <!-- Rivière -->
-    <path android:fillColor="#1F5F8B" android:pathData="M30,70 C38,66 46,74 54,70 C62,66 70,74 78,70 L78,76 C70,80 62,72 54,76 C46,80 38,72 30,76 Z" />
-    <path android:fillColor="#1F5F8B" android:pathData="M34,80 C41,77 47,83 54,80 C61,77 67,83 74,80 L74,84 C67,87 61,81 54,84 C47,87 41,81 34,84 Z" />
+    <!-- La Vilaine, qui serpente sous le repère. -->
+    <path android:strokeColor="#5AA7D9" android:strokeWidth="6.5" android:strokeLineCap="round" android:fillColor="#00000000"
+        android:pathData="M20,76 C30,69 39,82 50,76 C61,70 70,82 88,73" />
+    <!-- Le repère, en sable. -->
+    <path android:fillColor="#F6F3EC"
+        android:pathData="M54,77 C47.5,67.5 35.5,59 35.5,42.5 A18.5,18.5 0 1 1 72.5,42.5 C72.5,59 60.5,67.5 54,77 Z" />
+    <!-- Le point d'information, en jaune. -->
+    <path android:fillColor="#F2C94C" android:pathData="M54,42.5m-7.5,0a7.5,7.5 0 1,0 15,0a7.5,7.5 0 1,0 -15,0" />
 </vector>
