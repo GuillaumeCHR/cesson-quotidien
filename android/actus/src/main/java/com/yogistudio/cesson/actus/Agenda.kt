@@ -26,19 +26,29 @@ data class Evenement(
     val resume: String? = null,
     val lien: String,
     val theme: String? = null,
+    val saison: Boolean = false,
+    val famille: String = "autre",
 )
 
 const val MODULE_AGENDA = "agenda"
 
 fun DepotModules.agenda(): Flow<EtatModule<DonneesAgenda>> = suivre(MODULE_AGENDA, DonneesAgenda.serializer())
 
-/** Filtres de la carte : identifiant de thème (null = tout) et libellé. */
-val FILTRES_AGENDA = listOf(null to "Tout", "carre_sevigne" to "Carré Sévigné et Pont des Arts", "mediatheque" to "Médiathèque")
+/** Filtres de l'agenda (hors saison culturelle, qui a sa carte) : famille (null = tout) et libellé. */
+val FILTRES_AGENDA = listOf(null to "Tout", "associations" to "Associations", "culture" to "Culture libre",
+    "sport" to "Sport et Glaz Arena", "mediatheque" to "Médiathèque")
 
-/** Événements encore en cours ou à venir, filtrés par thème, groupés par jour (le jour affiché est le premier à venir). */
-fun agendaParJour(d: DonneesAgenda, theme: String?, aujourdhui: LocalDate): List<Pair<LocalDate, List<Evenement>>> =
-    d.evenements
-        .filter { !it.au.isBefore(aujourdhui) && (theme == null || it.theme == theme) }
+/** Événements de l'agenda encore en cours ou à venir, hors saison culturelle, filtrés par famille, groupés par jour. */
+fun agendaParJour(d: DonneesAgenda, famille: String?, aujourdhui: LocalDate): List<Pair<LocalDate, List<Evenement>>> =
+    grouper(d.evenements.filter { !it.saison && (famille == null || it.famille == famille) }, aujourdhui)
+
+/** Spectacles de la saison culturelle à venir, groupés par jour. */
+fun saisonParJour(d: DonneesAgenda, aujourdhui: LocalDate): List<Pair<LocalDate, List<Evenement>>> =
+    grouper(d.evenements.filter { it.saison }, aujourdhui)
+
+private fun grouper(evenements: List<Evenement>, aujourdhui: LocalDate): List<Pair<LocalDate, List<Evenement>>> =
+    evenements
+        .filter { !it.au.isBefore(aujourdhui) }
         .groupBy { maxOf(it.du, aujourdhui) }
         .toSortedMap()
         .toList()

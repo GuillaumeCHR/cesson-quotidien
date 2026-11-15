@@ -92,3 +92,16 @@ def test_sources_cassees_garde_la_version_precedente(tmp_path):
         with httpx.Client() as client:
             r = CollecteurAgenda(pause=0).executer(publieur, sante, client, MAINTENANT)
     assert r.etat == Etat.ERREUR
+
+
+def test_saison_culturelle_et_familles():
+    from cesson.collecteurs.agenda import est_saison, famille
+    assert est_saison("Carré Sévigné", "Payant, sur réservation")
+    assert est_saison("Auditorium du Pont des arts", "payant, sur inscriptions")
+    assert not est_saison("Auditorium du Pont des arts", "Entrée libre")  # concert gratuit : pas la saison
+    assert not est_saison("Glaz Arena", "Payant, sur réservation")
+    assert famille("Rotary Club : concours de pétanque", "Associations", "Boulodrome", None) == "associations"
+    assert famille("Glaz Arena : Glorious", "Divers", "Glaz Arena", None) == "sport"
+    assert famille("Exposition Clémentine Carsberg", "Exposition", "Galerie Pictura", "carre_sevigne") == "culture"
+    assert famille("Lecture pour les tout-petits", None, "Médiathèque", "mediatheque") == "mediatheque"
+    assert famille("Banque alimentaire : collecte", "Divers", None, None) == "autre"

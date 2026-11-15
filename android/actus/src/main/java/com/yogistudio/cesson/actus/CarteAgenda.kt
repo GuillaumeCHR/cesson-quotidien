@@ -58,7 +58,7 @@ fun CarteAgenda(etat: EtatModule<DonneesAgenda>, modifier: Modifier = Modifier) 
         }
         is EtatModule.Disponible -> {
             val d = etat.fichier.donnees
-            val filtres = FILTRES_AGENDA.filter { (id, _) -> id == null || d.evenements.any { it.theme == id } }
+            val filtres = FILTRES_AGENDA.filter { (id, _) -> id == null || d.evenements.any { !it.saison && it.famille == id } }
             val jours = agendaParJour(d, theme, aujourdhui)
             CarteDonnee("Agenda", Icons.Rounded.Event, modifier, etat.fraicheur, maintenant) {
                 // Compact : deux jours, titre, heure et lieu ; ni filtres ni conditions.

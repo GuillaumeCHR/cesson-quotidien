@@ -22,10 +22,24 @@ class AgendaTest {
     }
 
     @Test
-    fun filtreCarreSevigne() {
-        val j = agendaParJour(d, "carre_sevigne", aujourdhui)
-        assertTrue(j.flatMap { it.second }.all { it.theme == "carre_sevigne" })
-        assertTrue(j.flatMap { it.second }.any { it.titre == "Suzane" })
+    fun saisonCulturelleAPart() {
+        val saison = saisonParJour(d, aujourdhui).flatMap { it.second }
+        assertTrue(saison.any { it.titre == "Suzane" } && saison.all { it.saison })
+        // L'agenda ne montre plus les spectacles de la saison.
+        assertTrue(agendaParJour(d, null, aujourdhui).flatMap { it.second }.none { it.saison })
+    }
+
+    @Test
+    fun filtreParFamille() {
+        val assos = agendaParJour(d, "associations", aujourdhui).flatMap { it.second }
+        assertTrue(assos.isNotEmpty() && assos.all { it.famille == "associations" })
+        assertTrue(agendaParJour(d, "sport", aujourdhui).flatMap { it.second }.any { it.titre.startsWith("Glaz Arena") })
+    }
+
+    @Test
+    fun titresEnCapitalesRemisEnCasseDePhrase() {
+        assertEquals("La folle journée", titreSpectacle("LA FOLLE JOURNÉE"))
+        assertEquals("Suzane", titreSpectacle("Suzane"))
     }
 
     @Test

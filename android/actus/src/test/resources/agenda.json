@@ -5,8 +5,8 @@
     "source": "OpenAgenda (Ville de Cesson-Sévigné) et site de la ville (extraction)",
     "licence": "Informations publiques de la Ville ; l'événement se lit chez son éditeur",
     "url_source": "https://openagenda.com/agendas/31553419",
-    "recupere_le": "2026-11-15T11:20:50.275813Z",
-    "valide_jusqu_a": "2026-11-16T11:20:50.275813Z",
+    "recupere_le": "2026-11-15T20:39:20.704019Z",
+    "valide_jusqu_a": "2026-11-16T20:39:20.704019Z",
     "etat": "ok"
   },
   "donnees": {
@@ -18,7 +18,9 @@
         "du": "2026-11-15",
         "au": "2026-11-15",
         "resume": "La Banque Alimentaire de Rennes, comme chaque année, va collecter dans des endroits stratégiques à Cesson-Sévigné et ainsi faire profiter les associations locales et vos administrés…",
-        "lien": "https://www.ville-cesson-sevigne.fr/agenda/banque-alimentaire-collecte/"
+        "lien": "https://www.ville-cesson-sevigne.fr/agenda/banque-alimentaire-collecte/",
+        "saison": false,
+        "famille": "autre"
       },
       {
         "id": "ville:choeur-dor-concert-avec-les-funky-frogs",
@@ -30,7 +32,9 @@
         "lieu": "Pont des arts",
         "resume": "Le chœur de femmes \"Les voix d'Emeraude\" de l'association Chœur d'or a invité le groupe vocal Les Funky Frogs.",
         "lien": "https://www.ville-cesson-sevigne.fr/agenda/choeur-dor-concert-avec-les-funky-frogs/",
-        "theme": "carre_sevigne"
+        "theme": "carre_sevigne",
+        "saison": false,
+        "famille": "associations"
       },
       {
         "id": "ville:top-des-ptits-grands-grimpeurs",
@@ -41,7 +45,9 @@
         "horaires": "9h00 – 17h00",
         "lieu": "Halle des sports du lycée Sévigné",
         "resume": "L'OCC Escalade organise la première étape de la série de compétitions amicales « top des p'tits et grands grimpeurs » 2026-2027. Toutes les catégories pourront profiter…",
-        "lien": "https://www.ville-cesson-sevigne.fr/agenda/top-des-ptits-grands-grimpeurs/"
+        "lien": "https://www.ville-cesson-sevigne.fr/agenda/top-des-ptits-grands-grimpeurs/",
+        "saison": false,
+        "famille": "associations"
       },
       {
         "id": "ville:ensemble-partageons-le-numerique-les-stages-en-novembre",
@@ -51,7 +57,9 @@
         "au": "2026-11-26",
         "lieu": "Centre de loisirs",
         "resume": "L'association Ensemble Partageons le Numérique propose des stages tout au long du mois de novembre.",
-        "lien": "https://www.ville-cesson-sevigne.fr/agenda/ensemble-partageons-le-numerique-les-stages-en-novembre/"
+        "lien": "https://www.ville-cesson-sevigne.fr/agenda/ensemble-partageons-le-numerique-les-stages-en-novembre/",
+        "saison": false,
+        "famille": "associations"
       },
       {
         "id": "ville:reouverture-du-vestiaire-solidaire",
@@ -62,7 +70,9 @@
         "horaires": "14h00 – 17h00",
         "lieu": "Stade Roger Belliard",
         "resume": "Au Vestiaire solidaire, pas besoin de condition particulière pour venir faire ses achats : tout le monde est le bienvenu ! Installé au stade Roger Belliard,…",
-        "lien": "https://www.ville-cesson-sevigne.fr/agenda/reouverture-du-vestiaire-solidaire/"
+        "lien": "https://www.ville-cesson-sevigne.fr/agenda/reouverture-du-vestiaire-solidaire/",
+        "saison": false,
+        "famille": "associations"
       },
       {
         "id": "openagenda:42739512",
@@ -75,7 +85,9 @@
         "conditions": "Entrée libre",
         "resume": "Secret de famille",
         "lien": "https://openagenda.com/pont-des-arts/events/42739512_exposition-clementine-carsberg",
-        "theme": "carre_sevigne"
+        "theme": "carre_sevigne",
+        "saison": false,
+        "famille": "culture"
       },
       {
         "id": "ville:conference-sur-le-climat",
@@ -87,7 +99,9 @@
         "lieu": "Pont des arts",
         "resume": "La Ville souhaite donner la parole aux scientifiques et aux experts du climat pour réfléchir. La conférence avec Vincent Dubreuil, géographe et coprésident du Haut Conseil…",
         "lien": "https://www.ville-cesson-sevigne.fr/agenda/conference-sur-le-climat/",
-        "theme": "carre_sevigne"
+        "theme": "carre_sevigne",
+        "saison": false,
+        "famille": "culture"
       },
       {
         "id": "openagenda:70693599",
@@ -100,7 +114,9 @@
         "conditions": "Payant, sur réservation",
         "resume": "Sur scène, Suzane captive, bouscule et fédère, une artiste à la fois électrique et sincère, à ne surtout pas manquer !",
         "lien": "https://openagenda.com/pont-des-arts/events/70693599_suzane-7137359",
-        "theme": "carre_sevigne"
+        "theme": "carre_sevigne",
+        "saison": true,
+        "famille": "culture"
       },
       {
         "id": "openagenda:10664577",
@@ -112,7 +128,9 @@
         "conditions": "Entrée libre",
         "resume": "Les ensembles de l'École sont mis en lumière à l'occasion de la Sainte-Cécile",
         "lien": "https://openagenda.com/ecole-des-arts/events/10664577_concert-sainte-cecile-2409070",
-        "theme": "carre_sevigne"
+        "theme": "carre_sevigne",
+        "saison": false,
+        "famille": "culture"
       },
       {
         "id": "ville:glaz-arena-glorious",
@@ -123,7 +141,9 @@
         "horaires": "20h00",
         "lieu": "Glaz Arena",
         "resume": "La Glaz Arena accueille le concert.",
-        "lien": "https://www.ville-cesson-sevigne.fr/agenda/glaz-arena-glorious/"
+        "lien": "https://www.ville-cesson-sevigne.fr/agenda/glaz-arena-glorious/",
+        "saison": false,
+        "famille": "sport"
       },
       {
         "id": "ville:rotary-club-et-occ-petanque-concours-de-petanque",
@@ -134,7 +154,9 @@
         "horaires": "13h30",
         "lieu": "Boulodrome",
         "resume": "Le Rotary Club de Cesson-Sévigné organise avec l’appui de l’OCC Pétanque une compétition amicale. Elle se déroulera en 4 parties, doublette à la Mêlée avec changement…",
-        "lien": "https://www.ville-cesson-sevigne.fr/agenda/rotary-club-et-occ-petanque-concours-de-petanque/"
+        "lien": "https://www.ville-cesson-sevigne.fr/agenda/rotary-club-et-occ-petanque-concours-de-petanque/",
+        "saison": false,
+        "famille": "associations"
       },
       {
         "id": "ville:saltarelle-initiation-aux-danses-medievales",
@@ -145,7 +167,9 @@
         "horaires": "13h30 – 17h00",
         "lieu": "Touche Ablin maison des associations",
         "resume": "L'association la Saltarelle propose une initiation aux danses médiévales.",
-        "lien": "https://www.ville-cesson-sevigne.fr/agenda/saltarelle-initiation-aux-danses-medievales/"
+        "lien": "https://www.ville-cesson-sevigne.fr/agenda/saltarelle-initiation-aux-danses-medievales/",
+        "saison": false,
+        "famille": "associations"
       },
       {
         "id": "ville:cesson-art-et-poesie-exposition",
@@ -156,7 +180,9 @@
         "horaires": "10h00 – 18h00",
         "lieu": "Centre de loisirs",
         "resume": "Exposition de l'adhérent Christian Boulanger.",
-        "lien": "https://www.ville-cesson-sevigne.fr/agenda/cesson-art-et-poesie-exposition/"
+        "lien": "https://www.ville-cesson-sevigne.fr/agenda/cesson-art-et-poesie-exposition/",
+        "saison": false,
+        "famille": "associations"
       },
       {
         "id": "openagenda:20418459",
@@ -169,7 +195,9 @@
         "conditions": "Payant, sur réservation",
         "resume": "Raphaëlle Boitel croise son univers nourri de danse, de théâtre et de mises en scène d’opéra, à la virtuosité des treize acrobates et danseurs marocains. Un ballet acrobatique spectaculaire !",
         "lien": "https://openagenda.com/pont-des-arts/events/20418459_ka-in-4354454",
-        "theme": "carre_sevigne"
+        "theme": "carre_sevigne",
+        "saison": true,
+        "famille": "culture"
       },
       {
         "id": "openagenda:76511081",
@@ -180,7 +208,9 @@
         "lieu": "Espace citoyen - Salle du conseil",
         "conditions": "Payant : 3€ élèves EDA, 5€ enfants, 8€ adultes",
         "resume": "TRAVERS’ÈRES : Une histoire de la flûte traversière de la Renaissance à nos jours. Johanne Favre-Engel",
-        "lien": "https://openagenda.com/ecole-des-arts/events/76511081_concertconference"
+        "lien": "https://openagenda.com/ecole-des-arts/events/76511081_concertconference",
+        "saison": false,
+        "famille": "culture"
       },
       {
         "id": "ville:glaz-arena-hexagone-mma-winamax",
@@ -191,7 +221,9 @@
         "horaires": "19h00",
         "lieu": "Glaz Arena",
         "resume": "La Glaz Arena accueille pour la 1ère fois cet événement sportif.",
-        "lien": "https://www.ville-cesson-sevigne.fr/agenda/glaz-arena-hexagone-mma-winamax/"
+        "lien": "https://www.ville-cesson-sevigne.fr/agenda/glaz-arena-hexagone-mma-winamax/",
+        "saison": false,
+        "famille": "sport"
       },
       {
         "id": "openagenda:68407355",
@@ -204,7 +236,9 @@
         "conditions": "Payant, sur réservation",
         "resume": "Raphaëlle Boitel croise son univers nourri de danse, de théâtre et de mises en scène d’opéra, à la virtuosité des treize acrobates et danseurs marocains. Un ballet acrobatique spectaculaire !",
         "lien": "https://openagenda.com/pont-des-arts/events/68407355_ka-in-7682876",
-        "theme": "carre_sevigne"
+        "theme": "carre_sevigne",
+        "saison": true,
+        "famille": "culture"
       },
       {
         "id": "ville:portes-ouvertes-au-lycee-ozanam",
@@ -215,7 +249,9 @@
         "horaires": "17h00 – 19h00",
         "lieu": "Lycée Ozanam",
         "resume": "Le lycée Ozanam organise des portes ouvertes vendredi 27 novembre, de 17h à 19h et samedi 28 novembre, de 9h à 12h. Au mois de février…",
-        "lien": "https://www.ville-cesson-sevigne.fr/agenda/portes-ouvertes-au-lycee-ozanam/"
+        "lien": "https://www.ville-cesson-sevigne.fr/agenda/portes-ouvertes-au-lycee-ozanam/",
+        "saison": false,
+        "famille": "autre"
       },
       {
         "id": "ville:glaz-arena-house-of-dub",
@@ -226,7 +262,9 @@
         "horaires": "21h00 – 5h00",
         "lieu": "Glaz Arena",
         "resume": "La Glaz Arena accueille House of Dub pour la 6ème édition.",
-        "lien": "https://www.ville-cesson-sevigne.fr/agenda/glaz-arena-house-of-dub/"
+        "lien": "https://www.ville-cesson-sevigne.fr/agenda/glaz-arena-house-of-dub/",
+        "saison": false,
+        "famille": "sport"
       },
       {
         "id": "ville:cesson-art-et-poesie-exposition-2",
@@ -237,7 +275,9 @@
         "horaires": "10h00 – 18h00",
         "lieu": "Centre de loisirs",
         "resume": "Exposition de Josiane Thomas.",
-        "lien": "https://www.ville-cesson-sevigne.fr/agenda/cesson-art-et-poesie-exposition-2/"
+        "lien": "https://www.ville-cesson-sevigne.fr/agenda/cesson-art-et-poesie-exposition-2/",
+        "saison": false,
+        "famille": "associations"
       },
       {
         "id": "ville:marche-de-noel-au-centre-commercial-bourgchevreuil",
@@ -247,7 +287,9 @@
         "au": "2026-11-29",
         "lieu": "Centre commercial Bourgchevreuil",
         "resume": "Les commerçants du centre commercial Bourgchevreuil organisent un marché de Noël.",
-        "lien": "https://www.ville-cesson-sevigne.fr/agenda/marche-de-noel-au-centre-commercial-bourgchevreuil/"
+        "lien": "https://www.ville-cesson-sevigne.fr/agenda/marche-de-noel-au-centre-commercial-bourgchevreuil/",
+        "saison": false,
+        "famille": "autre"
       },
       {
         "id": "ville:cyclo-cross-de-cesson-sevigne-a-la-monniais",
@@ -258,7 +300,9 @@
         "horaires": "11h00",
         "lieu": "Parc de la Monniais",
         "resume": "Organisé par l'Olympique Club Cycliste Cessonnais au parc de la Monniais le dimanche 29 novembre 2026.",
-        "lien": "https://www.ville-cesson-sevigne.fr/agenda/cyclo-cross-de-cesson-sevigne-a-la-monniais/"
+        "lien": "https://www.ville-cesson-sevigne.fr/agenda/cyclo-cross-de-cesson-sevigne-a-la-monniais/",
+        "saison": false,
+        "famille": "associations"
       },
       {
         "id": "ville:cesson-rennes-metropole-handball-match-5",
@@ -269,7 +313,9 @@
         "horaires": "20h30",
         "lieu": "Glaz Arena",
         "resume": "Cesson Rennes Métropole Handball reçoit Saran.",
-        "lien": "https://www.ville-cesson-sevigne.fr/agenda/cesson-rennes-metropole-handball-match-5/"
+        "lien": "https://www.ville-cesson-sevigne.fr/agenda/cesson-rennes-metropole-handball-match-5/",
+        "saison": false,
+        "famille": "associations"
       },
       {
         "id": "ville:ensemble-partageons-le-numerique-les-stages-en-decembre",
@@ -279,7 +325,9 @@
         "au": "2026-12-17",
         "lieu": "Centre de loisirs",
         "resume": "L'association Ensemble Partageons le Numérique propose des stages tout au long du mois de décembre.",
-        "lien": "https://www.ville-cesson-sevigne.fr/agenda/ensemble-partageons-le-numerique-les-stages-en-decembre/"
+        "lien": "https://www.ville-cesson-sevigne.fr/agenda/ensemble-partageons-le-numerique-les-stages-en-decembre/",
+        "saison": false,
+        "famille": "associations"
       },
       {
         "id": "ville:cmj-discotheque-ephemere",
@@ -291,7 +339,9 @@
         "lieu": "Carré Sévigné",
         "resume": "Les élus du conseil municipal des jeunes (CMJ) invitent les jeunes élèves du CM1 à la 5ème à une soirée festive pour danse, s'amuser et partager…",
         "lien": "https://www.ville-cesson-sevigne.fr/agenda/cmj-discotheque-ephemere/",
-        "theme": "carre_sevigne"
+        "theme": "carre_sevigne",
+        "saison": false,
+        "famille": "culture"
       },
       {
         "id": "ville:glaz-arena-casse-noisette",
@@ -302,7 +352,9 @@
         "horaires": "20h00",
         "lieu": "Glaz Arena",
         "resume": "La Glaz Arena accueille le spectacle Casse-Noisette.",
-        "lien": "https://www.ville-cesson-sevigne.fr/agenda/glaz-arena-casse-noisette/"
+        "lien": "https://www.ville-cesson-sevigne.fr/agenda/glaz-arena-casse-noisette/",
+        "saison": false,
+        "famille": "sport"
       },
       {
         "id": "ville:noel-des-petits-cessonnais",
@@ -313,7 +365,9 @@
         "lieu": "Pont des arts",
         "resume": "Un film de Noël à découvrir pour les 5-7 ans. Faites votre choix pour la séance : à 10h ou à 14h. Pré-inscription obligatoire avant le…",
         "lien": "https://www.ville-cesson-sevigne.fr/agenda/noel-des-petits-cessonnais/",
-        "theme": "carre_sevigne"
+        "theme": "carre_sevigne",
+        "saison": false,
+        "famille": "culture"
       },
       {
         "id": "ville:glaz-arena-secrets-medical",
@@ -323,7 +377,9 @@
         "au": "2026-12-06",
         "horaires": "17h00",
         "resume": "La Glaz Arena accueille la comédie Secret(s) médical.",
-        "lien": "https://www.ville-cesson-sevigne.fr/agenda/glaz-arena-secrets-medical/"
+        "lien": "https://www.ville-cesson-sevigne.fr/agenda/glaz-arena-secrets-medical/",
+        "saison": false,
+        "famille": "sport"
       },
       {
         "id": "openagenda:98312750",
@@ -336,7 +392,9 @@
         "conditions": "Payant, sur réservation",
         "resume": "Un solo virtuose qui embarque le public au cœur des États généraux de 1789.",
         "lien": "https://openagenda.com/pont-des-arts/events/98312750_labolition-des-privileges-7321921",
-        "theme": "carre_sevigne"
+        "theme": "carre_sevigne",
+        "saison": true,
+        "famille": "culture"
       },
       {
         "id": "ville:concert-de-noel-du-choeur-sevigne",
@@ -347,7 +405,9 @@
         "horaires": "20h30",
         "lieu": "Église Saint-Martin",
         "resume": "Pour l'année de son quarantième anniversaire, Chœur Sévigné, accompagné par la talentueuse pianiste Jennifer Meinier, vous invite à partager la magie de Noël avec un programme…",
-        "lien": "https://www.ville-cesson-sevigne.fr/agenda/concert-de-noel-du-choeur-sevigne/"
+        "lien": "https://www.ville-cesson-sevigne.fr/agenda/concert-de-noel-du-choeur-sevigne/",
+        "saison": false,
+        "famille": "associations"
       },
       {
         "id": "ville:glaz-arena-open-entrez-dans-la-folie-moustache",
@@ -358,7 +418,9 @@
         "horaires": "19h00",
         "lieu": "Glaz Arena",
         "resume": "La Glaz Arena accueille le diner spectacle deux soirées.",
-        "lien": "https://www.ville-cesson-sevigne.fr/agenda/glaz-arena-open-entrez-dans-la-folie-moustache/"
+        "lien": "https://www.ville-cesson-sevigne.fr/agenda/glaz-arena-open-entrez-dans-la-folie-moustache/",
+        "saison": false,
+        "famille": "sport"
       },
       {
         "id": "ville:kifekoi-representations-theatrales",
@@ -369,7 +431,9 @@
         "lieu": "Pont des arts",
         "resume": "La troupe de théâtre KIFEKOI propose la pièce \"Fais pas ta cocotte\", de Jacky Goupil et Stef Russeil.",
         "lien": "https://www.ville-cesson-sevigne.fr/agenda/kifekoi-representations-theatrales/",
-        "theme": "carre_sevigne"
+        "theme": "carre_sevigne",
+        "saison": false,
+        "famille": "associations"
       },
       {
         "id": "ville:acc-corrida-cessonnaise",
@@ -380,7 +444,9 @@
         "horaires": "9h00",
         "lieu": "Stade Roger Belliard",
         "resume": "L'Athlétic Club Cessonnais organise les épreuves de courses. Avec en nouveauté cette année, l'épreuve de marche nordique.",
-        "lien": "https://www.ville-cesson-sevigne.fr/agenda/acc-corrida-cessonnaise/"
+        "lien": "https://www.ville-cesson-sevigne.fr/agenda/acc-corrida-cessonnaise/",
+        "saison": false,
+        "famille": "associations"
       },
       {
         "id": "ville:concert-de-noel-du-choeur-sevigne-2",
@@ -390,7 +456,9 @@
         "au": "2026-12-13",
         "horaires": "16h00",
         "resume": "Pour l'année de son quarantième anniversaire, Chœur Sévigné, accompagné par la talentueuse pianiste Jennifer Meinier, vous invite à partager la magie de Noël avec un programme…",
-        "lien": "https://www.ville-cesson-sevigne.fr/agenda/concert-de-noel-du-choeur-sevigne-2/"
+        "lien": "https://www.ville-cesson-sevigne.fr/agenda/concert-de-noel-du-choeur-sevigne-2/",
+        "saison": false,
+        "famille": "associations"
       },
       {
         "id": "openagenda:33144505",
@@ -403,7 +471,9 @@
         "conditions": "payant, sur inscriptions",
         "resume": "Un hymne à la féminité plurielle et à l’émancipation, dans un tourbillon de tissus.",
         "lien": "https://openagenda.com/pont-des-arts/events/33144505_maldonne-5540967",
-        "theme": "carre_sevigne"
+        "theme": "carre_sevigne",
+        "saison": true,
+        "famille": "culture"
       },
       {
         "id": "openagenda:10149379",
@@ -416,7 +486,9 @@
         "conditions": "Payant, sur réservation",
         "resume": "Un concert d’exception au cœur de la nouvelle grande aventure de Thibault : un album intégralement composé d’œuvres originales. Un tourbillon de délicatesse et de virtuosité !",
         "lien": "https://openagenda.com/pont-des-arts/events/10149379_thibault-cauvin-4298743",
-        "theme": "carre_sevigne"
+        "theme": "carre_sevigne",
+        "saison": true,
+        "famille": "culture"
       },
       {
         "id": "openagenda:23353187",
@@ -429,7 +501,9 @@
         "conditions": "Payant, sur réservation",
         "resume": "Venez assistez au spectacle d'Alex Vizorek consacré à la musique classique. Rencontre exceptionnelle de la musique et de l’humour !",
         "lien": "https://openagenda.com/pont-des-arts/events/23353187_je-naime-pas-le-classique-mais-avec-alex-vizorek-jaime-bien-9763225",
-        "theme": "carre_sevigne"
+        "theme": "carre_sevigne",
+        "saison": true,
+        "famille": "culture"
       },
       {
         "id": "openagenda:75366837",
@@ -442,7 +516,9 @@
         "conditions": "payant, sur réservation",
         "resume": "Un homme au banc des accusés raconte son histoire, ses échecs, ses doutes, ses pensées. Quels événements l’ont conduit à passer à l’action ? Face à lui : un juge à l’écoute.",
         "lien": "https://openagenda.com/pont-des-arts/events/75366837_article-353-du-code-penal-dapres-une-oeuvre-de-tanguy-viel",
-        "theme": "carre_sevigne"
+        "theme": "carre_sevigne",
+        "saison": true,
+        "famille": "culture"
       },
       {
         "id": "openagenda:6217744",
@@ -455,7 +531,9 @@
         "conditions": "payant, sur réservation",
         "resume": "De Fauve Hautot et Romain Guillermic Neuf danseurs et danseuses se retrouvent sur la scène pour une traversée intime et universelle.",
         "lien": "https://openagenda.com/pont-des-arts/events/6217744_lets-go-cie-same-but-different",
-        "theme": "carre_sevigne"
+        "theme": "carre_sevigne",
+        "saison": true,
+        "famille": "culture"
       },
       {
         "id": "openagenda:94423615",
@@ -468,18 +546,9 @@
         "conditions": "payant, sur réservation",
         "resume": "Fidèle au texte de Beaumarchais tout en en révélant la portée politique et féministe, cette pièce offre une lecture incisive, d’une brûlante actualité.",
         "lien": "https://openagenda.com/pont-des-arts/events/94423615_la-folle-journee-ou-le-mariage-de-figaro-mise-en-scene-lena-brehan",
-        "theme": "carre_sevigne"
-      },
-      {
-        "id": "ville:la-folle-journee-ou-le-mariage-de-figaro-mise-en-scene-lena-brehan",
-        "titre": "LA FOLLE JOURNÉE OU LE MARIAGE DE FIGARO – Mise en scène Léna…",
-        "du": "2027-02-13",
-        "au": "2027-02-13",
-        "horaires": "20h00 – 22h00",
-        "lieu": "Carré Sévigné - 1 rue du bac 35510 Cesson sévigné",
-        "resume": "Fidèle au texte de Beaumarchais tout en en révélant la portée politique et féministe, cette pièce offre une lecture incisive, d’une brûlante actualité.",
-        "lien": "https://www.ville-cesson-sevigne.fr/agenda/la-folle-journee-ou-le-mariage-de-figaro-mise-en-scene-lena-brehan/",
-        "theme": "carre_sevigne"
+        "theme": "carre_sevigne",
+        "saison": true,
+        "famille": "culture"
       },
       {
         "id": "openagenda:91198313",
@@ -492,7 +561,9 @@
         "conditions": "payant, sur réservation",
         "resume": "Estelle Savasta, autrice et metteuse en scène, plonge au cœur des services de l’aide à l’enfance et s’intéresse aux familles réinventées, éloignées du schéma classique.",
         "lien": "https://openagenda.com/pont-des-arts/events/91198313_dautres-familles-que-la-mienne-mise-en-scene-estelle-savasta",
-        "theme": "carre_sevigne"
+        "theme": "carre_sevigne",
+        "saison": true,
+        "famille": "culture"
       },
       {
         "id": "openagenda:69740815",
@@ -505,7 +576,9 @@
         "conditions": "Payant, sur réservation",
         "resume": "Adaptation théâtrale et musicale de Comme on quitte un imperméable",
         "lien": "https://openagenda.com/pont-des-arts/events/69740815_thomas-fersen-2560372",
-        "theme": "carre_sevigne"
+        "theme": "carre_sevigne",
+        "saison": true,
+        "famille": "culture"
       },
       {
         "id": "openagenda:27603061",
@@ -518,7 +591,9 @@
         "conditions": "Payant, sur réservation",
         "resume": "Made in France est un spectacle qui raconte le combat d’ouvriers prêts à tout pour sauver l’industrie française… enfin… à tout, sauf à faire quelque chose.",
         "lien": "https://openagenda.com/pont-des-arts/events/27603061_made-in-france-mise-en-scene-samuel-valensi-et-paul-eloi-forget",
-        "theme": "carre_sevigne"
+        "theme": "carre_sevigne",
+        "saison": true,
+        "famille": "culture"
       },
       {
         "id": "openagenda:80367662",
@@ -531,7 +606,9 @@
         "conditions": "Payant, sur réservation",
         "resume": "C’est l’histoire de Nolwenn Le Doth qui choisit d’écrire et de monter sur scène pour libérer sa parole et par là-même, celle de toutes les femmes.",
         "lien": "https://openagenda.com/pont-des-arts/events/80367662_chevaleresses-nolwen-le-doth",
-        "theme": "carre_sevigne"
+        "theme": "carre_sevigne",
+        "saison": true,
+        "famille": "culture"
       },
       {
         "id": "openagenda:36075653",
@@ -544,7 +621,9 @@
         "conditions": "payant, sur réservation",
         "resume": "Auteur-compositeur-interprète, dont la musique mêle folk, sonorités méditerranéennes et influences du monde entier, il crée un univers intime et poétique, où chaque morceau raconte une histoire.",
         "lien": "https://openagenda.com/pont-des-arts/events/36075653_piers-faccini-1915857",
-        "theme": "carre_sevigne"
+        "theme": "carre_sevigne",
+        "saison": true,
+        "famille": "culture"
       },
       {
         "id": "openagenda:44991362",
@@ -557,7 +636,9 @@
         "conditions": "payant, sur réservation",
         "resume": "Quand une marionnette veut prendre les rênes de l’histoire, ses manipulateurs en perdent le fil.",
         "lien": "https://openagenda.com/pont-des-arts/events/44991362_pouvoir-une-tribu-collectif-6894224",
-        "theme": "carre_sevigne"
+        "theme": "carre_sevigne",
+        "saison": true,
+        "famille": "culture"
       },
       {
         "id": "openagenda:45155952",
@@ -570,7 +651,9 @@
         "conditions": "payant, sur réservation",
         "resume": "Un moment mémorable en perspective avec ce monument de la guitare et de l'improvisation.",
         "lien": "https://openagenda.com/pont-des-arts/events/45155952_bireli-lagrene-2020561",
-        "theme": "carre_sevigne"
+        "theme": "carre_sevigne",
+        "saison": true,
+        "famille": "culture"
       },
       {
         "id": "openagenda:28569498",
@@ -583,7 +666,9 @@
         "conditions": "payant, sur réservation",
         "resume": "Vincent Dedienne se met dans la peau d’un des plus grands dramaturges du XXe siècle, Jean-Luc Lagarce. Avec un jeu d’une précision extrême, il embrasse les multiples émotions de la vie qu’il retrace.",
         "lien": "https://openagenda.com/pont-des-arts/events/28569498_ile-ne-mest-jamais-rien-arrive",
-        "theme": "carre_sevigne"
+        "theme": "carre_sevigne",
+        "saison": true,
+        "famille": "culture"
       },
       {
         "id": "openagenda:31293421",
@@ -595,7 +680,9 @@
         "lieu": "Dôme, parc de Bourgchevreuil",
         "conditions": "payant, sur réservation",
         "resume": "Dans le cadre du festival Ay-Roop. Sur la piste, un trio complice – un homme, une femme, et un vélo acrobatique – aborde la question de l’acceptation de soi.",
-        "lien": "https://openagenda.com/pont-des-arts/events/31293421_mentir-lo-minimo-6448986"
+        "lien": "https://openagenda.com/pont-des-arts/events/31293421_mentir-lo-minimo-6448986",
+        "saison": false,
+        "famille": "culture"
       },
       {
         "id": "ville:eclipse-partielle-le-2-aout",
@@ -605,7 +692,9 @@
         "au": "2027-08-02",
         "horaires": "9h56 – 12h00",
         "resume": "Une éclipse partielle est prévue le 2 août. A Cesson-Sévigné, le phénomène sera visible de 9h56 à 12h, avec un taux d'obscuration de 54,7 %. Un…",
-        "lien": "https://www.ville-cesson-sevigne.fr/agenda/eclipse-partielle-le-2-aout/"
+        "lien": "https://www.ville-cesson-sevigne.fr/agenda/eclipse-partielle-le-2-aout/",
+        "saison": false,
+        "famille": "autre"
       }
     ]
   }

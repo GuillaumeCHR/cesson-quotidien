@@ -34,7 +34,7 @@ jour si tout concorde.
 ## 3. Liens écrits dans l'app
 
 Vérifier qu'ils répondent et mènent toujours au bon service ; sinon, trouver le nouveau lien sur le site de la ville :
-billetterie (`actus/CarteBilletterie.kt`), carte d'identité et passeport, signalements ville et métropole
+billetterie (`actus/CarteSaison.kt`), carte d'identité et passeport, signalements ville et métropole
 (`pratique/CarteDemarches.kt`), portail familles (`familles/CartesFamilles.kt`), urbanisme, police municipale,
 canaux WhatsApp et Facebook (`actus/CarteCanaux.kt`).
 

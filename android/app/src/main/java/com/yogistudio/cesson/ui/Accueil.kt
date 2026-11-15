@@ -5,7 +5,7 @@ import com.yogistudio.cesson.actus.CarteCinema
 import com.yogistudio.cesson.actus.CarteCanaux
 import com.yogistudio.cesson.transport.CarteParcRelais
 import androidx.compose.material.icons.rounded.LocalParking
-import com.yogistudio.cesson.actus.CarteBilletterie
+import com.yogistudio.cesson.actus.CarteSaison
 import com.yogistudio.cesson.pratique.CarteIdentite
 import com.yogistudio.cesson.pratique.CarteSignalement
 import androidx.compose.material.icons.rounded.TheaterComedy
@@ -174,11 +174,11 @@ private val CINEMA = Tuile("cinema", "Cinéma Le Sévigné", Icons.Rounded.Movie
     val etat by remember(app) { app.depot.cinema() }.collectAsStateWithLifecycle(EtatModule.Absent)
     CarteCinema(etat)
 }
-private val BILLETTERIE = Tuile("billetterie", "Billetterie spectacles", Icons.Rounded.TheaterComedy) { app ->
+private val SAISON = Tuile("saison", "Saison culturelle", Icons.Rounded.TheaterComedy) { app ->
     val etat by remember(app) { app.depot.agenda() }.collectAsStateWithLifecycle(EtatModule.Absent)
-    CarteBilletterie(etat)
+    CarteSaison(etat)
 }
-val ONGLET_SORTIR = OngletTuiles("sortir", "l'onglet Sortir", listOf(AGENDA, BILLETTERIE, CINEMA, EQUIPEMENTS_LOISIRS))
+val ONGLET_SORTIR = OngletTuiles("sortir", "l'onglet Sortir", listOf(SAISON, AGENDA, CINEMA, EQUIPEMENTS_LOISIRS))
 private val USAGES_EAU = Tuile("usages_eau", "Usage de l'eau", Icons.Rounded.WaterDrop) { app ->
     val etat by remember(app) { app.depot.usagesEau() }.collectAsStateWithLifecycle(EtatModule.Absent)
     CarteUsagesEau(etat)

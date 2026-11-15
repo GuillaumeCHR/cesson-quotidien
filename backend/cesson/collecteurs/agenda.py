@@ -54,7 +54,9 @@ class Evenement(Modele):
     conditions: str | None = None  # « Entrée libre », « Payant, sur réservation »
     resume: str | None = None
     lien: str
-    theme: str | None = None  # carre_sevigne, mediatheque : pour les filtres de l'app
+    theme: str | None = None  # carre_sevigne, mediatheque (lieu) ; gardé pour les versions précédentes de l'app
+    saison: bool = False  # spectacle de la saison culturelle : Carré Sévigné ou Pont des Arts, payant ou sur réservation
+    famille: str = "autre"  # filtres de l'agenda : associations, culture, sport, mediatheque, autre
 
 
 class DonneesAgenda(Modele):
@@ -157,15 +159,43 @@ def depuis_openagenda(e: dict, aujourdhui: date) -> Evenement | None:
     lieu = (e.get("location") or {}).get("name")
     titre = (_fr(e.get("title")) or "").strip()
     mots = _fr(e.get("keywords")) or []
+    categorie = mots[0].capitalize() if mots else None
+    conditions = court(_fr(e.get("conditions")))
+    th = theme(lieu, titre, None)
     return Evenement(
         id=f"openagenda:{e['uid']}", titre=titre,
-        categorie=(mots[0].capitalize() if mots else None),
+        categorie=categorie,
         du=prochaine[0].date(), au=derniere[1].date(),
-        horaires=horaires, lieu=lieu, conditions=court(_fr(e.get("conditions"))),
+        horaires=horaires, lieu=lieu, conditions=conditions,
         resume=court(_fr(e.get("description"))),
         lien=e.get("canonicalUrl") or f"https://openagenda.com/agendas/31553419/events/{e['uid']}",
-        theme=theme(lieu, titre, None),
+        theme=th, saison=est_saison(lieu, conditions), famille=famille(titre, categorie, lieu, th),
     )
+
+
+SALLES_SAISON = ("carré sévigné", "carre sevigne", "pont des arts")
+MOTS_CULTURE = ("exposition", "conférence", "conference", "concert", "théâtre", "theatre", "lecture", "spectacle",
+                "danse", "cinéma", "école des arts", "galerie")
+
+
+def est_saison(lieu: str | None, conditions: str | None) -> bool:
+    """Spectacle de la saison culturelle : dans une des deux salles, et payant ou sur réservation."""
+    l, c = (lieu or "").lower(), (conditions or "").lower()
+    return any(s in l for s in SALLES_SAISON) and ("payant" in c or "réserv" in c or "reserv" in c)
+
+
+def famille(titre: str, categorie: str | None, lieu: str | None, th: str | None) -> str:
+    """Famille de l'agenda (hors saison culturelle), pour ses filtres."""
+    t, cat, l = titre.lower(), (categorie or "").lower(), (lieu or "").lower()
+    if th == "mediatheque":
+        return "mediatheque"
+    if cat == "associations":
+        return "associations"
+    if cat.startswith("sport") or "glaz arena" in t or "glaz arena" in l:
+        return "sport"
+    if any(m in t or m in cat for m in MOTS_CULTURE) or any(s in l for s in SALLES_SAISON + ("galerie",)):
+        return "culture"
+    return "autre"
 
 
 def theme(lieu: str | None, titre: str, categorie: str | None) -> str | None:
@@ -228,15 +258,20 @@ class CollecteurAgenda(Collecteur[DonneesAgenda]):
     def convertir(self, brut: Any, maintenant: datetime) -> DonneesAgenda:
         aujourdhui = maintenant.astimezone(PARIS).date()
         evenements = [e for e in (depuis_openagenda(x, aujourdhui) for x in brut["openagenda"]) if e]
+        # Même spectacle publié aussi par le site de la ville (titre un peu différent) : même jour, même salle.
+        saison_le = {(e.du, s) for e in evenements if e.saison for s in SALLES_SAISON if s in (e.lieu or "").lower()}
         for c in brut["cartes"]:
             d = brut["details"].get(c["lien"])
             if d is None or d["au"] < aujourdhui:
+                continue
+            if any((d["du"], s) in saison_le for s in SALLES_SAISON if s in (d["lieu"] or "").lower()):
                 continue
             slug = c["lien"].rstrip("/").rsplit("/", 1)[-1]
             evenements.append(Evenement(
                 id=f"ville:{slug}", titre=c["titre"], categorie=c["categorie"], du=max(d["du"], aujourdhui), au=d["au"],
                 horaires=d["horaires"], lieu=d["lieu"], resume=c["resume"], lien=c["lien"],
-                theme=theme(d["lieu"], c["titre"], c["categorie"]),
+                theme=(th := theme(d["lieu"], c["titre"], c["categorie"])),
+                famille=famille(c["titre"], c["categorie"], d["lieu"], th),
             ))
         evenements.sort(key=lambda e: (e.du, e.au, e.titre))
         return DonneesAgenda(evenements=evenements)
