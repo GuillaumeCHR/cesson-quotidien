@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.map
 
 /**
  * Préférences qui restent sur le téléphone : aucune n'est envoyée nulle part.
- * Accueil personnalisable (ordre et tuiles masquées), bandeau de premier lancement, carburant suivi.
+ * Accueil personnalisable (ordre et tuiles masquées), bandeau de premier lancement, carburant et arrêt suivis.
  */
 private val Context.preferencesCesson by preferencesDataStore(name = "preferences")
 
@@ -22,6 +22,7 @@ class PreferencesLocales(private val context: Context) {
     private val masquees = stringSetPreferencesKey("accueil_masquees")
     private val bandeauVu = booleanPreferencesKey("bandeau_non_officiel_vu")
     private val carburant = stringPreferencesKey("carburant_suivi")
+    private val arret = stringPreferencesKey("arret_suivi")
 
     val configAccueil: Flow<ConfigAccueil> = context.preferencesCesson.data.map { p ->
         ConfigAccueil(
@@ -44,6 +45,13 @@ class PreferencesLocales(private val context: Context) {
 
     suspend fun enregistrerCarburant(code: String) {
         context.preferencesCesson.edit { it[carburant] = code }
+    }
+
+    /** Nom STAR de l'arrêt de la carte « Mon arrêt », null tant qu'aucun n'est choisi. */
+    val arretSuivi: Flow<String?> = context.preferencesCesson.data.map { it[arret] }
+
+    suspend fun enregistrerArret(nom: String) {
+        context.preferencesCesson.edit { it[arret] = nom }
     }
 
     suspend fun marquerBandeauVu() {

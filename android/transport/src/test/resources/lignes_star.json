@@ -5,8 +5,8 @@
     "source": "STAR (Rennes Métropole, Keolis Rennes)",
     "licence": "ODbL",
     "url_source": "https://data.explore.star.fr/",
-    "recupere_le": "2026-11-15T07:33:24.347098Z",
-    "valide_jusqu_a": "2026-11-17T07:33:24.347098Z",
+    "recupere_le": "2026-11-15T07:39:21.628367Z",
+    "valide_jusqu_a": "2026-11-17T07:39:21.628367Z",
     "etat": "ok"
   },
   "donnees": {
@@ -253,6 +253,902 @@
         "famille": "Covoiturage",
         "couleur": "#c4007a",
         "couleur_texte": "#ffffff"
+      }
+    ],
+    "arrets": [
+      {
+        "nom": "Atalante",
+        "coord": {
+          "lat": 48.127227,
+          "lon": -1.628105
+        },
+        "modes": [
+          "metro",
+          "bus"
+        ],
+        "lignes": [
+          "b",
+          "C4",
+          "64",
+          "164ex",
+          "N4",
+          "b relais"
+        ]
+      },
+      {
+        "nom": "Bas Village",
+        "coord": {
+          "lat": 48.101291,
+          "lon": -1.623768
+        },
+        "modes": [
+          "bus"
+        ],
+        "lignes": [
+          "11",
+          "34",
+          "214"
+        ]
+      },
+      {
+        "nom": "Belle Fontaine",
+        "coord": {
+          "lat": 48.127283,
+          "lon": -1.624147
+        },
+        "modes": [
+          "bus"
+        ],
+        "lignes": [
+          "64",
+          "164ex",
+          "N4"
+        ]
+      },
+      {
+        "nom": "Bordage",
+        "coord": {
+          "lat": 48.114371,
+          "lon": -1.600427
+        },
+        "modes": [
+          "bus"
+        ],
+        "lignes": [
+          "C6",
+          "11",
+          "67",
+          "167ex",
+          "E4"
+        ]
+      },
+      {
+        "nom": "Bourgchevreuil",
+        "coord": {
+          "lat": 48.12315,
+          "lon": -1.600537
+        },
+        "modes": [
+          "bus"
+        ],
+        "lignes": [
+          "C6",
+          "34",
+          "216",
+          "E4"
+        ]
+      },
+      {
+        "nom": "Bouriande",
+        "coord": {
+          "lat": 48.127637,
+          "lon": -1.620984
+        },
+        "modes": [
+          "bus"
+        ],
+        "lignes": [
+          "83"
+        ]
+      },
+      {
+        "nom": "Buisson",
+        "coord": {
+          "lat": 48.104743,
+          "lon": -1.630282
+        },
+        "modes": [
+          "bus"
+        ],
+        "lignes": [
+          "11"
+        ]
+      },
+      {
+        "nom": "Calendrou",
+        "coord": {
+          "lat": 48.140482,
+          "lon": -1.616623
+        },
+        "modes": [
+          "bus"
+        ],
+        "lignes": [
+          "50",
+          "201",
+          "E4"
+        ]
+      },
+      {
+        "nom": "Cesson - Viasilva",
+        "coord": {
+          "lat": 48.132286,
+          "lon": -1.61998
+        },
+        "modes": [
+          "metro",
+          "bus"
+        ],
+        "lignes": [
+          "b",
+          "C2",
+          "34",
+          "50",
+          "64",
+          "78",
+          "83",
+          "164ex",
+          "E4",
+          "b relais"
+        ]
+      },
+      {
+        "nom": "Cesson Collège",
+        "coord": {
+          "lat": 48.120417,
+          "lon": -1.59941
+        },
+        "modes": [
+          "bus"
+        ],
+        "lignes": [
+          "C6",
+          "221",
+          "E4"
+        ]
+      },
+      {
+        "nom": "Cesson Gare",
+        "coord": {
+          "lat": 48.114,
+          "lon": -1.603334
+        },
+        "modes": [
+          "bus"
+        ],
+        "lignes": [
+          "11",
+          "14",
+          "34",
+          "67",
+          "214"
+        ]
+      },
+      {
+        "nom": "Cesson Hôpital Privé",
+        "coord": {
+          "lat": 48.130152,
+          "lon": -1.627786
+        },
+        "modes": [
+          "bus"
+        ],
+        "lignes": [
+          "C2",
+          "34",
+          "64",
+          "83",
+          "164ex",
+          "E4"
+        ]
+      },
+      {
+        "nom": "Cesson Piscine",
+        "coord": {
+          "lat": 48.120179,
+          "lon": -1.602248
+        },
+        "modes": [
+          "bus"
+        ],
+        "lignes": [
+          "206",
+          "214",
+          "Ts61"
+        ]
+      },
+      {
+        "nom": "Chalotais",
+        "coord": {
+          "lat": 48.116045,
+          "lon": -1.600557
+        },
+        "modes": [
+          "bus"
+        ],
+        "lignes": [
+          "C6",
+          "34",
+          "214",
+          "E4",
+          "Ts61"
+        ]
+      },
+      {
+        "nom": "Champelé",
+        "coord": {
+          "lat": 48.116014,
+          "lon": -1.583257
+        },
+        "modes": [
+          "bus"
+        ],
+        "lignes": [
+          "67"
+        ]
+      },
+      {
+        "nom": "Champs Péans",
+        "coord": {
+          "lat": 48.114084,
+          "lon": -1.629178
+        },
+        "modes": [
+          "bus"
+        ],
+        "lignes": [
+          "C6",
+          "14",
+          "67",
+          "206",
+          "214",
+          "E4"
+        ]
+      },
+      {
+        "nom": "Charmilles",
+        "coord": {
+          "lat": 48.106367,
+          "lon": -1.621277
+        },
+        "modes": [
+          "bus"
+        ],
+        "lignes": [
+          "11",
+          "34",
+          "214"
+        ]
+      },
+      {
+        "nom": "Château de Vaux",
+        "coord": {
+          "lat": 48.137464,
+          "lon": -1.622118
+        },
+        "modes": [
+          "bus"
+        ],
+        "lignes": [
+          "50",
+          "E4"
+        ]
+      },
+      {
+        "nom": "Château Monniais",
+        "coord": {
+          "lat": 48.108244,
+          "lon": -1.600637
+        },
+        "modes": [
+          "bus"
+        ],
+        "lignes": [
+          "38"
+        ]
+      },
+      {
+        "nom": "Chêne Germain",
+        "coord": {
+          "lat": 48.130812,
+          "lon": -1.623063
+        },
+        "modes": [
+          "bus"
+        ],
+        "lignes": [
+          "C2",
+          "34",
+          "E4"
+        ]
+      },
+      {
+        "nom": "Chêne Morand",
+        "coord": {
+          "lat": 48.103809,
+          "lon": -1.62137
+        },
+        "modes": [
+          "bus"
+        ],
+        "lignes": [
+          "11",
+          "34",
+          "214"
+        ]
+      },
+      {
+        "nom": "Cormier",
+        "coord": {
+          "lat": 48.12441,
+          "lon": -1.618048
+        },
+        "modes": [
+          "bus"
+        ],
+        "lignes": [
+          "206",
+          "216"
+        ]
+      },
+      {
+        "nom": "Dézerseul",
+        "coord": {
+          "lat": 48.122711,
+          "lon": -1.5916
+        },
+        "modes": [
+          "bus"
+        ],
+        "lignes": [
+          "34",
+          "216"
+        ]
+      },
+      {
+        "nom": "Erbonière",
+        "coord": {
+          "lat": 48.1061,
+          "lon": -1.625498
+        },
+        "modes": [
+          "bus"
+        ],
+        "lignes": [
+          "11"
+        ]
+      },
+      {
+        "nom": "Fontenelle",
+        "coord": {
+          "lat": 48.12352,
+          "lon": -1.608132
+        },
+        "modes": [
+          "bus"
+        ],
+        "lignes": [
+          "C6",
+          "34",
+          "206",
+          "216",
+          "E4"
+        ]
+      },
+      {
+        "nom": "Forum",
+        "coord": {
+          "lat": 48.099626,
+          "lon": -1.621069
+        },
+        "modes": [
+          "bus"
+        ],
+        "lignes": [
+          "11",
+          "34",
+          "214"
+        ]
+      },
+      {
+        "nom": "Gaudais",
+        "coord": {
+          "lat": 48.127084,
+          "lon": -1.614217
+        },
+        "modes": [
+          "bus"
+        ],
+        "lignes": [
+          "64",
+          "200"
+        ]
+      },
+      {
+        "nom": "Haut Grippé",
+        "coord": {
+          "lat": 48.11497,
+          "lon": -1.590404
+        },
+        "modes": [
+          "bus"
+        ],
+        "lignes": [
+          "67"
+        ]
+      },
+      {
+        "nom": "Hublais",
+        "coord": {
+          "lat": 48.114221,
+          "lon": -1.615025
+        },
+        "modes": [
+          "bus"
+        ],
+        "lignes": [
+          "C6",
+          "14",
+          "206",
+          "214",
+          "E4"
+        ]
+      },
+      {
+        "nom": "La Coulée",
+        "coord": {
+          "lat": 48.123554,
+          "lon": -1.604296
+        },
+        "modes": [
+          "bus"
+        ],
+        "lignes": [
+          "C6",
+          "34",
+          "206",
+          "216",
+          "E4"
+        ]
+      },
+      {
+        "nom": "Les Lacs",
+        "coord": {
+          "lat": 48.124907,
+          "lon": -1.613318
+        },
+        "modes": [
+          "bus"
+        ],
+        "lignes": [
+          "34",
+          "206",
+          "216"
+        ]
+      },
+      {
+        "nom": "Longs Champs Est",
+        "coord": {
+          "lat": 48.130363,
+          "lon": -1.631286
+        },
+        "modes": [
+          "bus"
+        ],
+        "lignes": [
+          "C4"
+        ]
+      },
+      {
+        "nom": "Lycée Ozanam",
+        "coord": {
+          "lat": 48.130117,
+          "lon": -1.597238
+        },
+        "modes": [
+          "bus"
+        ],
+        "lignes": [
+          "214",
+          "220",
+          "221",
+          "Ts61"
+        ]
+      },
+      {
+        "nom": "Lycée Sévigné",
+        "coord": {
+          "lat": 48.119008,
+          "lon": -1.598094
+        },
+        "modes": [
+          "bus"
+        ],
+        "lignes": [
+          "220",
+          "221"
+        ]
+      },
+      {
+        "nom": "Maison d'Accueil",
+        "coord": {
+          "lat": 48.121147,
+          "lon": -1.609894
+        },
+        "modes": [
+          "bus"
+        ],
+        "lignes": [
+          "C6",
+          "E4"
+        ]
+      },
+      {
+        "nom": "Mare Pavée",
+        "coord": {
+          "lat": 48.123138,
+          "lon": -1.611061
+        },
+        "modes": [
+          "bus"
+        ],
+        "lignes": [
+          "C6",
+          "34",
+          "206",
+          "216",
+          "E4"
+        ]
+      },
+      {
+        "nom": "Ménouriais",
+        "coord": {
+          "lat": 48.099709,
+          "lon": -1.603049
+        },
+        "modes": [
+          "bus"
+        ],
+        "lignes": [
+          "38",
+          "Ts61"
+        ]
+      },
+      {
+        "nom": "Métairies Chalotais",
+        "coord": {
+          "lat": 48.123149,
+          "lon": -1.601838
+        },
+        "modes": [
+          "bus"
+        ],
+        "lignes": [
+          "206",
+          "214"
+        ]
+      },
+      {
+        "nom": "Monniais",
+        "coord": {
+          "lat": 48.109251,
+          "lon": -1.609186
+        },
+        "modes": [
+          "bus"
+        ],
+        "lignes": [
+          "11",
+          "14",
+          "34",
+          "38",
+          "67",
+          "206",
+          "214",
+          "Ts61"
+        ]
+      },
+      {
+        "nom": "Montoul",
+        "coord": {
+          "lat": 48.09737,
+          "lon": -1.574636
+        },
+        "modes": [
+          "bus"
+        ],
+        "lignes": [
+          "Ts61"
+        ]
+      },
+      {
+        "nom": "Muguet",
+        "coord": {
+          "lat": 48.11839,
+          "lon": -1.608411
+        },
+        "modes": [
+          "bus"
+        ],
+        "lignes": [
+          "C6",
+          "E4"
+        ]
+      },
+      {
+        "nom": "Petite Monniais",
+        "coord": {
+          "lat": 48.103768,
+          "lon": -1.604118
+        },
+        "modes": [
+          "bus"
+        ],
+        "lignes": [
+          "38",
+          "Ts61"
+        ]
+      },
+      {
+        "nom": "Petits Champs",
+        "coord": {
+          "lat": 48.125039,
+          "lon": -1.59665
+        },
+        "modes": [
+          "bus"
+        ],
+        "lignes": [
+          "34",
+          "216"
+        ]
+      },
+      {
+        "nom": "Peupliers",
+        "coord": {
+          "lat": 48.112604,
+          "lon": -1.607481
+        },
+        "modes": [
+          "bus"
+        ],
+        "lignes": [
+          "11",
+          "14",
+          "34",
+          "67",
+          "214"
+        ]
+      },
+      {
+        "nom": "Pierrins",
+        "coord": {
+          "lat": 48.130426,
+          "lon": -1.614534
+        },
+        "modes": [
+          "bus"
+        ],
+        "lignes": [
+          "34"
+        ]
+      },
+      {
+        "nom": "Prieuré Forge",
+        "coord": {
+          "lat": 48.108181,
+          "lon": -1.580896
+        },
+        "modes": [
+          "bus"
+        ],
+        "lignes": [
+          "Ts61"
+        ]
+      },
+      {
+        "nom": "Rigourdière",
+        "coord": {
+          "lat": 48.113911,
+          "lon": -1.591679
+        },
+        "modes": [
+          "bus"
+        ],
+        "lignes": [
+          "C6",
+          "11",
+          "67",
+          "E4"
+        ]
+      },
+      {
+        "nom": "Rond Point de Bray",
+        "coord": {
+          "lat": 48.10781,
+          "lon": -1.614359
+        },
+        "modes": [
+          "bus"
+        ],
+        "lignes": [
+          "11",
+          "34",
+          "67",
+          "214"
+        ]
+      },
+      {
+        "nom": "Salmondière",
+        "coord": {
+          "lat": 48.100589,
+          "lon": -1.561337
+        },
+        "modes": [
+          "bus"
+        ],
+        "lignes": [
+          "Ts61"
+        ]
+      },
+      {
+        "nom": "Sports et Nature",
+        "coord": {
+          "lat": 48.114492,
+          "lon": -1.609134
+        },
+        "modes": [
+          "bus"
+        ],
+        "lignes": [
+          "C6",
+          "14",
+          "206",
+          "214",
+          "E4"
+        ]
+      },
+      {
+        "nom": "Stade Belliard",
+        "coord": {
+          "lat": 48.118967,
+          "lon": -1.598853
+        },
+        "modes": [
+          "bus"
+        ],
+        "lignes": [
+          "34"
+        ]
+      },
+      {
+        "nom": "star't Cesson - Viasilva",
+        "coord": {
+          "lat": 48.134127,
+          "lon": -1.622237
+        },
+        "modes": [
+          "bus"
+        ],
+        "lignes": [
+          "st1"
+        ]
+      },
+      {
+        "nom": "Taillis",
+        "coord": {
+          "lat": 48.114165,
+          "lon": -1.621947
+        },
+        "modes": [
+          "bus"
+        ],
+        "lignes": [
+          "C6",
+          "14",
+          "67",
+          "167ex",
+          "206",
+          "214",
+          "E4"
+        ]
+      },
+      {
+        "nom": "Touche Lambert",
+        "coord": {
+          "lat": 48.135148,
+          "lon": -1.622837
+        },
+        "modes": [
+          "bus"
+        ],
+        "lignes": [
+          "50",
+          "78",
+          "E4"
+        ]
+      },
+      {
+        "nom": "Touche sur Roche",
+        "coord": {
+          "lat": 48.0978,
+          "lon": -1.586823
+        },
+        "modes": [
+          "bus"
+        ],
+        "lignes": [
+          "Ts61"
+        ]
+      },
+      {
+        "nom": "Verger",
+        "coord": {
+          "lat": 48.128906,
+          "lon": -1.605479
+        },
+        "modes": [
+          "bus"
+        ],
+        "lignes": [
+          "64",
+          "200"
+        ]
+      },
+      {
+        "nom": "Victoire",
+        "coord": {
+          "lat": 48.145076,
+          "lon": -1.608563
+        },
+        "modes": [
+          "bus"
+        ],
+        "lignes": [
+          "50",
+          "201",
+          "E4"
+        ]
+      },
+      {
+        "nom": "Vilaine",
+        "coord": {
+          "lat": 48.115939,
+          "lon": -1.607267
+        },
+        "modes": [
+          "bus"
+        ],
+        "lignes": [
+          "C6",
+          "206",
+          "E4"
+        ]
+      },
+      {
+        "nom": "Village Collectivités",
+        "coord": {
+          "lat": 48.131743,
+          "lon": -1.597919
+        },
+        "modes": [
+          "bus"
+        ],
+        "lignes": [
+          "64",
+          "83",
+          "200"
+        ]
       }
     ]
   }

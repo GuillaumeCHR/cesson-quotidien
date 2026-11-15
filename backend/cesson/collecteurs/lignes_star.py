@@ -5,19 +5,21 @@ La liste n'est pas saisie : elle est déduite chaque nuit de la topologie publi�
 (code INSEE 35051). Une refonte du réseau est ainsi prise en compte sans intervention.
 
 Les prochains passages, eux, ne passent pas par ce backend : l'app les demande directement à STAR.
-Ce module lui fournit la liste des lignes et leurs couleurs pour les afficher.
+Ce module lui fournit la liste des lignes et leurs couleurs pour les afficher, et la liste des arrêts
+de la commune (regroupés par nom, les deux quais ensemble) pour la carte « Mon arrêt ».
 """
 
 from __future__ import annotations
 
 import re
+import unicodedata
 from datetime import datetime, timedelta
 from typing import Any
 
 import httpx
 
 from ..commun.collecteur import Collecteur, ErreurValidation, obtenir
-from ..commun.modele import Mode, Modele
+from ..commun.modele import Coord, Mode, Modele
 
 BASE = "https://data.explore.star.fr/api/explore/v2.1/catalog/datasets"
 CODE_INSEE = "35051"
@@ -39,8 +41,22 @@ class LigneStar(Modele):
     couleur_texte: str
 
 
+class ArretStar(Modele):
+    nom: str  # tel qu'il figure dans les jeux temps réel (champ nomarret)
+    coord: Coord  # centre des quais
+    modes: list[Mode]
+    lignes: list[str]  # noms courts, dans l'ordre des lignes
+
+
 class DonneesLignesStar(Modele):
     lignes: list[LigneStar]
+    arrets: list[ArretStar] = []
+
+
+def cle_alphabetique(nom: str) -> str:
+    """Ordre de l'annuaire : sans accents ni casse (« Ménouriais » avant « Muguet »)."""
+    sans_accents = "".join(c for c in unicodedata.normalize("NFD", nom) if not unicodedata.combining(c))
+    return sans_accents.casefold()
 
 
 def _ids(liste: Any, champ: str) -> list[str]:
@@ -73,21 +89,28 @@ class CollecteurLignesStar(Collecteur[DonneesLignesStar]):
                 raise ErreurValidation(f"{jeu} : réponse non JSON : {e}") from e
 
         dans_cesson = f"codeinseecommune='{CODE_INSEE}'"
-        arrets_bus = _ids(lire("tco-bus-topologie-pointsarret-td", where=f"{dans_cesson} and estversionactive='Oui'",
-                               select="id"), "id")
-        arrets_metro = _ids(lire("tco-metro-topologie-pointsarret-td", where=dans_cesson, select="id"), "id")
+        points_bus = lire("tco-bus-topologie-pointsarret-td", where=f"{dans_cesson} and estversionactive='Oui'",
+                          select="id,nom,coordonnees")
+        points_metro = lire("tco-metro-topologie-pointsarret-td", where=dans_cesson, select="id,nom,coordonnees")
+        arrets_bus, arrets_metro = _ids(points_bus, "id"), _ids(points_metro, "id")
         if not arrets_bus:
             raise ErreurValidation("aucun arrêt de bus STAR à Cesson")
 
-        def lignes_desservant(jeu: str, arrets: list[str]) -> list[str]:
+        def dessertes(jeu: str, arrets: list[str]) -> list[dict]:
             if not arrets:
                 return []
             liste = ",".join(f"'{a}'" for a in arrets)
-            return _ids(lire(jeu, where=f"idarret in ({liste})", select="idligne", group_by="idligne"), "idligne")
+            r = lire(jeu, where=f"idarret in ({liste})", select="idarret,idligne", group_by="idarret,idligne")
+            _ids(r, "idligne")  # contrôle de forme
+            return r
 
+        d_bus = dessertes("tco-bus-topologie-dessertes-td", arrets_bus)
+        d_metro = dessertes("tco-metro-topologie-dessertes-td", arrets_metro)
         return {
-            "bus": lignes_desservant("tco-bus-topologie-dessertes-td", arrets_bus),
-            "metro": lignes_desservant("tco-metro-topologie-dessertes-td", arrets_metro),
+            "bus": sorted({str(d["idligne"]) for d in d_bus}),
+            "metro": sorted({str(d["idligne"]) for d in d_metro}),
+            "points_bus": points_bus, "points_metro": points_metro,
+            "dessertes_bus": d_bus, "dessertes_metro": d_metro,
             "lignes_bus": lire("tco-bus-topologie-lignes-td",
                                where="estversionactive='Oui' and visibilite='Grand public'",
                                select="id,nomcourt,nomlong,nomfamillecommerciale,couleurligne,couleurtexteligne"),
@@ -125,7 +148,36 @@ class CollecteurLignesStar(Collecteur[DonneesLignesStar]):
                     couleur=(l.get("couleurligne") or "#5f6b66").lower(),
                     couleur_texte=(l.get("couleurtexteligne") or "#ffffff").lower(),
                 ))
-        return DonneesLignesStar(lignes=sorted(lignes, key=_cle_tri))
+        lignes.sort(key=_cle_tri)
+        return DonneesLignesStar(lignes=lignes, arrets=self._arrets(brut, lignes))
+
+    @staticmethod
+    def _arrets(brut: Any, lignes: list[LigneStar]) -> list[ArretStar]:
+        rang = {(l.mode, l.id): i for i, l in enumerate(lignes)}
+        par_nom: dict[str, dict] = {}
+        for mode, points, dessertes in ((Mode.METRO, brut.get("points_metro", []), brut.get("dessertes_metro", [])),
+                                        (Mode.BUS, brut.get("points_bus", []), brut.get("dessertes_bus", []))):
+            lignes_du_point: dict[str, set[str]] = {}
+            for d in dessertes:
+                lignes_du_point.setdefault(str(d["idarret"]), set()).add(str(d["idligne"]))
+            for p in points:
+                servies = [i for i in lignes_du_point.get(str(p["id"]), ()) if (mode, i) in rang]
+                if not servies or not p.get("coordonnees"):
+                    continue  # quai sans ligne grand public
+                a = par_nom.setdefault(p["nom"], {"coords": [], "modes": set(), "lignes": set()})
+                a["coords"].append(p["coordonnees"])
+                a["modes"].add(mode)
+                a["lignes"].update((mode, i) for i in servies)
+        arrets = []
+        for nom, a in par_nom.items():
+            c = a["coords"]
+            arrets.append(ArretStar(
+                nom=nom,
+                coord=Coord(lat=round(sum(x["lat"] for x in c) / len(c), 6), lon=round(sum(x["lon"] for x in c) / len(c), 6)),
+                modes=sorted(a["modes"], key=lambda m: m != Mode.METRO),
+                lignes=[lignes[rang[k]].nom_court for k in sorted(a["lignes"], key=rang.__getitem__)],
+            ))
+        return sorted(arrets, key=lambda a: cle_alphabetique(a.nom))
 
     def valide_jusqu_a(self, donnees: DonneesLignesStar, maintenant: datetime) -> datetime:
         return maintenant + 2 * self.fraicheur

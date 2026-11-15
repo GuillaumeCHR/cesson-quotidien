@@ -55,18 +55,25 @@ private class EtatDeparts(
 )
 
 /**
- * Prochains départs du pôle Cesson-ViaSilva (métro b et bus STAR), en temps réel. Demandés à
- * STAR toutes les 30 s, seulement quand l'app est au premier plan.
+ * Prochains départs d'un arrêt STAR (métro et bus), en temps réel. Demandés à STAR toutes les
+ * 30 s, seulement quand l'app est au premier plan. [pied] accueille une action (changer d'arrêt).
  */
 @Composable
-fun CarteDeparts(client: ClientStar, lignes: DonneesLignesStar?, modifier: Modifier = Modifier) {
-    var etat by remember { mutableStateOf(EtatDeparts()) }
+fun CarteDeparts(
+    client: ClientStar,
+    lignes: DonneesLignesStar?,
+    nomArret: String = POLE_VIASILVA,
+    titre: String = "Prochains départs à Cesson-ViaSilva",
+    modifier: Modifier = Modifier,
+    pied: @Composable () -> Unit = {},
+) {
+    var etat by remember(nomArret) { mutableStateOf(EtatDeparts()) }
     val cycle = LocalLifecycleOwner.current.lifecycle
-    LaunchedEffect(client, cycle) {
+    LaunchedEffect(client, cycle, nomArret) {
         cycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
             while (true) {
                 etat = try {
-                    EtatDeparts(client.departs(POLE_VIASILVA), Instant.now())
+                    EtatDeparts(client.departs(nomArret), Instant.now())
                 } catch (_: ErreurStar) {
                     EtatDeparts(etat.departs, etat.recusA, erreur = true)
                 }
@@ -77,7 +84,7 @@ fun CarteDeparts(client: ClientStar, lignes: DonneesLignesStar?, modifier: Modif
     val maintenant = rememberMaintenant(intervalleMs = 15_000)
     val couleurs = remember(lignes) { lignes?.lignes?.associateBy { it.nomCourt } ?: emptyMap() }
 
-    CarteDonnee("Prochains départs à Cesson-ViaSilva", Icons.Rounded.DirectionsBus, modifier, maintenant = maintenant) {
+    CarteDonnee(titre, Icons.Rounded.DirectionsBus, modifier, maintenant = maintenant) {
         val recus = etat.departs
         val directions = recus?.let { regrouper(departsUtiles(it, maintenant)) }
         Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
@@ -97,6 +104,7 @@ fun CarteDeparts(client: ClientStar, lignes: DonneesLignesStar?, modifier: Modif
                 Text("temps réel  ·  en italique : horaire prévu  ·  source STAR",
                     style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
+            pied()
         }
     }
 }
@@ -138,7 +146,7 @@ private fun LigneDirection(d: Direction, ligne: LigneStar?, maintenant: Instant)
 
 /** Pastille aux couleurs officielles de la ligne ; neutre tant que les couleurs ne sont pas reçues. */
 @Composable
-private fun PastilleLigne(nom: String, ligne: LigneStar?) {
+internal fun PastilleLigne(nom: String, ligne: LigneStar?) {
     val fond = ligne?.couleur?.let(::couleurHex) ?: MaterialTheme.colorScheme.secondaryContainer
     val texte = ligne?.couleurTexte?.let(::couleurHex) ?: MaterialTheme.colorScheme.onSecondaryContainer
     Box(

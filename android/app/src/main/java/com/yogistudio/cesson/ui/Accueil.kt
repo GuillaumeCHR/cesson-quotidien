@@ -80,6 +80,7 @@ import com.yogistudio.cesson.environnement.meteo
 import com.yogistudio.cesson.pratique.CarteCarburants
 import com.yogistudio.cesson.pratique.carburants
 import com.yogistudio.cesson.transport.CarteDeparts
+import com.yogistudio.cesson.transport.CarteMonArret
 import com.yogistudio.cesson.transport.lignesStar
 import kotlinx.coroutines.launch
 
@@ -106,6 +107,7 @@ val TUILES: List<Tuile> = listOf(
         CarteVilaine(etat, vigilance)
     },
     Tuile("arrets", "Prochains départs à Cesson-ViaSilva", Icons.Rounded.DirectionsBus) { app -> DepartsViaSilva(app) },
+    Tuile("mon_arret", "Mon arrêt", Icons.Rounded.DirectionsBus) { app -> MonArret(app) },
     Tuile("trains", "Halte de Cesson-Sévigné", Icons.Rounded.Train) {
         CarteBientot("Halte de Cesson-Sévigné", Icons.Rounded.Train,
             "Prochains trains vers Rennes et Vitré, bientôt ici.")
@@ -134,6 +136,16 @@ val TUILES: List<Tuile> = listOf(
 fun DepartsViaSilva(app: CessonApp) {
     val lignes by remember(app) { app.depot.lignesStar() }.collectAsStateWithLifecycle(EtatModule.Absent)
     CarteDeparts(app.star, (lignes as? EtatModule.Disponible)?.fichier?.donnees)
+}
+
+/** Carte « Mon arrêt » : l'arrêt choisi reste dans les préférences du téléphone. */
+@Composable
+fun MonArret(app: CessonApp) {
+    val lignes by remember(app) { app.depot.lignesStar() }.collectAsStateWithLifecycle(EtatModule.Absent)
+    val arret by app.preferences.arretSuivi.collectAsStateWithLifecycle(null)
+    val portee = rememberCoroutineScope()
+    CarteMonArret(app.star, (lignes as? EtatModule.Disponible)?.fichier?.donnees, arret,
+        onChoisir = { portee.launch { app.preferences.enregistrerArret(it) } })
 }
 
 @Composable

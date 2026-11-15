@@ -91,4 +91,16 @@ class StarTest {
         assertTrue(runCatching { client.departs(POLE_VIASILVA) }.exceptionOrNull() is ErreurStar)
         serveur.close()
     }
+
+    @Test
+    fun rechercheDArret() {
+        val f = JsonCesson.decodeFromString(FichierModule.serializer(DonneesLignesStar.serializer()),
+            File("src/test/resources/lignes_star.json").readText())
+        val arrets = f.donnees.arrets
+        assertEquals(listOf("Chêne Germain", "Chêne Morand"), filtrerArrets(arrets, "chene").map { it.nom })
+        assertEquals(listOf("Cesson - Viasilva", "star't Cesson - Viasilva"), filtrerArrets(arrets, "cesson-via").map { it.nom })
+        // Une ligne tapée telle quelle liste ses arrêts.
+        assertTrue(filtrerArrets(arrets, "C6").all { "C6" in it.lignes })
+        assertEquals(arrets, filtrerArrets(arrets, "  "))
+    }
 }

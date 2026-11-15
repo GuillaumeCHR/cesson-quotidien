@@ -6,7 +6,7 @@ import httpx
 import pytest
 import respx
 
-from cesson.collecteurs.lignes_star import CollecteurLignesStar, DonneesLignesStar, url
+from cesson.collecteurs.lignes_star import CollecteurLignesStar, DonneesLignesStar, cle_alphabetique, url
 from cesson.commun.collecteur import ErreurValidation
 from cesson.commun.modele import Etat, FichierModule, Mode
 from cesson.commun.publication import Publieur
@@ -22,8 +22,10 @@ def lire(nom: str):
 
 
 def brut() -> dict:
-    return {"bus": [d["idligne"] for d in lire("bus_dessertes")],
-            "metro": [d["idligne"] for d in lire("metro_dessertes")],
+    return {"bus": sorted({d["idligne"] for d in lire("bus_dessertes")}),
+            "metro": sorted({d["idligne"] for d in lire("metro_dessertes")}),
+            "points_bus": lire("bus_arrets"), "points_metro": lire("metro_arrets"),
+            "dessertes_bus": lire("bus_dessertes"), "dessertes_metro": lire("metro_dessertes"),
             "lignes_bus": lire("bus_lignes"), "lignes_metro": lire("metro_lignes")}
 
 
@@ -38,6 +40,19 @@ def test_conversion_fixture_reelle():
     assert noms[1:4] == ["C2", "C4", "C6"]
     assert noms.index("11") < noms.index("64") < noms.index("164ex")
     assert "a" not in noms
+
+
+def test_arrets_regroupes_par_nom():
+    d = CollecteurLignesStar().convertir(brut(), MAINTENANT)
+    par_nom = {a.nom: a for a in d.arrets}
+    # Les deux quais d'un même arrêt n'en font qu'un, avec les lignes des deux.
+    atalante = par_nom["Atalante"]
+    assert atalante.modes == [Mode.METRO, Mode.BUS] and atalante.lignes[0] == "b"
+    assert par_nom["Cesson - Viasilva"].lignes[:2] == ["b", "C2"]
+    assert all(a.lignes for a in d.arrets)
+    noms = [a.nom for a in d.arrets]
+    assert noms.index("Ménouriais") < noms.index("Muguet") and noms == sorted(noms, key=cle_alphabetique)
+    assert 40 <= len(d.arrets) <= 60
 
 
 @pytest.mark.parametrize("modif", [

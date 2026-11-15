@@ -67,9 +67,10 @@ fun EcranBouger(app: CessonApp) {
     Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp)) {
         DepartsViaSilva(app)
+        MonArret(app)
         CarteDonnee("Bientôt dans cet onglet", Icons.Rounded.DirectionsBus) {
             Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
-                listOf("Halte ferroviaire, directions Rennes et Vitré", "Autres arrêts de Cesson",
+                listOf("Halte ferroviaire, directions Rennes et Vitré",
                     "Vélos en libre-service et parcs-relais", "Bornes de recharge",
                 ).forEach { Text("• $it", style = MaterialTheme.typography.bodyMedium) }
             }

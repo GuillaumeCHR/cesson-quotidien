@@ -27,7 +27,17 @@ import java.time.Instant
 
 /** Miroir de DonneesLignesStar (backend/cesson/collecteurs/lignes_star.py). */
 @Serializable
-data class DonneesLignesStar(val lignes: List<LigneStar> = emptyList())
+data class DonneesLignesStar(val lignes: List<LigneStar> = emptyList(), val arrets: List<ArretStar> = emptyList())
+
+/** Arrêt de Cesson, quais regroupés ; [nom] est celui des jeux temps réel. */
+@Serializable
+data class ArretStar(val nom: String, val modes: List<Mode> = emptyList(), val lignes: List<String> = emptyList())
+
+/** Recherche insensible aux accents, à la casse et aux tirets : « chene » trouve « Chêne Germain ». */
+fun filtrerArrets(arrets: List<ArretStar>, recherche: String): List<ArretStar> {
+    val r = normaliser(recherche)
+    return if (r.isEmpty()) arrets else arrets.filter { normaliser(it.nom).contains(r) || it.lignes.any { l -> normaliser(l) == r } }
+}
 
 @Serializable
 data class LigneStar(

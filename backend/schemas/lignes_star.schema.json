@@ -1,5 +1,62 @@
 {
   "$defs": {
+    "ArretStar": {
+      "additionalProperties": false,
+      "properties": {
+        "nom": {
+          "title": "Nom",
+          "type": "string"
+        },
+        "coord": {
+          "$ref": "#/$defs/Coord"
+        },
+        "modes": {
+          "items": {
+            "$ref": "#/$defs/Mode"
+          },
+          "title": "Modes",
+          "type": "array"
+        },
+        "lignes": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Lignes",
+          "type": "array"
+        }
+      },
+      "required": [
+        "nom",
+        "coord",
+        "modes",
+        "lignes"
+      ],
+      "title": "ArretStar",
+      "type": "object"
+    },
+    "Coord": {
+      "additionalProperties": false,
+      "properties": {
+        "lat": {
+          "maximum": 90,
+          "minimum": -90,
+          "title": "Lat",
+          "type": "number"
+        },
+        "lon": {
+          "maximum": 180,
+          "minimum": -180,
+          "title": "Lon",
+          "type": "number"
+        }
+      },
+      "required": [
+        "lat",
+        "lon"
+      ],
+      "title": "Coord",
+      "type": "object"
+    },
     "DonneesLignesStar": {
       "additionalProperties": false,
       "properties": {
@@ -8,6 +65,14 @@
             "$ref": "#/$defs/LigneStar"
           },
           "title": "Lignes",
+          "type": "array"
+        },
+        "arrets": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/ArretStar"
+          },
+          "title": "Arrets",
           "type": "array"
         }
       },
