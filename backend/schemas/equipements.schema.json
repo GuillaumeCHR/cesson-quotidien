@@ -1,0 +1,457 @@
+{
+  "$defs": {
+    "Coord": {
+      "additionalProperties": false,
+      "properties": {
+        "lat": {
+          "maximum": 90,
+          "minimum": -90,
+          "title": "Lat",
+          "type": "number"
+        },
+        "lon": {
+          "maximum": 180,
+          "minimum": -180,
+          "title": "Lon",
+          "type": "number"
+        }
+      },
+      "required": [
+        "lat",
+        "lon"
+      ],
+      "title": "Coord",
+      "type": "object"
+    },
+    "DonneesEquipements": {
+      "additionalProperties": false,
+      "properties": {
+        "equipements": {
+          "items": {
+            "$ref": "#/$defs/Equipement"
+          },
+          "title": "Equipements",
+          "type": "array"
+        }
+      },
+      "required": [
+        "equipements"
+      ],
+      "title": "DonneesEquipements",
+      "type": "object"
+    },
+    "Equipement": {
+      "additionalProperties": false,
+      "properties": {
+        "lieu": {
+          "$ref": "#/$defs/Lieu"
+        },
+        "telephone": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Telephone"
+        },
+        "verifie_le": {
+          "format": "date",
+          "title": "Verifie Le",
+          "type": "string"
+        },
+        "remarque": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Remarque"
+        },
+        "espaces": {
+          "items": {
+            "$ref": "#/$defs/Espace"
+          },
+          "title": "Espaces",
+          "type": "array"
+        },
+        "horaires": {
+          "items": {
+            "$ref": "#/$defs/Horaire"
+          },
+          "title": "Horaires",
+          "type": "array"
+        }
+      },
+      "required": [
+        "lieu",
+        "verifie_le",
+        "espaces",
+        "horaires"
+      ],
+      "title": "Equipement",
+      "type": "object"
+    },
+    "Espace": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "nom": {
+          "title": "Nom",
+          "type": "string"
+        },
+        "jours": {
+          "items": {
+            "$ref": "#/$defs/JourHoraire"
+          },
+          "title": "Jours",
+          "type": "array"
+        },
+        "remarque": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Remarque"
+        }
+      },
+      "required": [
+        "id",
+        "nom",
+        "jours"
+      ],
+      "title": "Espace",
+      "type": "object"
+    },
+    "Etat": {
+      "enum": [
+        "ok",
+        "perime",
+        "erreur"
+      ],
+      "title": "Etat",
+      "type": "string"
+    },
+    "ExceptionHoraire": {
+      "additionalProperties": false,
+      "properties": {
+        "du": {
+          "format": "date",
+          "title": "Du",
+          "type": "string"
+        },
+        "au": {
+          "format": "date",
+          "title": "Au",
+          "type": "string"
+        },
+        "motif": {
+          "title": "Motif",
+          "type": "string"
+        },
+        "opening_hours": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Opening Hours"
+        }
+      },
+      "required": [
+        "du",
+        "au",
+        "motif"
+      ],
+      "title": "ExceptionHoraire",
+      "type": "object"
+    },
+    "Horaire": {
+      "additionalProperties": false,
+      "properties": {
+        "lieu_id": {
+          "title": "Lieu Id",
+          "type": "string"
+        },
+        "sous_espace": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Sous Espace"
+        },
+        "periode": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Periode"
+        },
+        "opening_hours": {
+          "title": "Opening Hours",
+          "type": "string"
+        },
+        "exceptions": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/ExceptionHoraire"
+          },
+          "title": "Exceptions",
+          "type": "array"
+        }
+      },
+      "required": [
+        "lieu_id",
+        "opening_hours"
+      ],
+      "title": "Horaire",
+      "type": "object"
+    },
+    "JourHoraire": {
+      "additionalProperties": false,
+      "properties": {
+        "date": {
+          "format": "date",
+          "title": "Date",
+          "type": "string"
+        },
+        "connu": {
+          "title": "Connu",
+          "type": "boolean"
+        },
+        "plages": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/Plage"
+          },
+          "title": "Plages",
+          "type": "array"
+        },
+        "motif": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Motif"
+        },
+        "periode": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Periode"
+        }
+      },
+      "required": [
+        "date",
+        "connu"
+      ],
+      "title": "JourHoraire",
+      "type": "object"
+    },
+    "Lieu": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "nom": {
+          "title": "Nom",
+          "type": "string"
+        },
+        "type": {
+          "title": "Type",
+          "type": "string"
+        },
+        "coord": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Coord"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "adresse": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Adresse"
+        },
+        "source": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source"
+        },
+        "url": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Url"
+        }
+      },
+      "required": [
+        "id",
+        "nom",
+        "type"
+      ],
+      "title": "Lieu",
+      "type": "object"
+    },
+    "Meta": {
+      "additionalProperties": false,
+      "description": "Accompagne chaque fichier publié : source, licence et fraîcheur.",
+      "properties": {
+        "source": {
+          "title": "Source",
+          "type": "string"
+        },
+        "licence": {
+          "title": "Licence",
+          "type": "string"
+        },
+        "url_source": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Url Source"
+        },
+        "recupere_le": {
+          "format": "date-time",
+          "title": "Recupere Le",
+          "type": "string"
+        },
+        "valide_jusqu_a": {
+          "format": "date-time",
+          "title": "Valide Jusqu A",
+          "type": "string"
+        },
+        "etat": {
+          "$ref": "#/$defs/Etat",
+          "default": "ok"
+        }
+      },
+      "required": [
+        "source",
+        "licence",
+        "recupere_le",
+        "valide_jusqu_a"
+      ],
+      "title": "Meta",
+      "type": "object"
+    },
+    "Plage": {
+      "additionalProperties": false,
+      "properties": {
+        "debut": {
+          "format": "date-time",
+          "title": "Debut",
+          "type": "string"
+        },
+        "fin": {
+          "format": "date-time",
+          "title": "Fin",
+          "type": "string"
+        }
+      },
+      "required": [
+        "debut",
+        "fin"
+      ],
+      "title": "Plage",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "module": {
+      "title": "Module",
+      "type": "string"
+    },
+    "version_schema": {
+      "default": 1,
+      "title": "Version Schema",
+      "type": "integer"
+    },
+    "meta": {
+      "$ref": "#/$defs/Meta"
+    },
+    "donnees": {
+      "$ref": "#/$defs/DonneesEquipements"
+    }
+  },
+  "required": [
+    "module",
+    "meta",
+    "donnees"
+  ],
+  "title": "FichierModule[DonneesEquipements]",
+  "type": "object"
+}

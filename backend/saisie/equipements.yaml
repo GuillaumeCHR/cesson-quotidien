@@ -1,0 +1,148 @@
+# Horaires des équipements municipaux, recopiés depuis le site de la ville.
+#
+# Pour chaque espace (bassin, practice…), des périodes datées portent une semaine type au format OSM
+# opening_hours (sous-ensemble : jours Mo…Su, plages 09:00-12:30, « off », règles séparées par « ; »).
+# Quand plusieurs périodes couvrent un jour, la plus courte l'emporte : les vacances scolaires
+# s'écrivent par-dessus la période scolaire sans la découper.
+#
+# Un jour couvert par aucune période est publié « horaires non communiqués », jamais « fermé ».
+# Les exceptions (fériés, fermetures) s'appliquent à tous les espaces de l'équipement ;
+# sans « horaires », l'équipement est fermé sur l'exception.
+#
+# Mettre à jour « verifie_le » à chaque relecture de la source.
+
+equipements:
+  piscine:
+    nom: Piscine municipale
+    adresse: Rue de l'Hôtel de Ville, Cesson-Sévigné
+    telephone: "02 99 83 52 00"
+    url: https://www.ville-cesson-sevigne.fr/contacts/piscine-municipale/
+    verifie_le: 2026-11-15
+    remarque: Les caisses ferment 40 minutes avant l'évacuation des bassins.
+    espaces:
+      bassin_ludique:
+        nom: Bassin ludique
+        periodes:
+          - nom: Période scolaire
+            du: 2026-09-07
+            au: 2027-06-27
+            horaires: >-
+              Mo 16:00-19:45; Tu 07:45-08:45,12:15-13:45; We 07:45-08:45,11:00-13:00,16:00-18:45;
+              Th 07:45-08:45,12:15-13:45,16:00-18:45; Fr 15:00-18:45; Sa 14:30-18:00; Su 09:00-13:30
+          - &piscine_hiver
+            nom: Vacances d'hiver
+            du: 2027-02-22
+            au: 2027-03-07
+            horaires: &piscine_vacances >-
+              Mo 10:30-18:30; Tu 10:30-20:00; We 10:30-18:30; Th 10:30-20:00; Fr 10:30-18:30;
+              Sa 09:00-13:00,14:30-18:00; Su 09:00-13:30
+          - &piscine_paques
+            nom: Vacances de printemps
+            du: 2027-04-19
+            au: 2027-05-02
+            horaires: *piscine_vacances
+      bassin_sportif:
+        nom: Bassin sportif
+        periodes:
+          - nom: Période scolaire
+            du: 2026-09-07
+            au: 2027-06-27
+            horaires: >-
+              Mo 18:00-19:45; Tu 12:15-13:45; We 11:30-13:00; Th 12:15-13:45; Fr 17:00-18:45;
+              Sa 14:30-18:00; Su 09:00-13:30
+          - *piscine_hiver
+          - *piscine_paques
+    exceptions:
+      - du: 2026-11-11
+        au: 2026-11-11
+        motif: Jour férié
+      - du: 2026-12-14
+        au: 2027-01-03
+        motif: Fermeture pour vidange
+
+  mediatheque:
+    nom: Médiathèque
+    adresse: Centre culturel Le Pont des Arts, Cesson-Sévigné
+    url: https://www.ville-cesson-sevigne.fr/contacts/mediatheque/
+    verifie_le: 2026-11-15
+    espaces:
+      mediatheque:
+        nom: Médiathèque
+        periodes:
+          # La source ne date pas ces horaires : période ouverte, à relire avant l'été.
+          - nom: Horaires habituels
+            horaires: Tu 14:30-19:00; We 10:00-12:30,14:30-19:00; Fr 12:00-20:00; Sa 10:00-12:30,14:30-18:00
+
+  golf:
+    nom: Golf municipal
+    url: https://www.ville-cesson-sevigne.fr/contacts/golf/
+    verifie_le: 2026-11-15
+    remarque: Les week-ends et jours fériés ont les mêmes horaires de club-house.
+    espaces:
+      parcours:
+        nom: Parcours
+        periodes:
+          - nom: Hiver
+            du: 2026-11-02
+            au: 2027-03-31
+            horaires: Mo-Su 09:30-18:00
+            remarque: Réservation et paiement uniquement en ligne de 12h à 13h et de 17h à 18h.
+          - &golf_ete
+            nom: Été
+            du: 2027-04-01
+            au: 2027-10-31
+            horaires: Mo-Su 08:30-21:00
+            remarque: Accès automatisé de 12h à 13h et de 18h à 21h (dès 17h30 le week-end), sur réservation et paiement en ligne.
+      practice:
+        nom: Practice
+        periodes:
+          - nom: Hiver
+            du: 2026-11-02
+            au: 2027-03-31
+            horaires: Mo-Su 09:30-18:00
+            remarque: Recharges de balles en ligne uniquement de 12h à 13h et de 17h à 18h.
+          - *golf_ete
+      club_house:
+        nom: Club-house
+        periodes:
+          - nom: Hiver
+            du: 2026-11-02
+            au: 2027-03-31
+            horaires: Mo-Fr 09:00-12:00,13:00-17:00; Sa,Su 09:30-12:00,13:00-16:45
+          - nom: Été
+            du: 2027-04-01
+            au: 2027-10-31
+            horaires: Mo-Fr 08:30-12:00,13:00-17:45; Sa,Su 08:30-12:00,13:00-17:15
+
+  base_sports_nature:
+    nom: Base Sports Nature
+    url: https://www.ville-cesson-sevigne.fr/contacts/base-sports-nature/
+    verifie_le: 2026-11-15
+    remarque: Locations de canoë, kayak, paddle et rafting en saison seulement ; dates de la saison suivante à reporter ici dès leur publication.
+    espaces:
+      eau_calme:
+        nom: Location eau calme
+        periodes:
+          - nom: Pleine saison
+            du: 2026-07-06
+            au: 2026-08-31
+            horaires: Mo,Tu 14:00-18:00; We-Fr 14:00-20:00; Sa,Su 14:00-18:00
+            remarque: Dernier départ une heure avant la fermeture.
+          - nom: Après-saison
+            du: 2026-09-01
+            au: 2026-09-13
+            horaires: Mo-We 17:30-20:30; Th 14:00-18:00; Fr 11:00-15:30; Sa,Su 14:00-18:00
+            remarque: Dernier départ une heure avant la fermeture.
+      eaux_vives:
+        nom: Location eaux vives
+        periodes:
+          - nom: Pleine saison
+            du: 2026-07-06
+            au: 2026-08-31
+            horaires: Th 19:00-20:00; Sa,Su 14:30-15:30,15:45-16:45,17:00-18:00
+            remarque: Réservation conseillée ; arriver 30 minutes avant le créneau.
+          - nom: Après-saison
+            du: 2026-09-01
+            au: 2026-09-13
+            horaires: Sa,Su 14:30-15:30,15:45-16:45,17:00-18:00
+            remarque: Réservation conseillée ; arriver 30 minutes avant le créneau.

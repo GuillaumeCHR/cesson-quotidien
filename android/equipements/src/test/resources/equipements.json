@@ -1,0 +1,1459 @@
+{
+  "module": "equipements",
+  "version_schema": 1,
+  "meta": {
+    "source": "Ville de Cesson-Sévigné (site internet), saisie manuelle",
+    "licence": "Informations publiques de la Ville de Cesson-Sévigné",
+    "url_source": "https://www.ville-cesson-sevigne.fr/",
+    "recupere_le": "2026-11-15T07:53:52.178986Z",
+    "valide_jusqu_a": "2026-11-16T19:53:52.178986Z",
+    "etat": "ok"
+  },
+  "donnees": {
+    "equipements": [
+      {
+        "lieu": {
+          "id": "equipement:piscine",
+          "nom": "Piscine municipale",
+          "type": "equipement",
+          "adresse": "Rue de l'Hôtel de Ville, Cesson-Sévigné",
+          "source": "Ville de Cesson-Sévigné",
+          "url": "https://www.ville-cesson-sevigne.fr/contacts/piscine-municipale/"
+        },
+        "telephone": "02 99 83 52 00",
+        "verifie_le": "2026-11-15",
+        "remarque": "Les caisses ferment 40 minutes avant l'évacuation des bassins.",
+        "espaces": [
+          {
+            "id": "bassin_ludique",
+            "nom": "Bassin ludique",
+            "jours": [
+              {
+                "date": "2026-11-15",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-15T09:00:00+01:00",
+                    "fin": "2026-11-15T13:30:00+01:00"
+                  }
+                ],
+                "periode": "Période scolaire"
+              },
+              {
+                "date": "2026-11-16",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-16T16:00:00+01:00",
+                    "fin": "2026-11-16T19:45:00+01:00"
+                  }
+                ],
+                "periode": "Période scolaire"
+              },
+              {
+                "date": "2026-11-17",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-17T07:45:00+01:00",
+                    "fin": "2026-11-17T08:45:00+01:00"
+                  },
+                  {
+                    "debut": "2026-11-17T12:15:00+01:00",
+                    "fin": "2026-11-17T13:45:00+01:00"
+                  }
+                ],
+                "periode": "Période scolaire"
+              },
+              {
+                "date": "2026-11-18",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-18T07:45:00+01:00",
+                    "fin": "2026-11-18T08:45:00+01:00"
+                  },
+                  {
+                    "debut": "2026-11-18T11:00:00+01:00",
+                    "fin": "2026-11-18T13:00:00+01:00"
+                  },
+                  {
+                    "debut": "2026-11-18T16:00:00+01:00",
+                    "fin": "2026-11-18T18:45:00+01:00"
+                  }
+                ],
+                "periode": "Période scolaire"
+              },
+              {
+                "date": "2026-11-19",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-19T07:45:00+01:00",
+                    "fin": "2026-11-19T08:45:00+01:00"
+                  },
+                  {
+                    "debut": "2026-11-19T12:15:00+01:00",
+                    "fin": "2026-11-19T13:45:00+01:00"
+                  },
+                  {
+                    "debut": "2026-11-19T16:00:00+01:00",
+                    "fin": "2026-11-19T18:45:00+01:00"
+                  }
+                ],
+                "periode": "Période scolaire"
+              },
+              {
+                "date": "2026-11-20",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-20T15:00:00+01:00",
+                    "fin": "2026-11-20T18:45:00+01:00"
+                  }
+                ],
+                "periode": "Période scolaire"
+              },
+              {
+                "date": "2026-11-21",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-21T14:30:00+01:00",
+                    "fin": "2026-11-21T18:00:00+01:00"
+                  }
+                ],
+                "periode": "Période scolaire"
+              },
+              {
+                "date": "2026-11-22",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-22T09:00:00+01:00",
+                    "fin": "2026-11-22T13:30:00+01:00"
+                  }
+                ],
+                "periode": "Période scolaire"
+              },
+              {
+                "date": "2026-11-23",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-23T16:00:00+01:00",
+                    "fin": "2026-11-23T19:45:00+01:00"
+                  }
+                ],
+                "periode": "Période scolaire"
+              },
+              {
+                "date": "2026-11-24",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-24T07:45:00+01:00",
+                    "fin": "2026-11-24T08:45:00+01:00"
+                  },
+                  {
+                    "debut": "2026-11-24T12:15:00+01:00",
+                    "fin": "2026-11-24T13:45:00+01:00"
+                  }
+                ],
+                "periode": "Période scolaire"
+              },
+              {
+                "date": "2026-11-25",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-25T07:45:00+01:00",
+                    "fin": "2026-11-25T08:45:00+01:00"
+                  },
+                  {
+                    "debut": "2026-11-25T11:00:00+01:00",
+                    "fin": "2026-11-25T13:00:00+01:00"
+                  },
+                  {
+                    "debut": "2026-11-25T16:00:00+01:00",
+                    "fin": "2026-11-25T18:45:00+01:00"
+                  }
+                ],
+                "periode": "Période scolaire"
+              },
+              {
+                "date": "2026-11-26",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-26T07:45:00+01:00",
+                    "fin": "2026-11-26T08:45:00+01:00"
+                  },
+                  {
+                    "debut": "2026-11-26T12:15:00+01:00",
+                    "fin": "2026-11-26T13:45:00+01:00"
+                  },
+                  {
+                    "debut": "2026-11-26T16:00:00+01:00",
+                    "fin": "2026-11-26T18:45:00+01:00"
+                  }
+                ],
+                "periode": "Période scolaire"
+              },
+              {
+                "date": "2026-11-27",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-27T15:00:00+01:00",
+                    "fin": "2026-11-27T18:45:00+01:00"
+                  }
+                ],
+                "periode": "Période scolaire"
+              },
+              {
+                "date": "2026-11-28",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-28T14:30:00+01:00",
+                    "fin": "2026-11-28T18:00:00+01:00"
+                  }
+                ],
+                "periode": "Période scolaire"
+              }
+            ]
+          },
+          {
+            "id": "bassin_sportif",
+            "nom": "Bassin sportif",
+            "jours": [
+              {
+                "date": "2026-11-15",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-15T09:00:00+01:00",
+                    "fin": "2026-11-15T13:30:00+01:00"
+                  }
+                ],
+                "periode": "Période scolaire"
+              },
+              {
+                "date": "2026-11-16",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-16T18:00:00+01:00",
+                    "fin": "2026-11-16T19:45:00+01:00"
+                  }
+                ],
+                "periode": "Période scolaire"
+              },
+              {
+                "date": "2026-11-17",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-17T12:15:00+01:00",
+                    "fin": "2026-11-17T13:45:00+01:00"
+                  }
+                ],
+                "periode": "Période scolaire"
+              },
+              {
+                "date": "2026-11-18",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-18T11:30:00+01:00",
+                    "fin": "2026-11-18T13:00:00+01:00"
+                  }
+                ],
+                "periode": "Période scolaire"
+              },
+              {
+                "date": "2026-11-19",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-19T12:15:00+01:00",
+                    "fin": "2026-11-19T13:45:00+01:00"
+                  }
+                ],
+                "periode": "Période scolaire"
+              },
+              {
+                "date": "2026-11-20",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-20T17:00:00+01:00",
+                    "fin": "2026-11-20T18:45:00+01:00"
+                  }
+                ],
+                "periode": "Période scolaire"
+              },
+              {
+                "date": "2026-11-21",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-21T14:30:00+01:00",
+                    "fin": "2026-11-21T18:00:00+01:00"
+                  }
+                ],
+                "periode": "Période scolaire"
+              },
+              {
+                "date": "2026-11-22",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-22T09:00:00+01:00",
+                    "fin": "2026-11-22T13:30:00+01:00"
+                  }
+                ],
+                "periode": "Période scolaire"
+              },
+              {
+                "date": "2026-11-23",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-23T18:00:00+01:00",
+                    "fin": "2026-11-23T19:45:00+01:00"
+                  }
+                ],
+                "periode": "Période scolaire"
+              },
+              {
+                "date": "2026-11-24",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-24T12:15:00+01:00",
+                    "fin": "2026-11-24T13:45:00+01:00"
+                  }
+                ],
+                "periode": "Période scolaire"
+              },
+              {
+                "date": "2026-11-25",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-25T11:30:00+01:00",
+                    "fin": "2026-11-25T13:00:00+01:00"
+                  }
+                ],
+                "periode": "Période scolaire"
+              },
+              {
+                "date": "2026-11-26",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-26T12:15:00+01:00",
+                    "fin": "2026-11-26T13:45:00+01:00"
+                  }
+                ],
+                "periode": "Période scolaire"
+              },
+              {
+                "date": "2026-11-27",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-27T17:00:00+01:00",
+                    "fin": "2026-11-27T18:45:00+01:00"
+                  }
+                ],
+                "periode": "Période scolaire"
+              },
+              {
+                "date": "2026-11-28",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-28T14:30:00+01:00",
+                    "fin": "2026-11-28T18:00:00+01:00"
+                  }
+                ],
+                "periode": "Période scolaire"
+              }
+            ]
+          }
+        ],
+        "horaires": [
+          {
+            "lieu_id": "equipement:piscine",
+            "sous_espace": "bassin_ludique",
+            "periode": "Période scolaire",
+            "opening_hours": "Mo 16:00-19:45; Tu 07:45-08:45,12:15-13:45; We 07:45-08:45,11:00-13:00,16:00-18:45; Th 07:45-08:45,12:15-13:45,16:00-18:45; Fr 15:00-18:45; Sa 14:30-18:00; Su 09:00-13:30",
+            "exceptions": [
+              {
+                "du": "2026-11-11",
+                "au": "2026-11-11",
+                "motif": "Jour férié"
+              },
+              {
+                "du": "2026-12-14",
+                "au": "2027-01-03",
+                "motif": "Fermeture pour vidange"
+              }
+            ]
+          },
+          {
+            "lieu_id": "equipement:piscine",
+            "sous_espace": "bassin_ludique",
+            "periode": "Vacances d'hiver",
+            "opening_hours": "Mo 10:30-18:30; Tu 10:30-20:00; We 10:30-18:30; Th 10:30-20:00; Fr 10:30-18:30; Sa 09:00-13:00,14:30-18:00; Su 09:00-13:30",
+            "exceptions": [
+              {
+                "du": "2026-11-11",
+                "au": "2026-11-11",
+                "motif": "Jour férié"
+              },
+              {
+                "du": "2026-12-14",
+                "au": "2027-01-03",
+                "motif": "Fermeture pour vidange"
+              }
+            ]
+          },
+          {
+            "lieu_id": "equipement:piscine",
+            "sous_espace": "bassin_ludique",
+            "periode": "Vacances de printemps",
+            "opening_hours": "Mo 10:30-18:30; Tu 10:30-20:00; We 10:30-18:30; Th 10:30-20:00; Fr 10:30-18:30; Sa 09:00-13:00,14:30-18:00; Su 09:00-13:30",
+            "exceptions": [
+              {
+                "du": "2026-11-11",
+                "au": "2026-11-11",
+                "motif": "Jour férié"
+              },
+              {
+                "du": "2026-12-14",
+                "au": "2027-01-03",
+                "motif": "Fermeture pour vidange"
+              }
+            ]
+          },
+          {
+            "lieu_id": "equipement:piscine",
+            "sous_espace": "bassin_sportif",
+            "periode": "Période scolaire",
+            "opening_hours": "Mo 18:00-19:45; Tu 12:15-13:45; We 11:30-13:00; Th 12:15-13:45; Fr 17:00-18:45; Sa 14:30-18:00; Su 09:00-13:30",
+            "exceptions": [
+              {
+                "du": "2026-11-11",
+                "au": "2026-11-11",
+                "motif": "Jour férié"
+              },
+              {
+                "du": "2026-12-14",
+                "au": "2027-01-03",
+                "motif": "Fermeture pour vidange"
+              }
+            ]
+          },
+          {
+            "lieu_id": "equipement:piscine",
+            "sous_espace": "bassin_sportif",
+            "periode": "Vacances d'hiver",
+            "opening_hours": "Mo 10:30-18:30; Tu 10:30-20:00; We 10:30-18:30; Th 10:30-20:00; Fr 10:30-18:30; Sa 09:00-13:00,14:30-18:00; Su 09:00-13:30",
+            "exceptions": [
+              {
+                "du": "2026-11-11",
+                "au": "2026-11-11",
+                "motif": "Jour férié"
+              },
+              {
+                "du": "2026-12-14",
+                "au": "2027-01-03",
+                "motif": "Fermeture pour vidange"
+              }
+            ]
+          },
+          {
+            "lieu_id": "equipement:piscine",
+            "sous_espace": "bassin_sportif",
+            "periode": "Vacances de printemps",
+            "opening_hours": "Mo 10:30-18:30; Tu 10:30-20:00; We 10:30-18:30; Th 10:30-20:00; Fr 10:30-18:30; Sa 09:00-13:00,14:30-18:00; Su 09:00-13:30",
+            "exceptions": [
+              {
+                "du": "2026-11-11",
+                "au": "2026-11-11",
+                "motif": "Jour férié"
+              },
+              {
+                "du": "2026-12-14",
+                "au": "2027-01-03",
+                "motif": "Fermeture pour vidange"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "lieu": {
+          "id": "equipement:mediatheque",
+          "nom": "Médiathèque",
+          "type": "equipement",
+          "adresse": "Centre culturel Le Pont des Arts, Cesson-Sévigné",
+          "source": "Ville de Cesson-Sévigné",
+          "url": "https://www.ville-cesson-sevigne.fr/contacts/mediatheque/"
+        },
+        "verifie_le": "2026-11-15",
+        "espaces": [
+          {
+            "id": "mediatheque",
+            "nom": "Médiathèque",
+            "jours": [
+              {
+                "date": "2026-11-15",
+                "connu": true,
+                "plages": [],
+                "periode": "Horaires habituels"
+              },
+              {
+                "date": "2026-11-16",
+                "connu": true,
+                "plages": [],
+                "periode": "Horaires habituels"
+              },
+              {
+                "date": "2026-11-17",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-17T14:30:00+01:00",
+                    "fin": "2026-11-17T19:00:00+01:00"
+                  }
+                ],
+                "periode": "Horaires habituels"
+              },
+              {
+                "date": "2026-11-18",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-18T10:00:00+01:00",
+                    "fin": "2026-11-18T12:30:00+01:00"
+                  },
+                  {
+                    "debut": "2026-11-18T14:30:00+01:00",
+                    "fin": "2026-11-18T19:00:00+01:00"
+                  }
+                ],
+                "periode": "Horaires habituels"
+              },
+              {
+                "date": "2026-11-19",
+                "connu": true,
+                "plages": [],
+                "periode": "Horaires habituels"
+              },
+              {
+                "date": "2026-11-20",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-20T12:00:00+01:00",
+                    "fin": "2026-11-20T20:00:00+01:00"
+                  }
+                ],
+                "periode": "Horaires habituels"
+              },
+              {
+                "date": "2026-11-21",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-21T10:00:00+01:00",
+                    "fin": "2026-11-21T12:30:00+01:00"
+                  },
+                  {
+                    "debut": "2026-11-21T14:30:00+01:00",
+                    "fin": "2026-11-21T18:00:00+01:00"
+                  }
+                ],
+                "periode": "Horaires habituels"
+              },
+              {
+                "date": "2026-11-22",
+                "connu": true,
+                "plages": [],
+                "periode": "Horaires habituels"
+              },
+              {
+                "date": "2026-11-23",
+                "connu": true,
+                "plages": [],
+                "periode": "Horaires habituels"
+              },
+              {
+                "date": "2026-11-24",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-24T14:30:00+01:00",
+                    "fin": "2026-11-24T19:00:00+01:00"
+                  }
+                ],
+                "periode": "Horaires habituels"
+              },
+              {
+                "date": "2026-11-25",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-25T10:00:00+01:00",
+                    "fin": "2026-11-25T12:30:00+01:00"
+                  },
+                  {
+                    "debut": "2026-11-25T14:30:00+01:00",
+                    "fin": "2026-11-25T19:00:00+01:00"
+                  }
+                ],
+                "periode": "Horaires habituels"
+              },
+              {
+                "date": "2026-11-26",
+                "connu": true,
+                "plages": [],
+                "periode": "Horaires habituels"
+              },
+              {
+                "date": "2026-11-27",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-27T12:00:00+01:00",
+                    "fin": "2026-11-27T20:00:00+01:00"
+                  }
+                ],
+                "periode": "Horaires habituels"
+              },
+              {
+                "date": "2026-11-28",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-28T10:00:00+01:00",
+                    "fin": "2026-11-28T12:30:00+01:00"
+                  },
+                  {
+                    "debut": "2026-11-28T14:30:00+01:00",
+                    "fin": "2026-11-28T18:00:00+01:00"
+                  }
+                ],
+                "periode": "Horaires habituels"
+              }
+            ]
+          }
+        ],
+        "horaires": [
+          {
+            "lieu_id": "equipement:mediatheque",
+            "sous_espace": "mediatheque",
+            "periode": "Horaires habituels",
+            "opening_hours": "Tu 14:30-19:00; We 10:00-12:30,14:30-19:00; Fr 12:00-20:00; Sa 10:00-12:30,14:30-18:00",
+            "exceptions": []
+          }
+        ]
+      },
+      {
+        "lieu": {
+          "id": "equipement:golf",
+          "nom": "Golf municipal",
+          "type": "equipement",
+          "source": "Ville de Cesson-Sévigné",
+          "url": "https://www.ville-cesson-sevigne.fr/contacts/golf/"
+        },
+        "verifie_le": "2026-11-15",
+        "remarque": "Les week-ends et jours fériés ont les mêmes horaires de club-house.",
+        "espaces": [
+          {
+            "id": "parcours",
+            "nom": "Parcours",
+            "jours": [
+              {
+                "date": "2026-11-15",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-15T09:30:00+01:00",
+                    "fin": "2026-11-15T18:00:00+01:00"
+                  }
+                ],
+                "periode": "Hiver"
+              },
+              {
+                "date": "2026-11-16",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-16T09:30:00+01:00",
+                    "fin": "2026-11-16T18:00:00+01:00"
+                  }
+                ],
+                "periode": "Hiver"
+              },
+              {
+                "date": "2026-11-17",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-17T09:30:00+01:00",
+                    "fin": "2026-11-17T18:00:00+01:00"
+                  }
+                ],
+                "periode": "Hiver"
+              },
+              {
+                "date": "2026-11-18",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-18T09:30:00+01:00",
+                    "fin": "2026-11-18T18:00:00+01:00"
+                  }
+                ],
+                "periode": "Hiver"
+              },
+              {
+                "date": "2026-11-19",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-19T09:30:00+01:00",
+                    "fin": "2026-11-19T18:00:00+01:00"
+                  }
+                ],
+                "periode": "Hiver"
+              },
+              {
+                "date": "2026-11-20",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-20T09:30:00+01:00",
+                    "fin": "2026-11-20T18:00:00+01:00"
+                  }
+                ],
+                "periode": "Hiver"
+              },
+              {
+                "date": "2026-11-21",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-21T09:30:00+01:00",
+                    "fin": "2026-11-21T18:00:00+01:00"
+                  }
+                ],
+                "periode": "Hiver"
+              },
+              {
+                "date": "2026-11-22",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-22T09:30:00+01:00",
+                    "fin": "2026-11-22T18:00:00+01:00"
+                  }
+                ],
+                "periode": "Hiver"
+              },
+              {
+                "date": "2026-11-23",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-23T09:30:00+01:00",
+                    "fin": "2026-11-23T18:00:00+01:00"
+                  }
+                ],
+                "periode": "Hiver"
+              },
+              {
+                "date": "2026-11-24",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-24T09:30:00+01:00",
+                    "fin": "2026-11-24T18:00:00+01:00"
+                  }
+                ],
+                "periode": "Hiver"
+              },
+              {
+                "date": "2026-11-25",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-25T09:30:00+01:00",
+                    "fin": "2026-11-25T18:00:00+01:00"
+                  }
+                ],
+                "periode": "Hiver"
+              },
+              {
+                "date": "2026-11-26",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-26T09:30:00+01:00",
+                    "fin": "2026-11-26T18:00:00+01:00"
+                  }
+                ],
+                "periode": "Hiver"
+              },
+              {
+                "date": "2026-11-27",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-27T09:30:00+01:00",
+                    "fin": "2026-11-27T18:00:00+01:00"
+                  }
+                ],
+                "periode": "Hiver"
+              },
+              {
+                "date": "2026-11-28",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-28T09:30:00+01:00",
+                    "fin": "2026-11-28T18:00:00+01:00"
+                  }
+                ],
+                "periode": "Hiver"
+              }
+            ],
+            "remarque": "Réservation et paiement uniquement en ligne de 12h à 13h et de 17h à 18h."
+          },
+          {
+            "id": "practice",
+            "nom": "Practice",
+            "jours": [
+              {
+                "date": "2026-11-15",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-15T09:30:00+01:00",
+                    "fin": "2026-11-15T18:00:00+01:00"
+                  }
+                ],
+                "periode": "Hiver"
+              },
+              {
+                "date": "2026-11-16",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-16T09:30:00+01:00",
+                    "fin": "2026-11-16T18:00:00+01:00"
+                  }
+                ],
+                "periode": "Hiver"
+              },
+              {
+                "date": "2026-11-17",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-17T09:30:00+01:00",
+                    "fin": "2026-11-17T18:00:00+01:00"
+                  }
+                ],
+                "periode": "Hiver"
+              },
+              {
+                "date": "2026-11-18",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-18T09:30:00+01:00",
+                    "fin": "2026-11-18T18:00:00+01:00"
+                  }
+                ],
+                "periode": "Hiver"
+              },
+              {
+                "date": "2026-11-19",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-19T09:30:00+01:00",
+                    "fin": "2026-11-19T18:00:00+01:00"
+                  }
+                ],
+                "periode": "Hiver"
+              },
+              {
+                "date": "2026-11-20",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-20T09:30:00+01:00",
+                    "fin": "2026-11-20T18:00:00+01:00"
+                  }
+                ],
+                "periode": "Hiver"
+              },
+              {
+                "date": "2026-11-21",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-21T09:30:00+01:00",
+                    "fin": "2026-11-21T18:00:00+01:00"
+                  }
+                ],
+                "periode": "Hiver"
+              },
+              {
+                "date": "2026-11-22",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-22T09:30:00+01:00",
+                    "fin": "2026-11-22T18:00:00+01:00"
+                  }
+                ],
+                "periode": "Hiver"
+              },
+              {
+                "date": "2026-11-23",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-23T09:30:00+01:00",
+                    "fin": "2026-11-23T18:00:00+01:00"
+                  }
+                ],
+                "periode": "Hiver"
+              },
+              {
+                "date": "2026-11-24",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-24T09:30:00+01:00",
+                    "fin": "2026-11-24T18:00:00+01:00"
+                  }
+                ],
+                "periode": "Hiver"
+              },
+              {
+                "date": "2026-11-25",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-25T09:30:00+01:00",
+                    "fin": "2026-11-25T18:00:00+01:00"
+                  }
+                ],
+                "periode": "Hiver"
+              },
+              {
+                "date": "2026-11-26",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-26T09:30:00+01:00",
+                    "fin": "2026-11-26T18:00:00+01:00"
+                  }
+                ],
+                "periode": "Hiver"
+              },
+              {
+                "date": "2026-11-27",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-27T09:30:00+01:00",
+                    "fin": "2026-11-27T18:00:00+01:00"
+                  }
+                ],
+                "periode": "Hiver"
+              },
+              {
+                "date": "2026-11-28",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-28T09:30:00+01:00",
+                    "fin": "2026-11-28T18:00:00+01:00"
+                  }
+                ],
+                "periode": "Hiver"
+              }
+            ],
+            "remarque": "Recharges de balles en ligne uniquement de 12h à 13h et de 17h à 18h."
+          },
+          {
+            "id": "club_house",
+            "nom": "Club-house",
+            "jours": [
+              {
+                "date": "2026-11-15",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-15T09:30:00+01:00",
+                    "fin": "2026-11-15T12:00:00+01:00"
+                  },
+                  {
+                    "debut": "2026-11-15T13:00:00+01:00",
+                    "fin": "2026-11-15T16:45:00+01:00"
+                  }
+                ],
+                "periode": "Hiver"
+              },
+              {
+                "date": "2026-11-16",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-16T09:00:00+01:00",
+                    "fin": "2026-11-16T12:00:00+01:00"
+                  },
+                  {
+                    "debut": "2026-11-16T13:00:00+01:00",
+                    "fin": "2026-11-16T17:00:00+01:00"
+                  }
+                ],
+                "periode": "Hiver"
+              },
+              {
+                "date": "2026-11-17",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-17T09:00:00+01:00",
+                    "fin": "2026-11-17T12:00:00+01:00"
+                  },
+                  {
+                    "debut": "2026-11-17T13:00:00+01:00",
+                    "fin": "2026-11-17T17:00:00+01:00"
+                  }
+                ],
+                "periode": "Hiver"
+              },
+              {
+                "date": "2026-11-18",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-18T09:00:00+01:00",
+                    "fin": "2026-11-18T12:00:00+01:00"
+                  },
+                  {
+                    "debut": "2026-11-18T13:00:00+01:00",
+                    "fin": "2026-11-18T17:00:00+01:00"
+                  }
+                ],
+                "periode": "Hiver"
+              },
+              {
+                "date": "2026-11-19",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-19T09:00:00+01:00",
+                    "fin": "2026-11-19T12:00:00+01:00"
+                  },
+                  {
+                    "debut": "2026-11-19T13:00:00+01:00",
+                    "fin": "2026-11-19T17:00:00+01:00"
+                  }
+                ],
+                "periode": "Hiver"
+              },
+              {
+                "date": "2026-11-20",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-20T09:00:00+01:00",
+                    "fin": "2026-11-20T12:00:00+01:00"
+                  },
+                  {
+                    "debut": "2026-11-20T13:00:00+01:00",
+                    "fin": "2026-11-20T17:00:00+01:00"
+                  }
+                ],
+                "periode": "Hiver"
+              },
+              {
+                "date": "2026-11-21",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-21T09:30:00+01:00",
+                    "fin": "2026-11-21T12:00:00+01:00"
+                  },
+                  {
+                    "debut": "2026-11-21T13:00:00+01:00",
+                    "fin": "2026-11-21T16:45:00+01:00"
+                  }
+                ],
+                "periode": "Hiver"
+              },
+              {
+                "date": "2026-11-22",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-22T09:30:00+01:00",
+                    "fin": "2026-11-22T12:00:00+01:00"
+                  },
+                  {
+                    "debut": "2026-11-22T13:00:00+01:00",
+                    "fin": "2026-11-22T16:45:00+01:00"
+                  }
+                ],
+                "periode": "Hiver"
+              },
+              {
+                "date": "2026-11-23",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-23T09:00:00+01:00",
+                    "fin": "2026-11-23T12:00:00+01:00"
+                  },
+                  {
+                    "debut": "2026-11-23T13:00:00+01:00",
+                    "fin": "2026-11-23T17:00:00+01:00"
+                  }
+                ],
+                "periode": "Hiver"
+              },
+              {
+                "date": "2026-11-24",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-24T09:00:00+01:00",
+                    "fin": "2026-11-24T12:00:00+01:00"
+                  },
+                  {
+                    "debut": "2026-11-24T13:00:00+01:00",
+                    "fin": "2026-11-24T17:00:00+01:00"
+                  }
+                ],
+                "periode": "Hiver"
+              },
+              {
+                "date": "2026-11-25",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-25T09:00:00+01:00",
+                    "fin": "2026-11-25T12:00:00+01:00"
+                  },
+                  {
+                    "debut": "2026-11-25T13:00:00+01:00",
+                    "fin": "2026-11-25T17:00:00+01:00"
+                  }
+                ],
+                "periode": "Hiver"
+              },
+              {
+                "date": "2026-11-26",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-26T09:00:00+01:00",
+                    "fin": "2026-11-26T12:00:00+01:00"
+                  },
+                  {
+                    "debut": "2026-11-26T13:00:00+01:00",
+                    "fin": "2026-11-26T17:00:00+01:00"
+                  }
+                ],
+                "periode": "Hiver"
+              },
+              {
+                "date": "2026-11-27",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-27T09:00:00+01:00",
+                    "fin": "2026-11-27T12:00:00+01:00"
+                  },
+                  {
+                    "debut": "2026-11-27T13:00:00+01:00",
+                    "fin": "2026-11-27T17:00:00+01:00"
+                  }
+                ],
+                "periode": "Hiver"
+              },
+              {
+                "date": "2026-11-28",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-28T09:30:00+01:00",
+                    "fin": "2026-11-28T12:00:00+01:00"
+                  },
+                  {
+                    "debut": "2026-11-28T13:00:00+01:00",
+                    "fin": "2026-11-28T16:45:00+01:00"
+                  }
+                ],
+                "periode": "Hiver"
+              }
+            ]
+          }
+        ],
+        "horaires": [
+          {
+            "lieu_id": "equipement:golf",
+            "sous_espace": "parcours",
+            "periode": "Hiver",
+            "opening_hours": "Mo-Su 09:30-18:00",
+            "exceptions": []
+          },
+          {
+            "lieu_id": "equipement:golf",
+            "sous_espace": "parcours",
+            "periode": "Été",
+            "opening_hours": "Mo-Su 08:30-21:00",
+            "exceptions": []
+          },
+          {
+            "lieu_id": "equipement:golf",
+            "sous_espace": "practice",
+            "periode": "Hiver",
+            "opening_hours": "Mo-Su 09:30-18:00",
+            "exceptions": []
+          },
+          {
+            "lieu_id": "equipement:golf",
+            "sous_espace": "practice",
+            "periode": "Été",
+            "opening_hours": "Mo-Su 08:30-21:00",
+            "exceptions": []
+          },
+          {
+            "lieu_id": "equipement:golf",
+            "sous_espace": "club_house",
+            "periode": "Hiver",
+            "opening_hours": "Mo-Fr 09:00-12:00,13:00-17:00; Sa,Su 09:30-12:00,13:00-16:45",
+            "exceptions": []
+          },
+          {
+            "lieu_id": "equipement:golf",
+            "sous_espace": "club_house",
+            "periode": "Été",
+            "opening_hours": "Mo-Fr 08:30-12:00,13:00-17:45; Sa,Su 08:30-12:00,13:00-17:15",
+            "exceptions": []
+          }
+        ]
+      },
+      {
+        "lieu": {
+          "id": "equipement:base_sports_nature",
+          "nom": "Base Sports Nature",
+          "type": "equipement",
+          "source": "Ville de Cesson-Sévigné",
+          "url": "https://www.ville-cesson-sevigne.fr/contacts/base-sports-nature/"
+        },
+        "verifie_le": "2026-11-15",
+        "remarque": "Locations de canoë, kayak, paddle et rafting en saison seulement ; dates de la saison suivante à reporter ici dès leur publication.",
+        "espaces": [
+          {
+            "id": "eau_calme",
+            "nom": "Location eau calme",
+            "jours": [
+              {
+                "date": "2026-11-15",
+                "connu": false,
+                "plages": []
+              },
+              {
+                "date": "2026-11-16",
+                "connu": false,
+                "plages": []
+              },
+              {
+                "date": "2026-11-17",
+                "connu": false,
+                "plages": []
+              },
+              {
+                "date": "2026-11-18",
+                "connu": false,
+                "plages": []
+              },
+              {
+                "date": "2026-11-19",
+                "connu": false,
+                "plages": []
+              },
+              {
+                "date": "2026-11-20",
+                "connu": false,
+                "plages": []
+              },
+              {
+                "date": "2026-11-21",
+                "connu": false,
+                "plages": []
+              },
+              {
+                "date": "2026-11-22",
+                "connu": false,
+                "plages": []
+              },
+              {
+                "date": "2026-11-23",
+                "connu": false,
+                "plages": []
+              },
+              {
+                "date": "2026-11-24",
+                "connu": false,
+                "plages": []
+              },
+              {
+                "date": "2026-11-25",
+                "connu": false,
+                "plages": []
+              },
+              {
+                "date": "2026-11-26",
+                "connu": false,
+                "plages": []
+              },
+              {
+                "date": "2026-11-27",
+                "connu": false,
+                "plages": []
+              },
+              {
+                "date": "2026-11-28",
+                "connu": false,
+                "plages": []
+              }
+            ]
+          },
+          {
+            "id": "eaux_vives",
+            "nom": "Location eaux vives",
+            "jours": [
+              {
+                "date": "2026-11-15",
+                "connu": false,
+                "plages": []
+              },
+              {
+                "date": "2026-11-16",
+                "connu": false,
+                "plages": []
+              },
+              {
+                "date": "2026-11-17",
+                "connu": false,
+                "plages": []
+              },
+              {
+                "date": "2026-11-18",
+                "connu": false,
+                "plages": []
+              },
+              {
+                "date": "2026-11-19",
+                "connu": false,
+                "plages": []
+              },
+              {
+                "date": "2026-11-20",
+                "connu": false,
+                "plages": []
+              },
+              {
+                "date": "2026-11-21",
+                "connu": false,
+                "plages": []
+              },
+              {
+                "date": "2026-11-22",
+                "connu": false,
+                "plages": []
+              },
+              {
+                "date": "2026-11-23",
+                "connu": false,
+                "plages": []
+              },
+              {
+                "date": "2026-11-24",
+                "connu": false,
+                "plages": []
+              },
+              {
+                "date": "2026-11-25",
+                "connu": false,
+                "plages": []
+              },
+              {
+                "date": "2026-11-26",
+                "connu": false,
+                "plages": []
+              },
+              {
+                "date": "2026-11-27",
+                "connu": false,
+                "plages": []
+              },
+              {
+                "date": "2026-11-28",
+                "connu": false,
+                "plages": []
+              }
+            ]
+          }
+        ],
+        "horaires": [
+          {
+            "lieu_id": "equipement:base_sports_nature",
+            "sous_espace": "eau_calme",
+            "periode": "Pleine saison",
+            "opening_hours": "Mo,Tu 14:00-18:00; We-Fr 14:00-20:00; Sa,Su 14:00-18:00",
+            "exceptions": []
+          },
+          {
+            "lieu_id": "equipement:base_sports_nature",
+            "sous_espace": "eau_calme",
+            "periode": "Après-saison",
+            "opening_hours": "Mo-We 17:30-20:30; Th 14:00-18:00; Fr 11:00-15:30; Sa,Su 14:00-18:00",
+            "exceptions": []
+          },
+          {
+            "lieu_id": "equipement:base_sports_nature",
+            "sous_espace": "eaux_vives",
+            "periode": "Pleine saison",
+            "opening_hours": "Th 19:00-20:00; Sa,Su 14:30-15:30,15:45-16:45,17:00-18:00",
+            "exceptions": []
+          },
+          {
+            "lieu_id": "equipement:base_sports_nature",
+            "sous_espace": "eaux_vives",
+            "periode": "Après-saison",
+            "opening_hours": "Sa,Su 14:30-15:30,15:45-16:45,17:00-18:00",
+            "exceptions": []
+          }
+        ]
+      }
+    ]
+  }
+}

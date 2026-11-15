@@ -77,6 +77,8 @@ import com.yogistudio.cesson.eau.vigicrues
 import com.yogistudio.cesson.eau.vilaine
 import com.yogistudio.cesson.environnement.CarteMeteo
 import com.yogistudio.cesson.environnement.meteo
+import com.yogistudio.cesson.equipements.CarteEquipements
+import com.yogistudio.cesson.equipements.equipements
 import com.yogistudio.cesson.pratique.CarteCarburants
 import com.yogistudio.cesson.pratique.carburants
 import com.yogistudio.cesson.transport.CarteDeparts
@@ -115,10 +117,7 @@ val TUILES: List<Tuile> = listOf(
         CarteBientot("Ma collecte", Icons.Rounded.DeleteOutline,
             "Choisissez bientôt votre secteur pour connaître la prochaine collecte.")
     },
-    Tuile("equipements", "Mes équipements", Icons.Rounded.Pool) {
-        CarteBientot("Mes équipements", Icons.Rounded.Pool,
-            "Piscine, médiathèque, Pont des Arts : ouvert ou fermé, bientôt ici.")
-    },
+    Tuile("equipements", "Mes équipements", Icons.Rounded.Pool) { app -> EquipementsCesson(app) },
     Tuile("carburants", "Carburants", Icons.Rounded.LocalGasStation) { app ->
         val etat by remember(app) { app.depot.carburants() }.collectAsStateWithLifecycle(EtatModule.Absent)
         val suivi by app.preferences.carburantSuivi.collectAsStateWithLifecycle(null)
@@ -135,6 +134,12 @@ val TUILES: List<Tuile> = listOf(
 fun DepartsViaSilva(app: CessonApp) {
     val lignes by remember(app) { app.depot.lignesStar() }.collectAsStateWithLifecycle(EtatModule.Absent)
     CarteDeparts(app.star, (lignes as? EtatModule.Disponible)?.fichier?.donnees)
+}
+
+@Composable
+fun EquipementsCesson(app: CessonApp) {
+    val etat by remember(app) { app.depot.equipements() }.collectAsStateWithLifecycle(EtatModule.Absent)
+    CarteEquipements(etat)
 }
 
 /** Trains à la halte : données du backend, relues toutes les 2 min tant que la carte est visible. */

@@ -125,7 +125,7 @@ fun AppCesson(app: CessonApp) {
         NavHost(nav, startDestination = RouteAujourdhui, modifier = Modifier.padding(marges)) {
             composable<RouteAujourdhui> { EcranAujourdhui(app, onPersonnaliser = { nav.navigate(RoutePersonnaliser) }) }
             composable<RouteBouger> { EcranBouger(app) }
-            composable<RouteSortir> { EcranSortir() }
+            composable<RouteSortir> { EcranSortir(app) }
             composable<RoutePratique> { EcranPratique() }
             composable<RouteActus> { EcranActus() }
             composable<RoutePersonnaliser> { EcranPersonnaliser(app) }

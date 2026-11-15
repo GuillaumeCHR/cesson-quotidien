@@ -52,6 +52,7 @@ dependencies {
     implementation(project(":core"))
     implementation(project(":eau"))
     implementation(project(":environnement"))
+    implementation(project(":equipements"))
     implementation(project(":pratique"))
     implementation(project(":transport"))
     implementation(libs.androidx.core.ktx)

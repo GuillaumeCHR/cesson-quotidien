@@ -246,16 +246,17 @@ L'app ne collecte aucune donnée personnelle. Le seul identifiant technique est 
 
 ## Feuille de route
 
-Le projet avance en 6 étapes, des données les plus sûres vers celles qui demandent saisie ou partenariat.
+Le projet avance en 7 étapes, des données les plus sûres vers celles qui demandent saisie ou partenariat.
 
 1. **Socle.** Modèle commun, gabarit de collecteur, publication JSON et manifest, squelette Compose avec les 5 onglets, accueil personnalisable, cache disque, écrans Sources, À propos et Vos idées, tableau de santé. Premier module bout en bout : la Vilaine.
 2. **Données sûres.** STAR (métro b et lignes passant par Cesson), trains à la halte, Vilaine et Vigicrues, carburants, qualité de l'air.
 3. **Saisie.** YAML des équipements (piscine, médiathèque, Pont des Arts, golf, Base Sports Nature) et des secteurs de collecte ; extraction des horaires de la déchèterie.
 4. **Notifications.** Rappels locaux de collecte, puis alertes FCM : crue d'abord, puis fermetures, trains et bus.
-5. **Widget Glance** « Aujourd'hui à Cesson ».
-6. **Contenus et partenariats.** Actualités, spectacles du Carré Sévigné, cinéma Le Sévigné, défibrillateurs, bornes, accessibilité.
+5. **Guide de démarrage et personnalisation.** Au premier lancement, un guide court fait choisir les cartes de l'accueil et les réglages qui vont avec (mon arrêt, mon carburant, mes équipements, plus tard mon secteur de collecte). Chaque onglet (Bouger, Sortir, Pratique, Actus) devient personnalisable comme l'accueil : cartes affichées et ordre. Le guide reste accessible depuis le menu pour tout revoir. Tous les choix restent sur le téléphone.
+6. **Widget Glance** « Aujourd'hui à Cesson ».
+7. **Contenus et partenariats.** Actualités, spectacles du Carré Sévigné, cinéma Le Sévigné, défibrillateurs, bornes, accessibilité.
 
-Une page web de consultation pour iPhone, alimentée par les mêmes JSON, reste possible après l'étape 6.
+Une page web de consultation pour iPhone, alimentée par les mêmes JSON, reste possible après l'étape 7.
 
 ## Risques et points ouverts
 

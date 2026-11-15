@@ -32,5 +32,7 @@ include(":environnement")
 include(":pratique")
 // Domaine transport : prochains départs STAR à Cesson-ViaSilva, lignes de Cesson (puis trains).
 include(":transport")
-// Les autres domaines (equipements, agenda, actus, widget)
+// Domaine équipements : horaires calculés par le backend (piscine, médiathèque, golf, Base Sports Nature).
+include(":equipements")
+// Les autres domaines (agenda, actus, widget)
 // arrivent avec leur étape de la feuille de route.

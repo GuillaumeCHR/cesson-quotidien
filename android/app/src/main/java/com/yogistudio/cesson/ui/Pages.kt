@@ -79,10 +79,18 @@ fun EcranBouger(app: CessonApp) {
 }
 
 @Composable
-fun EcranSortir() = OngletAVenir("Sortir", Icons.Rounded.Celebration, listOf(
-    "Spectacles du Carré Sévigné", "Cinéma Le Sévigné", "Pont des Arts et médiathèque",
-    "Golf municipal et Base Sports Nature", "Piscine",
-))
+fun EcranSortir(app: CessonApp) {
+    Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(16.dp),
+        verticalArrangement = Arrangement.spacedBy(12.dp)) {
+        EquipementsCesson(app)
+        CarteDonnee("Bientôt dans cet onglet", Icons.Rounded.Celebration) {
+            Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                listOf("Spectacles du Carré Sévigné", "Cinéma Le Sévigné", "Pont des Arts et Galerie Pictura")
+                    .forEach { Text("• $it", style = MaterialTheme.typography.bodyMedium) }
+            }
+        }
+    }
+}
 
 @Composable
 fun EcranPratique() = OngletAVenir("Pratique", Icons.Rounded.VolunteerActivism, listOf(

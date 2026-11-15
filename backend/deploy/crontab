@@ -8,6 +8,9 @@ PATH=/usr/bin:/bin
 # Quotidien, 6h05 : hauteur de la Vilaine (carte informative ; les alertes viendront de Vigicrues)
 5 6 * * *     cd $CESSON && .venv/bin/python -m cesson collecter vilaine --sortie /srv/cesson/public --etat /srv/cesson/etat >> /srv/cesson/log/collecte.log 2>&1
 
+# Quotidien, 0h05 : horaires des équipements recalculés pour les 14 prochains jours (saisie/equipements.yaml)
+5 0 * * *     cd $CESSON && .venv/bin/python -m cesson collecter equipements --sortie /srv/cesson/public --etat /srv/cesson/etat >> /srv/cesson/log/collecte.log 2>&1
+
 # Quotidien, 0h40 (après la publication du GTFS STAR vers 23h30) : lignes STAR qui desservent Cesson
 40 0 * * *    cd $CESSON && .venv/bin/python -m cesson collecter lignes_star --sortie /srv/cesson/public --etat /srv/cesson/etat >> /srv/cesson/log/collecte.log 2>&1
 
