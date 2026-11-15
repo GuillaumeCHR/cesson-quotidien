@@ -124,7 +124,7 @@ private fun LigneEtat(nom: String?, o: Ouverture, libelle: String) {
 private fun couleur(o: Ouverture): Color = when (o) {
     is Ouverture.Ouvert -> MaterialTheme.colorScheme.primary
     is Ouverture.Ferme -> MaterialTheme.colorScheme.error
-    Ouverture.Inconnu -> MaterialTheme.colorScheme.outline
+    is Ouverture.Inconnu -> MaterialTheme.colorScheme.outline
 }
 
 @OptIn(ExperimentalMaterial3Api::class)

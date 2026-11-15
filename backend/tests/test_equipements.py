@@ -83,12 +83,34 @@ def test_decheterie_fermee_jeudi_apres_midi_et_jours_feries():
     assert mercredi_11.plages == [] and mercredi_11.motif == "Jour férié (Armistice 1918)"
 
 
+def test_equipements_municipaux_fermes_les_jours_feries():
+    d = donnees(datetime(2026, 11, 9, 8, 0, tzinfo=timezone.utc))
+    mercredi_11 = espace(d, "mediatheque", "mediatheque").jours[2]  # ouverte un mercredi ordinaire
+    assert mercredi_11.date == date(2026, 11, 11) and mercredi_11.plages == []
+    assert mercredi_11.motif == "Jour férié (Armistice 1918)"
+    # Piscine : fermeture du 11 novembre annoncée par la ville, donc saisie.
+    assert espace(d, "piscine", "bassin_ludique").jours[2].motif == "Jour férié (Armistice 1918)"
+
+
+def test_piscine_jours_feries_a_verifier():
+    # Lundi de Pâques 2027 : la piscine ouvre parfois les fériés, la source ne dit rien.
+    jour = espace(donnees(datetime(2027, 3, 29, 7, 0, tzinfo=timezone.utc)), "piscine", "bassin_ludique").jours[0]
+    assert not jour.connu and jour.motif == "Jour férié (Lundi de Pâques)"
+
+
+def test_golf_ouvert_les_jours_feries_aux_horaires_du_dimanche():
+    noel = espace(donnees(datetime(2026, 12, 25, 8, 0, tzinfo=timezone.utc)), "golf", "club_house").jours[0]
+    assert noel.date.weekday() == 4  # un vendredi
+    assert heures(noel) == ["09:30-12:00", "13:00-16:45"] and "dimanche" in noel.motif
+
+
 @pytest.mark.parametrize("modif", [
     lambda b: b.pop("equipements"),
     lambda b: b["equipements"]["piscine"].pop("verifie_le"),
     lambda b: b["equipements"]["mediatheque"]["espaces"]["mediatheque"]["periodes"][0].update(horaires="Ma 9h-12h"),
     lambda b: b["equipements"]["piscine"]["exceptions"][0].update(au=date(2026, 11, 1)),
     lambda b: b["equipements"]["golf"]["espaces"]["parcours"]["periodes"][0].update(du="novembre"),
+    lambda b: b["equipements"]["golf"].update(jours_feries="ouverts"),
 ])
 def test_saisie_fautive_refusee(modif):
     brut = yaml.safe_load(SAISIE.read_text(encoding="utf-8"))

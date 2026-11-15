@@ -5,8 +5,8 @@
     "source": "Ville de Cesson-Sévigné (site internet), saisie manuelle",
     "licence": "Informations publiques de la Ville de Cesson-Sévigné",
     "url_source": "https://www.ville-cesson-sevigne.fr/",
-    "recupere_le": "2026-11-15T08:00:37.524051Z",
-    "valide_jusqu_a": "2026-11-16T20:00:37.524051Z",
+    "recupere_le": "2026-11-15T08:05:06.217087Z",
+    "valide_jusqu_a": "2026-11-16T20:05:06.217087Z",
     "etat": "ok"
   },
   "donnees": {
@@ -395,7 +395,7 @@
               {
                 "du": "2026-11-11",
                 "au": "2026-11-11",
-                "motif": "Jour férié"
+                "motif": "Jour férié (Armistice 1918)"
               },
               {
                 "du": "2026-12-14",
@@ -413,7 +413,7 @@
               {
                 "du": "2026-11-11",
                 "au": "2026-11-11",
-                "motif": "Jour férié"
+                "motif": "Jour férié (Armistice 1918)"
               },
               {
                 "du": "2026-12-14",
@@ -431,7 +431,7 @@
               {
                 "du": "2026-11-11",
                 "au": "2026-11-11",
-                "motif": "Jour férié"
+                "motif": "Jour férié (Armistice 1918)"
               },
               {
                 "du": "2026-12-14",
@@ -449,7 +449,7 @@
               {
                 "du": "2026-11-11",
                 "au": "2026-11-11",
-                "motif": "Jour férié"
+                "motif": "Jour férié (Armistice 1918)"
               },
               {
                 "du": "2026-12-14",
@@ -467,7 +467,7 @@
               {
                 "du": "2026-11-11",
                 "au": "2026-11-11",
-                "motif": "Jour férié"
+                "motif": "Jour férié (Armistice 1918)"
               },
               {
                 "du": "2026-12-14",
@@ -485,7 +485,7 @@
               {
                 "du": "2026-11-11",
                 "au": "2026-11-11",
-                "motif": "Jour férié"
+                "motif": "Jour férié (Armistice 1918)"
               },
               {
                 "du": "2026-12-14",

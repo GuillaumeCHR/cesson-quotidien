@@ -48,8 +48,16 @@ class EquipementsTest {
     @Test
     fun horsSaisonNEstPasFerme() {
         val o = ouverture(espace("base_sports_nature", "eau_calme"), a("2026-11-15T14:00:00Z"))
-        assertEquals(Ouverture.Inconnu, o)
+        assertEquals(Ouverture.Inconnu(), o)
         assertEquals("Horaires non communiqués", libelleOuverture(o, a("2026-11-15T14:00:00Z")))
+    }
+
+    @Test
+    fun jourFerieAVerifier() {
+        val ferie = JourHoraire(java.time.LocalDate.of(2027, 3, 29), connu = false, motif = "Jour férié (Lundi de Pâques)")
+        assertEquals("jour férié (Lundi de Pâques) : à vérifier", libelleJour(ferie))
+        assertEquals("Jour férié (Lundi de Pâques) : horaires à vérifier",
+            libelleOuverture(Ouverture.Inconnu(ferie.motif), a("2027-03-29T08:00:00Z")))
     }
 
     @Test

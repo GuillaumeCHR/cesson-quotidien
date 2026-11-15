@@ -52,16 +52,16 @@ sealed interface Ouverture {
     data class Ouvert(val jusqua: Instant) : Ouverture
     /** [prochaine] : prochaine ouverture connue dans les 14 jours publiés. */
     data class Ferme(val prochaine: Instant?, val motif: String?) : Ouverture
-    /** Aucun horaire publié pour aujourd'hui : on ne dit pas « fermé ». */
-    data object Inconnu : Ouverture
+    /** Aucun horaire publié pour aujourd'hui : on ne dit pas « fermé ». [motif] : jour férié à vérifier. */
+    data class Inconnu(val motif: String? = null) : Ouverture
 }
 
 fun ouverture(espace: Espace, maintenant: Instant): Ouverture {
     val aujourdhui = maintenant.atZone(FuseauCesson).toLocalDate()
-    val jour = espace.jours.firstOrNull { it.date == aujourdhui } ?: return Ouverture.Inconnu
+    val jour = espace.jours.firstOrNull { it.date == aujourdhui } ?: return Ouverture.Inconnu()
     jour.plages.firstOrNull { !maintenant.isBefore(it.debut) && maintenant.isBefore(it.fin) }
         ?.let { return Ouverture.Ouvert(it.fin) }
-    if (!jour.connu) return Ouverture.Inconnu
+    if (!jour.connu) return Ouverture.Inconnu(jour.motif)
     val prochaine = espace.jours.filter { !it.date.isBefore(aujourdhui) }
         .flatMap { it.plages }
         .firstOrNull { it.debut.isAfter(maintenant) }
@@ -94,12 +94,12 @@ fun libelleOuverture(o: Ouverture, maintenant: Instant): String = when (o) {
         if (o.motif != null) append(" (${o.motif.replaceFirstChar { it.lowercase() }})")
         if (o.prochaine != null) append(" · ouvre ${formaterProchaine(o.prochaine, maintenant)}")
     }
-    Ouverture.Inconnu -> "Horaires non communiqués"
+    is Ouverture.Inconnu -> o.motif?.let { "$it : horaires à vérifier" } ?: "Horaires non communiqués"
 }
 
 /** Plages d'un jour, en clair : « 10h – 12h30, 14h30 – 19h », « fermé », « non communiqué ». */
 fun libelleJour(j: JourHoraire): String = when {
-    !j.connu -> "non communiqué"
+    !j.connu -> j.motif?.let { "${it.replaceFirstChar { c -> c.lowercase() }} : à vérifier" } ?: "non communiqué"
     j.plages.isEmpty() -> if (j.motif != null) "fermé (${j.motif.replaceFirstChar { it.lowercase() }})" else "fermé"
     else -> j.plages.joinToString(", ") { "${formaterHeureCourte(it.debut)} – ${formaterHeureCourte(it.fin)}" }
 }

@@ -21,6 +21,11 @@ from ..commun.horaires import PARIS, HoraireInvalide, jours, lire, plages_du_jou
 from ..commun.modele import ExceptionHoraire, Horaire, Lieu, Modele
 
 SAISIE = Path(__file__).resolve().parents[2] / "saisie" / "equipements.yaml"
+# Équipements municipaux fermés les jours fériés, sauf quand la source dit autre chose.
+FERIES_FERMES, FERIES_COMME_DIMANCHE, FERIES_NORMAUX = "fermes", "comme_le_dimanche", "normaux"
+# La source ne dit rien et l'équipement ouvre parfois (piscine l'été) : jour publié « à vérifier ».
+FERIES_A_VERIFIER = "a_verifier"
+MODES_FERIES = (FERIES_FERMES, FERIES_COMME_DIMANCHE, FERIES_NORMAUX, FERIES_A_VERIFIER)
 NB_JOURS = 14
 
 
@@ -95,6 +100,8 @@ class CollecteurEquipements(Collecteur[DonneesEquipements]):
             if not e.get("nom") or not isinstance(e.get("espaces"), dict) or not e["espaces"]:
                 raise ErreurValidation(f"{eid} : nom ou espaces manquants")
             _date(e.get("verifie_le"), f"{eid}.verifie_le") or self._manque(f"{eid}.verifie_le")
+            if e.get("jours_feries", FERIES_FERMES) not in MODES_FERIES:
+                raise ErreurValidation(f"{eid}.jours_feries : {e['jours_feries']!r} inconnu ({', '.join(MODES_FERIES)})")
             for x in e.get("exceptions") or []:
                 du, au = _date(x.get("du"), f"{eid} exception"), _date(x.get("au"), f"{eid} exception")
                 if not du or not au or au < du or not x.get("motif"):
@@ -128,7 +135,8 @@ class CollecteurEquipements(Collecteur[DonneesEquipements]):
             exceptions = [ExceptionHoraire(du=x["du"], au=x["au"], motif=x["motif"],
                                            opening_hours=" ".join(x["horaires"].split()) if x.get("horaires") else None)
                           for x in e.get("exceptions") or []]
-            if e.get("fermee_jours_feries"):
+            feries_mode = e.get("jours_feries", FERIES_FERMES)
+            if feries_mode == FERIES_FERMES:
                 # Fériés calculés, ajoutés après les exceptions saisies : celles-ci restent prioritaires.
                 exceptions += [ExceptionHoraire(du=j, au=j, motif=f"Jour férié ({ferie(j)})")
                                for j in jours(aujourdhui, NB_JOURS) if ferie(j)]
@@ -150,6 +158,16 @@ class CollecteurEquipements(Collecteur[DonneesEquipements]):
                                                          plages=[Plage(debut=a, fin=b) for a, b in plages]))
                     elif p is None:
                         jours_publies.append(JourHoraire(date=jour, connu=False))
+                    elif feries_mode == FERIES_A_VERIFIER and ferie(jour):
+                        jours_publies.append(JourHoraire(date=jour, connu=False, periode=p.get("nom"),
+                                                         motif=f"Jour férié ({ferie(jour)})"))
+                    elif feries_mode == FERIES_COMME_DIMANCHE and ferie(jour):
+                        dimanche = [(datetime.combine(jour, a, PARIS), datetime.combine(jour, b, PARIS))
+                                    for a, b in p["semaine"][6]]
+                        jours_publies.append(JourHoraire(
+                            date=jour, connu=True, periode=p.get("nom"),
+                            motif=f"Jour férié ({ferie(jour)}) : horaires du dimanche",
+                            plages=[Plage(debut=a, fin=b) for a, b in dimanche]))
                     else:
                         jours_publies.append(JourHoraire(
                             date=jour, connu=True, periode=p.get("nom"),

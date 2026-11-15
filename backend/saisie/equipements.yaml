@@ -7,8 +7,12 @@
 #
 # Un jour couvert par aucune période est publié « horaires non communiqués », jamais « fermé ».
 # Les exceptions (fériés, fermetures) s'appliquent à tous les espaces de l'équipement ;
-# sans « horaires », l'équipement est fermé sur l'exception. « fermee_jours_feries: true » ferme
-# l'équipement les jours fériés, calculés (seulement quand la source le dit).
+# sans « horaires », l'équipement est fermé sur l'exception.
+#
+# Jours fériés (calculés) : les équipements municipaux sont fermés par défaut. Quand la source dit
+# autre chose, « jours_feries » vaut « comme_le_dimanche » (horaires du dimanche) ou « normaux ».
+# « a_verifier » : la source ne dit rien et l'équipement ouvre parfois ; le jour est publié « horaires à
+# vérifier », et chaque fermeture annoncée s'ajoute en exception.
 #
 # Mettre à jour « verifie_le » à chaque relecture de la source.
 
@@ -20,6 +24,8 @@ equipements:
     url: https://www.ville-cesson-sevigne.fr/contacts/piscine-municipale/
     verifie_le: 2026-11-15
     remarque: Les caisses ferment 40 minutes avant l'évacuation des bassins.
+    # Ouverte certains jours fériés, notamment l'été : seules les fermetures annoncées sont saisies.
+    jours_feries: a_verifier
     espaces:
       bassin_ludique:
         nom: Bassin ludique
@@ -56,7 +62,7 @@ equipements:
     exceptions:
       - du: 2026-11-11
         au: 2026-11-11
-        motif: Jour férié
+        motif: Jour férié (Armistice 1918)
       - du: 2026-12-14
         au: 2027-01-03
         motif: Fermeture pour vidange
@@ -79,6 +85,8 @@ equipements:
     url: https://www.ville-cesson-sevigne.fr/contacts/golf/
     verifie_le: 2026-11-15
     remarque: Les week-ends et jours fériés ont les mêmes horaires de club-house.
+    # La page du golf donne des horaires « week-ends et jours fériés » : ouvert, horaires du dimanche.
+    jours_feries: comme_le_dimanche
     espaces:
       parcours:
         nom: Parcours
@@ -155,7 +163,6 @@ equipements:
     url: https://www.ville-cesson-sevigne.fr/gestion-des-dechets/
     verifie_le: 2026-11-15
     remarque: Géré par Rennes Métropole. La tonte de pelouse n'est plus acceptée depuis 2024.
-    fermee_jours_feries: true
     espaces:
       decheterie:
         nom: Déchèterie
