@@ -43,3 +43,9 @@ La carte vectorielle de Cesson-Sévigné animée au lancement vient d'OpenStreet
 
     curl -s --data-urlencode data@tools/carte/requete.overpassql https://overpass-api.de/api/interpreter > osm.json
     python3 tools/carte/generer_carte.py osm.json android/app/src/main/java/com/yogistudio/cesson/ui/intro/CarteCesson.kt
+
+## Licence
+
+Cesson'App est un logiciel libre, publié par Yogi Studio sous licence **GNU GPL v3** (voir `LICENSE`), comme
+Molkky Board et VYLIA. Les données affichées restent sous la licence de leurs producteurs (ODbL, Licence
+Ouverte…), citées dans l'app (écran Sources et licences) et dans le générique.
