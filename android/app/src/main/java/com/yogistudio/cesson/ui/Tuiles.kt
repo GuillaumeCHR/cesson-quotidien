@@ -15,7 +15,14 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyListScope
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.size
+import androidx.compose.material3.AssistChip
+import androidx.compose.material3.AssistChipDefaults
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.animation.AnimatedVisibility
@@ -104,9 +111,10 @@ fun EcranTuiles(
     app: CessonApp,
     onglet: OngletTuiles,
     onPersonnaliser: () -> Unit,
-    entete: LazyListScope.() -> Unit = {},
-    pied: LazyListScope.() -> Unit = {},
+    entete: (@Composable () -> Unit)? = null,
+    pied: (@Composable () -> Unit)? = null,
 ) {
+    val liste = rememberLazyListState()
     val portee = rememberCoroutineScope()
     val config by remember(onglet.id) { app.preferences.configOnglet(onglet.id) }.collectAsState(initial = null)
     val enCours by app.depot.rafraichissementEnCours.collectAsStateWithLifecycle()
@@ -116,6 +124,7 @@ fun EcranTuiles(
     val maintenant = rememberMaintenant()
     val cfg = config ?: return
     val visibles = cartesVisibles(onglet, cfg)
+    val premiereTuile = remember { mutableIntStateOf(0) }
 
     PullToRefreshBox(
         isRefreshing = enCours,
@@ -124,14 +133,27 @@ fun EcranTuiles(
     ) {
         CompositionLocalProvider(LocalMessages provides messages) {
         LazyColumn(
-            contentPadding = PaddingValues(16.dp),
+            state = liste,
+            contentPadding = PaddingValues(start = 16.dp, end = 16.dp, bottom = 16.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp),
             modifier = Modifier.fillMaxSize(),
         ) {
-            entete()
+            // Index des éléments de la liste, pour que les raccourcis sautent à la bonne carte.
+            var rang = 0
+            if (visibles.size >= 2) {
+                stickyHeader("raccourcis") {
+                    Raccourcis(visibles) { i -> portee.launch { liste.animateScrollToItem(premiereTuile.intValue + i) } }
+                }
+                rang++
+            } else {
+                item("marge") { Spacer(Modifier.height(4.dp)) }
+                rang++
+            }
+            if (entete != null) { item("entete") { entete() }; rang++ }
             // Serveur figé : il répond peut-être, mais ne renouvelle plus ses données (Pi en panne, collectes arrêtées).
             val genere = manifest?.genereLe
             if (genere != null && serveurFige(genere, maintenant) && !enCours) {
+                rang++
                 item("serveur-fige") {
                     Surface(color = MaterialTheme.colorScheme.surfaceVariant, shape = MaterialTheme.shapes.medium) {
                         Row(Modifier.padding(12.dp), verticalAlignment = Alignment.CenterVertically) {
@@ -143,6 +165,7 @@ fun EcranTuiles(
                     }
                 }
             } else if (erreur != null && !enCours) {
+                rang++
                 item("hors-ligne") {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Icon(Icons.Rounded.CloudOff, contentDescription = null, tint = MaterialTheme.colorScheme.onSurfaceVariant)
@@ -152,6 +175,7 @@ fun EcranTuiles(
                     }
                 }
             }
+            premiereTuile.intValue = rang
             itemsIndexed(visibles, key = { _, t -> t.id }) { index, tuile ->
                 EntreeCarte(onglet.id, index) {
                 TuileMasquable(
@@ -180,10 +204,33 @@ fun EcranTuiles(
                     }
                 }
             }
-            pied()
+            if (pied != null) item("pied") { pied() }
         }
         }
         SnackbarHost(messages, Modifier.align(Alignment.BottomCenter))
+    }
+}
+
+/**
+ * Raccourcis en haut de l'écran : une puce par carte affichée, qui y mène directement. La barre reste
+ * en haut pendant le défilement.
+ */
+@Composable
+private fun Raccourcis(tuiles: List<Tuile>, onChoisir: (Int) -> Unit) {
+    Surface(color = MaterialTheme.colorScheme.background, modifier = Modifier.fillMaxWidth()) {
+        LazyRow(
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            contentPadding = PaddingValues(vertical = 8.dp),
+            modifier = Modifier.semantics { contentDescription = "Aller à une carte" },
+        ) {
+            itemsIndexed(tuiles, key = { _, t -> t.id }) { i, t ->
+                AssistChip(
+                    onClick = { onChoisir(i) },
+                    label = { Text(t.titre) },
+                    leadingIcon = { Icon(t.icone, contentDescription = null, modifier = Modifier.size(AssistChipDefaults.IconSize)) },
+                )
+            }
+        }
     }
 }
 

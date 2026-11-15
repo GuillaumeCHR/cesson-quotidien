@@ -3,6 +3,7 @@ package com.yogistudio.cesson.ui
 import com.yogistudio.cesson.actus.cinema
 import com.yogistudio.cesson.actus.CarteCinema
 import com.yogistudio.cesson.actus.CarteCanaux
+import androidx.compose.material.icons.rounded.Forum
 import androidx.compose.material.icons.rounded.Movie
 import com.yogistudio.cesson.equipements.SERVICES_A_PART
 import com.yogistudio.cesson.equipements.CartePolice
@@ -166,7 +167,8 @@ private val POLICE = Tuile("police", "Police municipale", Icons.Rounded.LocalPol
 }
 val ONGLET_PRATIQUE = OngletTuiles("pratique", "l'onglet Pratique", listOf(COLLECTE, USAGES_EAU, DECHETERIE_TUILE, DEFIBRILLATEURS, URBANISME, POLICE))
 private val ACTUS_VILLE = Tuile("actus_ville", "Actualités de la ville", Icons.Rounded.Newspaper) { ActusCesson(it, FLUX_VILLE) }
-val ONGLET_ACTUS = OngletTuiles("actus", "l'onglet Actus", listOf(ACTUS_VILLE))
+private val CANAUX_TUILE = Tuile("canaux", "WhatsApp et Facebook", Icons.Rounded.Forum) { CarteCanaux() }
+val ONGLET_ACTUS = OngletTuiles("actus", "l'onglet Actus", listOf(ACTUS_VILLE, CANAUX_TUILE))
 
 val ONGLETS_PERSONNALISABLES = listOf(ONGLET_ACCUEIL, ONGLET_BOUGER, ONGLET_SORTIR, ONGLET_PRATIQUE, ONGLET_ACTUS)
 
@@ -293,39 +295,32 @@ fun CarteAVenir(icone: ImageVector, lignes: List<String>) {
 
 @Composable
 fun EcranActus(app: CessonApp, onPersonnaliser: () -> Unit) =
-    EcranTuiles(app, ONGLET_ACTUS, onPersonnaliser, pied = {
-        item("canaux") { CarteCanaux() }
-    })
+    EcranTuiles(app, ONGLET_ACTUS, onPersonnaliser)
 
 @Composable
 fun EcranAujourdhui(app: CessonApp, onPersonnaliser: () -> Unit) {
     val vigilance by remember(app) { app.depot.vigicrues() }.collectAsStateWithLifecycle(EtatModule.Absent)
-    EcranTuiles(app, ONGLET_ACCUEIL, onPersonnaliser, entete = {
-        // Vigilance crues jaune ou plus : toujours en tête, hors des cartes personnalisables.
-        if (vigilance.enAlerte()) item("crue") { BandeauCrue(vigilance) }
-    })
+    // Vigilance crues jaune ou plus : toujours en tête, hors des cartes personnalisables.
+    EcranTuiles(app, ONGLET_ACCUEIL, onPersonnaliser,
+        entete = if (vigilance.enAlerte()) ({ BandeauCrue(vigilance) }) else null)
 }
 
 @Composable
 fun EcranBouger(app: CessonApp, onPersonnaliser: () -> Unit) =
     EcranTuiles(app, ONGLET_BOUGER, onPersonnaliser, pied = {
-        item("a-venir") { CarteAVenir(Icons.Rounded.DirectionsBus, listOf("Vélos en libre-service et parcs-relais")) }
+        CarteAVenir(Icons.Rounded.DirectionsBus, listOf("Vélos en libre-service et parcs-relais"))
     })
 
 @Composable
 fun EcranSortir(app: CessonApp, onPersonnaliser: () -> Unit) =
     EcranTuiles(app, ONGLET_SORTIR, onPersonnaliser, pied = {
-        item("a-venir") {
-            CarteAVenir(Icons.Rounded.Celebration, listOf("Programme de la médiathèque"))
-        }
+        CarteAVenir(Icons.Rounded.Celebration, listOf("Programme de la médiathèque"))
     })
 
 @Composable
 fun EcranPratique(app: CessonApp, onPersonnaliser: () -> Unit) =
     EcranTuiles(app, ONGLET_PRATIQUE, onPersonnaliser, pied = {
-        item("a-venir") {
-            CarteAVenir(Icons.Rounded.VolunteerActivism, listOf("Accessibilité des lieux publics"))
-        }
+        CarteAVenir(Icons.Rounded.VolunteerActivism, listOf("Accessibilité des lieux publics"))
     })
 
 const val PROMESSE = "Aucun compte, aucune publicité, aucune donnée collectée."

@@ -44,12 +44,14 @@ fun CarteDonnee(
     modifier: Modifier = Modifier,
     fraicheur: Fraicheur? = null,
     maintenant: Instant = rememberMaintenant(),
+    repliable: Boolean = true,
     contenu: @Composable () -> Unit,
 ) {
+    val fond = MaterialTheme.colorScheme.surfaceContainerLowest
     Card(
         modifier = modifier.fillMaxWidth(),
         shape = RoundedCornerShape(22.dp),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerLowest),
+        colors = CardDefaults.cardColors(containerColor = fond),
         elevation = CardDefaults.cardElevation(defaultElevation = 1.dp),
     ) {
         Column(Modifier.padding(start = 18.dp, end = 18.dp, top = 16.dp, bottom = 14.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
@@ -64,7 +66,7 @@ fun CarteDonnee(
                 Spacer(Modifier.width(12.dp))
                 Text(titre, style = MaterialTheme.typography.titleMedium, modifier = Modifier.semantics { heading() })
             }
-            contenu()
+            if (repliable) ContenuRepliable(fond, contenu = contenu) else contenu()
             if (fraicheur != null) {
                 HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
                 LigneFraicheur(fraicheur, maintenant)
