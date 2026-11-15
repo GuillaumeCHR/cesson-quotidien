@@ -13,7 +13,7 @@ Périmètre fonctionnel, en 6 domaines :
 - **Sortir** : spectacles du Carré Sévigné, cinéma Le Sévigné, agenda de la ville.
 - **Environnement et risques** : météo, niveau de la Vilaine, vigilance crues, vigilance météo, qualité de l'air.
 - **Pratique** : collecte des déchets, défibrillateurs, accessibilité des lieux publics.
-- **Actualités** : fil de la ville, lien vers la chaîne WhatsApp municipale.
+- **Actualités** : fil de la ville, liens vers la chaîne WhatsApp municipale et le groupe Facebook Cesson Entraide (non officiel).
 
 Hors périmètre : offres d'emploi, comptes utilisateurs, contenus politiques.
 
@@ -222,7 +222,7 @@ L'app compte 5 onglets et un widget d'accueil. L'onglet Aujourd'hui répond seul
 | Bouger | Pôle Cesson-ViaSilva ; halte ferroviaire ; lignes passant par Cesson ; vélos ; parcs-relais ; carburants ; bornes de recharge | STAR, SNCF, carburants, IRVE |
 | Sortir | Carré Sévigné ; cinéma Le Sévigné ; Pont des Arts et médiathèque ; golf ; Base Sports Nature ; piscine | Agenda, équipements, Vilaine (sur le golf et la base nautique) |
 | Pratique | Collecte par secteur ; déchèterie ; défibrillateurs ; accessibilité des lieux | YAML collecte, Rennes Métropole, Géo'DAE, acceslibre |
-| Actus | Fil de la ville ; lien d'abonnement à la chaîne WhatsApp | RSS de la ville |
+| Actus | Fil de la ville ; liens vers la chaîne WhatsApp et le groupe Cesson Entraide | RSS de la ville |
 | Widget | Prochaine collecte, niveau de la Vilaine, prochain métro b ou train | Cache local |
 
 **Accueil personnalisable.** Comme l'app de Nantes, l'utilisateur ordonne et masque ses tuiles, ce qui répond à la diversité des usages. Le réordonnancement passe par des boutons « monter / descendre » compatibles TalkBack. Un appui long sur une carte propose « Masquer cette carte » (avec Annuler) ou « Personnaliser l'accueil » ; ces actions sont aussi offertes à TalkBack. Une tuile ajoutée par une mise à jour apparaît en fin d'accueil sans effacer l'ordre choisi.

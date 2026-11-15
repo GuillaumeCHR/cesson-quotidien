@@ -182,3 +182,17 @@ equipements:
         periodes:
           - nom: Horaires habituels
             horaires: Mo 08:30-12:00,13:00-17:15; Tu 13:00-17:15; We,Th 08:30-12:00,13:00-17:15; Fr 08:30-12:00,13:00-16:00
+
+  police_municipale:
+    nom: Police municipale
+    adresse: Hôtel des Polices, 6 mail de Bourgchevreuil, Cesson-Sévigné
+    telephone: "02 99 83 52 14"
+    url: https://www.ville-cesson-sevigne.fr/contacts/lhotel-des-polices-police-municipale-et-police-nationale/
+    verifie_le: 2026-11-15
+    remarque: Accueil commun avec la police nationale en semaine ; le samedi matin, police municipale seule.
+    espaces:
+      accueil:
+        nom: Accueil du public
+        periodes:
+          - nom: Horaires habituels
+            horaires: Mo-Fr 09:00-18:00; Sa 07:00-12:00

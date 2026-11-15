@@ -2,8 +2,11 @@ package com.yogistudio.cesson.ui
 
 import com.yogistudio.cesson.actus.cinema
 import com.yogistudio.cesson.actus.CarteCinema
+import com.yogistudio.cesson.actus.CarteCanaux
 import androidx.compose.material.icons.rounded.Movie
-import com.yogistudio.cesson.equipements.SERVICE_URBANISME
+import com.yogistudio.cesson.equipements.SERVICES_A_PART
+import com.yogistudio.cesson.equipements.CartePolice
+import androidx.compose.material.icons.rounded.LocalPolice
 import com.yogistudio.cesson.equipements.CarteUrbanisme
 import androidx.compose.material.icons.rounded.HomeWork
 import com.yogistudio.cesson.actus.agenda
@@ -119,7 +122,7 @@ private val AIR = Tuile("air", "Qualité de l'air", Icons.Rounded.Air) {
     CarteBientot("Qualité de l'air", Icons.Rounded.Air, "Indice ATMO du jour, bientôt ici.")
 }
 private val EQUIPEMENTS_LOISIRS = Tuile("equipements", "Équipements", Icons.Rounded.Pool) { app ->
-    EquipementsCesson(app, titre = "Équipements") { it.lieu.id != DECHETERIE && it.lieu.id != SERVICE_URBANISME }
+    EquipementsCesson(app, titre = "Équipements") { it.lieu.id != DECHETERIE && it.lieu.id !in SERVICES_A_PART }
 }
 private val DECHETERIE_TUILE = Tuile("decheterie", "Déchèterie", Icons.Rounded.Recycling) { app ->
     EquipementsCesson(app, titre = "Déchèterie") { it.lieu.id == DECHETERIE }
@@ -157,7 +160,11 @@ private val URBANISME = Tuile("urbanisme", "Urbanisme", Icons.Rounded.HomeWork) 
     val etat by remember(app) { app.depot.equipements() }.collectAsStateWithLifecycle(EtatModule.Absent)
     CarteUrbanisme(etat)
 }
-val ONGLET_PRATIQUE = OngletTuiles("pratique", "l'onglet Pratique", listOf(COLLECTE, USAGES_EAU, DECHETERIE_TUILE, DEFIBRILLATEURS, URBANISME))
+private val POLICE = Tuile("police", "Police municipale", Icons.Rounded.LocalPolice) { app ->
+    val etat by remember(app) { app.depot.equipements() }.collectAsStateWithLifecycle(EtatModule.Absent)
+    CartePolice(etat)
+}
+val ONGLET_PRATIQUE = OngletTuiles("pratique", "l'onglet Pratique", listOf(COLLECTE, USAGES_EAU, DECHETERIE_TUILE, DEFIBRILLATEURS, URBANISME, POLICE))
 private val ACTUS_VILLE = Tuile("actus_ville", "Actualités de la ville", Icons.Rounded.Newspaper) { ActusCesson(it, FLUX_VILLE) }
 val ONGLET_ACTUS = OngletTuiles("actus", "l'onglet Actus", listOf(ACTUS_VILLE))
 
@@ -188,7 +195,7 @@ fun EquipementsCesson(app: CessonApp, titre: String = "Mes équipements", garder
 @Composable
 fun MesEquipements(app: CessonApp) {
     val masques by app.preferences.equipementsMasques.collectAsStateWithLifecycle(emptySet())
-    EquipementsCesson(app) { it.lieu.id !in masques && it.lieu.id != SERVICE_URBANISME }
+    EquipementsCesson(app) { it.lieu.id !in masques && it.lieu.id !in SERVICES_A_PART }
 }
 
 @Composable
@@ -287,7 +294,7 @@ fun CarteAVenir(icone: ImageVector, lignes: List<String>) {
 @Composable
 fun EcranActus(app: CessonApp, onPersonnaliser: () -> Unit) =
     EcranTuiles(app, ONGLET_ACTUS, onPersonnaliser, pied = {
-        item("a-venir") { CarteAVenir(Icons.Rounded.Newspaper, listOf("Lien d'abonnement à la chaîne WhatsApp municipale")) }
+        item("canaux") { CarteCanaux() }
     })
 
 @Composable
