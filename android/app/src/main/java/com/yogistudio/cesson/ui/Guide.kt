@@ -2,6 +2,13 @@ package com.yogistudio.cesson.ui
 
 import com.yogistudio.cesson.equipements.SERVICES_A_PART
 import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.selection.selectable
+import androidx.compose.foundation.selection.selectableGroup
+import androidx.compose.material3.OutlinedCard
+import androidx.compose.material3.RadioButton
+import com.yogistudio.cesson.core.ui.Pastille
+import com.yogistudio.cesson.core.ui.Ton
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -53,7 +60,7 @@ import com.yogistudio.cesson.transport.ChoixArret
 import com.yogistudio.cesson.transport.lignesStar
 import kotlinx.coroutines.launch
 
-private const val NB_ETAPES = 4
+private const val NB_ETAPES = 5
 
 /**
  * Guide de démarrage, au premier lancement puis depuis le menu : bienvenue, cartes de l'accueil,
@@ -76,8 +83,9 @@ fun EcranGuide(app: CessonApp, onTerminer: () -> Unit) {
                 color = MaterialTheme.colorScheme.onSurfaceVariant)
             when (etape) {
                 0 -> EtapeBienvenue()
-                1 -> EtapeAccueil(app)
-                2 -> EtapeReglages(app)
+                1 -> EtapeCartes(app)
+                2 -> EtapeAccueil(app)
+                3 -> EtapeReglages(app)
                 else -> EtapeFin()
             }
         }
@@ -109,6 +117,65 @@ private fun EtapeBienvenue() {
     Text(PROMESSE, style = MaterialTheme.typography.titleMedium)
     Text("En deux minutes, choisissez ce que vous voulez voir. Tout se change ensuite à tout moment.",
         style = MaterialTheme.typography.bodyLarge)
+}
+
+/** Cartes compactes ou détaillées : deux choix illustrés par ce qu'affichent la météo et les trains. */
+@Composable
+private fun EtapeCartes(app: CessonApp) {
+    val portee = rememberCoroutineScope()
+    val detaillees by app.preferences.cartesDetaillees.collectAsStateWithLifecycle(false)
+    TitreEtape("Vos cartes")
+    Text("Deux façons d'afficher les informations, sur tous les écrans.", style = MaterialTheme.typography.bodyLarge)
+    Column(Modifier.selectableGroup(), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+        ChoixCartes(
+            titre = "Compactes", recommande = true, choisi = !detaillees,
+            explication = "L'essentiel d'un coup d'œil, pour consulter vite et faire moins défiler.",
+            exemples = listOf("Météo : 11°, pluie faible, 3° / 14° aujourd'hui", "Trains : le prochain vers Rennes et vers Vitré"),
+        ) { portee.launch { app.preferences.enregistrerCartesDetaillees(false) } }
+        ChoixCartes(
+            titre = "Détaillées", recommande = false, choisi = detaillees,
+            explication = "Toutes les informations : prévisions heure par heure, plusieurs passages, conseils, " +
+                "liens vers les sources et heure de mise à jour.",
+            exemples = listOf("Météo : + heure par heure, demain, lever et coucher du soleil",
+                "Trains : 3 trains par sens, n° de TER, temps réel SNCF"),
+        ) { portee.launch { app.preferences.enregistrerCartesDetaillees(true) } }
+    }
+    Text("Une carte trop longue se replie aussi avec « Étendre ». Ce choix se change dans Réglages → Cartes.",
+        style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+}
+
+@Composable
+private fun ChoixCartes(
+    titre: String,
+    recommande: Boolean,
+    choisi: Boolean,
+    explication: String,
+    exemples: List<String>,
+    onChoisir: () -> Unit,
+) {
+    OutlinedCard(
+        modifier = Modifier.fillMaxWidth().selectable(selected = choisi, role = Role.RadioButton, onClick = onChoisir),
+        border = BorderStroke(if (choisi) 2.dp else 1.dp,
+            if (choisi) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outlineVariant),
+    ) {
+        Row(Modifier.padding(14.dp), verticalAlignment = Alignment.Top) {
+            RadioButton(selected = choisi, onClick = null)
+            Spacer(Modifier.width(12.dp))
+            Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text(titre, style = MaterialTheme.typography.titleMedium)
+                    if (recommande) {
+                        Spacer(Modifier.width(8.dp))
+                        Pastille("Par défaut", Ton.INFO)
+                    }
+                }
+                Text(explication, style = MaterialTheme.typography.bodyMedium)
+                exemples.forEach {
+                    Text("• $it", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                }
+            }
+        }
+    }
 }
 
 @Composable
@@ -195,6 +262,7 @@ private fun EtapeFin() {
     Text("Pour changer vos choix plus tard :", style = MaterialTheme.typography.bodyLarge)
     Text("• le bouton de réglage en haut de chaque onglet ordonne et masque ses cartes ;", style = MaterialTheme.typography.bodyLarge)
     Text("• un appui long sur une carte la masque ;", style = MaterialTheme.typography.bodyLarge)
+    Text("• cartes compactes ou détaillées : Réglages → Cartes ;", style = MaterialTheme.typography.bodyLarge)
     Text("• ce guide reste dans le menu, en haut à droite.", style = MaterialTheme.typography.bodyLarge)
     Text("Une erreur, une idée ? « Vos idées / signaler une erreur », dans le même menu.",
         style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
