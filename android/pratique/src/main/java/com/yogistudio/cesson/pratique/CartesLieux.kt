@@ -1,5 +1,6 @@
 package com.yogistudio.cesson.pratique
 
+import androidx.compose.ui.text.style.TextOverflow
 import android.content.ActivityNotFoundException
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -127,6 +128,33 @@ fun CarteDefibrillateurs(
                 EtatModule.Absent -> TexteBientot("Liste pas encore reçue. Tirez vers le bas pour actualiser.")
                 is EtatModule.Disponible -> {
                     val liste = parProximite(etat.fichier.donnees.defibrillateurs, position) { it.lieu }
+                    // Compact : les 3 premiers, une ligne chacun (nom, distance si connue, accès en pastille).
+                    if (LocalCompact.current) {
+                        Column {
+                            liste.take(3).forEach { (d, dist) ->
+                                Row(
+                                    Modifier.fillMaxWidth().clickable(role = Role.Button, onClickLabel = "Itinéraire vers ${d.lieu.nom}") {
+                                        itineraire(d.lieu)
+                                    }.padding(vertical = 6.dp),
+                                    verticalAlignment = Alignment.CenterVertically,
+                                ) {
+                                    Text(d.lieu.nom, style = MaterialTheme.typography.bodyMedium, maxLines = 1,
+                                        overflow = TextOverflow.Ellipsis, modifier = Modifier.weight(1f))
+                                    dist?.let {
+                                        Text(formaterDistance(it), style = MaterialTheme.typography.labelMedium,
+                                            color = MaterialTheme.colorScheme.primary)
+                                        Spacer(Modifier.width(8.dp))
+                                    }
+                                    when {
+                                        d.toujoursAccessible -> Pastille("24 h/24", Ton.OUVERT)
+                                        d.libreAcces -> Pastille("Heures du lieu", Ton.INFO)
+                                        else -> Pastille("Restreint", Ton.NEUTRE)
+                                    }
+                                }
+                            }
+                        }
+                        return@Column
+                    }
                     BoutonProximite(position, rechercheEnCours, onDemanderPosition)
                     (if (tout) liste else liste.take(nbReplie())).forEachIndexed { i, (d, dist) ->
                         if (i > 0) HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
@@ -169,6 +197,29 @@ fun CarteBornes(
         is EtatModule.Disponible -> {
             val liste = parProximite(etat.fichier.donnees.stations, position) { it.lieu }
             CarteDonnee("Bornes de recharge", Icons.Rounded.ElectricCar, modifier, etat.fraicheur, maintenant) {
+                // Compact : les 3 premières stations, une ligne chacune (nom, distance si connue, puissance).
+                if (LocalCompact.current) {
+                    Column {
+                        liste.take(3).forEach { (st, dist) ->
+                            Row(
+                                Modifier.fillMaxWidth().clickable(role = Role.Button, onClickLabel = "Itinéraire vers ${st.lieu.nom}") {
+                                    itineraire(st.lieu)
+                                }.padding(vertical = 6.dp),
+                                verticalAlignment = Alignment.CenterVertically,
+                            ) {
+                                Text(st.lieu.nom, style = MaterialTheme.typography.bodyMedium, maxLines = 1,
+                                    overflow = TextOverflow.Ellipsis, modifier = Modifier.weight(1f))
+                                dist?.let {
+                                    Text(formaterDistance(it), style = MaterialTheme.typography.labelMedium,
+                                        color = MaterialTheme.colorScheme.primary)
+                                    Spacer(Modifier.width(8.dp))
+                                }
+                                Pastille(formaterPuissance(st.puissanceMax), if (st.puissanceMax >= 50) Ton.INFO else Ton.NEUTRE)
+                            }
+                        }
+                    }
+                    return@CarteDonnee
+                }
                 Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
                     BoutonProximite(position, rechercheEnCours, onDemanderPosition)
                     (if (tout) liste else liste.take(nbReplie())).forEachIndexed { i, (s, dist) ->
