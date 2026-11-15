@@ -28,7 +28,14 @@ jour si tout concorde.
   est en erreur, vérifier ce site (titre des liens « grille <mois> <aa> ») et mettre à jour `grille` en secours.
 - **carburants.yaml** : noms des stations (Carrefour Rigourdière, Carrefour Market Bourgchevreuil, Total + rue).
 
-## 3. Sources automatiques à surveiller
+## 3. Liens écrits dans l'app
+
+Vérifier qu'ils répondent et mènent toujours au bon service ; sinon, trouver le nouveau lien sur le site de la ville :
+billetterie (`actus/CarteBilletterie.kt`), carte d'identité et passeport, signalements ville et métropole
+(`pratique/CarteDemarches.kt`), portail familles (`familles/CartesFamilles.kt`), urbanisme, police municipale,
+canaux WhatsApp et Facebook (`actus/CarteCanaux.kt`).
+
+## 4. Sources automatiques à surveiller
 
 - **Menus de la cantine** : actualité « Menu <mois> » du portail familles (`/api/news-list/public`). Si le menu
   du mois suivant n'est pas lu alors qu'il est publié, adapter `familles.py`. Ne jamais reprendre une actualité

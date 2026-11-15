@@ -3,6 +3,12 @@ package com.yogistudio.cesson.ui
 import com.yogistudio.cesson.actus.cinema
 import com.yogistudio.cesson.actus.CarteCinema
 import com.yogistudio.cesson.actus.CarteCanaux
+import com.yogistudio.cesson.actus.CarteBilletterie
+import com.yogistudio.cesson.pratique.CarteIdentite
+import com.yogistudio.cesson.pratique.CarteSignalement
+import androidx.compose.material.icons.rounded.TheaterComedy
+import androidx.compose.material.icons.rounded.Badge
+import androidx.compose.material.icons.rounded.ReportProblem
 import com.yogistudio.cesson.familles.CarteVacances
 import com.yogistudio.cesson.familles.CartePortailFamilles
 import com.yogistudio.cesson.familles.vacancesScolaires
@@ -165,7 +171,11 @@ private val CINEMA = Tuile("cinema", "Cinéma Le Sévigné", Icons.Rounded.Movie
     val etat by remember(app) { app.depot.cinema() }.collectAsStateWithLifecycle(EtatModule.Absent)
     CarteCinema(etat)
 }
-val ONGLET_SORTIR = OngletTuiles("sortir", "l'onglet Sortir", listOf(AGENDA, CINEMA, EQUIPEMENTS_LOISIRS))
+private val BILLETTERIE = Tuile("billetterie", "Billetterie spectacles", Icons.Rounded.TheaterComedy) { app ->
+    val etat by remember(app) { app.depot.agenda() }.collectAsStateWithLifecycle(EtatModule.Absent)
+    CarteBilletterie(etat)
+}
+val ONGLET_SORTIR = OngletTuiles("sortir", "l'onglet Sortir", listOf(AGENDA, BILLETTERIE, CINEMA, EQUIPEMENTS_LOISIRS))
 private val USAGES_EAU = Tuile("usages_eau", "Usage de l'eau", Icons.Rounded.WaterDrop) { app ->
     val etat by remember(app) { app.depot.usagesEau() }.collectAsStateWithLifecycle(EtatModule.Absent)
     CarteUsagesEau(etat)
@@ -178,8 +188,10 @@ private val POLICE = Tuile("police", "Police municipale", Icons.Rounded.LocalPol
     val etat by remember(app) { app.depot.equipements() }.collectAsStateWithLifecycle(EtatModule.Absent)
     CartePolice(etat)
 }
+private val IDENTITE = Tuile("identite", "Carte d'identité et passeport", Icons.Rounded.Badge) { CarteIdentite() }
+private val SIGNALEMENT = Tuile("signalement", "Faire un signalement", Icons.Rounded.ReportProblem) { CarteSignalement() }
 val ONGLET_PRATIQUE = OngletTuiles("pratique", "l'onglet Pratique",
-    listOf(COLLECTE, USAGES_EAU, DECHETERIE_TUILE, DEFIBRILLATEURS, URBANISME, POLICE))
+    listOf(COLLECTE, USAGES_EAU, IDENTITE, SIGNALEMENT, DECHETERIE_TUILE, DEFIBRILLATEURS, URBANISME, POLICE))
 private val VACANCES = Tuile("vacances", "Vacances scolaires", Icons.Rounded.BeachAccess) { app ->
     val etat by remember(app) { app.depot.vacancesScolaires() }.collectAsStateWithLifecycle(EtatModule.Absent)
     CarteVacances(etat)
