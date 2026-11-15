@@ -1,0 +1,293 @@
+{
+  "$defs": {
+    "Coord": {
+      "additionalProperties": false,
+      "properties": {
+        "lat": {
+          "maximum": 90,
+          "minimum": -90,
+          "title": "Lat",
+          "type": "number"
+        },
+        "lon": {
+          "maximum": 180,
+          "minimum": -180,
+          "title": "Lon",
+          "type": "number"
+        }
+      },
+      "required": [
+        "lat",
+        "lon"
+      ],
+      "title": "Coord",
+      "type": "object"
+    },
+    "DonneesCarburants": {
+      "additionalProperties": false,
+      "properties": {
+        "stations": {
+          "items": {
+            "$ref": "#/$defs/StationCarburant"
+          },
+          "title": "Stations",
+          "type": "array"
+        }
+      },
+      "required": [
+        "stations"
+      ],
+      "title": "DonneesCarburants",
+      "type": "object"
+    },
+    "Etat": {
+      "enum": [
+        "ok",
+        "perime",
+        "erreur"
+      ],
+      "title": "Etat",
+      "type": "string"
+    },
+    "Lieu": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "nom": {
+          "title": "Nom",
+          "type": "string"
+        },
+        "type": {
+          "title": "Type",
+          "type": "string"
+        },
+        "coord": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Coord"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "adresse": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Adresse"
+        },
+        "source": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source"
+        },
+        "url": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Url"
+        }
+      },
+      "required": [
+        "id",
+        "nom",
+        "type"
+      ],
+      "title": "Lieu",
+      "type": "object"
+    },
+    "Meta": {
+      "additionalProperties": false,
+      "description": "Accompagne chaque fichier publié : source, licence et fraîcheur.",
+      "properties": {
+        "source": {
+          "title": "Source",
+          "type": "string"
+        },
+        "licence": {
+          "title": "Licence",
+          "type": "string"
+        },
+        "url_source": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Url Source"
+        },
+        "recupere_le": {
+          "format": "date-time",
+          "title": "Recupere Le",
+          "type": "string"
+        },
+        "valide_jusqu_a": {
+          "format": "date-time",
+          "title": "Valide Jusqu A",
+          "type": "string"
+        },
+        "etat": {
+          "$ref": "#/$defs/Etat",
+          "default": "ok"
+        }
+      },
+      "required": [
+        "source",
+        "licence",
+        "recupere_le",
+        "valide_jusqu_a"
+      ],
+      "title": "Meta",
+      "type": "object"
+    },
+    "PrixCarburant": {
+      "additionalProperties": false,
+      "properties": {
+        "carburant": {
+          "title": "Carburant",
+          "type": "string"
+        },
+        "libelle": {
+          "title": "Libelle",
+          "type": "string"
+        },
+        "prix": {
+          "title": "Prix",
+          "type": "number"
+        },
+        "maj": {
+          "format": "date-time",
+          "title": "Maj",
+          "type": "string"
+        }
+      },
+      "required": [
+        "carburant",
+        "libelle",
+        "prix",
+        "maj"
+      ],
+      "title": "PrixCarburant",
+      "type": "object"
+    },
+    "RuptureCarburant": {
+      "additionalProperties": false,
+      "properties": {
+        "carburant": {
+          "title": "Carburant",
+          "type": "string"
+        },
+        "libelle": {
+          "title": "Libelle",
+          "type": "string"
+        },
+        "debut": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Debut"
+        }
+      },
+      "required": [
+        "carburant",
+        "libelle"
+      ],
+      "title": "RuptureCarburant",
+      "type": "object"
+    },
+    "StationCarburant": {
+      "additionalProperties": false,
+      "properties": {
+        "lieu": {
+          "$ref": "#/$defs/Lieu"
+        },
+        "automate_24_24": {
+          "title": "Automate 24 24",
+          "type": "boolean"
+        },
+        "prix": {
+          "items": {
+            "$ref": "#/$defs/PrixCarburant"
+          },
+          "title": "Prix",
+          "type": "array"
+        },
+        "ruptures": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/RuptureCarburant"
+          },
+          "title": "Ruptures",
+          "type": "array"
+        }
+      },
+      "required": [
+        "lieu",
+        "automate_24_24",
+        "prix"
+      ],
+      "title": "StationCarburant",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "module": {
+      "title": "Module",
+      "type": "string"
+    },
+    "version_schema": {
+      "default": 1,
+      "title": "Version Schema",
+      "type": "integer"
+    },
+    "meta": {
+      "$ref": "#/$defs/Meta"
+    },
+    "donnees": {
+      "$ref": "#/$defs/DonneesCarburants"
+    }
+  },
+  "required": [
+    "module",
+    "meta",
+    "donnees"
+  ],
+  "title": "FichierModule[DonneesCarburants]",
+  "type": "object"
+}

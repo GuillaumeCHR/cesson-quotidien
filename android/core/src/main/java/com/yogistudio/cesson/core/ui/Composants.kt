@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.Flag
 import androidx.compose.material.icons.rounded.History
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -18,7 +17,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -27,13 +25,11 @@ import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import com.yogistudio.cesson.core.donnees.Fraicheur
-import com.yogistudio.cesson.core.signalement.ContexteSignalement
-import com.yogistudio.cesson.core.signalement.LocalSignaleur
 import java.time.Instant
 
 /**
  * Carte de donnée commune à tous les modules : titre, contenu, puis la ligne de fraîcheur
- * (« Mis à jour il y a 12 min · source ») et le lien « Signaler une erreur ».
+ * (« Mis à jour il y a 12 min · source »). Les signalements passent par le menu « Vos idées ».
  */
 @Composable
 fun CarteDonnee(
@@ -41,7 +37,6 @@ fun CarteDonnee(
     icone: ImageVector,
     modifier: Modifier = Modifier,
     fraicheur: Fraicheur? = null,
-    signalement: ContexteSignalement? = null,
     maintenant: Instant = rememberMaintenant(),
     contenu: @Composable () -> Unit,
 ) {
@@ -57,23 +52,9 @@ fun CarteDonnee(
                 Text(titre, style = MaterialTheme.typography.titleMedium, modifier = Modifier.semantics { heading() })
             }
             contenu()
-            if (fraicheur != null || signalement != null) {
+            if (fraicheur != null) {
                 HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    if (fraicheur != null) {
-                        LigneFraicheur(fraicheur, maintenant, Modifier.weight(1f))
-                    } else {
-                        Spacer(Modifier.weight(1f))
-                    }
-                    if (signalement != null) {
-                        val signaleur = LocalSignaleur.current
-                        TextButton(onClick = { signaleur.signaler(signalement) }) {
-                            Icon(Icons.Rounded.Flag, contentDescription = null, modifier = Modifier.size(18.dp))
-                            Spacer(Modifier.width(4.dp))
-                            Text("Signaler une erreur")
-                        }
-                    }
-                }
+                LigneFraicheur(fraicheur, maintenant)
             }
         }
     }

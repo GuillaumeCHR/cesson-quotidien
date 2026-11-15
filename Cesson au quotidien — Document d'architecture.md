@@ -49,7 +49,7 @@ Toutes les données passent par des fichiers JSON statiques avant d'atteindre l'
 | Qualité de l'air | [API Atmo Data](https://atmo-France.org/sites/federation/files/medias/documents/2023-10/FAQ_API_Atmo_Data_20231010_0.pdf) (Air Breizh) | REST, filtre code\_zone = 35051 | Chaque jour à 14h | Oui |
 | Météo (prévisions) | [Open-Meteo](https://open-meteo.com/), modèles Météo-France AROME et ARPEGE | REST JSON, CC BY 4.0 ; pas de probabilité de pluie avec ces modèles, d'où des cumuls en mm | Horaire | Non |
 | Vigilance météo | API Météo-France (portail-api) | REST | Plusieurs fois par jour | Oui (à confirmer) |
-| Carburants | [Flux instantané v2](https://data.economie.gouv.fr/explore/dataset/prix-des-carburants-en-france-flux-instantane-v2/table/?flg=fr-fr) | REST, prix, horaires et services par station | 10 min | Non |
+| Carburants | [Flux instantané v2](https://data.economie.gouv.fr/explore/dataset/prix-des-carburants-en-france-flux-instantane-v2/table/?flg=fr-fr) | REST (API Opendatasoft), prix, horaires et services par station, filtré sur le code postal 35510 ; pas de nom de station, saisi dans `saisie/carburants.yaml` d'après OpenStreetMap (ODbL) | 10 min | Non |
 | Bornes de recharge | Fichier national IRVE (data.gouv) | CSV | Hebdomadaire | Non |
 | Défibrillateurs | Base nationale Géo'DAE (data.gouv) | CSV | Hebdomadaire | Non |
 | Accessibilité | API acceslibre | REST | Mensuel | Oui (à confirmer) |

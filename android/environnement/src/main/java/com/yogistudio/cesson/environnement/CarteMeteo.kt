@@ -32,7 +32,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.yogistudio.cesson.core.donnees.EtatModule
-import com.yogistudio.cesson.core.signalement.ContexteSignalement
 import com.yogistudio.cesson.core.ui.CarteDonnee
 import com.yogistudio.cesson.core.ui.FuseauCesson
 import com.yogistudio.cesson.core.ui.StyleChiffres
@@ -63,11 +62,6 @@ fun CarteMeteo(etat: EtatModule<DonneesMeteo>, modifier: Modifier = Modifier) {
                 modifier = modifier,
                 fraicheur = etat.fraicheur,
                 maintenant = maintenant,
-                signalement = ContexteSignalement(
-                    sujet = "Météo",
-                    module = MODULE_METEO,
-                    details = listOf("Affiché : ${degres(a.temperature)}, ${a.libelle}"),
-                ),
             ) {
                 Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
                     Row(

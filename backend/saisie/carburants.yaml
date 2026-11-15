@@ -1,0 +1,20 @@
+# Stations-service suivies par le module carburants.
+#
+# Le flux officiel des prix ne donne ni le nom ni une adresse propre des stations : on les saisit ici,
+# par identifiant du flux (« id »). Toute station du code postal 35510 est suivie automatiquement ;
+# une station listée ici mais hors de Cesson (une voisine utile) est ajoutée en plus.
+#
+# Noms : enseigne d'après OpenStreetMap (© contributeurs OpenStreetMap, ODbL, clé ref:FR:prix-carburants),
+# suivie du lieu tel qu'on le dit à Cesson, pour distinguer les stations d'un coup d'œil.
+# Une station absente de cette liste est publiée sous son adresse brute.
+
+stations:
+  35510001:
+    nom: Carrefour Rigourdière
+    adresse: Rue de la Rigourdière, Cesson-Sévigné
+  35510006:
+    nom: Carrefour Market Bourgchevreuil
+    adresse: 50 rue de Belle Épine, Cesson-Sévigné
+  35510005:
+    nom: Total route de Rennes
+    adresse: 27 route de Rennes, Cesson-Sévigné

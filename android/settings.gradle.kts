@@ -24,9 +24,11 @@ rootProject.name = "CessonAuQuotidien"
 include(":app")
 // Socle : modèle commun, manifest, cache hors connexion, thème, composants partagés.
 include(":core")
-// Domaine eau : niveau de la Vilaine (puis vigilance crues à l'étape 2).
+// Domaine eau : niveau de la Vilaine et vigilance crues.
 include(":eau")
 // Domaine environnement : météo (puis qualité de l'air et vigilance météo à l'étape 2).
 include(":environnement")
-// Les autres domaines (transport, equipements, agenda, pratique, actus, widget)
+// Domaine pratique : carburants (puis déchets, défibrillateurs, accessibilité, bornes).
+include(":pratique")
+// Les autres domaines (transport, equipements, agenda, actus, widget)
 // arrivent avec leur étape de la feuille de route.

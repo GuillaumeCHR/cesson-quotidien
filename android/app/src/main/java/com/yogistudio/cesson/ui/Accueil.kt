@@ -35,6 +35,7 @@ import androidx.compose.material.icons.rounded.DeleteOutline
 import androidx.compose.material.icons.rounded.DirectionsBus
 import androidx.compose.material.icons.rounded.KeyboardArrowDown
 import androidx.compose.material.icons.rounded.KeyboardArrowUp
+import androidx.compose.material.icons.rounded.LocalGasStation
 import androidx.compose.material.icons.rounded.Pool
 import androidx.compose.material.icons.rounded.Train
 import androidx.compose.material.icons.rounded.Water
@@ -76,6 +77,8 @@ import com.yogistudio.cesson.eau.vigicrues
 import com.yogistudio.cesson.eau.vilaine
 import com.yogistudio.cesson.environnement.CarteMeteo
 import com.yogistudio.cesson.environnement.meteo
+import com.yogistudio.cesson.pratique.CarteCarburants
+import com.yogistudio.cesson.pratique.carburants
 import kotlinx.coroutines.launch
 
 /**
@@ -115,6 +118,12 @@ val TUILES: List<Tuile> = listOf(
     Tuile("equipements", "Mes équipements", Icons.Rounded.Pool) {
         CarteBientot("Mes équipements", Icons.Rounded.Pool,
             "Piscine, médiathèque, Pont des Arts : ouvert ou fermé, bientôt ici.")
+    },
+    Tuile("carburants", "Carburants", Icons.Rounded.LocalGasStation) { app ->
+        val etat by remember(app) { app.depot.carburants() }.collectAsStateWithLifecycle(EtatModule.Absent)
+        val suivi by app.preferences.carburantSuivi.collectAsStateWithLifecycle(null)
+        val portee = rememberCoroutineScope()
+        CarteCarburants(etat, suivi, onChoisir = { portee.launch { app.preferences.enregistrerCarburant(it) } })
     },
     Tuile("air", "Qualité de l'air", Icons.Rounded.Air) {
         CarteBientot("Qualité de l'air", Icons.Rounded.Air, "Indice ATMO du jour, bientôt ici.")

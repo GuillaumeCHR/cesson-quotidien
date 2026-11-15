@@ -1,0 +1,142 @@
+{
+  "module": "carburants",
+  "version_schema": 1,
+  "meta": {
+    "source": "Prix des carburants (ministère de l'Économie) ; noms des stations : OpenStreetMap",
+    "licence": "Licence Ouverte 2.0 ; ODbL pour les noms des stations",
+    "url_source": "https://www.prix-carburants.gouv.fr/",
+    "recupere_le": "2026-11-15T07:29:56.580123Z",
+    "valide_jusqu_a": "2026-11-15T08:29:56.580123Z",
+    "etat": "ok"
+  },
+  "donnees": {
+    "stations": [
+      {
+        "lieu": {
+          "id": "carburant:35510001",
+          "nom": "Carrefour Rigourdière",
+          "type": "station_carburant",
+          "coord": {
+            "lat": 48.11263,
+            "lon": -1.58941
+          },
+          "adresse": "Rue de la Rigourdière, Cesson-Sévigné",
+          "source": "Prix des carburants",
+          "url": "https://www.prix-carburants.gouv.fr/station/35510001"
+        },
+        "automate_24_24": true,
+        "prix": [
+          {
+            "carburant": "gazole",
+            "libelle": "Gazole",
+            "prix": 2.025,
+            "maj": "2026-11-14T19:01:00Z"
+          },
+          {
+            "carburant": "e10",
+            "libelle": "SP95-E10",
+            "prix": 1.918,
+            "maj": "2026-11-14T19:01:00Z"
+          },
+          {
+            "carburant": "sp95",
+            "libelle": "SP95",
+            "prix": 1.955,
+            "maj": "2026-11-14T19:01:00Z"
+          },
+          {
+            "carburant": "sp98",
+            "libelle": "SP98",
+            "prix": 1.999,
+            "maj": "2026-11-14T19:01:00Z"
+          },
+          {
+            "carburant": "e85",
+            "libelle": "E85",
+            "prix": 0.749,
+            "maj": "2026-11-14T19:01:00Z"
+          },
+          {
+            "carburant": "gplc",
+            "libelle": "GPLc",
+            "prix": 0.999,
+            "maj": "2026-11-14T19:01:00Z"
+          }
+        ],
+        "ruptures": []
+      },
+      {
+        "lieu": {
+          "id": "carburant:35510006",
+          "nom": "Carrefour Market Bourgchevreuil",
+          "type": "station_carburant",
+          "coord": {
+            "lat": 48.12216,
+            "lon": -1.59996
+          },
+          "adresse": "50 rue de Belle Épine, Cesson-Sévigné",
+          "source": "Prix des carburants",
+          "url": "https://www.prix-carburants.gouv.fr/station/35510006"
+        },
+        "automate_24_24": true,
+        "prix": [
+          {
+            "carburant": "gazole",
+            "libelle": "Gazole",
+            "prix": 2.248,
+            "maj": "2026-11-05T17:48:57Z"
+          },
+          {
+            "carburant": "sp95",
+            "libelle": "SP95",
+            "prix": 2.044,
+            "maj": "2026-11-05T17:48:57Z"
+          },
+          {
+            "carburant": "sp98",
+            "libelle": "SP98",
+            "prix": 2.161,
+            "maj": "2026-11-05T17:48:57Z"
+          }
+        ],
+        "ruptures": []
+      },
+      {
+        "lieu": {
+          "id": "carburant:35510005",
+          "nom": "Total route de Rennes",
+          "type": "station_carburant",
+          "coord": {
+            "lat": 48.114,
+            "lon": -1.614
+          },
+          "adresse": "27 route de Rennes, Cesson-Sévigné",
+          "source": "Prix des carburants",
+          "url": "https://www.prix-carburants.gouv.fr/station/35510005"
+        },
+        "automate_24_24": true,
+        "prix": [
+          {
+            "carburant": "gazole",
+            "libelle": "Gazole",
+            "prix": 2.17,
+            "maj": "2026-11-15T00:01:00Z"
+          },
+          {
+            "carburant": "e10",
+            "libelle": "SP95-E10",
+            "prix": 1.99,
+            "maj": "2026-11-15T00:01:00Z"
+          }
+        ],
+        "ruptures": [
+          {
+            "carburant": "sp98",
+            "libelle": "SP98",
+            "debut": "2026-11-13T19:54:21Z"
+          }
+        ]
+      }
+    ]
+  }
+}

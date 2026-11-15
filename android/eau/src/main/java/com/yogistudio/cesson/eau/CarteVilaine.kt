@@ -36,7 +36,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.yogistudio.cesson.core.donnees.EtatModule
 import com.yogistudio.cesson.core.modele.Tendance
-import com.yogistudio.cesson.core.signalement.ContexteSignalement
 import com.yogistudio.cesson.core.ui.CarteDonnee
 import com.yogistudio.cesson.core.ui.StyleChiffres
 import com.yogistudio.cesson.core.ui.TexteBientot
@@ -66,11 +65,6 @@ fun CarteVilaine(
                 modifier = modifier,
                 fraicheur = etat.fraicheur,
                 maintenant = maintenant,
-                signalement = ContexteSignalement(
-                    sujet = "Niveau de la Vilaine",
-                    module = MODULE_VILAINE,
-                    details = listOf("Valeur affichée : $hauteur, mesure $heure", "Station : ${d.station.id}"),
-                ),
             ) {
                 Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                     LigneVigilance(vigilance)
