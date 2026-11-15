@@ -31,6 +31,22 @@ echo 'DPkg::Lock::Timeout "600";' > /etc/apt/apt.conf.d/90cesson-attente-verrou
 apt-get update -q
 apt-get install -y -q python3-venv nginx rsync logrotate unattended-upgrades curl
 
+etape "Durcissement"
+# Connexion SSH par clé seulement (déjà réglé par Raspberry Pi Imager), jamais en root. « 00- » : sshd garde
+# la première valeur lue, ce fichier passe avant les autres.
+install -d /etc/ssh/sshd_config.d
+printf 'PermitRootLogin no\nPasswordAuthentication no\nKbdInteractiveAuthentication no\n' > /etc/ssh/sshd_config.d/00-cesson.conf
+sshd -t && systemctl reload ssh
+# Mises à jour automatiques : sécurité Debian (par défaut), mais aussi correctifs Debian, dépôt Raspberry Pi
+# (noyau, firmware, openssl) et Tailscale, exposé à Internet.
+cat > /etc/apt/apt.conf.d/52cesson-unattended <<'FIN'
+Unattended-Upgrade::Origins-Pattern {
+        "origin=Raspberry Pi Foundation,codename=${distro_codename},label=Raspberry Pi Foundation";
+        "origin=Debian,codename=${distro_codename},label=Debian";
+        "origin=Tailscale";
+};
+FIN
+
 etape "Utilisateur et dossiers"
 id cesson &>/dev/null || useradd --system --create-home --home-dir "$RACINE" --shell /usr/sbin/nologin cesson
 # useradd crée le dossier personnel en 700 : nginx (www-data) doit pouvoir le traverser pour lire public/.
@@ -43,6 +59,7 @@ etape "Code et environnement Python"
 rsync -a --delete --exclude .venv --exclude public --exclude etat --exclude __pycache__ \
       --exclude .pytest_cache "$SOURCE/" "$CODE/"
 chown -R root:root "$CODE"
+chmod -R go-w "$CODE"
 [[ -x $CODE/.venv/bin/python ]] || python3 -m venv "$CODE/.venv"
 "$CODE/.venv/bin/pip" install -q --upgrade pip
 "$CODE/.venv/bin/pip" install -q -e "$CODE"

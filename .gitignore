@@ -14,3 +14,12 @@ android/local.properties
 android/.kotlin/
 *.iml
 .idea/
+
+# Clés de signature : jamais dans le dépôt (voir README, ~/.config/cessonapp/)
+*.jks
+*.keystore
+*.p12
+upload-key.properties
+
+# Sorties des outils (audit de sécurité…)
+/build/
