@@ -1,5 +1,8 @@
 package com.yogistudio.cesson.ui
 
+import com.yogistudio.cesson.core.ui.rememberMaintenant
+import com.yogistudio.cesson.core.ui.formaterHeure
+import androidx.compose.material3.Surface
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -109,6 +112,8 @@ fun EcranTuiles(
     val enCours by app.depot.rafraichissementEnCours.collectAsStateWithLifecycle()
     val erreur by app.depot.derniereErreur.collectAsStateWithLifecycle()
     val messages = remember { SnackbarHostState() }
+    val manifest by app.depot.manifest.collectAsStateWithLifecycle()
+    val maintenant = rememberMaintenant()
     val cfg = config ?: return
     val visibles = cartesVisibles(onglet, cfg)
 
@@ -124,7 +129,20 @@ fun EcranTuiles(
             modifier = Modifier.fillMaxSize(),
         ) {
             entete()
-            if (erreur != null && !enCours) {
+            // Serveur figé : il répond peut-être, mais ne renouvelle plus ses données (Pi en panne, collectes arrêtées).
+            val genere = manifest?.genereLe
+            if (genere != null && serveurFige(genere, maintenant) && !enCours) {
+                item("serveur-fige") {
+                    Surface(color = MaterialTheme.colorScheme.surfaceVariant, shape = MaterialTheme.shapes.medium) {
+                        Row(Modifier.padding(12.dp), verticalAlignment = Alignment.CenterVertically) {
+                            Icon(Icons.Rounded.CloudOff, contentDescription = null, tint = MaterialTheme.colorScheme.onSurfaceVariant)
+                            Spacer(Modifier.width(10.dp))
+                            Text("Les données de Cesson'App ne sont plus mises à jour depuis ${formaterHeure(genere, maintenant)}. " +
+                                "Les dernières reçues restent affichées, avec leur date.", style = MaterialTheme.typography.bodySmall)
+                        }
+                    }
+                }
+            } else if (erreur != null && !enCours) {
                 item("hors-ligne") {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Icon(Icons.Rounded.CloudOff, contentDescription = null, tint = MaterialTheme.colorScheme.onSurfaceVariant)
@@ -168,6 +186,12 @@ fun EcranTuiles(
         SnackbarHost(messages, Modifier.align(Alignment.BottomCenter))
     }
 }
+
+/** Le manifest est régénéré toutes les 2 à 3 min : au-delà de 45 min, le serveur ne publie plus. */
+val SERVEUR_FIGE_APRES: java.time.Duration = java.time.Duration.ofMinutes(45)
+
+fun serveurFige(genereLe: java.time.Instant, maintenant: java.time.Instant): Boolean =
+    java.time.Duration.between(genereLe, maintenant) > SERVEUR_FIGE_APRES
 
 /** Barre de messages de l'écran courant, pour qu'une carte confirme une action (« Alerte armée… »). */
 val LocalMessages = staticCompositionLocalOf<SnackbarHostState?> { null }

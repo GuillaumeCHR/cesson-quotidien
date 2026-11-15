@@ -1,0 +1,43 @@
+# Signes vitaux du serveur de Cesson'App : toutes les 20 min, GitHub vérifie de l'extérieur que le Pi publie
+# encore des données fraîches. En cas de panne, le run échoue (GitHub prévient par e-mail) et, si le secret
+# NTFY_URL est défini (https://ntfy.sh/<sujet>), une notification part sur le téléphone.
+# GitHub suspend les tâches planifiées d'un dépôt sans activité depuis 60 jours : un commit les relance.
+name: Signes vitaux du serveur
+
+on:
+  schedule:
+    - cron: "*/20 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: vitals
+  cancel-in-progress: false
+
+jobs:
+  verifier:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: tools/vitals
+      - name: Reprendre l'état de la dernière vérification
+        uses: actions/cache/restore@v4
+        with:
+          path: vitals-etat.json
+          key: vitals-${{ github.run_id }}
+          restore-keys: vitals-
+      - name: Vérifier le serveur
+        env:
+          NTFY_URL: ${{ secrets.NTFY_URL }}
+        run: |
+          python3 tools/vitals/verifier.py "https://cesson-pi.tail7e6f0d.ts.net/" --etat vitals-etat.json ${NTFY_URL:+--ntfy "$NTFY_URL"}
+      - name: Garder l'état pour la prochaine vérification
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: vitals-etat.json
+          key: vitals-${{ github.run_id }}

@@ -21,4 +21,11 @@ class TuilesTest {
         }
         assertEquals(listOf("accueil", "bouger", "sortir", "pratique", "actus"), ONGLETS_PERSONNALISABLES.map { it.id })
     }
+
+    @Test
+    fun serveurFigeApres45Minutes() {
+        val t = java.time.Instant.parse("2026-11-15T12:00:00Z")
+        assertTrue(!serveurFige(t, t.plusSeconds(10 * 60)))
+        assertTrue(serveurFige(t, t.plusSeconds(46 * 60)))
+    }
 }
