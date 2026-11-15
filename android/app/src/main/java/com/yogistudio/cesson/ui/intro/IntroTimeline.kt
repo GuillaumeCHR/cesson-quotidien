@@ -30,11 +30,12 @@ internal object IntroTimeline {
     const val SIGNATURE_IN = 2_950L
     const val SIGNATURE_END = 3_850L
 
-    /** 5. Le logotype Cesson'App claque au centre, puis glisse vers l'en-tête de l'accueil. */
+    /** 5. Le logotype Cesson'App claque au centre, reste le temps d'être lu avec sa baseline, puis glisse vers
+     *  l'en-tête de l'accueil. */
     const val LOGO_IN = 3_850L
     const val LOGO_SHOWN = 4_150L
-    const val MOVE_START = 4_300L
-    const val END = 4_750L
+    const val MOVE_START = 4_600L
+    const val END = 5_100L
 
     /** « Réduire les animations » : simple fondu du logo Yogi Studio. */
     const val REDUCED_END = 1_000L

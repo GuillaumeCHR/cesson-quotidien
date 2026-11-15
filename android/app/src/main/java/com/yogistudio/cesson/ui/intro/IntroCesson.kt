@@ -405,7 +405,7 @@ private fun LogoReveal(elapsed: MutableLongState) {
         val centreY = height * 0.42f
         fun apparition() = progress(elapsed.longValue, IntroTimeline.LOGO_IN, IntroTimeline.LOGO_SHOWN)
         fun glisse() = easeInOutCubic(progress(elapsed.longValue, IntroTimeline.MOVE_START, IntroTimeline.END))
-        val fondu = { 1f - progress(elapsed.longValue, IntroTimeline.MOVE_START, IntroTimeline.MOVE_START + 150) }
+        val fondu = { 1f - progress(elapsed.longValue, IntroTimeline.MOVE_START, IntroTimeline.MOVE_START + 250) }
         Text(
             "Cesson-Sévigné, au quotidien",
             fontFamily = Atkinson,
