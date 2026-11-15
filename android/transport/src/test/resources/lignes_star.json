@@ -1,0 +1,259 @@
+{
+  "module": "lignes_star",
+  "version_schema": 1,
+  "meta": {
+    "source": "STAR (Rennes Métropole, Keolis Rennes)",
+    "licence": "ODbL",
+    "url_source": "https://data.explore.star.fr/",
+    "recupere_le": "2026-11-15T07:33:24.347098Z",
+    "valide_jusqu_a": "2026-11-17T07:33:24.347098Z",
+    "etat": "ok"
+  },
+  "donnees": {
+    "lignes": [
+      {
+        "id": "1002",
+        "nom_court": "b",
+        "nom_long": "Cesson-Sévigné (Cesson - Viasilva) <> Rennes <> Saint-Jacques-de-la-Lande (Saint-Jacques - Gaîté)",
+        "mode": "metro",
+        "famille": "Métro",
+        "couleur": "#00893e",
+        "couleur_texte": "#ffffff"
+      },
+      {
+        "id": "0002",
+        "nom_court": "C2",
+        "nom_long": "Cesson-Sévigné (Cesson - Viasilva) <> Rennes (Haut Sancé)",
+        "mode": "bus",
+        "famille": "CHRONOSTAR",
+        "couleur": "#008bd2",
+        "couleur_texte": "#ffffff"
+      },
+      {
+        "id": "0004",
+        "nom_court": "C4",
+        "nom_long": "Rennes (ZA Saint-Sulpice) <> Saint-Grégoire (Grand Quartier)",
+        "mode": "bus",
+        "famille": "CHRONOSTAR",
+        "couleur": "#6f2282",
+        "couleur_texte": "#ffffff"
+      },
+      {
+        "id": "0006",
+        "nom_court": "C6",
+        "nom_long": "Cesson-Sévigné (Rigourdière) <> Saint-Jacques-de-la-Lande (Aéroport)",
+        "mode": "bus",
+        "famille": "CHRONOSTAR",
+        "couleur": "#61c3d9",
+        "couleur_texte": "#1a171b"
+      },
+      {
+        "id": "0011",
+        "nom_court": "11",
+        "nom_long": "Rennes (La Poterie) <> Vezin-le-Coquet (ZI Ouest)",
+        "mode": "bus",
+        "famille": "Urbaine",
+        "couleur": "#004f9e",
+        "couleur_texte": "#ffffff"
+      },
+      {
+        "id": "0014",
+        "nom_court": "14",
+        "nom_long": "Cesson-Sévigné (Monniais) <> Rennes (Roazhon Park)",
+        "mode": "bus",
+        "famille": "Urbaine",
+        "couleur": "#a96f23",
+        "couleur_texte": "#ffffff"
+      },
+      {
+        "id": "0034",
+        "nom_court": "34",
+        "nom_long": "Rennes (ZA Saint-Sulpice) <> Cesson-Sévigné <> Chantepie (Rosa Parks)",
+        "mode": "bus",
+        "famille": "Inter-quartiers",
+        "couleur": "#f39200",
+        "couleur_texte": "#1a171b"
+      },
+      {
+        "id": "0038",
+        "nom_court": "38",
+        "nom_long": "Cesson-Sévigné (Monniais) <> Cesson-Sévigné (Ménouriais)",
+        "mode": "bus",
+        "famille": "Inter-quartiers",
+        "couleur": "#008bd2",
+        "couleur_texte": "#ffffff"
+      },
+      {
+        "id": "0050",
+        "nom_court": "50",
+        "nom_long": "Thorigné-Fouillard (Landelles) <> Cesson-Sévigné (Cesson - Viasilva)",
+        "mode": "bus",
+        "famille": "Métropolitaine",
+        "couleur": "#ffcc00",
+        "couleur_texte": "#1a171b"
+      },
+      {
+        "id": "0064",
+        "nom_court": "64",
+        "nom_long": "Acigné (Timonière) <> Cesson-Sévigné (Cesson - Viasilva)",
+        "mode": "bus",
+        "famille": "Métropolitaine",
+        "couleur": "#008bd2",
+        "couleur_texte": "#ffffff"
+      },
+      {
+        "id": "0067",
+        "nom_court": "67",
+        "nom_long": "Brécé (Anjou) <> Cesson-Sévigné <> Rennes (République)",
+        "mode": "bus",
+        "famille": "Métropolitaine",
+        "couleur": "#e4003a",
+        "couleur_texte": "#ffffff"
+      },
+      {
+        "id": "0078",
+        "nom_court": "78",
+        "nom_long": "Cesson-Sévigné (Cesson-Viasilva) <> Betton (La Haute Plesse) <> Saint-Grégoire <> Rennes (Villejean-Université)",
+        "mode": "bus",
+        "famille": "Métropolitaine",
+        "couleur": "#e4003a",
+        "couleur_texte": "#ffffff"
+      },
+      {
+        "id": "0083",
+        "nom_court": "83",
+        "nom_long": "Thorigné-Fouillard (ZA Bellevue) <> Cesson-Sévigné <> Rennes (Les Gayeulles)",
+        "mode": "bus",
+        "famille": "Métropolitaine",
+        "couleur": "#004f9e",
+        "couleur_texte": "#ffffff"
+      },
+      {
+        "id": "0164",
+        "nom_court": "164ex",
+        "nom_long": "Acigné (Timonière) <> Cesson-Sévigné (Cesson - Viasilva)",
+        "mode": "bus",
+        "famille": "Express",
+        "couleur": "#ffdd00",
+        "couleur_texte": "#3d3c3f"
+      },
+      {
+        "id": "0167",
+        "nom_court": "167ex",
+        "nom_long": "Brécé (Anjou) <> Cesson-Sévigné <> Rennes (République)",
+        "mode": "bus",
+        "famille": "Express",
+        "couleur": "#ffdd00",
+        "couleur_texte": "#3d3c3f"
+      },
+      {
+        "id": "0200",
+        "nom_court": "200",
+        "nom_long": "Acigné (Timonière) <> Rennes (Assomption)",
+        "mode": "bus",
+        "famille": "Complémentaire",
+        "couleur": "#ba67a6",
+        "couleur_texte": "#ffffff"
+      },
+      {
+        "id": "0201",
+        "nom_court": "201",
+        "nom_long": "Thorigné-Fouillard (Landelles) <> Rennes (Assomption)",
+        "mode": "bus",
+        "famille": "Complémentaire",
+        "couleur": "#e30613",
+        "couleur_texte": "#ffffff"
+      },
+      {
+        "id": "0206",
+        "nom_court": "206",
+        "nom_long": "Cesson-Sévigné (Métairies Chalotais) <> Rennes (Assomption)",
+        "mode": "bus",
+        "famille": "Complémentaire",
+        "couleur": "#fecc00",
+        "couleur_texte": "#1a171b"
+      },
+      {
+        "id": "0214",
+        "nom_court": "214",
+        "nom_long": "Cesson-Sévigné (Lycée Ozanam) <> Rennes (La Poterie)",
+        "mode": "bus",
+        "famille": "Complémentaire",
+        "couleur": "#94c11f",
+        "couleur_texte": "#ffffff"
+      },
+      {
+        "id": "0216",
+        "nom_court": "216",
+        "nom_long": "Cesson-Sévigné (Dézerseul) <> Rennes (Assomption)",
+        "mode": "bus",
+        "famille": "Complémentaire",
+        "couleur": "#f29fc5",
+        "couleur_texte": "#1a171b"
+      },
+      {
+        "id": "0220",
+        "nom_court": "220",
+        "nom_long": "Acigné (Timonière) <> Cesson-Sévigné (Lycée Sévigné)",
+        "mode": "bus",
+        "famille": "Complémentaire",
+        "couleur": "#009fe3",
+        "couleur_texte": "#ffffff"
+      },
+      {
+        "id": "0221",
+        "nom_court": "221",
+        "nom_long": "Thorigné-Fouillard (Portail) -> Cesson-Sévigné (Lycée Sévigné)",
+        "mode": "bus",
+        "famille": "Complémentaire",
+        "couleur": "#f39200",
+        "couleur_texte": "#ffffff"
+      },
+      {
+        "id": "0806",
+        "nom_court": "E4",
+        "nom_long": "Bus de Stade : Rennes (Roazhon Park) <> Communes",
+        "mode": "bus",
+        "famille": "Evènementiel",
+        "couleur": "#000000",
+        "couleur_texte": "#ffffff"
+      },
+      {
+        "id": "0124",
+        "nom_court": "N4",
+        "nom_long": "Cesson-Sévigné (Atalante) <> Rennes (République)",
+        "mode": "bus",
+        "famille": "STAR de Nuit",
+        "couleur": "#6f2282",
+        "couleur_texte": "#ffffff"
+      },
+      {
+        "id": "0461",
+        "nom_court": "Ts61",
+        "nom_long": "Cesson-Sévigné (Lycée Ozanam) <> Cesson-Sévigné (Prieuré Forge)",
+        "mode": "bus",
+        "famille": "Transport scolaire",
+        "couleur": "#e30613",
+        "couleur_texte": "#ffffff"
+      },
+      {
+        "id": "0802",
+        "nom_court": "b relais",
+        "nom_long": "Cesson-Sévigné (Cesson - Viasilva) <> Saint-Jacques-de-la-Lande (Saint-Jacques - Gaîté)",
+        "mode": "bus",
+        "famille": "Spéciale",
+        "couleur": "#ffff00",
+        "couleur_texte": "#1a171b"
+      },
+      {
+        "id": "0851",
+        "nom_court": "st1",
+        "nom_long": "Cesson-Sévigné (star't Cesson-Viasilva - covoiturage) <> Saint-Grégoire <> Pacé <> Le Rheu (star't Le Rheu - covoiturage)",
+        "mode": "bus",
+        "famille": "Covoiturage",
+        "couleur": "#c4007a",
+        "couleur_texte": "#ffffff"
+      }
+    ]
+  }
+}

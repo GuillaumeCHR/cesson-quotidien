@@ -79,6 +79,8 @@ import com.yogistudio.cesson.environnement.CarteMeteo
 import com.yogistudio.cesson.environnement.meteo
 import com.yogistudio.cesson.pratique.CarteCarburants
 import com.yogistudio.cesson.pratique.carburants
+import com.yogistudio.cesson.transport.CarteDeparts
+import com.yogistudio.cesson.transport.lignesStar
 import kotlinx.coroutines.launch
 
 /**
@@ -103,10 +105,7 @@ val TUILES: List<Tuile> = listOf(
         val vigilance by remember(app) { app.depot.vigicrues() }.collectAsStateWithLifecycle(EtatModule.Absent)
         CarteVilaine(etat, vigilance)
     },
-    Tuile("arrets", "Prochains départs à Cesson-ViaSilva", Icons.Rounded.DirectionsBus) {
-        CarteBientot("Prochains départs à Cesson-ViaSilva", Icons.Rounded.DirectionsBus,
-            "Métro b et bus STAR en temps réel, bientôt ici.")
-    },
+    Tuile("arrets", "Prochains départs à Cesson-ViaSilva", Icons.Rounded.DirectionsBus) { app -> DepartsViaSilva(app) },
     Tuile("trains", "Halte de Cesson-Sévigné", Icons.Rounded.Train) {
         CarteBientot("Halte de Cesson-Sévigné", Icons.Rounded.Train,
             "Prochains trains vers Rennes et Vitré, bientôt ici.")
@@ -129,6 +128,13 @@ val TUILES: List<Tuile> = listOf(
         CarteBientot("Qualité de l'air", Icons.Rounded.Air, "Indice ATMO du jour, bientôt ici.")
     },
 )
+
+/** Carte des prochains départs, avec les couleurs des lignes publiées par notre backend. */
+@Composable
+fun DepartsViaSilva(app: CessonApp) {
+    val lignes by remember(app) { app.depot.lignesStar() }.collectAsStateWithLifecycle(EtatModule.Absent)
+    CarteDeparts(app.star, (lignes as? EtatModule.Disponible)?.fichier?.donnees)
+}
 
 @Composable
 private fun CarteBientot(titre: String, icone: ImageVector, texte: String) =

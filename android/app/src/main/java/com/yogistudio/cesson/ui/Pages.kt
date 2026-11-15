@@ -63,10 +63,19 @@ private fun OngletAVenir(titre: String, icone: ImageVector, lignes: List<String>
 }
 
 @Composable
-fun EcranBouger() = OngletAVenir("Se déplacer", Icons.Rounded.DirectionsBus, listOf(
-    "Pôle Cesson-ViaSilva : métro b et bus STAR", "Halte ferroviaire, directions Rennes et Vitré",
-    "Lignes qui passent par Cesson", "Vélos en libre-service et parcs-relais", "Carburants et bornes de recharge",
-))
+fun EcranBouger(app: CessonApp) {
+    Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(16.dp),
+        verticalArrangement = Arrangement.spacedBy(12.dp)) {
+        DepartsViaSilva(app)
+        CarteDonnee("Bientôt dans cet onglet", Icons.Rounded.DirectionsBus) {
+            Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                listOf("Halte ferroviaire, directions Rennes et Vitré", "Autres arrêts de Cesson",
+                    "Vélos en libre-service et parcs-relais", "Bornes de recharge",
+                ).forEach { Text("• $it", style = MaterialTheme.typography.bodyMedium) }
+            }
+        }
+    }
+}
 
 @Composable
 fun EcranSortir() = OngletAVenir("Sortir", Icons.Rounded.Celebration, listOf(
@@ -128,7 +137,9 @@ fun EcranSources(app: CessonApp) {
         }
         item {
             Text(
-                "Polices Atkinson Hyperlegible et Roboto Flex, sous licence SIL Open Font License 1.1.",
+                "Prochains passages du métro et des bus : STAR (Rennes Métropole, Keolis Rennes), en temps réel, " +
+                    "sous licence ODbL. L'app les demande directement à STAR.\n\n" +
+                    "Polices Atkinson Hyperlegible et Roboto Flex, sous licence SIL Open Font License 1.1.",
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier.padding(16.dp),

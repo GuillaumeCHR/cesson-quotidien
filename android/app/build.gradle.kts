@@ -53,6 +53,7 @@ dependencies {
     implementation(project(":eau"))
     implementation(project(":environnement"))
     implementation(project(":pratique"))
+    implementation(project(":transport"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.lifecycle.runtime.compose)

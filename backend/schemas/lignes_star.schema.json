@@ -1,0 +1,162 @@
+{
+  "$defs": {
+    "DonneesLignesStar": {
+      "additionalProperties": false,
+      "properties": {
+        "lignes": {
+          "items": {
+            "$ref": "#/$defs/LigneStar"
+          },
+          "title": "Lignes",
+          "type": "array"
+        }
+      },
+      "required": [
+        "lignes"
+      ],
+      "title": "DonneesLignesStar",
+      "type": "object"
+    },
+    "Etat": {
+      "enum": [
+        "ok",
+        "perime",
+        "erreur"
+      ],
+      "title": "Etat",
+      "type": "string"
+    },
+    "LigneStar": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "nom_court": {
+          "title": "Nom Court",
+          "type": "string"
+        },
+        "nom_long": {
+          "title": "Nom Long",
+          "type": "string"
+        },
+        "mode": {
+          "$ref": "#/$defs/Mode"
+        },
+        "famille": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Famille"
+        },
+        "couleur": {
+          "title": "Couleur",
+          "type": "string"
+        },
+        "couleur_texte": {
+          "title": "Couleur Texte",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "nom_court",
+        "nom_long",
+        "mode",
+        "couleur",
+        "couleur_texte"
+      ],
+      "title": "LigneStar",
+      "type": "object"
+    },
+    "Meta": {
+      "additionalProperties": false,
+      "description": "Accompagne chaque fichier publié : source, licence et fraîcheur.",
+      "properties": {
+        "source": {
+          "title": "Source",
+          "type": "string"
+        },
+        "licence": {
+          "title": "Licence",
+          "type": "string"
+        },
+        "url_source": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Url Source"
+        },
+        "recupere_le": {
+          "format": "date-time",
+          "title": "Recupere Le",
+          "type": "string"
+        },
+        "valide_jusqu_a": {
+          "format": "date-time",
+          "title": "Valide Jusqu A",
+          "type": "string"
+        },
+        "etat": {
+          "$ref": "#/$defs/Etat",
+          "default": "ok"
+        }
+      },
+      "required": [
+        "source",
+        "licence",
+        "recupere_le",
+        "valide_jusqu_a"
+      ],
+      "title": "Meta",
+      "type": "object"
+    },
+    "Mode": {
+      "enum": [
+        "bus",
+        "metro",
+        "train"
+      ],
+      "title": "Mode",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "module": {
+      "title": "Module",
+      "type": "string"
+    },
+    "version_schema": {
+      "default": 1,
+      "title": "Version Schema",
+      "type": "integer"
+    },
+    "meta": {
+      "$ref": "#/$defs/Meta"
+    },
+    "donnees": {
+      "$ref": "#/$defs/DonneesLignesStar"
+    }
+  },
+  "required": [
+    "module",
+    "meta",
+    "donnees"
+  ],
+  "title": "FichierModule[DonneesLignesStar]",
+  "type": "object"
+}

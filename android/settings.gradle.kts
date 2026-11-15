@@ -30,5 +30,7 @@ include(":eau")
 include(":environnement")
 // Domaine pratique : carburants (puis déchets, défibrillateurs, accessibilité, bornes).
 include(":pratique")
-// Les autres domaines (transport, equipements, agenda, actus, widget)
+// Domaine transport : prochains départs STAR à Cesson-ViaSilva, lignes de Cesson (puis trains).
+include(":transport")
+// Les autres domaines (equipements, agenda, actus, widget)
 // arrivent avec leur étape de la feuille de route.
