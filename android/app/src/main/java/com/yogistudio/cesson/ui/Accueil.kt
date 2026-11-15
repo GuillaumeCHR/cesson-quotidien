@@ -151,8 +151,11 @@ private val BORNES = Tuile("bornes", "Bornes de recharge", Icons.Rounded.Electri
     val demande = rememberDemandePosition()
     CarteBornes(etat, position, demande.enCours, demande.demander)
 }
+private val ACTUS_VILLE = Tuile("actus_ville", "Actualités de la ville", Icons.Rounded.Newspaper) { ActusCesson(it, FLUX_VILLE) }
+private val CANAUX_TUILE = Tuile("canaux", "WhatsApp et Facebook", Icons.Rounded.Forum) { CarteCanaux() }
+// Les actualités de la ville sont à l'accueil : c'est ce qui se passe aujourd'hui à Cesson.
 val ONGLET_ACCUEIL = OngletTuiles(ACCUEIL, "l'accueil",
-    listOf(METEO, VILAINE, VIASILVA, MON_ARRET, TRAINS, CIRCULATION, COLLECTE, MES_EQUIPEMENTS, CARBURANTS, AIR))
+    listOf(METEO, VILAINE, VIASILVA, MON_ARRET, TRAINS, CIRCULATION, COLLECTE, MES_EQUIPEMENTS, CARBURANTS, AIR, ACTUS_VILLE, CANAUX_TUILE))
 val ONGLET_BOUGER = OngletTuiles("bouger", "l'onglet Bouger", listOf(VIASILVA, TRAINS, MON_ARRET, CIRCULATION, CARBURANTS, BORNES))
 private val AGENDA = Tuile("agenda", "Agenda", Icons.Rounded.Event) { app ->
     val etat by remember(app) { app.depot.agenda() }.collectAsStateWithLifecycle(EtatModule.Absent)
@@ -175,11 +178,8 @@ private val POLICE = Tuile("police", "Police municipale", Icons.Rounded.LocalPol
     val etat by remember(app) { app.depot.equipements() }.collectAsStateWithLifecycle(EtatModule.Absent)
     CartePolice(etat)
 }
-private val ACTUS_VILLE = Tuile("actus_ville", "Actualités de la ville", Icons.Rounded.Newspaper) { ActusCesson(it, FLUX_VILLE) }
-private val CANAUX_TUILE = Tuile("canaux", "WhatsApp et Facebook", Icons.Rounded.Forum) { CarteCanaux() }
-// Les actualités vivent dans Pratique depuis l'arrivée de l'onglet Familles (5 onglets au plus dans la barre).
 val ONGLET_PRATIQUE = OngletTuiles("pratique", "l'onglet Pratique",
-    listOf(COLLECTE, USAGES_EAU, DECHETERIE_TUILE, DEFIBRILLATEURS, URBANISME, POLICE, ACTUS_VILLE, CANAUX_TUILE))
+    listOf(COLLECTE, USAGES_EAU, DECHETERIE_TUILE, DEFIBRILLATEURS, URBANISME, POLICE))
 private val VACANCES = Tuile("vacances", "Vacances scolaires", Icons.Rounded.BeachAccess) { app ->
     val etat by remember(app) { app.depot.vacancesScolaires() }.collectAsStateWithLifecycle(EtatModule.Absent)
     CarteVacances(etat)
