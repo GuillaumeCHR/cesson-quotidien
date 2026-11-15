@@ -1,5 +1,8 @@
 package com.yogistudio.cesson.ui
 
+import com.yogistudio.cesson.actus.cinema
+import com.yogistudio.cesson.actus.CarteCinema
+import androidx.compose.material.icons.rounded.Movie
 import com.yogistudio.cesson.equipements.SERVICE_URBANISME
 import com.yogistudio.cesson.equipements.CarteUrbanisme
 import androidx.compose.material.icons.rounded.HomeWork
@@ -141,7 +144,11 @@ private val AGENDA = Tuile("agenda", "Agenda", Icons.Rounded.Event) { app ->
     val etat by remember(app) { app.depot.agenda() }.collectAsStateWithLifecycle(EtatModule.Absent)
     CarteAgenda(etat)
 }
-val ONGLET_SORTIR = OngletTuiles("sortir", "l'onglet Sortir", listOf(AGENDA, EQUIPEMENTS_LOISIRS))
+private val CINEMA = Tuile("cinema", "Cinéma Le Sévigné", Icons.Rounded.Movie) { app ->
+    val etat by remember(app) { app.depot.cinema() }.collectAsStateWithLifecycle(EtatModule.Absent)
+    CarteCinema(etat)
+}
+val ONGLET_SORTIR = OngletTuiles("sortir", "l'onglet Sortir", listOf(AGENDA, CINEMA, EQUIPEMENTS_LOISIRS))
 private val USAGES_EAU = Tuile("usages_eau", "Usage de l'eau", Icons.Rounded.WaterDrop) { app ->
     val etat by remember(app) { app.depot.usagesEau() }.collectAsStateWithLifecycle(EtatModule.Absent)
     CarteUsagesEau(etat)
@@ -302,7 +309,7 @@ fun EcranBouger(app: CessonApp, onPersonnaliser: () -> Unit) =
 fun EcranSortir(app: CessonApp, onPersonnaliser: () -> Unit) =
     EcranTuiles(app, ONGLET_SORTIR, onPersonnaliser, pied = {
         item("a-venir") {
-            CarteAVenir(Icons.Rounded.Celebration, listOf("Cinéma Le Sévigné", "Programme de la médiathèque"))
+            CarteAVenir(Icons.Rounded.Celebration, listOf("Programme de la médiathèque"))
         }
     })
 

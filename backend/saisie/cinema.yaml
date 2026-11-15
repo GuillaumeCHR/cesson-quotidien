@@ -1,0 +1,7 @@
+# Cinéma Le Sévigné : la salle publie sa grille mensuelle des séances (PDF tiré d'un tableur) sur Google Drive.
+# Si le lien change d'un mois à l'autre, remplacer « grille » par le nouveau lien de partage.
+cinema:
+  nom: Cinéma Le Sévigné
+  adresse: 43 rue du Muguet, Cesson-Sévigné
+  grille: https://drive.google.com/file/d/1-g688Vqf7EgjO3ImJRD43F3Bb1mLaZU3/view
+  verifie_le: 2026-11-15

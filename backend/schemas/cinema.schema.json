@@ -1,0 +1,216 @@
+{
+  "$defs": {
+    "DonneesCinema": {
+      "additionalProperties": false,
+      "properties": {
+        "salle": {
+          "title": "Salle",
+          "type": "string"
+        },
+        "adresse": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Adresse"
+        },
+        "films": {
+          "items": {
+            "$ref": "#/$defs/Film"
+          },
+          "title": "Films",
+          "type": "array"
+        },
+        "annonces": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "Annonces",
+          "type": "array"
+        },
+        "tarifs": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Tarifs"
+        },
+        "grille": {
+          "title": "Grille",
+          "type": "string"
+        }
+      },
+      "required": [
+        "salle",
+        "films",
+        "grille"
+      ],
+      "title": "DonneesCinema",
+      "type": "object"
+    },
+    "Etat": {
+      "enum": [
+        "ok",
+        "perime",
+        "erreur"
+      ],
+      "title": "Etat",
+      "type": "string"
+    },
+    "Film": {
+      "additionalProperties": false,
+      "properties": {
+        "titre": {
+          "title": "Titre",
+          "type": "string"
+        },
+        "vo": {
+          "default": false,
+          "title": "Vo",
+          "type": "boolean"
+        },
+        "sortie_nationale": {
+          "default": false,
+          "title": "Sortie Nationale",
+          "type": "boolean"
+        },
+        "seances": {
+          "items": {
+            "$ref": "#/$defs/Seance"
+          },
+          "title": "Seances",
+          "type": "array"
+        }
+      },
+      "required": [
+        "titre",
+        "seances"
+      ],
+      "title": "Film",
+      "type": "object"
+    },
+    "Meta": {
+      "additionalProperties": false,
+      "description": "Accompagne chaque fichier publié : source, licence et fraîcheur.",
+      "properties": {
+        "source": {
+          "title": "Source",
+          "type": "string"
+        },
+        "licence": {
+          "title": "Licence",
+          "type": "string"
+        },
+        "url_source": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Url Source"
+        },
+        "recupere_le": {
+          "format": "date-time",
+          "title": "Recupere Le",
+          "type": "string"
+        },
+        "valide_jusqu_a": {
+          "format": "date-time",
+          "title": "Valide Jusqu A",
+          "type": "string"
+        },
+        "etat": {
+          "$ref": "#/$defs/Etat",
+          "default": "ok"
+        }
+      },
+      "required": [
+        "source",
+        "licence",
+        "recupere_le",
+        "valide_jusqu_a"
+      ],
+      "title": "Meta",
+      "type": "object"
+    },
+    "Seance": {
+      "additionalProperties": false,
+      "properties": {
+        "debut": {
+          "format": "date-time",
+          "title": "Debut",
+          "type": "string"
+        },
+        "tarif": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Tarif"
+        },
+        "note": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Note"
+        }
+      },
+      "required": [
+        "debut"
+      ],
+      "title": "Seance",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "module": {
+      "title": "Module",
+      "type": "string"
+    },
+    "version_schema": {
+      "default": 1,
+      "title": "Version Schema",
+      "type": "integer"
+    },
+    "meta": {
+      "$ref": "#/$defs/Meta"
+    },
+    "donnees": {
+      "$ref": "#/$defs/DonneesCinema"
+    }
+  },
+  "required": [
+    "module",
+    "meta",
+    "donnees"
+  ],
+  "title": "FichierModule[DonneesCinema]",
+  "type": "object"
+}

@@ -1,0 +1,12 @@
+Metadata-Version: 2.4
+Name: cesson
+Version: 0.1.0
+Summary: Collecteurs de données publiques de Cesson au quotidien
+Requires-Python: >=3.12
+Requires-Dist: pydantic>=2.10
+Requires-Dist: httpx>=0.28
+Requires-Dist: pyyaml>=6
+Requires-Dist: gtfs-realtime-bindings>=1.0
+Provides-Extra: dev
+Requires-Dist: pytest>=8; extra == "dev"
+Requires-Dist: respx>=0.22; extra == "dev"

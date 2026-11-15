@@ -1,0 +1,8 @@
+pydantic>=2.10
+httpx>=0.28
+pyyaml>=6
+gtfs-realtime-bindings>=1.0
+
+[dev]
+pytest>=8
+respx>=0.22
