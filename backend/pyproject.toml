@@ -5,6 +5,14 @@ description = "Collecteurs de données publiques de Cesson au quotidien"
 requires-python = ">=3.12"
 dependencies = ["pydantic>=2.10", "httpx>=0.28", "pyyaml>=6", "gtfs-realtime-bindings>=1.0"]
 
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+# Seul « cesson » est un paquet Python ; saisie/, deploy/, schemas/, tests/ sont des données ou des outils.
+[tool.setuptools.packages.find]
+include = ["cesson*"]
+
 [project.optional-dependencies]
 dev = ["pytest>=8", "respx>=0.22"]
 
