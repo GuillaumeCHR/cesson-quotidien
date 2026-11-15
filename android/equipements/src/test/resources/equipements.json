@@ -5,8 +5,8 @@
     "source": "Ville de Cesson-Sévigné (site internet), saisie manuelle",
     "licence": "Informations publiques de la Ville de Cesson-Sévigné",
     "url_source": "https://www.ville-cesson-sevigne.fr/",
-    "recupere_le": "2026-11-15T08:05:06.217087Z",
-    "valide_jusqu_a": "2026-11-16T20:05:06.217087Z",
+    "recupere_le": "2026-11-15T11:22:28.826062Z",
+    "valide_jusqu_a": "2026-11-16T23:22:28.826062Z",
     "etat": "ok"
   },
   "donnees": {
@@ -1664,6 +1664,201 @@
             "sous_espace": "decheterie",
             "periode": "Horaires habituels",
             "opening_hours": "Mo-We 09:00-12:00,14:00-18:00; Th 09:00-12:00; Fr,Sa 09:00-12:00,14:00-18:00",
+            "exceptions": []
+          }
+        ]
+      },
+      {
+        "lieu": {
+          "id": "equipement:service_urbanisme",
+          "nom": "Service urbanisme",
+          "type": "equipement",
+          "adresse": "Mairie annexe, 1 place de la Chalotais, Cesson-Sévigné",
+          "source": "Ville de Cesson-Sévigné",
+          "url": "https://www.ville-cesson-sevigne.fr/contacts/service-urbanisme/"
+        },
+        "telephone": "02 99 83 52 00",
+        "verifie_le": "2026-11-15",
+        "espaces": [
+          {
+            "id": "accueil",
+            "nom": "Accueil du public",
+            "jours": [
+              {
+                "date": "2026-11-15",
+                "connu": true,
+                "plages": [],
+                "periode": "Horaires habituels"
+              },
+              {
+                "date": "2026-11-16",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-16T08:30:00+01:00",
+                    "fin": "2026-11-16T12:00:00+01:00"
+                  },
+                  {
+                    "debut": "2026-11-16T13:00:00+01:00",
+                    "fin": "2026-11-16T17:15:00+01:00"
+                  }
+                ],
+                "periode": "Horaires habituels"
+              },
+              {
+                "date": "2026-11-17",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-17T13:00:00+01:00",
+                    "fin": "2026-11-17T17:15:00+01:00"
+                  }
+                ],
+                "periode": "Horaires habituels"
+              },
+              {
+                "date": "2026-11-18",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-18T08:30:00+01:00",
+                    "fin": "2026-11-18T12:00:00+01:00"
+                  },
+                  {
+                    "debut": "2026-11-18T13:00:00+01:00",
+                    "fin": "2026-11-18T17:15:00+01:00"
+                  }
+                ],
+                "periode": "Horaires habituels"
+              },
+              {
+                "date": "2026-11-19",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-19T08:30:00+01:00",
+                    "fin": "2026-11-19T12:00:00+01:00"
+                  },
+                  {
+                    "debut": "2026-11-19T13:00:00+01:00",
+                    "fin": "2026-11-19T17:15:00+01:00"
+                  }
+                ],
+                "periode": "Horaires habituels"
+              },
+              {
+                "date": "2026-11-20",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-20T08:30:00+01:00",
+                    "fin": "2026-11-20T12:00:00+01:00"
+                  },
+                  {
+                    "debut": "2026-11-20T13:00:00+01:00",
+                    "fin": "2026-11-20T16:00:00+01:00"
+                  }
+                ],
+                "periode": "Horaires habituels"
+              },
+              {
+                "date": "2026-11-21",
+                "connu": true,
+                "plages": [],
+                "periode": "Horaires habituels"
+              },
+              {
+                "date": "2026-11-22",
+                "connu": true,
+                "plages": [],
+                "periode": "Horaires habituels"
+              },
+              {
+                "date": "2026-11-23",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-23T08:30:00+01:00",
+                    "fin": "2026-11-23T12:00:00+01:00"
+                  },
+                  {
+                    "debut": "2026-11-23T13:00:00+01:00",
+                    "fin": "2026-11-23T17:15:00+01:00"
+                  }
+                ],
+                "periode": "Horaires habituels"
+              },
+              {
+                "date": "2026-11-24",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-24T13:00:00+01:00",
+                    "fin": "2026-11-24T17:15:00+01:00"
+                  }
+                ],
+                "periode": "Horaires habituels"
+              },
+              {
+                "date": "2026-11-25",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-25T08:30:00+01:00",
+                    "fin": "2026-11-25T12:00:00+01:00"
+                  },
+                  {
+                    "debut": "2026-11-25T13:00:00+01:00",
+                    "fin": "2026-11-25T17:15:00+01:00"
+                  }
+                ],
+                "periode": "Horaires habituels"
+              },
+              {
+                "date": "2026-11-26",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-26T08:30:00+01:00",
+                    "fin": "2026-11-26T12:00:00+01:00"
+                  },
+                  {
+                    "debut": "2026-11-26T13:00:00+01:00",
+                    "fin": "2026-11-26T17:15:00+01:00"
+                  }
+                ],
+                "periode": "Horaires habituels"
+              },
+              {
+                "date": "2026-11-27",
+                "connu": true,
+                "plages": [
+                  {
+                    "debut": "2026-11-27T08:30:00+01:00",
+                    "fin": "2026-11-27T12:00:00+01:00"
+                  },
+                  {
+                    "debut": "2026-11-27T13:00:00+01:00",
+                    "fin": "2026-11-27T16:00:00+01:00"
+                  }
+                ],
+                "periode": "Horaires habituels"
+              },
+              {
+                "date": "2026-11-28",
+                "connu": true,
+                "plages": [],
+                "periode": "Horaires habituels"
+              }
+            ]
+          }
+        ],
+        "horaires": [
+          {
+            "lieu_id": "equipement:service_urbanisme",
+            "sous_espace": "accueil",
+            "periode": "Horaires habituels",
+            "opening_hours": "Mo 08:30-12:00,13:00-17:15; Tu 13:00-17:15; We,Th 08:30-12:00,13:00-17:15; Fr 08:30-12:00,13:00-16:00",
             "exceptions": []
           }
         ]

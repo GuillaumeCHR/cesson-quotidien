@@ -169,3 +169,16 @@ equipements:
         periodes:
           - nom: Horaires habituels
             horaires: Mo-We 09:00-12:00,14:00-18:00; Th 09:00-12:00; Fr,Sa 09:00-12:00,14:00-18:00
+
+  service_urbanisme:
+    nom: Service urbanisme
+    adresse: Mairie annexe, 1 place de la Chalotais, Cesson-Sévigné
+    telephone: "02 99 83 52 00"
+    url: https://www.ville-cesson-sevigne.fr/contacts/service-urbanisme/
+    verifie_le: 2026-11-15
+    espaces:
+      accueil:
+        nom: Accueil du public
+        periodes:
+          - nom: Horaires habituels
+            horaires: Mo 08:30-12:00,13:00-17:15; Tu 13:00-17:15; We,Th 08:30-12:00,13:00-17:15; Fr 08:30-12:00,13:00-16:00

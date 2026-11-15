@@ -23,7 +23,7 @@ class EquipementsTest {
 
     @Test
     fun decodeLeFichierDuBackend() {
-        assertEquals(5, d.equipements.size) // dont la déchèterie
+        assertEquals(6, d.equipements.size) // dont la déchèterie et le service urbanisme
         assertEquals(LocalDate.of(2026, 11, 15), d.equipements.first().verifieLe)
     }
 

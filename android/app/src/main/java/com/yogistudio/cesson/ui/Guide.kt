@@ -174,7 +174,7 @@ private fun EtapeReglages(app: CessonApp) {
     val masques by app.preferences.equipementsMasques.collectAsStateWithLifecycle(emptySet())
     if (liste.isNotEmpty()) {
         SousTitre("Mes équipements")
-        liste.forEach { e ->
+        liste.filter { it.lieu.id != "equipement:service_urbanisme" }.forEach { e ->
             LigneInterrupteur(e.lieu.nom, e.lieu.id !in masques) { garder ->
                 portee.launch {
                     app.preferences.enregistrerEquipementsMasques(if (garder) masques - e.lieu.id else masques + e.lieu.id)

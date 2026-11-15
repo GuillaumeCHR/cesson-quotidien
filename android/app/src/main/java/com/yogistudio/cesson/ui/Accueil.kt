@@ -1,5 +1,11 @@
 package com.yogistudio.cesson.ui
 
+import com.yogistudio.cesson.equipements.SERVICE_URBANISME
+import com.yogistudio.cesson.equipements.CarteUrbanisme
+import androidx.compose.material.icons.rounded.HomeWork
+import com.yogistudio.cesson.actus.agenda
+import com.yogistudio.cesson.actus.CarteAgenda
+import androidx.compose.material.icons.rounded.Event
 import com.yogistudio.cesson.pratique.defibrillateurs
 import com.yogistudio.cesson.pratique.bornes
 import com.yogistudio.cesson.pratique.CarteDefibrillateurs
@@ -110,7 +116,7 @@ private val AIR = Tuile("air", "Qualité de l'air", Icons.Rounded.Air) {
     CarteBientot("Qualité de l'air", Icons.Rounded.Air, "Indice ATMO du jour, bientôt ici.")
 }
 private val EQUIPEMENTS_LOISIRS = Tuile("equipements", "Équipements", Icons.Rounded.Pool) { app ->
-    EquipementsCesson(app, titre = "Équipements") { it.lieu.id != DECHETERIE }
+    EquipementsCesson(app, titre = "Équipements") { it.lieu.id != DECHETERIE && it.lieu.id != SERVICE_URBANISME }
 }
 private val DECHETERIE_TUILE = Tuile("decheterie", "Déchèterie", Icons.Rounded.Recycling) { app ->
     EquipementsCesson(app, titre = "Déchèterie") { it.lieu.id == DECHETERIE }
@@ -131,12 +137,20 @@ private val BORNES = Tuile("bornes", "Bornes de recharge", Icons.Rounded.Electri
 val ONGLET_ACCUEIL = OngletTuiles(ACCUEIL, "l'accueil",
     listOf(METEO, VILAINE, VIASILVA, MON_ARRET, TRAINS, CIRCULATION, COLLECTE, MES_EQUIPEMENTS, CARBURANTS, AIR))
 val ONGLET_BOUGER = OngletTuiles("bouger", "l'onglet Bouger", listOf(VIASILVA, TRAINS, MON_ARRET, CIRCULATION, CARBURANTS, BORNES))
-val ONGLET_SORTIR = OngletTuiles("sortir", "l'onglet Sortir", listOf(EQUIPEMENTS_LOISIRS))
+private val AGENDA = Tuile("agenda", "Agenda", Icons.Rounded.Event) { app ->
+    val etat by remember(app) { app.depot.agenda() }.collectAsStateWithLifecycle(EtatModule.Absent)
+    CarteAgenda(etat)
+}
+val ONGLET_SORTIR = OngletTuiles("sortir", "l'onglet Sortir", listOf(AGENDA, EQUIPEMENTS_LOISIRS))
 private val USAGES_EAU = Tuile("usages_eau", "Usage de l'eau", Icons.Rounded.WaterDrop) { app ->
     val etat by remember(app) { app.depot.usagesEau() }.collectAsStateWithLifecycle(EtatModule.Absent)
     CarteUsagesEau(etat)
 }
-val ONGLET_PRATIQUE = OngletTuiles("pratique", "l'onglet Pratique", listOf(COLLECTE, USAGES_EAU, DECHETERIE_TUILE, DEFIBRILLATEURS))
+private val URBANISME = Tuile("urbanisme", "Urbanisme", Icons.Rounded.HomeWork) { app ->
+    val etat by remember(app) { app.depot.equipements() }.collectAsStateWithLifecycle(EtatModule.Absent)
+    CarteUrbanisme(etat)
+}
+val ONGLET_PRATIQUE = OngletTuiles("pratique", "l'onglet Pratique", listOf(COLLECTE, USAGES_EAU, DECHETERIE_TUILE, DEFIBRILLATEURS, URBANISME))
 private val ACTUS_VILLE = Tuile("actus_ville", "Actualités de la ville", Icons.Rounded.Newspaper) { ActusCesson(it, FLUX_VILLE) }
 val ONGLET_ACTUS = OngletTuiles("actus", "l'onglet Actus", listOf(ACTUS_VILLE))
 
@@ -167,7 +181,7 @@ fun EquipementsCesson(app: CessonApp, titre: String = "Mes équipements", garder
 @Composable
 fun MesEquipements(app: CessonApp) {
     val masques by app.preferences.equipementsMasques.collectAsStateWithLifecycle(emptySet())
-    EquipementsCesson(app) { it.lieu.id !in masques }
+    EquipementsCesson(app) { it.lieu.id !in masques && it.lieu.id != SERVICE_URBANISME }
 }
 
 @Composable
@@ -288,8 +302,7 @@ fun EcranBouger(app: CessonApp, onPersonnaliser: () -> Unit) =
 fun EcranSortir(app: CessonApp, onPersonnaliser: () -> Unit) =
     EcranTuiles(app, ONGLET_SORTIR, onPersonnaliser, pied = {
         item("a-venir") {
-            CarteAVenir(Icons.Rounded.Celebration, listOf("Spectacles du Carré Sévigné", "Cinéma Le Sévigné",
-                "Programme de la médiathèque", "Pont des Arts et Galerie Pictura"))
+            CarteAVenir(Icons.Rounded.Celebration, listOf("Cinéma Le Sévigné", "Programme de la médiathèque"))
         }
     })
 
@@ -297,7 +310,7 @@ fun EcranSortir(app: CessonApp, onPersonnaliser: () -> Unit) =
 fun EcranPratique(app: CessonApp, onPersonnaliser: () -> Unit) =
     EcranTuiles(app, ONGLET_PRATIQUE, onPersonnaliser, pied = {
         item("a-venir") {
-            CarteAVenir(Icons.Rounded.VolunteerActivism, listOf("Demandes d'urbanisme", "Accessibilité des lieux publics"))
+            CarteAVenir(Icons.Rounded.VolunteerActivism, listOf("Accessibilité des lieux publics"))
         }
     })
 
