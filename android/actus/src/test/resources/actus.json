@@ -1,0 +1,110 @@
+{
+  "module": "actus",
+  "version_schema": 1,
+  "meta": {
+    "source": "Ville de Cesson-Sévigné (flux RSS)",
+    "licence": "Titres et extraits © leurs éditeurs ; l'article se lit sur leur site",
+    "url_source": "https://www.ville-cesson-sevigne.fr/",
+    "recupere_le": "2026-11-15T11:01:03.398545Z",
+    "valide_jusqu_a": "2026-11-15T17:01:03.398545Z",
+    "etat": "ok"
+  },
+  "donnees": {
+    "flux": [
+      {
+        "id": "ville",
+        "nom": "Ville de Cesson-Sévigné",
+        "articles": [
+          {
+            "source": "ville",
+            "titre": "Ordre du jour du Conseil municipal du 18 novembre",
+            "date": "2026-11-10T09:38:04Z",
+            "lien": "https://www.ville-cesson-sevigne.fr/actualites/ordre-du-jour-du-conseil-municipal-du-18-novembre/",
+            "extrait": "Le Conseil municipal se réunira en séance ordinaire le mercredi 18 novembre 2026 à 19 h 00 salle du Conseil municipal à l’Espace Citoyen.",
+            "concerne_cesson": false
+          },
+          {
+            "source": "ville",
+            "titre": "OCC Natation Triathlon : il reste des places",
+            "date": "2026-09-28T08:13:37Z",
+            "lien": "https://www.ville-cesson-sevigne.fr/actualites/occ-natation-triathlon-il-reste-des-places/",
+            "extrait": "Profitez-en ! Il reste des places pour les entraînements à l'OCC Natation Triathlon, en particulier en natation. Il reste des places pour les pré ados et ados( 10/16 ans ) le samedi de 10h15 – 11h15. Et il reste aussi…",
+            "concerne_cesson": false
+          },
+          {
+            "source": "ville",
+            "titre": "Crise sécheresse : soyons tous économes en eau",
+            "date": "2026-09-16T08:41:16Z",
+            "lien": "https://www.ville-cesson-sevigne.fr/actualites/crise-secheresse-soyons-tous-economes-en-eau/",
+            "extrait": "Le comité de gestion de la ressource en eau (CGRE) s’est réuni le mardi 8 septembre, actant le maintien généralisé du niveau de crise sécheresse sur l’ensemble du département d’Ille-et-Vilaine. Les mesures de…",
+            "concerne_cesson": false
+          },
+          {
+            "source": "ville",
+            "titre": "Trambus : travaux rue de la Croix Connue",
+            "date": "2026-09-11T13:17:57Z",
+            "lien": "https://www.ville-cesson-sevigne.fr/actualites/trambus-travaux-rue-de-la-croix-connue/",
+            "extrait": "Rennes Métropole a commencé les travaux de la ligne T2 du trambus, qui reliera Cesson-Sévigné (Champelé, rue de la Rigourdière) à Vezin-le-Coquet (les Trois Marches, route de Lorient) en 2028. Rue de la Croix Connue, 2…",
+            "concerne_cesson": false
+          },
+          {
+            "source": "ville",
+            "titre": "Cimetière : fermeture des fontaines à eau",
+            "date": "2026-08-17T11:52:38Z",
+            "lien": "https://www.ville-cesson-sevigne.fr/actualites/cimetiere-fermeture-des-fontaines-a-eau/",
+            "extrait": "En raison de la crise sécheresse, les fontaines à eau du cimetière sont fermées. En effet, l'arrosage des fleurs y compris en pot y est interdit. Nous vous remercions de votre compréhension. Retrouvez l’arrêté…",
+            "concerne_cesson": false
+          },
+          {
+            "source": "ville",
+            "titre": "Sécheresse : les bons gestes à adopter",
+            "date": "2026-08-12T09:39:51Z",
+            "lien": "https://www.ville-cesson-sevigne.fr/actualites/secheresse-les-bons-gestes-a-adopter/",
+            "extrait": "L'Ille-et-Vilaine est en crise sécheresse depuis le 15 août 2026. La situation hydrologique continue de se dégrader en Ille-et-Vilaine. Les fortes chaleurs et l’absence de précipitations significatives entraînent un…",
+            "concerne_cesson": false
+          },
+          {
+            "source": "ville",
+            "titre": "Golf municipal : des mesures prises face à la sécheresse",
+            "date": "2026-08-07T09:19:45Z",
+            "lien": "https://www.ville-cesson-sevigne.fr/actualites/golf-municipal-des-mesures-prises-face-a-la-secheresse/",
+            "extrait": "En raison de l'alerte sécheresse et dans le respect de l'arrêté préfectoral, les greens sont arrosés avec les réserves d'eau pluviale. Afin de préserver les terrains, seuls les greens d'hiver sont ouverts. Merci de…",
+            "concerne_cesson": false
+          },
+          {
+            "source": "ville",
+            "titre": "Lutte contre les moustiques tigres : les bons gestes",
+            "date": "2026-07-08T09:16:57Z",
+            "lien": "https://www.ville-cesson-sevigne.fr/actualites/lutte-contre-les-moustiques-tigres-les-bons-gestes/",
+            "extrait": "Les infections transmises par les moustiques tigres font l'objet d'une surveillance particulière en France depuis 2006. Pour s’en protéger, il est conseillé d'adopter quelques mesures préventives. Qui est-il ? Surnommé…",
+            "concerne_cesson": false
+          },
+          {
+            "source": "ville",
+            "titre": "Le département en alerte sécheresse",
+            "date": "2026-06-30T15:17:07Z",
+            "lien": "https://www.ville-cesson-sevigne.fr/actualites/le-departement-en-alerte-secheresse/",
+            "extrait": "Face à la dégradation rapide de la situation hydrologique, la préfecture a placé le département d'Ille-et-Vilaine en alerte sécheresse à compter du 26 juin 2026. Une situation préoccupante La canicule accélère fortement…",
+            "concerne_cesson": false
+          },
+          {
+            "source": "ville",
+            "titre": "Moustique tigre : les résultats de l’enquête",
+            "date": "2026-06-25T13:56:15Z",
+            "lien": "https://www.ville-cesson-sevigne.fr/actualites/moustique-tigre-les-resultats-de-lenquete/",
+            "extrait": "Une enquête entomologique a été réalisée à la suite du signalement d’un moustique tigre sur notre commune. Les investigations menées les 9 et 10 juin 2026 dans un rayon de 150 mètres autour du lieu du signalement n’ont…",
+            "concerne_cesson": false
+          },
+          {
+            "source": "ville",
+            "titre": "Merci de ne pas nourrir les animaux",
+            "date": "2026-06-05T07:39:02Z",
+            "lien": "https://www.ville-cesson-sevigne.fr/actualites/merci-de-ne-pas-nourrir-les-animaux/",
+            "extrait": "Les boucs et/ou béliers présents sur les parcelles participent à l'entretien naturel des espaces verts par écopâturage. Ne leur donnez aucun aliment, notamment : – pain, – restes alimentaires, – fruits et légumes, –…",
+            "concerne_cesson": false
+          }
+        ]
+      }
+    ]
+  }
+}

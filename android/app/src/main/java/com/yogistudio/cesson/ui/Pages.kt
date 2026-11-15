@@ -55,23 +55,7 @@ import kotlinx.serialization.json.JsonElement
 
 // --- Onglets dont les modules arrivent aux étapes suivantes ----------------------------------
 
-@Composable
-private fun OngletAVenir(titre: String, icone: ImageVector, lignes: List<String>) {
-    Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(16.dp)) {
-        CarteDonnee(titre, icone) {
-            Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
-                TexteBientot("Bientôt dans cet onglet :")
-                lignes.forEach { Text("• $it", style = MaterialTheme.typography.bodyMedium) }
-            }
-        }
-    }
-}
 
-@Composable
-fun EcranActus() = OngletAVenir("Actualités", Icons.Rounded.Newspaper, listOf(
-    "Fil d'actualités de la ville", "Actualités d'Eau du Bassin Rennais : coupures d'eau, travaux, qualité de l'eau",
-    "Lien d'abonnement à la chaîne WhatsApp municipale",
-))
 
 // --- Sources et licences ---------------------------------------------------------------------
 

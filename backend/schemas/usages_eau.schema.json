@@ -1,0 +1,215 @@
+{
+  "$defs": {
+    "Consigne": {
+      "additionalProperties": false,
+      "properties": {
+        "titre": {
+          "title": "Titre",
+          "type": "string"
+        },
+        "date": {
+          "format": "date-time",
+          "title": "Date",
+          "type": "string"
+        },
+        "lien": {
+          "title": "Lien",
+          "type": "string"
+        }
+      },
+      "required": [
+        "titre",
+        "date",
+        "lien"
+      ],
+      "title": "Consigne",
+      "type": "object"
+    },
+    "DonneesUsagesEau": {
+      "additionalProperties": false,
+      "properties": {
+        "niveau": {
+          "title": "Niveau",
+          "type": "string"
+        },
+        "zone": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Zone"
+        },
+        "depuis": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Depuis"
+        },
+        "jusqu_au": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Jusqu Au"
+        },
+        "arrete": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Arrete"
+        },
+        "usages": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/Usage"
+          },
+          "title": "Usages",
+          "type": "array"
+        },
+        "consignes": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/Consigne"
+          },
+          "title": "Consignes",
+          "type": "array"
+        }
+      },
+      "required": [
+        "niveau"
+      ],
+      "title": "DonneesUsagesEau",
+      "type": "object"
+    },
+    "Etat": {
+      "enum": [
+        "ok",
+        "perime",
+        "erreur"
+      ],
+      "title": "Etat",
+      "type": "string"
+    },
+    "Meta": {
+      "additionalProperties": false,
+      "description": "Accompagne chaque fichier publié : source, licence et fraîcheur.",
+      "properties": {
+        "source": {
+          "title": "Source",
+          "type": "string"
+        },
+        "licence": {
+          "title": "Licence",
+          "type": "string"
+        },
+        "url_source": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Url Source"
+        },
+        "recupere_le": {
+          "format": "date-time",
+          "title": "Recupere Le",
+          "type": "string"
+        },
+        "valide_jusqu_a": {
+          "format": "date-time",
+          "title": "Valide Jusqu A",
+          "type": "string"
+        },
+        "etat": {
+          "$ref": "#/$defs/Etat",
+          "default": "ok"
+        }
+      },
+      "required": [
+        "source",
+        "licence",
+        "recupere_le",
+        "valide_jusqu_a"
+      ],
+      "title": "Meta",
+      "type": "object"
+    },
+    "Usage": {
+      "additionalProperties": false,
+      "properties": {
+        "thematique": {
+          "title": "Thematique",
+          "type": "string"
+        },
+        "nom": {
+          "title": "Nom",
+          "type": "string"
+        },
+        "regle": {
+          "title": "Regle",
+          "type": "string"
+        }
+      },
+      "required": [
+        "thematique",
+        "nom",
+        "regle"
+      ],
+      "title": "Usage",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "module": {
+      "title": "Module",
+      "type": "string"
+    },
+    "version_schema": {
+      "default": 1,
+      "title": "Version Schema",
+      "type": "integer"
+    },
+    "meta": {
+      "$ref": "#/$defs/Meta"
+    },
+    "donnees": {
+      "$ref": "#/$defs/DonneesUsagesEau"
+    }
+  },
+  "required": [
+    "module",
+    "meta",
+    "donnees"
+  ],
+  "title": "FichierModule[DonneesUsagesEau]",
+  "type": "object"
+}

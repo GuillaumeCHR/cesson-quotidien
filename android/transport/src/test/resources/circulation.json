@@ -1,0 +1,98 @@
+{
+  "module": "circulation",
+  "version_schema": 1,
+  "meta": {
+    "source": "Rennes Métropole, état du trafic en temps réel",
+    "licence": "Licence Ouverte 2.0 ; positions des portes : OpenStreetMap (ODbL)",
+    "url_source": "https://data.rennesmetropole.fr/explore/dataset/etat-du-trafic-en-temps-reel/",
+    "recupere_le": "2026-11-15T10:55:49.894201Z",
+    "valide_jusqu_a": "2026-11-15T12:06:00+01:00",
+    "etat": "ok"
+  },
+  "donnees": {
+    "mesure_le": "2026-11-15T11:51:00+01:00",
+    "rocade_est": [
+      {
+        "id": "interieure",
+        "libelle": "Rocade intérieure",
+        "etat": "fluide",
+        "vitesse": 93,
+        "ralentissements": []
+      },
+      {
+        "id": "exterieure",
+        "libelle": "Rocade extérieure",
+        "etat": "fluide",
+        "vitesse": 93,
+        "ralentissements": []
+      }
+    ],
+    "axes_cesson": [
+      {
+        "nom": "Avenue de Belle Fontaine",
+        "etat": "sature",
+        "vitesse": 46
+      },
+      {
+        "nom": "Boulevard Bertrand d'Argentré",
+        "etat": "dense",
+        "vitesse": 50
+      },
+      {
+        "nom": "Avenue des Préales",
+        "etat": "fluide",
+        "vitesse": 51
+      },
+      {
+        "nom": "Boulevard Saint-Roch",
+        "etat": "fluide",
+        "vitesse": 59
+      },
+      {
+        "nom": "Boulevard des Alliés",
+        "etat": "fluide",
+        "vitesse": 45
+      },
+      {
+        "nom": "Porte de Beaulieu",
+        "etat": "fluide",
+        "vitesse": 59
+      },
+      {
+        "nom": "Porte des Longchamps",
+        "etat": "fluide",
+        "vitesse": 66
+      },
+      {
+        "nom": "Route de Fougères",
+        "etat": "fluide",
+        "vitesse": 35
+      },
+      {
+        "nom": "Route départementale 175",
+        "etat": "fluide",
+        "vitesse": 68
+      },
+      {
+        "nom": "Rue de Rennes",
+        "etat": "fluide",
+        "vitesse": 34
+      },
+      {
+        "nom": "Rue du Clos Courtel",
+        "etat": "fluide",
+        "vitesse": 39
+      },
+      {
+        "nom": "Avenue de la Boulais",
+        "etat": "inconnu",
+        "vitesse": 25
+      },
+      {
+        "nom": "Avenue de la Touraudais",
+        "etat": "inconnu",
+        "vitesse": 49
+      }
+    ]
+  }
+}

@@ -14,6 +14,9 @@ PATH=/usr/bin:/bin
 # Quotidien, 0h40 (après la publication du GTFS STAR vers 23h30) : lignes STAR qui desservent Cesson
 40 0 * * *    cd $CESSON && .venv/bin/python -m cesson collecter lignes_star --sortie /srv/cesson/public --etat /srv/cesson/etat >> /srv/cesson/log/collecte.log 2>&1
 
+# Horaire, à la 27e minute : actualités de la ville (RSS), restrictions d'eau (VigiEau) et consignes d'Eau du Bassin Rennais
+27 * * * *    cd $CESSON && .venv/bin/python -m cesson collecter actus usages_eau --sortie /srv/cesson/public --etat /srv/cesson/etat >> /srv/cesson/log/collecte.log 2>&1
+
 # Horaire, à la 7e minute : météo (Open-Meteo, modèles Météo-France)
 7 * * * *     cd $CESSON && .venv/bin/python -m cesson collecter meteo --sortie /srv/cesson/public --etat /srv/cesson/etat >> /srv/cesson/log/collecte.log 2>&1
 
@@ -22,6 +25,9 @@ PATH=/usr/bin:/bin
 
 # Toutes les 2 min de 5h à 23h59 : trains à la halte (GTFS extrait une fois par jour, GTFS-RT à chaque passage)
 */2 5-23 * * *  cd $CESSON && .venv/bin/python -m cesson collecter trains --sortie /srv/cesson/public --etat /srv/cesson/etat >> /srv/cesson/log/collecte.log 2>&1
+
+# Toutes les 3 min : circulation sur la rocade est et les axes de Cesson (Rennes Métropole, temps réel)
+*/3 * * * *   cd $CESSON && .venv/bin/python -m cesson collecter circulation --sortie /srv/cesson/public --etat /srv/cesson/etat >> /srv/cesson/log/collecte.log 2>&1
 
 # Toutes les 10 min (1, 11, 21…) : prix des carburants des stations de Cesson
 1-59/10 * * * * cd $CESSON && .venv/bin/python -m cesson collecter carburants --sortie /srv/cesson/public --etat /srv/cesson/etat >> /srv/cesson/log/collecte.log 2>&1

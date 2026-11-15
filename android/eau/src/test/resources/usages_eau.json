@@ -1,0 +1,77 @@
+{
+  "module": "usages_eau",
+  "version_schema": 1,
+  "meta": {
+    "source": "VigiEau (arrêtés sécheresse) et Eau du Bassin Rennais",
+    "licence": "Licence Ouverte 2.0 (VigiEau) ; titres © Eau du Bassin Rennais",
+    "url_source": "https://vigieau.gouv.fr/",
+    "recupere_le": "2026-11-15T11:01:02.974466Z",
+    "valide_jusqu_a": "2026-11-15T23:01:02.974466Z",
+    "etat": "ok"
+  },
+  "donnees": {
+    "niveau": "crise",
+    "zone": "Secteur milieux aquatiques 4 - Bassin de la Vilaine en amont de Rennes_ZA_ESO",
+    "depuis": "2026-08-15T00:00:00Z",
+    "arrete": "https://regleau.s3.gra.perf.cloud.ovh.net/arrete-restriction/37724/8fd34139-edfd-472a-8f46-302f671b09ce/AP_secheresse_35_20260814_20261020_prolongation.pdf",
+    "usages": [
+      {
+        "thematique": "Arroser",
+        "nom": "Arrosage des pelouses, espaces verts, massifs floraux ou arbustifs, etc (ressources \"autres\" [eaux usées traitées, eaux de pluies, eau de process])",
+        "regle": "Interdiction de 8h à 20h."
+      },
+      {
+        "thematique": "Arroser",
+        "nom": "Arrosage des pelouses, espaces verts, massifs floraux ou arbustifs, y compris en pot et en cimetière",
+        "regle": "Interdit."
+      },
+      {
+        "thematique": "Nettoyer",
+        "nom": "Nettoyage de la voirie (chaussées, trottoirs, caniveaux…), Y compris travaux routiers",
+        "regle": "Interdit, sauf raison sanitaire ou de sécurité routière avec usage de balayeuses automatiques. Cela concerne notamment les suites d’accident de la route, les coulées de boues, les salissures avec risques pour la circulation et le nettoyage après marchés et manifestations…"
+      },
+      {
+        "thematique": "Nettoyer",
+        "nom": "Nettoyage des bateaux (Y compris par dispositifs mobiles) EN aire de carénage professionnelle",
+        "regle": "Autorisé en aire de carénage pour préparation de mise en peinture/antifouling de la coque non reportable pour les navires de pêche professionnelle Interdit sans dérogation possible avec de l’eau potable en cas d’activation de la cellule de suivi « sécheresse » du plan ORSEC Eau.…"
+      },
+      {
+        "thematique": "Nettoyer",
+        "nom": "Nettoyage des façades, terrasses, murs, escaliers, et vitres des locaux et bâtiments prof., tombes",
+        "regle": "Interdit sauf travaux préparatoires à ravalement non reportables sous dérogation."
+      },
+      {
+        "thematique": "Nettoyer",
+        "nom": "Nettoyage des véhicules roulants (Y compris par dispositifs mobiles) EN station de lavage",
+        "regle": "Interdit Ne sont pas concernés par ces restrictions, les véhicules suivants (enjeux sanitaire) : engins agricoles, véhicules vétérinaires ou technique (bétonnières, matériels agricoles liés aux moissons et ensilage) ou liée à la sécurité. L’arrêté de restriction en cours et une…"
+      },
+      {
+        "thematique": "Nettoyer",
+        "nom": "Nettoyage véhicules et bateaux (Y compris par dispositifs mobiles) HORS station de lavage",
+        "regle": "Interdiction, sauf pour le rinçage des moteurs de bateau."
+      },
+      {
+        "thematique": "Remplir ou vidanger",
+        "nom": "Piscines familiales privées, dont bains à remous, et communes en résidences privées",
+        "regle": "Interdit."
+      },
+      {
+        "thematique": "Arroser",
+        "nom": "Potagers bac et jardin; et serres en pleine-terre non équipées de goutte-à-goutte ou micro-aspersion",
+        "regle": "Interdiction de 8h à 20h."
+      }
+    ],
+    "consignes": [
+      {
+        "titre": "Crise sécheresse – campagne de communication 2026",
+        "date": "2026-09-21T14:49:11Z",
+        "lien": "https://www.eaudubassinrennais-collectivite.fr/blog/crise-secheresse-campagne-de-communication-2026/"
+      },
+      {
+        "titre": "Crise sécheresse | Situation au 1er novembre 2026",
+        "date": "2026-07-01T15:19:41Z",
+        "lien": "https://www.eaudubassinrennais-collectivite.fr/blog/alerte-secheresse-situation-au-26-juin-2026/"
+      }
+    ]
+  }
+}

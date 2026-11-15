@@ -1,0 +1,177 @@
+{
+  "$defs": {
+    "Article": {
+      "additionalProperties": false,
+      "properties": {
+        "source": {
+          "title": "Source",
+          "type": "string"
+        },
+        "titre": {
+          "title": "Titre",
+          "type": "string"
+        },
+        "date": {
+          "format": "date-time",
+          "title": "Date",
+          "type": "string"
+        },
+        "lien": {
+          "title": "Lien",
+          "type": "string"
+        },
+        "extrait": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Extrait"
+        },
+        "concerne_cesson": {
+          "default": false,
+          "title": "Concerne Cesson",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "source",
+        "titre",
+        "date",
+        "lien"
+      ],
+      "title": "Article",
+      "type": "object"
+    },
+    "DonneesActus": {
+      "additionalProperties": false,
+      "properties": {
+        "flux": {
+          "items": {
+            "$ref": "#/$defs/Flux"
+          },
+          "title": "Flux",
+          "type": "array"
+        }
+      },
+      "required": [
+        "flux"
+      ],
+      "title": "DonneesActus",
+      "type": "object"
+    },
+    "Etat": {
+      "enum": [
+        "ok",
+        "perime",
+        "erreur"
+      ],
+      "title": "Etat",
+      "type": "string"
+    },
+    "Flux": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "nom": {
+          "title": "Nom",
+          "type": "string"
+        },
+        "articles": {
+          "items": {
+            "$ref": "#/$defs/Article"
+          },
+          "title": "Articles",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "nom",
+        "articles"
+      ],
+      "title": "Flux",
+      "type": "object"
+    },
+    "Meta": {
+      "additionalProperties": false,
+      "description": "Accompagne chaque fichier publié : source, licence et fraîcheur.",
+      "properties": {
+        "source": {
+          "title": "Source",
+          "type": "string"
+        },
+        "licence": {
+          "title": "Licence",
+          "type": "string"
+        },
+        "url_source": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Url Source"
+        },
+        "recupere_le": {
+          "format": "date-time",
+          "title": "Recupere Le",
+          "type": "string"
+        },
+        "valide_jusqu_a": {
+          "format": "date-time",
+          "title": "Valide Jusqu A",
+          "type": "string"
+        },
+        "etat": {
+          "$ref": "#/$defs/Etat",
+          "default": "ok"
+        }
+      },
+      "required": [
+        "source",
+        "licence",
+        "recupere_le",
+        "valide_jusqu_a"
+      ],
+      "title": "Meta",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "module": {
+      "title": "Module",
+      "type": "string"
+    },
+    "version_schema": {
+      "default": 1,
+      "title": "Version Schema",
+      "type": "integer"
+    },
+    "meta": {
+      "$ref": "#/$defs/Meta"
+    },
+    "donnees": {
+      "$ref": "#/$defs/DonneesActus"
+    }
+  },
+  "required": [
+    "module",
+    "meta",
+    "donnees"
+  ],
+  "title": "FichierModule[DonneesActus]",
+  "type": "object"
+}

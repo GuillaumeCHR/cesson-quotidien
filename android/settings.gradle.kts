@@ -34,5 +34,7 @@ include(":pratique")
 include(":transport")
 // Domaine équipements : horaires calculés par le backend (piscine, médiathèque, golf, Base Sports Nature).
 include(":equipements")
-// Les autres domaines (agenda, actus, widget)
+// Domaine actus : actualités de la ville et d'Eau du Bassin Rennais.
+include(":actus")
+// Les autres domaines (agenda, widget)
 // arrivent avec leur étape de la feuille de route.

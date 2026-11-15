@@ -50,6 +50,7 @@ android {
 
 dependencies {
     implementation(project(":core"))
+    implementation(project(":actus"))
     implementation(project(":eau"))
     implementation(project(":environnement"))
     implementation(project(":equipements"))

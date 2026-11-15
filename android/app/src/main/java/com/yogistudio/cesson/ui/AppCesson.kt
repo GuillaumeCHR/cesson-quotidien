@@ -72,7 +72,7 @@ private val ONGLETS = listOf(
     Onglet(RouteBouger, RouteBouger::class, "Bouger", Icons.Rounded.DirectionsBus, ONGLET_BOUGER),
     Onglet(RouteSortir, RouteSortir::class, "Sortir", Icons.Rounded.Celebration, ONGLET_SORTIR),
     Onglet(RoutePratique, RoutePratique::class, "Pratique", Icons.Rounded.VolunteerActivism, ONGLET_PRATIQUE),
-    Onglet(RouteActus, RouteActus::class, "Actus", Icons.Rounded.Newspaper),
+    Onglet(RouteActus, RouteActus::class, "Actus", Icons.Rounded.Newspaper, ONGLET_ACTUS),
 )
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -149,7 +149,7 @@ fun AppCesson(app: CessonApp) {
             composable<RouteBouger> { EcranBouger(app) { nav.navigate(RoutePersonnaliser(ONGLET_BOUGER.id)) } }
             composable<RouteSortir> { EcranSortir(app) { nav.navigate(RoutePersonnaliser(ONGLET_SORTIR.id)) } }
             composable<RoutePratique> { EcranPratique(app) { nav.navigate(RoutePersonnaliser(ONGLET_PRATIQUE.id)) } }
-            composable<RouteActus> { EcranActus() }
+            composable<RouteActus> { EcranActus(app) { nav.navigate(RoutePersonnaliser(ONGLET_ACTUS.id)) } }
             composable<RoutePersonnaliser> { e ->
                 val id = e.toRoute<RoutePersonnaliser>().onglet
                 EcranPersonnaliser(app, ONGLETS_PERSONNALISABLES.firstOrNull { it.id == id } ?: ONGLET_ACCUEIL)
