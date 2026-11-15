@@ -52,16 +52,16 @@ fun CarteMonArret(
     var choix by rememberSaveable { mutableStateOf(false) }
     val arrets = lignes?.arrets.orEmpty()
     if (arretSuivi == null) {
-        CarteDonnee("Mon arrêt", Icons.Rounded.DirectionsBus, modifier) {
+        CarteDonnee("Mon arrêt de bus", Icons.Rounded.DirectionsBus, modifier) {
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 TexteBientot("Choisissez l'arrêt que vous prenez le plus souvent pour voir ses prochains départs ici.")
                 OutlinedButton(onClick = { choix = true }, enabled = arrets.isNotEmpty()) {
-                    Text(if (arrets.isEmpty()) "Liste des arrêts en cours de chargement…" else "Choisir mon arrêt")
+                    Text(if (arrets.isEmpty()) "Liste des arrêts en cours de chargement…" else "Choisir mon arrêt de bus")
                 }
             }
         }
     } else {
-        CarteDeparts(client, lignes, nomArret = arretSuivi, titre = "Mon arrêt : $arretSuivi", modifier = modifier) {
+        CarteDeparts(client, lignes, nomArret = arretSuivi, titre = "Mon arrêt de bus : $arretSuivi", modifier = modifier) {
             TextButton(onClick = { choix = true }, enabled = arrets.isNotEmpty()) { Text("Changer d'arrêt") }
         }
     }
@@ -87,7 +87,7 @@ fun ChoixArret(
     val resultats = remember(arrets, recherche) { filtrerArrets(arrets, recherche) }
     ModalBottomSheet(onDismissRequest = onFermer, sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)) {
         Column(Modifier.padding(horizontal = 16.dp)) {
-            Text("Choisir mon arrêt", style = MaterialTheme.typography.titleLarge)
+            Text("Choisir mon arrêt de bus", style = MaterialTheme.typography.titleLarge)
             OutlinedTextField(
                 value = recherche,
                 onValueChange = { recherche = it },

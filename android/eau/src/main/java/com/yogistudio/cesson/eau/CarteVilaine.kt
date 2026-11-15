@@ -51,7 +51,7 @@ fun CarteVilaine(
     val uri = LocalUriHandler.current
     val maintenant = rememberMaintenant()
     when (etat) {
-        EtatModule.Absent -> CarteDonnee("La Vilaine", Icons.Rounded.Water, modifier, maintenant = maintenant) {
+        EtatModule.Absent -> CarteDonnee("La Vilaine et les crues", Icons.Rounded.Water, modifier, maintenant = maintenant) {
             LigneVigilance(vigilance)
             TexteBientot("Niveau pas encore reçu. Tirez vers le bas pour actualiser.")
         }
@@ -60,7 +60,7 @@ fun CarteVilaine(
             val hauteur = formaterHauteur(d.mesure)
             val heure = formaterDeHeure(d.mesure.horodatage, maintenant)
             CarteDonnee(
-                titre = "La Vilaine à Pont Briand",
+                titre = "La Vilaine et les crues",
                 icone = Icons.Rounded.Water,
                 modifier = modifier,
                 fraicheur = etat.fraicheur,
@@ -85,7 +85,7 @@ fun CarteVilaine(
                                 Text(libelleTendance(d.mesure.tendance).replaceFirstChar { it.uppercase() },
                                     style = MaterialTheme.typography.bodyMedium)
                             }
-                            Text("Mesure $heure", style = MaterialTheme.typography.bodySmall,
+                            Text("Mesure à Pont Briand $heure", style = MaterialTheme.typography.bodySmall,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant)
                         }
                     }

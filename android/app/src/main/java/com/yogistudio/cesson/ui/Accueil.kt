@@ -57,17 +57,17 @@ private val METEO = Tuile("meteo", "Météo", Icons.Rounded.WbCloudy) { app ->
     val etat by remember(app) { app.depot.meteo() }.collectAsStateWithLifecycle(EtatModule.Absent)
     CarteMeteo(etat)
 }
-private val VILAINE = Tuile("vilaine", "La Vilaine", Icons.Rounded.Water) { app ->
+private val VILAINE = Tuile("vilaine", "La Vilaine et les crues", Icons.Rounded.Water) { app ->
     val etat by remember(app) { app.depot.vilaine() }.collectAsStateWithLifecycle(EtatModule.Absent)
     val vigilance by remember(app) { app.depot.vigicrues() }.collectAsStateWithLifecycle(EtatModule.Absent)
     CarteVilaine(etat, vigilance)
 }
-private val VIASILVA = Tuile("arrets", "Prochains départs à Cesson-ViaSilva", Icons.Rounded.DirectionsBus) { DepartsViaSilva(it) }
-private val MON_ARRET = Tuile("mon_arret", "Mon arrêt", Icons.Rounded.DirectionsBus) { MonArret(it) }
-private val TRAINS = Tuile("trains", "Halte de Cesson-Sévigné", Icons.Rounded.Train) { TrainsHalte(it) }
-private val COLLECTE = Tuile("collecte", "Ma collecte", Icons.Rounded.DeleteOutline) { CollecteCesson(it) }
+private val VIASILVA = Tuile("arrets", "Métro et bus ViaSilva", Icons.Rounded.DirectionsBus) { DepartsViaSilva(it) }
+private val MON_ARRET = Tuile("mon_arret", "Mon arrêt de bus", Icons.Rounded.DirectionsBus) { MonArret(it) }
+private val TRAINS = Tuile("trains", "Trains à Halte-Cesson", Icons.Rounded.Train) { TrainsHalte(it) }
+private val COLLECTE = Tuile("collecte", "Ma collecte de déchets", Icons.Rounded.DeleteOutline) { CollecteCesson(it) }
 private val MES_EQUIPEMENTS = Tuile("equipements", "Mes équipements", Icons.Rounded.Pool) { MesEquipements(it) }
-private val CARBURANTS = Tuile("carburants", "Carburants", Icons.Rounded.LocalGasStation) { CarburantsCesson(it) }
+private val CARBURANTS = Tuile("carburants", "Prix des carburants", Icons.Rounded.LocalGasStation) { CarburantsCesson(it) }
 private val AIR = Tuile("air", "Qualité de l'air", Icons.Rounded.Air) {
     CarteBientot("Qualité de l'air", Icons.Rounded.Air, "Indice ATMO du jour, bientôt ici.")
 }

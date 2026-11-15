@@ -48,7 +48,7 @@ fun CarteCarburants(
 ) {
     val maintenant = rememberMaintenant()
     when (etat) {
-        EtatModule.Absent -> CarteDonnee("Carburants", Icons.Rounded.LocalGasStation, modifier, maintenant = maintenant) {
+        EtatModule.Absent -> CarteDonnee("Prix des carburants", Icons.Rounded.LocalGasStation, modifier, maintenant = maintenant) {
             TexteBientot("Prix pas encore reçus. Tirez vers le bas pour actualiser.")
         }
         is EtatModule.Disponible -> {
@@ -60,7 +60,7 @@ fun CarteCarburants(
             val libelle = proposes.firstOrNull { it.first == choisi }?.second ?: ""
             val lignes = choisi?.let { classer(d, it, maintenant) } ?: emptyList()
             CarteDonnee(
-                titre = "Carburants à Cesson",
+                titre = "Prix des carburants",
                 icone = Icons.Rounded.LocalGasStation,
                 modifier = modifier,
                 fraicheur = etat.fraicheur,

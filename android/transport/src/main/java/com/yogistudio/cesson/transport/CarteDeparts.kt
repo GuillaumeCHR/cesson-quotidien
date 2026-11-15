@@ -63,7 +63,7 @@ fun CarteDeparts(
     client: ClientStar,
     lignes: DonneesLignesStar?,
     nomArret: String = POLE_VIASILVA,
-    titre: String = "Prochains départs à Cesson-ViaSilva",
+    titre: String = "Métro et bus ViaSilva",
     modifier: Modifier = Modifier,
     pied: @Composable () -> Unit = {},
 ) {

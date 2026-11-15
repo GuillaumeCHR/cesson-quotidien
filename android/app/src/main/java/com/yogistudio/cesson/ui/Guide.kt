@@ -140,7 +140,7 @@ private fun EtapeReglages(app: CessonApp) {
     val donneesLignes = (lignes as? EtatModule.Disponible)?.fichier?.donnees
     val arret by app.preferences.arretSuivi.collectAsStateWithLifecycle(null)
     var choixArret by rememberSaveable { mutableStateOf(false) }
-    SousTitre("Mon arrêt de bus ou de métro")
+    SousTitre("Mon arrêt de bus")
     Row(verticalAlignment = Alignment.CenterVertically) {
         Text(arret ?: "Aucun arrêt choisi", style = MaterialTheme.typography.bodyLarge, modifier = Modifier.weight(1f))
         OutlinedButton(onClick = { choixArret = true }, enabled = !donneesLignes?.arrets.isNullOrEmpty()) {
@@ -184,7 +184,7 @@ private fun EtapeReglages(app: CessonApp) {
     }
 
     // Rappel de collecte
-    SousTitre("Collecte des déchets")
+    SousTitre("Ma collecte de déchets")
     ReglageRappelCollecte(app)
 }
 

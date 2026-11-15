@@ -65,12 +65,12 @@ fun CarteTrains(etat: EtatModule<DonneesTrains>, rafraichir: suspend () -> Unit,
         }
     }
     when (etat) {
-        EtatModule.Absent -> CarteDonnee("Halte de Cesson-Sévigné", Icons.Rounded.Train, modifier, maintenant = maintenant) {
+        EtatModule.Absent -> CarteDonnee("Trains à Halte-Cesson", Icons.Rounded.Train, modifier, maintenant = maintenant) {
             TexteBientot("Horaires pas encore reçus. Tirez vers le bas pour actualiser.")
         }
         is EtatModule.Disponible -> {
             val d = etat.fichier.donnees
-            CarteDonnee("Halte de Cesson-Sévigné", Icons.Rounded.Train, modifier, etat.fraicheur, maintenant) {
+            CarteDonnee("Trains à Halte-Cesson", Icons.Rounded.Train, modifier, etat.fraicheur, maintenant) {
                 Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
                     if (!d.tempsReelDisponible) {
                         Row(verticalAlignment = Alignment.CenterVertically) {

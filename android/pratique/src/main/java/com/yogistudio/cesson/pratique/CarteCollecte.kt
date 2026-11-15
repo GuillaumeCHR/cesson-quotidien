@@ -45,12 +45,12 @@ fun CarteCollecte(
 ) {
     val maintenant = rememberMaintenant()
     when (etat) {
-        EtatModule.Absent -> CarteDonnee("Ma collecte", Icons.Rounded.DeleteOutline, modifier, maintenant = maintenant) {
+        EtatModule.Absent -> CarteDonnee("Ma collecte de déchets", Icons.Rounded.DeleteOutline, modifier, maintenant = maintenant) {
             TexteBientot("Calendrier pas encore reçu. Tirez vers le bas pour actualiser.")
         }
         is EtatModule.Disponible -> {
             val d = etat.fichier.donnees
-            CarteDonnee("Ma collecte", Icons.Rounded.DeleteOutline, modifier, etat.fraicheur, maintenant) {
+            CarteDonnee("Ma collecte de déchets", Icons.Rounded.DeleteOutline, modifier, etat.fraicheur, maintenant) {
                 Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
                     val ceSoir = aSortirCeSoir(d, maintenant)
                     if (ceSoir.isNotEmpty()) RappelCeSoir(ceSoir)
