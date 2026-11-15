@@ -133,6 +133,10 @@ fun decoderMetro(json: String): List<Depart> =
                 if (p.precision.contientTempsReel()) StatutDepart.TEMPS_REEL else StatutDepart.THEORIQUE)
         }
 
+/** La ligne préférée d'abord (ses directions dans leur ordre), puis les autres, ordre inchangé. */
+fun prioriser(directions: List<Direction>, lignePreferee: String?): List<Direction> =
+    if (lignePreferee == null) directions else directions.sortedBy { if (it.ligne == lignePreferee) 0 else 1 }
+
 /**
  * Départs utiles à afficher : ni déjà passés, ni arrivées au terminus (un bus dont la destination
  * est l'arrêt lui-même ne prend personne), triés par heure.

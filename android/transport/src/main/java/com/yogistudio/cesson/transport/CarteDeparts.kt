@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Star
 import androidx.compose.material.icons.rounded.CloudOff
 import androidx.compose.material.icons.rounded.DirectionsBus
 import androidx.compose.material.icons.rounded.Sensors
@@ -73,6 +74,8 @@ fun CarteDeparts(
     onAlerter: ((Direction) -> Unit)? = null,
     /** Direction (ligne, destination) dont l'alerte est armée : sa cloche est pleine. */
     alerteArmee: Pair<String, String>? = null,
+    /** Ligne préférée : ses directions passent en tête, avec une étoile. */
+    lignePreferee: String? = null,
     pied: @Composable () -> Unit = {},
 ) {
     var etat by remember(nomArret) { mutableStateOf(EtatDeparts()) }
@@ -94,7 +97,7 @@ fun CarteDeparts(
 
     CarteDonnee(titre, Icons.Rounded.DirectionsBus, modifier, maintenant = maintenant) {
         val recus = etat.departs
-        val directions = recus?.let { regrouper(departsUtiles(it, maintenant)) }
+        val directions = recus?.let { prioriser(regrouper(departsUtiles(it, maintenant)), lignePreferee) }
         // Compact : 4 directions, 2 passages chacune, sans la légende.
         val compact = LocalCompact.current
         Column(verticalArrangement = Arrangement.spacedBy(if (compact) 8.dp else 10.dp)) {
@@ -104,7 +107,8 @@ fun CarteDeparts(
                 directions.isNullOrEmpty() -> TexteBientot("Aucun départ annoncé dans les prochaines heures.")
                 else -> directions.take(if (compact) 4 else 8).forEach {
                     val dir = if (compact) it.copy(departs = it.departs.take(2)) else it
-                    LigneDirection(dir, couleurs[it.ligne], maintenant, onAlerter, alerteArmee == (it.ligne to it.destination))
+                    LigneDirection(dir, couleurs[it.ligne], maintenant, onAlerter, alerteArmee == (it.ligne to it.destination),
+                        preferee = it.ligne == lignePreferee)
                 }
             }
             if (recus != null && etat.erreur) {
@@ -129,6 +133,7 @@ private fun LigneDirection(
     maintenant: Instant,
     onAlerter: ((Direction) -> Unit)? = null,
     armee: Boolean = false,
+    preferee: Boolean = false,
 ) {
     val heures = d.departs.map { formaterAttente(it.heure, maintenant) { h -> formaterHeure(h, maintenant) } }
     val description = buildString {
@@ -145,6 +150,11 @@ private fun LigneDirection(
     ) {
         PastilleLigne(d.ligne, ligne)
         Spacer(Modifier.width(10.dp))
+        if (preferee) {
+            Icon(Icons.Rounded.Star, contentDescription = "Ligne préférée", modifier = Modifier.size(16.dp),
+                tint = MaterialTheme.colorScheme.primary)
+            Spacer(Modifier.width(4.dp))
+        }
         Text(d.destination, style = MaterialTheme.typography.bodyMedium, maxLines = 1, overflow = TextOverflow.Ellipsis,
             modifier = Modifier.weight(1f))
         Spacer(Modifier.width(8.dp))

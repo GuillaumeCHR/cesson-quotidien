@@ -273,6 +273,7 @@ fun MonArret(app: CessonApp) {
     val alerteJson by app.preferences.alerteBus.collectAsStateWithLifecycle(null)
     val alerte = remember(alerteJson) { alerteJson?.let { runCatching { JsonCesson.decodeFromString(AlerteBus.serializer(), it) }.getOrNull() } }
     val delai by app.preferences.delaiAlerteBus.collectAsStateWithLifecycle(DELAI_ALERTE_DEFAUT)
+    val lignePreferee by app.preferences.lignePreferee.collectAsStateWithLifecycle(null)
     val portee = rememberCoroutineScope()
     val messages = LocalMessages.current
     var enAttente by remember { mutableStateOf<Direction?>(null) }
@@ -305,6 +306,8 @@ fun MonArret(app: CessonApp) {
         },
         alerte = alerte,
         delaiAlerte = delai,
+        lignePreferee = lignePreferee,
+        onLignePreferee = { l -> portee.launch { app.preferences.enregistrerLignePreferee(l) } },
         onAlerter = { d ->
             when {
                 alerte?.ligne == d.ligne && alerte.destination == d.destination -> portee.launch { AlertesBus.annuler(context) }

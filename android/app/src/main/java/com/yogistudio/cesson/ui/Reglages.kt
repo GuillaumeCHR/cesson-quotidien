@@ -1,5 +1,11 @@
 package com.yogistudio.cesson.ui
 
+import com.yogistudio.cesson.transport.ChoixArret
+import com.yogistudio.cesson.transport.lignesStar
+import androidx.compose.material.icons.rounded.DirectionsBus
+import androidx.compose.material3.OutlinedButton
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import com.yogistudio.cesson.core.donnees.EtatModule
 import com.yogistudio.cesson.pratique.CARBURANT_PAR_DEFAUT
 import com.yogistudio.cesson.pratique.carburants
@@ -106,8 +112,6 @@ fun EcranReglages(app: CessonApp) {
                 }
             }
         }
-        CarteNotifications(app)
-        CarteMonCarburant(app)
         val detaille by app.preferences.cartesDetaillees.collectAsStateWithLifecycle(false)
         CarteDonnee("Cartes", Icons.Rounded.ViewAgenda) {
             Column(Modifier.selectableGroup()) {
@@ -133,6 +137,9 @@ fun EcranReglages(app: CessonApp) {
                 }
             }
         }
+        CarteNotifications(app)
+        CarteMonArretReglage(app)
+        CarteMonCarburant(app)
     }
 }
 
@@ -219,6 +226,59 @@ private fun CarteMonCarburant(app: CessonApp) {
                         onClick = { portee.launch { app.preferences.enregistrerCarburant(code) } }, label = { Text(nom) })
                 }
             }
+        }
+    }
+}
+
+/** Mon arrêt de bus et ma ligne préférée : ceux de la carte « Mon arrêt de bus » et de ses alertes de passage. */
+@OptIn(ExperimentalLayoutApi::class)
+@Composable
+private fun CarteMonArretReglage(app: CessonApp) {
+    val context = LocalContext.current
+    val portee = rememberCoroutineScope()
+    val lignes by remember(app) { app.depot.lignesStar() }.collectAsStateWithLifecycle(EtatModule.Absent)
+    val donnees = (lignes as? EtatModule.Disponible)?.fichier?.donnees
+    val arret by app.preferences.arretSuivi.collectAsStateWithLifecycle(null)
+    val alerteJson by app.preferences.alerteBus.collectAsStateWithLifecycle(null)
+    val lignePreferee by app.preferences.lignePreferee.collectAsStateWithLifecycle(null)
+    var choix by remember { mutableStateOf(false) }
+    CarteDonnee("Mon arrêt de bus", Icons.Rounded.DirectionsBus) {
+        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            Text(arret ?: "Aucun arrêt choisi", style = MaterialTheme.typography.bodyLarge)
+            Text("Ses prochains passages s'affichent sur la carte « Mon arrêt de bus », avec les alertes de passage.",
+                style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            val desservies = donnees?.arrets?.firstOrNull { it.nom == arret }?.lignes.orEmpty()
+            if (desservies.isNotEmpty()) {
+                Text("Ma ligne préférée", style = MaterialTheme.typography.titleSmall)
+                Text("Affichée en premier sur la carte, avant les autres lignes.", style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant)
+                FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    FilterChip(selected = lignePreferee == null || lignePreferee !in desservies,
+                        onClick = { portee.launch { app.preferences.enregistrerLignePreferee(null) } }, label = { Text("Aucune") })
+                    desservies.forEach { l ->
+                        FilterChip(selected = l == lignePreferee,
+                            onClick = { portee.launch { app.preferences.enregistrerLignePreferee(l) } }, label = { Text(l) })
+                    }
+                }
+            }
+            OutlinedButton(onClick = { choix = true }, enabled = donnees != null) {
+                Text(when {
+                    donnees == null -> "Liste des arrêts en cours de chargement…"
+                    arret == null -> "Choisir mon arrêt"
+                    else -> "Changer d'arrêt"
+                })
+            }
+        }
+    }
+    if (choix && donnees != null) {
+        ChoixArret(donnees.arrets, donnees, actuel = arret, onFermer = { choix = false }) { nouveau ->
+            portee.launch {
+                app.preferences.enregistrerArret(nouveau)
+                // Une alerte armée sur l'ancien arrêt n'a plus de sens.
+                val alerte = alerteJson?.let { runCatching { JsonCesson.decodeFromString(AlerteBus.serializer(), it) }.getOrNull() }
+                if (alerte != null && alerte.arret != nouveau) AlertesBus.annuler(context)
+            }
+            choix = false
         }
     }
 }

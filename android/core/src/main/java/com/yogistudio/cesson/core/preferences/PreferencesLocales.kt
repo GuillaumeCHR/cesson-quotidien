@@ -31,6 +31,7 @@ class PreferencesLocales(private val context: Context) {
     private val cleEquipementsMasques = stringSetPreferencesKey("equipements_masques")
     private val carburant = stringPreferencesKey("carburant_suivi")
     private val arret = stringPreferencesKey("arret_suivi")
+    private val cleLignePreferee = stringPreferencesKey("ligne_preferee")
     private val rappelCollecte = booleanPreferencesKey("rappel_collecte")
     private val cleAccueilDetaille = booleanPreferencesKey("accueil_detaille")
     private val dernierRappel = stringPreferencesKey("rappel_collecte_dernier")
@@ -113,6 +114,13 @@ class PreferencesLocales(private val context: Context) {
 
     suspend fun enregistrerArret(nom: String) {
         context.preferencesCesson.edit { it[arret] = nom }
+    }
+
+    /** Ligne affichée en premier sur la carte « Mon arrêt de bus » (nom court : « C2 », « 64 »), null sans préférence. */
+    val lignePreferee: Flow<String?> = context.preferencesCesson.data.map { it[cleLignePreferee] }
+
+    suspend fun enregistrerLignePreferee(ligne: String?) {
+        context.preferencesCesson.edit { if (ligne == null) it.remove(cleLignePreferee) else it[cleLignePreferee] = ligne }
     }
 
     /** Rappel de collecte la veille au soir : désactivé tant que l'utilisateur ne l'a pas demandé. */

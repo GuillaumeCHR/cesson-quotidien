@@ -1,5 +1,8 @@
 package com.yogistudio.cesson.transport
 
+import androidx.compose.material3.FilterChip
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.ui.Alignment
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -63,6 +66,8 @@ fun CarteMonArret(
     onAlerter: (Direction) -> Unit = {},
     onAnnulerAlerte: () -> Unit = {},
     onDelaiAlerte: (Int) -> Unit = {},
+    lignePreferee: String? = null,
+    onLignePreferee: (String?) -> Unit = {},
 ) {
     var choix by rememberSaveable { mutableStateOf(false) }
     val arrets = lignes?.arrets.orEmpty()
@@ -79,13 +84,27 @@ fun CarteMonArret(
         val armee = alerte?.takeIf { it.arret == arretSuivi }
         CarteDeparts(
             client, lignes, nomArret = arretSuivi, titre = "Mon arrêt de bus : $arretSuivi", modifier = modifier,
-            onAlerter = onAlerter, alerteArmee = armee?.let { it.ligne to it.destination },
+            onAlerter = onAlerter, alerteArmee = armee?.let { it.ligne to it.destination }, lignePreferee = lignePreferee,
         ) {
             // Compact : l'alerte (cloches, délai, alerte armée) reste complète ; seul le changement d'arrêt est réservé
             // à la version détaillée.
             val compact = LocalCompact.current
             PiedAlerte(armee, delaiAlerte, onAnnulerAlerte, onDelaiAlerte)
-            if (!compact) TextButton(onClick = { choix = true }, enabled = arrets.isNotEmpty()) { Text("Changer d'arrêt") }
+            if (!compact) {
+                // Détaillé : la ligne préférée se choisit aussi ici (facultatif : « Aucune » garde l'ordre habituel).
+                val desservies = arrets.firstOrNull { it.nom == arretSuivi }?.lignes.orEmpty()
+                if (desservies.size > 1) {
+                    Text("Ma ligne préférée", style = MaterialTheme.typography.labelLarge)
+                    Row(Modifier.horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                        FilterChip(selected = lignePreferee == null || lignePreferee !in desservies,
+                            onClick = { onLignePreferee(null) }, label = { Text("Aucune") })
+                        desservies.forEach { l ->
+                            FilterChip(selected = l == lignePreferee, onClick = { onLignePreferee(l) }, label = { Text(l) })
+                        }
+                    }
+                }
+                TextButton(onClick = { choix = true }, enabled = arrets.isNotEmpty()) { Text("Changer d'arrêt") }
+            }
         }
     }
     if (choix) {
