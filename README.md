@@ -1,6 +1,6 @@
-# Cesson au quotidien
+# Cesson'App
 
-App Android non officielle (Yogi Studio) qui regroupe l'information pratique de Cesson-Sévigné à
+Cesson'App (« Cesson au quotidien ») : app Android non officielle (Yogi Studio) qui regroupe l'information pratique de Cesson-Sévigné à
 partir de données publiques. Aucun compte, aucune publicité, aucune donnée collectée.
 Architecture : voir « Cesson au quotidien — Document d'architecture.md ».
 
@@ -36,3 +36,10 @@ En debug, l'app lit `http://127.0.0.1:8000/`. Pour tester sur un téléphone bra
     adb reverse tcp:8000 tcp:8000
 
 Release : `-Pcesson.donneesUrl=https://…` et `-Pcesson.contact=…`.
+
+## Carte de l'intro
+
+La carte vectorielle de Cesson-Sévigné animée au lancement vient d'OpenStreetMap (ODbL). Pour la régénérer :
+
+    curl -s --data-urlencode data@tools/carte/requete.overpassql https://overpass-api.de/api/interpreter > osm.json
+    python3 tools/carte/generer_carte.py osm.json android/app/src/main/java/com/yogistudio/cesson/ui/intro/CarteCesson.kt

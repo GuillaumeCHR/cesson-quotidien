@@ -100,7 +100,7 @@ private fun TitreEtape(texte: String) =
 
 @Composable
 private fun EtapeBienvenue() {
-    TitreEtape("Bienvenue à Cesson au quotidien")
+    TitreEtape("Bienvenue dans Cesson'App")
     Text("Cette application non officielle rassemble l'information pratique de Cesson-Sévigné à partir de " +
         "données publiques : transports, collecte des déchets, équipements, Vilaine, météo…",
         style = MaterialTheme.typography.bodyLarge)

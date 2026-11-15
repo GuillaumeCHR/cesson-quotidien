@@ -17,6 +17,11 @@ import com.yogistudio.cesson.core.signalement.Signaleur
 import com.yogistudio.cesson.core.ui.CessonTheme
 import com.yogistudio.cesson.rappels.RappelsCollecte
 import com.yogistudio.cesson.ui.AppCesson
+import com.yogistudio.cesson.ui.intro.IntroCesson
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
@@ -33,7 +38,10 @@ class MainActivity : ComponentActivity() {
         setContent {
             CessonTheme {
                 CompositionLocalProvider(LocalSignaleur provides Signaleur(::ouvrirMail)) {
-                    AppCesson(app)
+                    // L'intro se joue pendant que le cache et les données se chargent (lancés plus haut) ;
+                    // elle ne rejoue pas après une rotation de l'écran.
+                    var introVue by rememberSaveable { mutableStateOf(false) }
+                    if (introVue) AppCesson(app) else IntroCesson(onFinished = { introVue = true })
                 }
             }
         }
@@ -54,7 +62,7 @@ class MainActivity : ComponentActivity() {
         }
         val intent = Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:")).apply {
             putExtra(Intent.EXTRA_EMAIL, arrayOf(BuildConfig.CONTACT))
-            putExtra(Intent.EXTRA_SUBJECT, "Cesson au quotidien : ${contexte.sujet}")
+            putExtra(Intent.EXTRA_SUBJECT, "Cesson'App : ${contexte.sujet}")
             putExtra(Intent.EXTRA_TEXT, corps)
         }
         try {

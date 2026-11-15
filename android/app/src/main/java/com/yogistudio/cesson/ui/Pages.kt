@@ -37,6 +37,11 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.yogistudio.cesson.BuildConfig
 import com.yogistudio.cesson.CessonApp
+import com.yogistudio.cesson.ui.intro.CessonAppLogotype
+import com.yogistudio.cesson.ui.intro.YogiStudioLogo
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
+import androidx.compose.ui.unit.sp
 import com.yogistudio.cesson.core.donnees.EtatModule
 import com.yogistudio.cesson.core.signalement.ContexteSignalement
 import com.yogistudio.cesson.core.signalement.LocalSignaleur
@@ -147,8 +152,9 @@ fun EcranAPropos(onVosIdees: () -> Unit) {
         Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
-        Text("Cesson au quotidien", style = MaterialTheme.typography.headlineSmall, modifier = Modifier.semantics { heading() })
-        Text("Version ${BuildConfig.VERSION_NAME} · éditée par Yogi Studio", style = MaterialTheme.typography.bodyMedium)
+        CessonAppLogotype(fontSize = 34.sp, modifier = Modifier.semantics { heading() })
+        Text("Cesson-Sévigné, au quotidien · version ${BuildConfig.VERSION_NAME}", style = MaterialTheme.typography.bodyMedium)
+        YogiStudioLogo(markSize = 48.dp)
         Text(PROMESSE, style = MaterialTheme.typography.titleMedium)
         Text(
             "Les préférences (tuiles de l'accueil, favoris) restent sur votre téléphone. L'app télécharge " +
@@ -172,6 +178,8 @@ fun EcranAPropos(onVosIdees: () -> Unit) {
         Titre("Contact")
         Text("Une idée, une erreur ? ${BuildConfig.CONTACT}", style = MaterialTheme.typography.bodyMedium)
         Button(onClick = onVosIdees) { Text("Vos idées / signaler une erreur") }
+        Spacer(Modifier.height(8.dp))
+        Credits()
     }
 }
 

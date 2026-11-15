@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Android 12+ : l'écran de démarrage système montre l'icône sur le fond de l'intro, le temps strictement
+         nécessaire, puis l'intro animée prend le relais sans coupure visible. -->
+    <style name="Theme.Cesson" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:windowBackground">@color/fond_demarrage</item>
+        <item name="android:windowSplashScreenBackground">@color/fond_demarrage</item>
+    </style>
+</resources>

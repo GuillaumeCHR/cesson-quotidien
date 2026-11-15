@@ -45,6 +45,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import kotlinx.coroutines.flow.first
 import com.yogistudio.cesson.CessonApp
+import com.yogistudio.cesson.ui.intro.CessonAppLogotype
 import kotlinx.serialization.Serializable
 import kotlin.reflect.KClass
 
@@ -99,7 +100,8 @@ fun AppCesson(app: CessonApp) {
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(if (onglet?.route == RouteAujourdhui) "Aujourd'hui à Cesson" else titre) },
+                // L'accueil porte le logotype : l'intro le fait glisser jusqu'ici.
+                title = { if (onglet?.route == RouteAujourdhui) CessonAppLogotype() else Text(titre) },
                 navigationIcon = {
                     if (onglet == null) {
                         IconButton(onClick = { nav.popBackStack() }) {
