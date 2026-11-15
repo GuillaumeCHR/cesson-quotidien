@@ -169,7 +169,7 @@ class ErreurStar(message: String, cause: Throwable? = null) : IOException(messag
  * directement : seuls le nom de l'arrêt et l'adresse IP du téléphone parviennent à STAR.
  */
 class ClientStar(
-    private val client: OkHttpClient,
+    internal val client: OkHttpClient,
     private val base: String = "https://data.explore.star.fr/api/explore/v2.1/catalog/datasets",
 ) {
     suspend fun departs(nomArret: String): List<Depart> = withContext(Dispatchers.IO) {

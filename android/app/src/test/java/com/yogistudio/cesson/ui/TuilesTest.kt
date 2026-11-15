@@ -9,8 +9,8 @@ class TuilesTest {
     @Test
     fun ordreChoisiPuisNouvellesCartesSansLesMasquees() {
         val config = ConfigAccueil(ordre = listOf("mon_arret", "arrets"), masquees = setOf("carburants"))
-        // « trains » et « circulation » n'existaient pas quand l'ordre a été enregistré : il arrive à sa place par défaut, après.
-        assertEquals(listOf("mon_arret", "arrets", "trains", "circulation", "bornes"), cartesVisibles(ONGLET_BOUGER, config).map { it.id })
+        // « parc_relais », « trains » et « circulation » n'existaient pas quand l'ordre a été enregistré : il arrive à sa place par défaut, après.
+        assertEquals(listOf("mon_arret", "arrets", "parc_relais", "trains", "circulation", "bornes"), cartesVisibles(ONGLET_BOUGER, config).map { it.id })
     }
 
     @Test

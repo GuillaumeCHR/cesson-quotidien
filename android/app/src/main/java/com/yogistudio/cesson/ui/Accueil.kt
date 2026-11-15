@@ -3,6 +3,8 @@ package com.yogistudio.cesson.ui
 import com.yogistudio.cesson.actus.cinema
 import com.yogistudio.cesson.actus.CarteCinema
 import com.yogistudio.cesson.actus.CarteCanaux
+import com.yogistudio.cesson.transport.CarteParcRelais
+import androidx.compose.material.icons.rounded.LocalParking
 import com.yogistudio.cesson.actus.CarteBilletterie
 import com.yogistudio.cesson.pratique.CarteIdentite
 import com.yogistudio.cesson.pratique.CarteSignalement
@@ -126,6 +128,7 @@ private val VILAINE = Tuile("vilaine", "La Vilaine et les crues", Icons.Rounded.
     CarteVilaine(etat, vigilance)
 }
 private val VIASILVA = Tuile("arrets", "Métro et bus ViaSilva", Icons.Rounded.DirectionsBus) { DepartsViaSilva(it) }
+private val PARC_RELAIS = Tuile("parc_relais", "Parc relais ViaSilva", Icons.Rounded.LocalParking) { CarteParcRelais(it.star) }
 private val MON_ARRET = Tuile("mon_arret", "Mon arrêt de bus", Icons.Rounded.DirectionsBus) { MonArret(it) }
 private val TRAINS = Tuile("trains", "Trains à Halte-Cesson", Icons.Rounded.Train) { TrainsHalte(it) }
 private val COLLECTE = Tuile("collecte", "Ma collecte de déchets", Icons.Rounded.DeleteOutline) { CollecteCesson(it) }
@@ -162,7 +165,7 @@ private val CANAUX_TUILE = Tuile("canaux", "WhatsApp et Facebook", Icons.Rounded
 // Les actualités de la ville sont à l'accueil : c'est ce qui se passe aujourd'hui à Cesson.
 val ONGLET_ACCUEIL = OngletTuiles(ACCUEIL, "l'accueil",
     listOf(METEO, VILAINE, VIASILVA, MON_ARRET, TRAINS, CIRCULATION, COLLECTE, MES_EQUIPEMENTS, CARBURANTS, AIR, ACTUS_VILLE, CANAUX_TUILE))
-val ONGLET_BOUGER = OngletTuiles("bouger", "l'onglet Bouger", listOf(VIASILVA, TRAINS, MON_ARRET, CIRCULATION, CARBURANTS, BORNES))
+val ONGLET_BOUGER = OngletTuiles("bouger", "l'onglet Bouger", listOf(VIASILVA, PARC_RELAIS, TRAINS, MON_ARRET, CIRCULATION, CARBURANTS, BORNES))
 private val AGENDA = Tuile("agenda", "Agenda", Icons.Rounded.Event) { app ->
     val etat by remember(app) { app.depot.agenda() }.collectAsStateWithLifecycle(EtatModule.Absent)
     CarteAgenda(etat)
@@ -344,9 +347,7 @@ fun EcranAujourdhui(app: CessonApp, onPersonnaliser: () -> Unit) {
 
 @Composable
 fun EcranBouger(app: CessonApp, onPersonnaliser: () -> Unit) =
-    EcranTuiles(app, ONGLET_BOUGER, onPersonnaliser, pied = {
-        CarteAVenir(Icons.Rounded.DirectionsBus, listOf("Vélos en libre-service et parcs-relais"))
-    })
+    EcranTuiles(app, ONGLET_BOUGER, onPersonnaliser)
 
 @Composable
 fun EcranSortir(app: CessonApp, onPersonnaliser: () -> Unit) =
