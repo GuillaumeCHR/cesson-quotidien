@@ -1,0 +1,10 @@
+[Unit]
+Description=Cesson'App : mise à jour depuis GitHub
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/cesson-mise-a-jour
+StandardOutput=append:/srv/cesson/log/mise-a-jour.log
+StandardError=append:/srv/cesson/log/mise-a-jour.log

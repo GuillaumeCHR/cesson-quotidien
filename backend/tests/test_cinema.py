@@ -5,7 +5,8 @@ import httpx
 import pytest
 import respx
 
-from cesson.collecteurs.cinema import CollecteurCinema, DonneesCinema, id_drive, lire_grille, nettoyer_titre
+from cesson.collecteurs.cinema import (URL_SITE, CollecteurCinema, DonneesCinema, grille_du_mois, grilles_du_site, id_drive,
+                                      lire_grille, nettoyer_titre)
 from cesson.commun.collecteur import ErreurValidation
 from cesson.commun.modele import Etat, FichierModule
 from cesson.commun.publication import Publieur
@@ -54,6 +55,18 @@ def test_tarif_particulier_et_note():
     assert g["tarifs"].startswith("tarifs : plein 8€")
 
 
+SITE = (Path(__file__).parent / "fixtures" / "cinema" / "site_extrait.html").read_text()
+
+
+def test_grille_du_mois_lue_sur_le_site():
+    grilles = grilles_du_site(SITE)
+    assert grilles == [(date(2026, 11, 1), "https://drive.google.com/file/d/1-g688Vqf7EgjO3ImJRD43F3Bb1mLaZU3/view?usp=sharing")]
+    decembre = grilles + [(date(2026, 12, 1), "https://drive.google.com/file/d/DEC/view")]
+    assert grille_du_mois(decembre, date(2026, 11, 28)).endswith("1-g688Vqf7EgjO3ImJRD43F3Bb1mLaZU3/view?usp=sharing")
+    assert grille_du_mois(decembre, date(2026, 12, 1)) == "https://drive.google.com/file/d/DEC/view"
+    assert grille_du_mois([], date(2026, 12, 1)) is None
+
+
 def test_lien_drive():
     assert id_drive("https://drive.google.com/file/d/1-g688Vqf7EgjO3ImJRD43F3Bb1mLaZU3/view") == "1-g688Vqf7EgjO3ImJRD43F3Bb1mLaZU3"
 
@@ -61,6 +74,7 @@ def test_lien_drive():
 def test_publication_seances_a_venir(tmp_path):
     publieur, sante = Publieur(tmp_path / "public"), Sante(tmp_path / "etat", url_alerte="")
     with respx.mock() as mock:
+        mock.get(URL_SITE).mock(return_value=httpx.Response(200, text=SITE))
         mock.get("https://drive.google.com/uc").mock(return_value=httpx.Response(200, content=PDF))
         with httpx.Client() as client:
             r = CollecteurCinema().executer(publieur, sante, client, MAINTENANT)
@@ -77,6 +91,7 @@ def test_publication_seances_a_venir(tmp_path):
 def test_fichier_qui_n_est_pas_un_pdf(tmp_path):
     publieur, sante = Publieur(tmp_path / "public"), Sante(tmp_path / "etat", url_alerte="")
     with respx.mock() as mock:
+        mock.get(URL_SITE).mock(return_value=httpx.Response(503))
         mock.get("https://drive.google.com/uc").mock(return_value=httpx.Response(200, text="<html>Connexion requise</html>"))
         with httpx.Client() as client:
             r = CollecteurCinema().executer(publieur, sante, client, MAINTENANT)

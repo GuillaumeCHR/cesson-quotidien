@@ -1,0 +1,482 @@
+{
+  "module": "familles",
+  "version_schema": 1,
+  "meta": {
+    "source": "Portail familles de la Ville de Cesson-Sévigné (actualités publiques, menus du prestataire)",
+    "licence": "Informations publiques de la Ville ; l'actualité se lit sur le portail",
+    "url_source": "https://portail-familles.ville-cesson-sevigne.fr/news",
+    "recupere_le": "2026-11-15T18:02:07.587927Z",
+    "valide_jusqu_a": "2026-11-17T06:02:07.587927Z",
+    "etat": "ok"
+  },
+  "donnees": {
+    "actualites": [
+      {
+        "id": "108",
+        "titre": "PAI - 2026-2027",
+        "resume": "Si votre enfant bénéficie d'un PAI, le formulaire devra être transmis avant le 31 juillet pour la rentrée 2026-2027.",
+        "categories": [
+          "Accueil de loisirs",
+          "Informations scolaires"
+        ],
+        "lien": "https://portail-familles.ville-cesson-sevigne.fr/news/108",
+        "du": "2026-04-27",
+        "au": "2027-05-30"
+      },
+      {
+        "id": "45",
+        "titre": "A vélo, à trotinette, bien équipé, bien sécurisé!",
+        "categories": [
+          "Informations diverses"
+        ],
+        "lien": "https://portail-familles.ville-cesson-sevigne.fr/news/45"
+      },
+      {
+        "id": "1",
+        "titre": "Contact et horaires",
+        "resume": "1 place Waltrop - Cesson-Sévigné -Tél. 02 99 83 52 00 - espace.citoyen@ville-cesson-sevigne.fr >> cliquer ici pour plus d'informations",
+        "categories": [
+          "Espace citoyen"
+        ],
+        "lien": "https://portail-familles.ville-cesson-sevigne.fr/news/1"
+      },
+      {
+        "id": "9",
+        "titre": "La maison de l'enfance",
+        "resume": "28, rue de Belle Epine 35510 CESSON-SEVIGNE",
+        "categories": [
+          "Petite enfance"
+        ],
+        "lien": "https://portail-familles.ville-cesson-sevigne.fr/news/9"
+      },
+      {
+        "id": "6",
+        "titre": "Le Service jeunesse",
+        "resume": "Des services et une maison des jeunes (ESCALE) pour les 11-17/23 ans. Présentation rapide et contacts",
+        "categories": [
+          "Maison des jeunes"
+        ],
+        "lien": "https://portail-familles.ville-cesson-sevigne.fr/news/6"
+      },
+      {
+        "id": "8",
+        "titre": "Le studio",
+        "resume": "Un studio de répétition pour les jeunes musiciens",
+        "categories": [
+          "Maison des jeunes"
+        ],
+        "lien": "https://portail-familles.ville-cesson-sevigne.fr/news/8"
+      },
+      {
+        "id": "75",
+        "titre": "Pré-inscription en crèche : comment faire?",
+        "resume": "Les pré-inscription pour une demande de place dans une des crèches municipales ou en partenariat avec la commune se font prioritairement via le portail famille",
+        "categories": [
+          "Petite enfance"
+        ],
+        "lien": "https://portail-familles.ville-cesson-sevigne.fr/news/75"
+      },
+      {
+        "id": "71",
+        "titre": "Recensement citoyen dès 16 ans",
+        "resume": "Votre enfant vient d’avoir 16 ans ? Pensez à effectuer son recensement citoyen Tout jeune Français doit se faire recenser entre le jour de ses 16 ans et la fin du 3e mois suivant son anniversaire en vue de participer à…",
+        "categories": [
+          "Informations diverses"
+        ],
+        "lien": "https://portail-familles.ville-cesson-sevigne.fr/news/71"
+      }
+    ],
+    "menus": [
+      {
+        "jour": "2026-11-09",
+        "hors_doeuvre": [
+          "Crêpe au fromage"
+        ],
+        "plat": [
+          "Pilon de oulet rôti",
+          "Poêlée de légumes"
+        ],
+        "laitier": [
+          "Fromage"
+        ],
+        "dessert": [
+          "Fruit frais"
+        ],
+        "gouter": [
+          "Pain (bio) & pâte à tartiner",
+          "Poire"
+        ]
+      },
+      {
+        "jour": "2026-11-10",
+        "hors_doeuvre": [
+          "Coleslaw"
+        ],
+        "plat": [
+          "Bœuf mironton (SIQO)",
+          "Pommes de terre grenailles"
+        ],
+        "laitier": [
+          "Fromage"
+        ],
+        "dessert": [
+          "Yaourt nature sucré"
+        ],
+        "gouter": [
+          "Fromage blanc nature",
+          "Purée de pommes & abricots"
+        ]
+      },
+      {
+        "jour": "2026-11-11",
+        "hors_doeuvre": [],
+        "plat": [],
+        "laitier": [],
+        "dessert": [],
+        "gouter": [],
+        "note": "11 novembre, Armistice 1918"
+      },
+      {
+        "jour": "2026-11-12",
+        "hors_doeuvre": [
+          "Céleri râpé à la vinaigrette"
+        ],
+        "plat": [
+          "Colombo de porc (SIQO)",
+          "Gratin de chou- fleur"
+        ],
+        "laitier": [
+          "Fromage"
+        ],
+        "dessert": [
+          "Beignet"
+        ],
+        "gouter": [
+          "Pain au lait",
+          "Fruit frais"
+        ]
+      },
+      {
+        "jour": "2026-11-13",
+        "hors_doeuvre": [
+          "Macédoine de légumes"
+        ],
+        "plat": [
+          "Mijoté de haricots rouges à la mexicaine",
+          "Riz"
+        ],
+        "laitier": [
+          "Fromage"
+        ],
+        "dessert": [
+          "Compote de fruits"
+        ],
+        "gouter": [
+          "Pain (bio) & chocolat",
+          "Yaourt nature"
+        ]
+      },
+      {
+        "jour": "2026-11-16",
+        "hors_doeuvre": [
+          "Carottes râpées au citron"
+        ],
+        "plat": [
+          "Reblochonnade",
+          "Salade verte"
+        ],
+        "laitier": [
+          "Fromage"
+        ],
+        "dessert": [
+          "Fruit frais"
+        ],
+        "gouter": [
+          "Lait",
+          "Céréales"
+        ]
+      },
+      {
+        "jour": "2026-11-17",
+        "hors_doeuvre": [
+          "Pizza"
+        ],
+        "plat": [
+          "Sauté de volaille (SIQO) Thaï",
+          "Haricots beurre"
+        ],
+        "laitier": [
+          "Fromage"
+        ],
+        "dessert": [
+          "Liégois à la vanille"
+        ],
+        "gouter": [
+          "Pain (bio) & beurre",
+          "Pomme"
+        ]
+      },
+      {
+        "jour": "2026-11-18",
+        "hors_doeuvre": [
+          "Salade verte (bio), Edam et croûtons"
+        ],
+        "plat": [
+          "Tortellinis à la Ricotta et aux épinard sauce tomate et basilic"
+        ],
+        "laitier": [
+          "Fromage"
+        ],
+        "dessert": [
+          "Crème dessert"
+        ],
+        "gouter": [
+          "Yaourt nature",
+          "Mandarines"
+        ]
+      },
+      {
+        "jour": "2026-11-19",
+        "hors_doeuvre": [
+          "Velouté de patates douces"
+        ],
+        "plat": [
+          "Saucisse grillée (SIQO)",
+          "Lentilles cuisinées"
+        ],
+        "laitier": [
+          "Fromage"
+        ],
+        "dessert": [
+          "Riz au lait"
+        ],
+        "gouter": [
+          "Pain (bio) & confiture",
+          "Purée de pommes & pêches"
+        ]
+      },
+      {
+        "jour": "2026-11-20",
+        "hors_doeuvre": [
+          "Saucisson à l'ail"
+        ],
+        "plat": [
+          "Lieu (MSC) sauce aux crustacés",
+          "Boulgour aux petits légumes"
+        ],
+        "laitier": [
+          "Fromage"
+        ],
+        "dessert": [
+          "Marbré au chocolat"
+        ],
+        "gouter": [
+          "Petits suisses nature",
+          "Fruit frais"
+        ]
+      },
+      {
+        "jour": "2026-11-23",
+        "hors_doeuvre": [
+          "Salade de pâtes aux légumes"
+        ],
+        "plat": [
+          "Emincé de volaille (SIQO) à la dijonaise",
+          "Poêlée d'antan"
+        ],
+        "laitier": [
+          "Fromage"
+        ],
+        "dessert": [
+          "Compote de fruits"
+        ],
+        "gouter": [
+          "Pain (bio) et pâte à tartiner",
+          "Poire"
+        ]
+      },
+      {
+        "jour": "2026-11-24",
+        "hors_doeuvre": [
+          "Betteraves à la vinaigrette"
+        ],
+        "plat": [
+          "Merlu (MSC) pané au citron",
+          "Riz"
+        ],
+        "laitier": [
+          "Fromage"
+        ],
+        "dessert": [
+          "Yaourt aromatisé"
+        ],
+        "gouter": [
+          "Petits suisses nature",
+          "Purée de pommes & abricots"
+        ]
+      },
+      {
+        "jour": "2026-11-25",
+        "hors_doeuvre": [
+          "Pomelo"
+        ],
+        "plat": [
+          "Merguez",
+          "Semoule"
+        ],
+        "laitier": [
+          "Fromage"
+        ],
+        "dessert": [
+          "Flan pâtissier"
+        ],
+        "gouter": [
+          "Pain & fromage",
+          "Banane"
+        ]
+      },
+      {
+        "jour": "2026-11-26",
+        "hors_doeuvre": [
+          "La coleslaw"
+        ],
+        "plat": [
+          "Parmentier aux légumes corail",
+          "Salade verte"
+        ],
+        "laitier": [
+          "Fromage"
+        ],
+        "dessert": [
+          "Mousse au chocolat"
+        ],
+        "gouter": [
+          "Yaourt nature",
+          "Purée de pommes & fraises"
+        ]
+      },
+      {
+        "jour": "2026-11-27",
+        "hors_doeuvre": [
+          "Velouté de potiron"
+        ],
+        "plat": [
+          "Noix de joue de porc (SIQO) au miel",
+          "Petits pois"
+        ],
+        "laitier": [
+          "Fromage"
+        ],
+        "dessert": [
+          "Fruit frais"
+        ],
+        "gouter": [
+          "Pain (bio) & chocolat",
+          "Fruit frais"
+        ]
+      },
+      {
+        "jour": "2026-11-30",
+        "hors_doeuvre": [
+          "Céleri rémoulade"
+        ],
+        "plat": [
+          "Bolognaise de légumes",
+          "Pennes"
+        ],
+        "laitier": [
+          "Fromage"
+        ],
+        "dessert": [
+          "Crème dessert à la vanille"
+        ],
+        "gouter": [
+          "Lait",
+          "Céréales"
+        ]
+      },
+      {
+        "jour": "2026-12-01",
+        "hors_doeuvre": [
+          "Riz (bio) au surimi et ciboulette"
+        ],
+        "plat": [
+          "Haut de cuisse de poulet sauce Tex Mex",
+          "Poêlée de légumes"
+        ],
+        "laitier": [
+          "Fromage"
+        ],
+        "dessert": [
+          "Fruit frais"
+        ],
+        "gouter": [
+          "Pain (bio) & confiture",
+          "Pomme"
+        ]
+      },
+      {
+        "jour": "2026-12-02",
+        "hors_doeuvre": [
+          "Taboulé de chou- fleur"
+        ],
+        "plat": [
+          "Bœuf mode (SIQO)",
+          "Boulgour"
+        ],
+        "laitier": [
+          "Fromage"
+        ],
+        "dessert": [
+          "Fruit frais"
+        ],
+        "gouter": [
+          "Gâteau",
+          "Kiwi"
+        ]
+      },
+      {
+        "jour": "2026-12-03",
+        "hors_doeuvre": [
+          "Potage de légumes"
+        ],
+        "plat": [
+          "Rougail de saucisse (SIQO)",
+          "Riz"
+        ],
+        "laitier": [
+          "Fromage"
+        ],
+        "dessert": [
+          "Entremets au chocolat"
+        ],
+        "gouter": [
+          "Pain & fromage",
+          "Purée de pommes & mandarines"
+        ]
+      },
+      {
+        "jour": "2026-12-04",
+        "hors_doeuvre": [
+          "Piémontaise"
+        ],
+        "plat": [
+          "Dos de colin (MSC), crème d'aneth",
+          "Purée de potiron"
+        ],
+        "laitier": [
+          "Fromage"
+        ],
+        "dessert": [
+          "Moelleux aux pommes"
+        ],
+        "gouter": [
+          "Yaourt nature",
+          "Poire"
+        ]
+      }
+    ],
+    "restaurants": "Bourgchevreuil et Beausoleil",
+    "menu_pdf": "https://portail-familles.ville-cesson-sevigne.fr/api/files/606"
+  }
+}

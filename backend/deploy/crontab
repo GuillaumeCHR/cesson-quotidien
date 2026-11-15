@@ -40,6 +40,8 @@ PATH=/usr/bin:/bin
 
 # Hebdomadaire, lundi 3h15 : défibrillateurs (Géo'DAE) et bornes de recharge (IRVE)
 15 3 * * 1    cd $CESSON && .venv/bin/python -m cesson collecter defibrillateurs bornes --sortie /srv/cesson/public --etat /srv/cesson/etat >> /srv/cesson/log/collecte.log 2>&1
+40 6,12,18 * * * cd $CESSON && .venv/bin/python -m cesson collecter familles --sortie /srv/cesson/public --etat /srv/cesson/etat >> /srv/cesson/log/collecte.log 2>&1
+50 5 * * *    cd $CESSON && .venv/bin/python -m cesson collecter vacances_scolaires --sortie /srv/cesson/public --etat /srv/cesson/etat >> /srv/cesson/log/collecte.log 2>&1
 
 # Contrôle de santé toutes les heures : sort en erreur (et cron envoie un mail) si une source est en retard.
 17 * * * *    cd $CESSON && .venv/bin/python -m cesson sante --etat /srv/cesson/etat > /dev/null

@@ -9,6 +9,7 @@ import androidx.compose.material.icons.rounded.Explore
 import androidx.compose.material.icons.rounded.Info
 import androidx.compose.material.icons.rounded.Lightbulb
 import androidx.compose.material.icons.rounded.MoreVert
+import androidx.compose.material.icons.rounded.FamilyRestroom
 import androidx.compose.material.icons.rounded.Newspaper
 import androidx.compose.material.icons.rounded.Settings
 import androidx.compose.material.icons.rounded.Source
@@ -54,7 +55,7 @@ import kotlin.reflect.KClass
 @Serializable object RouteBouger
 @Serializable object RouteSortir
 @Serializable object RoutePratique
-@Serializable object RouteActus
+@Serializable object RouteFamilles
 @Serializable data class RoutePersonnaliser(val onglet: String)
 @Serializable object RouteGuide
 @Serializable object RouteReglages
@@ -71,8 +72,8 @@ private val ONGLETS = listOf(
     Onglet(RouteAujourdhui, RouteAujourdhui::class, "Aujourd'hui", Icons.Rounded.Today, ONGLET_ACCUEIL),
     Onglet(RouteBouger, RouteBouger::class, "Bouger", Icons.Rounded.DirectionsBus, ONGLET_BOUGER),
     Onglet(RouteSortir, RouteSortir::class, "Sortir", Icons.Rounded.Celebration, ONGLET_SORTIR),
+    Onglet(RouteFamilles, RouteFamilles::class, "Familles", Icons.Rounded.FamilyRestroom, ONGLET_FAMILLES),
     Onglet(RoutePratique, RoutePratique::class, "Pratique", Icons.Rounded.VolunteerActivism, ONGLET_PRATIQUE),
-    Onglet(RouteActus, RouteActus::class, "Actus", Icons.Rounded.Newspaper, ONGLET_ACTUS),
 )
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -149,7 +150,7 @@ fun AppCesson(app: CessonApp) {
             composable<RouteBouger> { EcranBouger(app) { nav.navigate(RoutePersonnaliser(ONGLET_BOUGER.id)) } }
             composable<RouteSortir> { EcranSortir(app) { nav.navigate(RoutePersonnaliser(ONGLET_SORTIR.id)) } }
             composable<RoutePratique> { EcranPratique(app) { nav.navigate(RoutePersonnaliser(ONGLET_PRATIQUE.id)) } }
-            composable<RouteActus> { EcranActus(app) { nav.navigate(RoutePersonnaliser(ONGLET_ACTUS.id)) } }
+            composable<RouteFamilles> { EcranFamilles(app) { nav.navigate(RoutePersonnaliser(ONGLET_FAMILLES.id)) } }
             composable<RoutePersonnaliser> { e ->
                 val id = e.toRoute<RoutePersonnaliser>().onglet
                 EcranPersonnaliser(app, ONGLETS_PERSONNALISABLES.firstOrNull { it.id == id } ?: ONGLET_ACCUEIL)

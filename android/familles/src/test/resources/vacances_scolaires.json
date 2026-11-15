@@ -1,0 +1,73 @@
+{
+  "module": "vacances_scolaires",
+  "version_schema": 1,
+  "meta": {
+    "source": "Calendrier scolaire (ministère de l'Éducation nationale)",
+    "licence": "Licence Ouverte 2.0",
+    "url_source": "https://data.education.gouv.fr/explore/dataset/fr-en-calendrier-scolaire/",
+    "recupere_le": "2026-11-15T17:56:59.636419Z",
+    "valide_jusqu_a": "2026-11-29T17:56:59.636419Z",
+    "etat": "ok"
+  },
+  "donnees": {
+    "zone": "Zone B",
+    "academie": "Rennes",
+    "periodes": [
+      {
+        "nom": "Vacances de Noël",
+        "du": "2026-12-19",
+        "reprise": "2027-01-04",
+        "pont": false,
+        "annee_scolaire": "2026-2027"
+      },
+      {
+        "nom": "Vacances d'Hiver",
+        "du": "2027-02-20",
+        "reprise": "2027-03-08",
+        "pont": false,
+        "annee_scolaire": "2026-2027"
+      },
+      {
+        "nom": "Vacances de Printemps",
+        "du": "2027-04-17",
+        "reprise": "2027-05-03",
+        "pont": false,
+        "annee_scolaire": "2026-2027"
+      },
+      {
+        "nom": "Pont de l'Ascension",
+        "du": "2027-05-07",
+        "pont": true,
+        "annee_scolaire": "2026-2027"
+      },
+      {
+        "nom": "Vacances d'Été",
+        "du": "2027-07-03",
+        "reprise": "2027-09-02",
+        "pont": false,
+        "annee_scolaire": "2026-2027"
+      },
+      {
+        "nom": "Vacances de la Toussaint",
+        "du": "2027-10-23",
+        "reprise": "2027-11-08",
+        "pont": false,
+        "annee_scolaire": "2027-2028"
+      },
+      {
+        "nom": "Vacances de Noël",
+        "du": "2027-12-18",
+        "reprise": "2028-01-03",
+        "pont": false,
+        "annee_scolaire": "2027-2028"
+      },
+      {
+        "nom": "Vacances d'Hiver",
+        "du": "2028-02-05",
+        "reprise": "2028-02-21",
+        "pont": false,
+        "annee_scolaire": "2027-2028"
+      }
+    ]
+  }
+}

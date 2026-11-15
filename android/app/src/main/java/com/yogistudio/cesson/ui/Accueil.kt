@@ -3,6 +3,16 @@ package com.yogistudio.cesson.ui
 import com.yogistudio.cesson.actus.cinema
 import com.yogistudio.cesson.actus.CarteCinema
 import com.yogistudio.cesson.actus.CarteCanaux
+import com.yogistudio.cesson.familles.CarteVacances
+import com.yogistudio.cesson.familles.CartePortailFamilles
+import com.yogistudio.cesson.familles.vacancesScolaires
+import com.yogistudio.cesson.familles.familles
+import com.yogistudio.cesson.familles.CarteMenus
+import com.yogistudio.cesson.familles.CarteActusFamilles
+import androidx.compose.material.icons.rounded.Restaurant
+import androidx.compose.material.icons.rounded.Campaign
+import androidx.compose.material.icons.rounded.BeachAccess
+import androidx.compose.material.icons.rounded.FamilyRestroom
 import androidx.compose.material.icons.rounded.Forum
 import androidx.compose.material.icons.rounded.Movie
 import com.yogistudio.cesson.equipements.SERVICES_A_PART
@@ -165,12 +175,27 @@ private val POLICE = Tuile("police", "Police municipale", Icons.Rounded.LocalPol
     val etat by remember(app) { app.depot.equipements() }.collectAsStateWithLifecycle(EtatModule.Absent)
     CartePolice(etat)
 }
-val ONGLET_PRATIQUE = OngletTuiles("pratique", "l'onglet Pratique", listOf(COLLECTE, USAGES_EAU, DECHETERIE_TUILE, DEFIBRILLATEURS, URBANISME, POLICE))
 private val ACTUS_VILLE = Tuile("actus_ville", "Actualités de la ville", Icons.Rounded.Newspaper) { ActusCesson(it, FLUX_VILLE) }
 private val CANAUX_TUILE = Tuile("canaux", "WhatsApp et Facebook", Icons.Rounded.Forum) { CarteCanaux() }
-val ONGLET_ACTUS = OngletTuiles("actus", "l'onglet Actus", listOf(ACTUS_VILLE, CANAUX_TUILE))
+// Les actualités vivent dans Pratique depuis l'arrivée de l'onglet Familles (5 onglets au plus dans la barre).
+val ONGLET_PRATIQUE = OngletTuiles("pratique", "l'onglet Pratique",
+    listOf(COLLECTE, USAGES_EAU, DECHETERIE_TUILE, DEFIBRILLATEURS, URBANISME, POLICE, ACTUS_VILLE, CANAUX_TUILE))
+private val VACANCES = Tuile("vacances", "Vacances scolaires", Icons.Rounded.BeachAccess) { app ->
+    val etat by remember(app) { app.depot.vacancesScolaires() }.collectAsStateWithLifecycle(EtatModule.Absent)
+    CarteVacances(etat)
+}
+private val PORTAIL_FAMILLES = Tuile("portail_familles", "Portail familles", Icons.Rounded.FamilyRestroom) { CartePortailFamilles() }
+private val MENUS = Tuile("menus", "Menus de la cantine", Icons.Rounded.Restaurant) { app ->
+    val etat by remember(app) { app.depot.familles() }.collectAsStateWithLifecycle(EtatModule.Absent)
+    CarteMenus(etat)
+}
+private val ACTUS_FAMILLES = Tuile("actus_familles", "Infos familles", Icons.Rounded.Campaign) { app ->
+    val etat by remember(app) { app.depot.familles() }.collectAsStateWithLifecycle(EtatModule.Absent)
+    CarteActusFamilles(etat)
+}
+val ONGLET_FAMILLES = OngletTuiles("familles", "l'onglet Familles", listOf(MENUS, VACANCES, ACTUS_FAMILLES, PORTAIL_FAMILLES))
 
-val ONGLETS_PERSONNALISABLES = listOf(ONGLET_ACCUEIL, ONGLET_BOUGER, ONGLET_SORTIR, ONGLET_PRATIQUE, ONGLET_ACTUS)
+val ONGLETS_PERSONNALISABLES = listOf(ONGLET_ACCUEIL, ONGLET_BOUGER, ONGLET_SORTIR, ONGLET_FAMILLES, ONGLET_PRATIQUE)
 
 @Composable
 fun ActusCesson(app: CessonApp, flux: String) {
@@ -294,8 +319,8 @@ fun CarteAVenir(icone: ImageVector, lignes: List<String>) {
 // --- Écrans des onglets ----------------------------------------------------------------------
 
 @Composable
-fun EcranActus(app: CessonApp, onPersonnaliser: () -> Unit) =
-    EcranTuiles(app, ONGLET_ACTUS, onPersonnaliser)
+fun EcranFamilles(app: CessonApp, onPersonnaliser: () -> Unit) =
+    EcranTuiles(app, ONGLET_FAMILLES, onPersonnaliser)
 
 @Composable
 fun EcranAujourdhui(app: CessonApp, onPersonnaliser: () -> Unit) {

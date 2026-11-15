@@ -1,0 +1,41 @@
+# Tests du backend et de l'app à chaque envoi sur main et à chaque pull request. Le Pi ne se met à jour que vers
+# un commit dont ces deux vérifications ont réussi (voir backend/deploy/raspberry/mise-a-jour-auto.sh).
+name: Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Tests du backend
+        working-directory: backend
+        run: |
+          python -m pip install -q -e '.[dev]'
+          python -m pytest -q
+
+  android:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Tests de l'app
+        working-directory: android
+        run: ./gradlew --no-configuration-cache testDebugUnitTest

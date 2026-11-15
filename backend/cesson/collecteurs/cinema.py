@@ -29,11 +29,16 @@ import yaml
 from pdfminer.high_level import extract_pages
 from pdfminer.layout import LTTextContainer, LTTextLine
 
-from ..commun.collecteur import Collecteur, ErreurValidation, obtenir
+from ..commun.collecteur import Collecteur, ErreurSource, ErreurValidation, obtenir
 from ..commun.horaires import PARIS
 from ..commun.modele import Modele
 
 SAISIE = Path(__file__).resolve().parents[2] / "saisie" / "cinema.yaml"
+# Le site de la salle publie chaque mois un nouveau fichier Drive, titré « grille novembre 26 » : on y lit le lien
+# du mois. Le lien saisi dans cinema.yaml sert de secours si le site est injoignable ou change.
+URL_SITE = "https://www.cinesevigne.fr/"
+MOIS_GRILLE = ["janvier", "fevrier", "mars", "avril", "mai", "juin", "juillet", "aout", "septembre", "octobre",
+               "novembre", "decembre"]
 COLONNE_TITRES = 270  # au-delà, on est dans les colonnes des jours
 TOLERANCE_LIGNE = 2.5
 
@@ -216,6 +221,27 @@ def nettoyer_titre(brut: str) -> tuple[str, bool, bool]:
     return re.sub(r"\s+", " ", t).strip(" –-"), vo, sortie
 
 
+def grilles_du_site(page: str) -> list[tuple[date, str]]:
+    """Liens « grille <mois> <aa> » du site de la salle : (premier jour du mois, lien Drive)."""
+    res = []
+    for lien, titre in re.findall(r'href="(https://drive\.google\.com/[^"]+)"[^>]*title="([^"]+)"', page):
+        t = "".join(c for c in unicodedata.normalize("NFD", titre.lower()) if not unicodedata.combining(c))
+        m = re.match(r"grille\s+([a-z]+)\s+(\d{2,4})", t)
+        if m and m.group(1) in MOIS_GRILLE:
+            annee = int(m.group(2)) + (2000 if len(m.group(2)) == 2 else 0)
+            res.append((date(annee, MOIS_GRILLE.index(m.group(1)) + 1, 1), lien))
+    return res
+
+
+def grille_du_mois(grilles: list[tuple[date, str]], aujourdhui: date) -> str | None:
+    """La grille du mois en cours ; à défaut, la plus récente déjà commencée, puis la prochaine."""
+    mois = aujourdhui.replace(day=1)
+    passees = sorted((g for g in grilles if g[0] <= mois), reverse=True)
+    futures = sorted(g for g in grilles if g[0] > mois)
+    choix = (passees or futures or [None])[0]
+    return choix[1] if choix else None
+
+
 def id_drive(url: str) -> str | None:
     m = re.search(r"/d/([A-Za-z0-9_-]{10,})", url) or re.search(r"[?&]id=([A-Za-z0-9_-]{10,})", url)
     return m.group(1) if m else None
@@ -233,20 +259,25 @@ class CollecteurCinema(Collecteur[DonneesCinema]):
         self.config = (yaml.safe_load(chemin.read_text(encoding="utf-8")) or {}).get("cinema") or {}
 
     def telecharger(self, client: httpx.Client) -> Any:
-        ident = id_drive(self.config.get("grille", ""))
+        lien = self.config.get("grille", "")
+        try:
+            lien = grille_du_mois(grilles_du_site(obtenir(client, URL_SITE).text), datetime.now(PARIS).date()) or lien
+        except ErreurSource:
+            pass  # site injoignable : le lien saisi prend le relais
+        ident = id_drive(lien)
         if not ident:
-            raise ErreurValidation("saisie/cinema.yaml : lien de la grille illisible")
+            raise ErreurValidation("lien de la grille illisible (site de la salle et saisie/cinema.yaml)")
         pdf = obtenir(client, "https://drive.google.com/uc", params={"export": "download", "id": ident}).content
         if not pdf.startswith(b"%PDF"):
             raise ErreurValidation("la grille téléchargée n'est pas un PDF (lien privé ou déplacé ?)")
-        return pdf
+        return {"pdf": pdf, "lien": lien}
 
     def valider(self, brut: Any) -> None:
         pass  # la lecture elle-même valide : voir convertir()
 
     def convertir(self, brut: Any, maintenant: datetime) -> DonneesCinema:
         aujourdhui = maintenant.astimezone(PARIS).date()
-        g = lire_grille(brut, aujourdhui)
+        g = lire_grille(brut["pdf"], aujourdhui)
         if not any(f["seances"] for f in g["films"]):
             raise ErreurValidation("aucune séance lue dans la grille")
         debut_journee = datetime.combine(aujourdhui, datetime.min.time(), PARIS)
@@ -259,7 +290,7 @@ class CollecteurCinema(Collecteur[DonneesCinema]):
             films.append(Film(titre=titre, vo=vo, sortie_nationale=sortie, seances=seances))
         films.sort(key=lambda f: f.seances[0].debut)
         return DonneesCinema(salle=self.config.get("nom", "Cinéma Le Sévigné"), adresse=self.config.get("adresse"),
-                             films=films, annonces=g["annonces"], tarifs=g["tarifs"], grille=self.config["grille"])
+                             films=films, annonces=g["annonces"], tarifs=g["tarifs"], grille=brut["lien"])
 
     def valide_jusqu_a(self, donnees: DonneesCinema, maintenant: datetime) -> datetime:
         return maintenant + timedelta(days=2)

@@ -1,0 +1,228 @@
+[
+ {
+  "idActualite": 1,
+  "titre": "Contact et horaires",
+  "contenu": "<!-- editorType:TinyMCE --><p>Place de Waltrop – <span style=\"color: #0080ff;\"><a style=\"color: #0080ff;\" href=\"https://www.ville-cesson-sevigne.fr/wp-content/uploads/2020/04/planespacecitoyen.jpg\" target=\"_blank\" rel=\"noopener nofollow\">Plan d’accès</a></span> </p>\n<div>Tél : 02 99 83 52 00<br>Mail : <span style=\"color: #0080ff;\"><a style=\"color: #0080ff;\" href=\"mailto:espace.citoyen@ville-cesson-sevigne.fr\" target=\"_blank\" rel=\"noopener nofollow\">espace.citoyen@ville-cesson-sevigne.fr </a></span>\n<div><br>\n<h2 style=\"box-sizing: border-box; color: #000000; font-family: Roboto, sans-serif; font-size: 26px; line-height: 30px; margin: 0px 0px 16px; background-color: #ffffff;\"><strong style=\"box-sizing: border-box; font-weight: bold;\">Les horaires d’ouverture de l’Espace Citoyen :</strong></h2>\n<p style=\"box-sizing: border-box; margin: 0px 0px 16px; font-size: 14.4px; color: #000000; line-height: 24px; font-family: verdana, sans-serif; background-color: #ffffff;\">Lundi : 8h30 à 12h et de 13h à 17h15<br style=\"box-sizing: border-box;\">Mardi : <strong style=\"box-sizing: border-box; font-weight: bold;\">fermé le matin</strong> – 13h à 17h15<br style=\"box-sizing: border-box;\">Mercredi : 8h30 à 12h et 13h à 17h15<br style=\"box-sizing: border-box;\">Jeudi : 8h30 à 12h et 13h à 17h15<br style=\"box-sizing: border-box;\">Vendredi : 8h30 à 12h et 13h à 16h<br style=\"box-sizing: border-box;\">Samedi : 9h à 12h</p>\n</div>\n</div>",
+  "dateCreation": "2020-11-18T11:11:46.365",
+  "dateDebut": "0000-00-00T00:00:00.000",
+  "dateFin": "0000-00-00T00:00:00.000",
+  "estVisible": true,
+  "resume": "1 place Waltrop - Cesson-Sévigné -Tél. 02 99 83 52 00 - espace.citoyen@ville-cesson-sevigne.fr >> cliquer ici pour plus d'informations\n",
+  "imageUrl": "/api/files/2",
+  "ordre": 65,
+  "etablissementAccueilJSON": "",
+  "estPrive": false,
+  "_categories": [
+   {
+    "idCategorie": 6,
+    "titre": "ESPACE CITOYEN",
+    "estVisible": true,
+    "ordre": 6
+   }
+  ]
+ },
+ {
+  "idActualite": 6,
+  "titre": "Le Service jeunesse",
+  "contenu": "<!-- editorType:TinyMCE --><div class=\"mat-card-header-text\" style=\"text-align: left;\"><span style=\"color: #e03e2d;\"><strong><span style=\"font-size: 14pt;\">Le Service jeunesse de Cesson-Sévigné </span><br><span style=\"font-size: 14pt;\">Maison des jeunes ESCALE</span> : ES</strong>pace<strong> C</strong>essonnais d&#39;<strong>A</strong>nimation de<strong> L</strong>oisirs et d&#39;<strong>E</strong>xpression</span><br><br>\n<p><span style=\"color: #236fa1;\"><strong>Le service jeunesse se destine aux jeunes à partir de 11 ans (ou entrée en 6ème).</strong></span></p>\n<p><span style=\"color: #236fa1;\">Ce service est composé de professionnels de l’animation socioculturelle présents tout au long de l’année. L’équipe anime les temps péri/extrascolaires et les temps de vacances. La maison des jeunes <strong>l’ESCALE (Espace Cessonnais d’Animation de Loisirs et d’Expression)</strong>, ‘’base’’ du service jeunesse, est un lieu de découverte, d’apprentissage, de création, de rencontres… Le projet pédagogique du service est adapté aux différents publics et à leurs environnements. Il s’agit de proposer, aux enfants, adolescents et jeunes adultes, un accompagnement vers l’épanouissement individuel et collectif ainsi que des outils permettant de devenir un acteur à part entière de la société.</span></p>\n<p><span style=\"color: #236fa1;\">Les animateurs favorisent la participation des jeunes dans la proposition d’activités, de stages, d’ateliers… Ils les accompagnent également dans la réalisation de leurs projets (loisirs, premier job…).</span><br><span style=\"color: #236fa1;\">Différents partenariats sont menés tout au long de l’année avec notamment les établissements scolaires (collèges, lycées), les services municipaux, les associations…</span></p>\n<p><span style=\"color: #236fa1;\">La CAF est partenaire du service jeunesse et participe au financement de l’activité du service.</span></p>\n<br><br><span style=\"color: #3598db;\"><strong>Les liens et les contacts<br></strong></span><br><span style=\"color: #236fa1;\">Pour nous suivre et avoir toutes les informations :</span><br><span style=\"color: #236fa1;\">- La <a href=\"https://www.ville-cesson-sevigne.fr/contacts/escale/\" target=\"_blank\" rel=\"noopener nofollow\">page web ville</a> (toutes les infos : fonctionnement, modalités d&#39;inscriptions, tarifs...)<br>- Facebook <em>&#39;&#39;escale, maison des jeunes&#39;&#39;</em>  - Instagram <em>&#39;&#39;mjescale&#39;&#39;</em> (pour l&#39;actu par les réseaux )</span><br><span style=\"color: #236fa1;\">- La newsletter, pour vous y abonner, communiquez-nous votre adresse mail à service.jeunesse@ville-cesson-sevigne.fr<br></span><br><br><span style=\"color: #236fa1;\">    Service jeunesse - Maison des jeunes ESCALE</span><span style=\"color: #236fa1;\"><br>    Allée de champagné - 35510 Cesson-Sévigné</span></div>\n<div><span style=\"color: #236fa1;\">    Tel: 02 99 83 82 75 </span><br><span style=\"color: #236fa1;\">    Animatrices : 06 46 60 16 36 - 06 11 90 03 65 </span><br><span style=\"color: #236fa1;\">    Responsable de Service - Direction ACM : 06 31 61 55 06</span><br><span style=\"color: #236fa1;\">    service.jeunesse@ville-cesson-sevigne.fr</span>\n<div><br><br></div>\n</div>",
+  "dateCreation": "2021-01-04T11:07:38.675",
+  "dateDebut": "0000-00-00T00:00:00.000",
+  "dateFin": "0000-00-00T00:00:00.000",
+  "estVisible": true,
+  "resume": "Des services et une maison des jeunes (ESCALE) pour les 11-17/23 ans.\nPrésentation rapide et contacts",
+  "imageUrl": "/api/files/519",
+  "ordre": 66,
+  "etablissementAccueilJSON": "",
+  "estPrive": false,
+  "_categories": [
+   {
+    "idCategorie": 4,
+    "titre": "MAISON DES JEUNES",
+    "estVisible": true,
+    "ordre": 4
+   }
+  ]
+ },
+ {
+  "idActualite": 8,
+  "titre": "Le studio",
+  "contenu": "<span style=\"color: #236fa1;\"><strong><span style=\"color: #3598db;\">Le studio de répétition ESCALE</span></strong><br/><br/>L&#39;équipe de l&#39;ESCALE accompagne les jeunes musiciens en mettant à disposition un local de répétition de 40 m2. </span><br/><span style=\"color: #236fa1;\">Studio sonorisé et équipé qui se trouve au sein de la Maison des Jeunes. Un lieu dédié à la pratique des musiques amplifiées et autres projets musicaux.<br/><br/>Les animateurs vous permettent, également, de vivre des évènements musicaux (concerts, reportages lors de festivals...) et de réaliser votre première scène (soirée concert Escal&#39;en scène, scène ESCALE lors de la fête de l&#39;été...).<br/><br/>De nombreux projets sont possibles, n&#39;hésitez pas à nous rendre visite.</span>",
+  "dateCreation": "2021-01-05T18:04:12.751",
+  "dateDebut": "0000-00-00T00:00:00.000",
+  "dateFin": "0000-00-00T00:00:00.000",
+  "estVisible": true,
+  "resume": "Un studio de répétition pour les jeunes musiciens",
+  "imageUrl": "/api/files/21",
+  "ordre": 68,
+  "etablissementAccueilJSON": "",
+  "estPrive": false,
+  "_categories": [
+   {
+    "idCategorie": 4,
+    "titre": "MAISON DES JEUNES",
+    "estVisible": true,
+    "ordre": 4
+   }
+  ]
+ },
+ {
+  "idActualite": 9,
+  "titre": "La maison de l'enfance",
+  "contenu": "<p>Le service Petite Enfance propose des solutions variées adaptées en priorité aux besoins de garde des familles Cessonnaises. L’offre d’accueil de 99 places se répartie entre 2 Multi-Accueil et les Micro-Crèches.</p>\n<p>Vous pouvez nous contacter au 02 99 83 74 11 et <a href=\"mailto:service-enfance@ville-cesson-sevigne.fr\" rel=\"nofollow\">service-enfance@ville-cesson-sevigne.fr</a><br/><br/>Toutes les demandes d&#39;inscription sur les listes d&#39;attentes communes des différentes structures d&#39;accueil du service Petite Enfance sont centralisées à la Maison de l&#39;Enfance.<br/><br/>pour plus d&#39;information vous pouvez consulter notre site internet <a href=\"https://www.ville-cesson-sevigne.fr/les-structures-collectives-municipales-daccueil-du-jeune-enfant.html\" rel=\"nofollow noopener\" target=\"_blank\">ici</a><br/><br/><br/></p>",
+  "dateCreation": "2021-01-06T16:21:01.690",
+  "dateDebut": "0000-00-00T00:00:00.000",
+  "dateFin": "0000-00-00T00:00:00.000",
+  "estVisible": true,
+  "resume": "28, rue de Belle Epine 35510 CESSON-SEVIGNE\n",
+  "imageUrl": "/api/files/24",
+  "ordre": 69,
+  "etablissementAccueilJSON": "",
+  "estPrive": false,
+  "_categories": [
+   {
+    "idCategorie": 1,
+    "titre": "PETITE ENFANCE",
+    "estVisible": true,
+    "ordre": 2
+   }
+  ]
+ },
+ {
+  "idActualite": 45,
+  "titre": "A vélo, à trotinette, bien équipé, bien sécurisé!",
+  "contenu": "<img title=\"TROTINETTE.JPG\" src=\"/api/files/169\"/>",
+  "dateCreation": "2022-03-09T17:21:39.495",
+  "dateDebut": "0000-00-00T00:00:00.000",
+  "dateFin": "0000-00-00T00:00:00.000",
+  "estVisible": true,
+  "resume": "",
+  "imageUrl": "/api/files/168",
+  "ordre": 51,
+  "etablissementAccueilJSON": "",
+  "estPrive": false,
+  "_categories": [
+   {
+    "idCategorie": 8,
+    "titre": "INFORMATIONS DIVERSES",
+    "estVisible": true,
+    "ordre": 8
+   }
+  ]
+ },
+ {
+  "idActualite": 71,
+  "titre": "Recensement citoyen dès 16 ans",
+  "contenu": "<p style=\"text-align: center; margin: 0cm 0cm 8pt; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif;\"><strong><em><span style=\"font-size: 14.0pt; line-height: 107%;\">Votre enfant vient d’avoir 16 ans ? Pensez à effectuer son recensement citoyen</span></em></strong></p>\n<p style=\"text-align: center; margin: 0cm 0cm 8pt; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif;\"><strong><em><span style=\"font-size: 14.0pt; line-height: 107%;\"> </span></em></strong></p>\n<p style=\"margin: 0cm 0cm 8pt; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif;\">Tout jeune Français doit se faire recenser entre le jour de ses 16 ans et la fin du 3e mois suivant son anniversaire en vue de participer à la Journée défense et citoyenneté (JDC).</p>\n<p style=\"margin: 0cm 0cm 8pt; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif;\"> </p>\n<p style=\"margin: 0cm 0cm 8pt; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif;\"><strong><em>Le recensement citoyen permet</em></strong></p>\n<p style=\"margin: 0cm 0cm 8pt; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif;\"> </p>\n<ul style=\"margin-bottom: 0cm; margin-top: 0px;\">\n<li style=\"margin: 0cm 0cm 0.0001pt 0.4px; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif; text-indent: 0.4px;\">la convocation à la JDC par le Centre du Service National (entre 9 mois et 1 an après le recensement citoyen)</li>\n<li style=\"margin: 0cm 0cm 8pt 0.4px; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif; text-indent: 0.4px;\">l&#39;inscription automatique sur les listes électorales de la commune de recensement à 18 ans</li>\n</ul>\n<p style=\"margin: 0cm 0cm 8pt; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif;\"> </p>\n<p style=\"margin: 0cm 0cm 8pt; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif;\">Jusqu’à l’âge de 25 ans, fournir un justificatif concernant le recensement ou la JDC est obligatoire pour s&#39;inscrire aux examens (BEP, Bac, permis de conduire...) ou concours administratifs :</p>\n<ul style=\"margin-bottom: 0cm; margin-top: 0px;\">\n<li style=\"margin: 0cm 0cm 0.0001pt 0.4px; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif; text-indent: 0.4px;\">avant 18 ans, il faut présenter une attestation de recensement pour vous inscrire à un examen (BEP, Bac) ou un concours administratif</li>\n<li style=\"margin: 0cm 0cm 8pt 0.4px; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif; text-indent: 0.4px;\">à partir de 18 ans, il faut présenter un certificat de JDC pour s&#39;inscrire à un examen (BEP, Bac...), à un concours administratif ou à l&#39;examen du permis de conduire</li>\n</ul>",
+  "dateCreation": "2023-01-17T15:19:44.001",
+  "dateDebut": "0000-00-00T00:00:00.000",
+  "dateFin": "0000-00-00T00:00:00.000",
+  "estVisible": true,
+  "resume": "",
+  "imageUrl": "/api/files/272",
+  "ordre": 24,
+  "etablissementAccueilJSON": "",
+  "estPrive": false,
+  "_categories": [
+   {
+    "idCategorie": 8,
+    "titre": "INFORMATIONS DIVERSES",
+    "estVisible": true,
+    "ordre": 8
+   }
+  ]
+ },
+ {
+  "idActualite": 75,
+  "titre": "Pré-inscription en crèche : comment faire?",
+  "contenu": "Les pré-inscription pour une demande de place dans une des crèches municipales ou en partenariat avec la commune se font prioritairement via le portail famille. Visulaiser le tuto youtube en cliquant <a href=\"https://www.youtube.com/watch?v=2MVK4Nk3s28\" rel=\"nofollow noopener\" target=\"_blank\">ici.</a><br/><br/>Il est néanmoins possible de retirer un dossier unique auprès de l&#39;espace citoyen ou de télécharger une fiche de pré-inscription sur le portail famille.<br/><br/>Les familles sont également invitées à se renseigner sur les différentes solutions proposées auprès de la maison de l&#39;enfance.",
+  "dateCreation": "2023-03-20T13:26:20.686",
+  "dateDebut": "0000-00-00T00:00:00.000",
+  "dateFin": "0000-00-00T00:00:00.000",
+  "estVisible": true,
+  "resume": "Les pré-inscription pour une demande de place dans une des crèches municipales ou en partenariat avec la commune se font prioritairement via le portail famille",
+  "imageUrl": "/api/files/291",
+  "ordre": 22,
+  "etablissementAccueilJSON": "",
+  "estPrive": false,
+  "_categories": [
+   {
+    "idCategorie": 1,
+    "titre": "PETITE ENFANCE",
+    "estVisible": true,
+    "ordre": 2
+   }
+  ]
+ },
+ {
+  "idActualite": 108,
+  "titre": "PAI - 2026-2027",
+  "contenu": "<!-- editorType:TinyMCE --><div style=\"direction: ltr; margin-top: 1em; margin-bottom: 1em; font-family: arial, helvetica, sans-serif; font-size: 12pt; color: #000000;\">Madame, Monsieur,</div>\n<p style=\"direction: ltr; line-height: 107%; margin: 0cm 0cm 0.0001pt;\"><span style=\"font-family: arial, helvetica, sans-serif; font-size: 11pt; color: #000000;\">En préparation de la rentrée scolaire 2026-2027 :</span></p>\n<p style=\"direction: ltr; text-align: justify; line-height: 107%; margin: 0cm 0cm 0.0001pt;\"><span style=\"font-family: arial, helvetica, sans-serif; font-size: 11pt; color: #000000;\">Si votre enfant bénéficie d&#39;un <strong>Projet d&#39;accueil individualisé (PAI)</strong> en lien avec une allergie alimentaire (avec ordonnance) ou une pathologie (avec ordonnance) qui nécessite une vigilance particulière de la part des équipes encadrantes, nous vous remercions de bien vouloir remplir le formulaire qui se trouve sur le portail famille (ou en pièce jointe), le transmettre  au service des affaires scolaires, par mail (</span><span style=\"font-family: arial, helvetica, sans-serif; font-size: 11pt; color: #0563c1;\"><a id=\"OWAd399ae02-de6a-2328-890b-05c17a7958a6\" class=\"x_OWAAutoLink\" style=\"margin-top: 0px; margin-bottom: 0px;\" title=\"mailto:affaires.scolaires@ville-cesson-sevigne.fr\" href=\"mailto:affaires.scolaires@ville-cesson-sevigne.fr\" rel=\"nofollow\"><span style=\"text-decoration: underline;\">affaires.scolaires@ville-cesson-sevigne.fr</span></a></span><span style=\"font-family: arial, helvetica, sans-serif; font-size: 11pt; color: #000000;\">) ou dans la boîte aux lettres de la Mairie </span><span style=\"font-family: arial, helvetica, sans-serif; font-size: 12pt; color: #000000; line-height: 107%;\"><span style=\"text-decoration: underline;\"><strong>avant le 31 juillet prochain</strong></span>.  </span></p>\n<p style=\"direction: ltr; text-align: justify; line-height: 107%; margin: 0cm 0cm 0.0001pt;\"><span style=\"color: #e03e2d;\"><span style=\"font-family: arial, helvetica, sans-serif; font-size: 11pt;\"><strong>Pour les enfants ayant déjà un PAI si celui-ci ne change pas, </strong></span><span style=\"font-family: arial, helvetica, sans-serif; font-size: 12pt; line-height: 107%;\"><strong>il faudra remplir impérativement un nouveau formulaire</strong></span></span><span style=\"font-family: arial, helvetica, sans-serif; font-size: 11pt; color: #000000;\">.<br><br></span></p>\n<p style=\"direction: ltr; text-align: justify; line-height: 107%; margin: 0cm 0cm 0.0001pt;\"><span style=\"font-family: arial, helvetica, sans-serif; font-size: 11pt; color: #000000;\">Nous vous rappelons également que si une trousse de secours est fournie, il est nécessaire d’en prévoir un exemplaire pour chaque site fréquenté par votre enfant (école, périscolaire, cantine, centre de loisirs, maison des jeunes...).<br><br></span></p>\n<p style=\"direction: ltr; text-align: justify; line-height: 107%; margin: 0cm 0cm 0.0001pt;\"><span style=\"font-family: arial, helvetica, sans-serif; font-size: 11pt; color: #000000;\">Si votre enfant ne fréquente pas les services municipaux à la rentrée, ou s&#39;il n&#39;a plus d&#39;allergie, nous vous remercions de nous en informer par simple mail.<br><br></span></p>\n<p style=\"direction: ltr; text-align: justify; line-height: 107%; margin: 0cm 0cm 0.0001pt;\"><span style=\"font-family: arial, helvetica, sans-serif; font-size: 11pt; color: #000000;\">Nous attirons votre attention sur le fait que ce PAI ne concerne que les temps périscolaires gérés par la Mairie (garderie, cantine, accueil de loisirs, maison des jeunes), le PAI de votre enfant sur le temps scolaire est à communiquer à la direction de l’établissement scolaire fréquenté par l’enfant.</span></p>\n<p style=\"direction: ltr; text-align: justify; line-height: 107%; margin: 0cm 0cm 0.0001pt;\"><span style=\"font-family: arial, helvetica, sans-serif; font-size: 11pt; color: #000000;\"><br>Vous remerciant par avance de vos retours,</span></p>\n<p style=\"direction: ltr; text-align: justify; line-height: 107%; margin: 0cm 0cm 0.0001pt;\"><span style=\"font-family: arial, helvetica, sans-serif; font-size: 11pt; color: #000000;\">Cordialement.</span></p>\n<p style=\"direction: ltr; line-height: 107%; margin: 0cm 0cm 8pt;\"><span style=\"font-family: arial, helvetica, sans-serif; font-size: 11pt; color: #000000;\">Le service des Affaires Scolaires</span></p>\n<div style=\"direction: ltr; font-family: Aptos, &#39;Aptos_EmbeddedFont&#39;, &#39;Aptos_MSFontService&#39;, Calibri, Helvetica, sans-serif; font-size: 12pt; color: #000000;\"><strong>L&#39;équipe du Portail Citoyen.</strong></div>\n<p style=\"margin: 0cm 0cm 8pt; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif;\"><em><strong><br><a href=\"/api/files/561\" rel=\"nofollow\">PAI 2026 2027.pdf</a></strong></em></p>",
+  "dateCreation": "0000-00-00T00:00:00.000",
+  "dateDebut": "2026-04-27T00:00:00.000",
+  "dateFin": "2027-05-30T00:00:00.000",
+  "estVisible": true,
+  "resume": "Si votre enfant bénéficie d'un PAI, le formulaire devra être transmis avant le 31 juillet pour la rentrée 2026-2027. ",
+  "imageUrl": "",
+  "ordre": 0,
+  "etablissementAccueilJSON": "",
+  "estPrive": false,
+  "_categories": [
+   {
+    "idCategorie": 3,
+    "titre": "ACCUEIL DE LOISIRS",
+    "estVisible": true,
+    "ordre": 3
+   },
+   {
+    "idCategorie": 7,
+    "titre": "INFORMATIONS SCOLAIRES ",
+    "estVisible": true,
+    "ordre": 7
+   }
+  ]
+ },
+ {
+  "idActualite": 133,
+  "titre": "Menu novembre 2026",
+  "contenu": "<!-- editorType:TinyMCE --><p><a href=\"/api/files/606\">menu novembre 2026.pdf</a></p>",
+  "dateCreation": "0000-00-00T00:00:00.000",
+  "dateDebut": "2026-11-01T00:00:00.000",
+  "dateFin": "2026-12-05T00:00:00.000",
+  "estVisible": true,
+  "resume": "",
+  "imageUrl": "/api/files/588",
+  "ordre": 0,
+  "etablissementAccueilJSON": "",
+  "estPrive": false,
+  "_categories": [
+   {
+    "idCategorie": 2,
+    "titre": "CANTINE / PERISCOLAIRE",
+    "estVisible": true,
+    "ordre": 1
+   }
+  ]
+ },
+ {
+  "idActualite": "999",
+  "titre": "Actualité réservée aux familles",
+  "contenu": "<p>Réservé</p>",
+  "dateCreation": "2020-11-18T11:11:46.365",
+  "dateDebut": "0000-00-00T00:00:00.000",
+  "dateFin": "0000-00-00T00:00:00.000",
+  "estVisible": true,
+  "resume": "",
+  "imageUrl": "/api/files/2",
+  "ordre": 65,
+  "etablissementAccueilJSON": "",
+  "estPrive": "True",
+  "_categories": [
+   {
+    "idCategorie": 6,
+    "titre": "ESPACE CITOYEN",
+    "estVisible": true,
+    "ordre": 6
+   }
+  ]
+ }
+]

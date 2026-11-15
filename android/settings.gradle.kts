@@ -36,5 +36,7 @@ include(":transport")
 include(":equipements")
 // Domaine actus : actualités de la ville et d'Eau du Bassin Rennais.
 include(":actus")
+// Domaine familles : vacances scolaires et portail familles (puis menus des écoles).
+include(":familles")
 // Les autres domaines (agenda, widget)
 // arrivent avec leur étape de la feuille de route.

@@ -11,6 +11,9 @@
 set -euo pipefail
 
 [[ $EUID -eq 0 ]] || { echo "À lancer avec sudo." >&2; exit 1; }
+# --auto : lancé par la mise à jour automatique (mise-a-jour-auto.sh) ; ne collecte que les modules nouveaux.
+AUTO=0; [[ ${1:-} == --auto ]] && AUTO=1
+MODULES="vilaine meteo vigicrues carburants lignes_star trains equipements collecte actus circulation usages_eau defibrillateurs bornes agenda cinema vacances_scolaires familles"
 
 SOURCE=$(cd "$(dirname "$0")/../.." && pwd)   # le dossier backend copié sur le Pi
 RACINE=/srv/cesson
@@ -29,7 +32,7 @@ etape "Paquets"
 # qu'elles finissent (jusqu'à 10 min) au lieu d'échouer, y compris pour l'installeur de Tailscale.
 echo 'DPkg::Lock::Timeout "600";' > /etc/apt/apt.conf.d/90cesson-attente-verrou
 apt-get update -q
-apt-get install -y -q python3-venv nginx rsync logrotate unattended-upgrades curl
+apt-get install -y -q python3-venv nginx rsync logrotate unattended-upgrades curl git
 
 etape "Durcissement"
 # Connexion SSH par clé seulement (déjà réglé par Raspberry Pi Imager), jamais en root. « 00- » : sshd garde
@@ -83,12 +86,27 @@ SUJET=$(cat "$SUJET_FICHIER")
 sed "s#^CESSON_ALERTE_URL=.*#CESSON_ALERTE_URL=https://ntfy.sh/$SUJET#" "$SOURCE/deploy/crontab" \
     | crontab -u cesson -
 
+etape "Mise à jour automatique depuis GitHub (toutes les 15 min)"
+# Le Pi suit la branche main du dépôt public, seulement vers des commits dont les tests ont réussi.
+install -m 755 "$ICI/mise-a-jour-auto.sh" /usr/local/sbin/cesson-mise-a-jour
+install -m 644 "$ICI/cesson-mise-a-jour.service" "$ICI/cesson-mise-a-jour.timer" /etc/systemd/system/
+systemctl daemon-reload
+systemctl enable --now cesson-mise-a-jour.timer
+
 etape "Première collecte"
-sudo -u cesson env CESSON_ALERTE_URL="https://ntfy.sh/$SUJET" bash -c \
-    "cd $CODE && .venv/bin/python -m cesson collecter vilaine meteo vigicrues carburants lignes_star trains equipements collecte actus circulation usages_eau defibrillateurs bornes agenda cinema --sortie $RACINE/public --etat $RACINE/etat" \
-    || echo "Attention : une source a échoué, voir ci-dessus (le cron réessaiera)."
+A_COLLECTER=$MODULES
+if (( AUTO )); then  # mise à jour : seulement les modules qui n'ont encore rien publié
+    A_COLLECTER=$(for m in $MODULES; do [[ -s $RACINE/public/$m.json ]] || printf '%s ' "$m"; done)
+fi
+if [[ -n ${A_COLLECTER// } ]]; then
+    sudo -u cesson env CESSON_ALERTE_URL="https://ntfy.sh/$SUJET" bash -c \
+        "cd $CODE && .venv/bin/python -m cesson collecter $A_COLLECTER --sortie $RACINE/public --etat $RACINE/etat" \
+        || echo "Attention : une source a échoué, voir ci-dessus (le cron réessaiera)."
+fi
 if curl -fsS -o /dev/null http://127.0.0.1:8080/manifest.json; then echo "nginx sert bien manifest.json"
 else echo "Attention : nginx ne sert pas manifest.json (voir /var/log/nginx/error.log)."; fi
+
+if (( AUTO )); then echo "Mise à jour terminée."; exit 0; fi
 
 etape "Exposition publique (Tailscale Funnel)"
 command -v tailscale &>/dev/null || curl -fsSL https://tailscale.com/install.sh | sh

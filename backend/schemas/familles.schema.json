@@ -1,0 +1,272 @@
+{
+  "$defs": {
+    "ActuFamille": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "titre": {
+          "title": "Titre",
+          "type": "string"
+        },
+        "resume": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Resume"
+        },
+        "categories": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "Categories",
+          "type": "array"
+        },
+        "lien": {
+          "title": "Lien",
+          "type": "string"
+        },
+        "du": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Du"
+        },
+        "au": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Au"
+        }
+      },
+      "required": [
+        "id",
+        "titre",
+        "lien"
+      ],
+      "title": "ActuFamille",
+      "type": "object"
+    },
+    "DonneesFamilles": {
+      "additionalProperties": false,
+      "properties": {
+        "actualites": {
+          "items": {
+            "$ref": "#/$defs/ActuFamille"
+          },
+          "title": "Actualites",
+          "type": "array"
+        },
+        "menus": {
+          "items": {
+            "$ref": "#/$defs/MenuDuJour"
+          },
+          "title": "Menus",
+          "type": "array"
+        },
+        "restaurants": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Restaurants"
+        },
+        "menu_pdf": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Menu Pdf"
+        }
+      },
+      "required": [
+        "actualites",
+        "menus"
+      ],
+      "title": "DonneesFamilles",
+      "type": "object"
+    },
+    "Etat": {
+      "enum": [
+        "ok",
+        "perime",
+        "erreur"
+      ],
+      "title": "Etat",
+      "type": "string"
+    },
+    "MenuDuJour": {
+      "additionalProperties": false,
+      "properties": {
+        "jour": {
+          "format": "date",
+          "title": "Jour",
+          "type": "string"
+        },
+        "hors_doeuvre": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "Hors Doeuvre",
+          "type": "array"
+        },
+        "plat": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "Plat",
+          "type": "array"
+        },
+        "laitier": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "Laitier",
+          "type": "array"
+        },
+        "dessert": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "Dessert",
+          "type": "array"
+        },
+        "gouter": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "Gouter",
+          "type": "array"
+        },
+        "note": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Note"
+        }
+      },
+      "required": [
+        "jour"
+      ],
+      "title": "MenuDuJour",
+      "type": "object"
+    },
+    "Meta": {
+      "additionalProperties": false,
+      "description": "Accompagne chaque fichier publié : source, licence et fraîcheur.",
+      "properties": {
+        "source": {
+          "title": "Source",
+          "type": "string"
+        },
+        "licence": {
+          "title": "Licence",
+          "type": "string"
+        },
+        "url_source": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Url Source"
+        },
+        "recupere_le": {
+          "format": "date-time",
+          "title": "Recupere Le",
+          "type": "string"
+        },
+        "valide_jusqu_a": {
+          "format": "date-time",
+          "title": "Valide Jusqu A",
+          "type": "string"
+        },
+        "etat": {
+          "$ref": "#/$defs/Etat",
+          "default": "ok"
+        }
+      },
+      "required": [
+        "source",
+        "licence",
+        "recupere_le",
+        "valide_jusqu_a"
+      ],
+      "title": "Meta",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "module": {
+      "title": "Module",
+      "type": "string"
+    },
+    "version_schema": {
+      "default": 1,
+      "title": "Version Schema",
+      "type": "integer"
+    },
+    "meta": {
+      "$ref": "#/$defs/Meta"
+    },
+    "donnees": {
+      "$ref": "#/$defs/DonneesFamilles"
+    }
+  },
+  "required": [
+    "module",
+    "meta",
+    "donnees"
+  ],
+  "title": "FichierModule[DonneesFamilles]",
+  "type": "object"
+}
