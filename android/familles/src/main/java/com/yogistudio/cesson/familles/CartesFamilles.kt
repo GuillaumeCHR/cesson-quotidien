@@ -27,6 +27,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.yogistudio.cesson.core.donnees.EtatModule
 import com.yogistudio.cesson.core.ui.CarteDonnee
+import com.yogistudio.cesson.core.ui.LocalCompact
 import com.yogistudio.cesson.core.ui.FuseauCesson
 import com.yogistudio.cesson.core.ui.Pastille
 import com.yogistudio.cesson.core.ui.TexteBientot
@@ -70,6 +71,7 @@ fun CarteVacances(etat: EtatModule<DonneesVacances>, modifier: Modifier = Modifi
                         }
                         SituationScolaire.Inconnue -> TexteBientot("Calendrier de l'année suivante pas encore publié.")
                     }
+                    if (LocalCompact.current) return@Column  // compact : où on en est, sans la liste de l'année
                     val suivantes = d.periodes.filter { !it.dernierJour().isBefore(aujourdhui) }.drop(1)
                     if (suivantes.isNotEmpty()) {
                         HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
@@ -104,15 +106,16 @@ fun CartePortailFamilles(modifier: Modifier = Modifier) {
     val uri = LocalUriHandler.current
     fun ouvrir(lien: String) { runCatching { uri.openUri(lien) } }
     CarteDonnee("Portail familles", Icons.Rounded.FamilyRestroom, modifier) {
+        val compact = LocalCompact.current  // compact : le bouton du portail seulement
         Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
-            Text("Inscriptions à la cantine, au périscolaire et à l'accueil de loisirs, réservations et factures : " +
+            if (!compact) Text("Inscriptions à la cantine, au périscolaire et à l'accueil de loisirs, réservations et factures : " +
                 "tout se fait sur le portail de la ville, avec votre compte.", style = MaterialTheme.typography.bodyMedium)
             Button(onClick = { ouvrir(URL_PORTAIL_FAMILLES) }) {
                 Text("Ouvrir le portail familles")
                 Spacer(Modifier.width(6.dp))
                 Icon(Icons.AutoMirrored.Rounded.OpenInNew, contentDescription = null, modifier = Modifier.size(16.dp))
             }
-            LIENS_FAMILLES.forEach { (nom, lien) ->
+            if (!compact) LIENS_FAMILLES.forEach { (nom, lien) ->
                 Row(
                     Modifier.fillMaxWidth().clickable(role = Role.Button, onClickLabel = "Ouvrir") { ouvrir(lien) }
                         .padding(vertical = 8.dp),

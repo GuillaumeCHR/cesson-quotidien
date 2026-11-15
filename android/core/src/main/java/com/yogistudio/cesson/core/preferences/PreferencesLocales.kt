@@ -66,10 +66,10 @@ class PreferencesLocales(private val context: Context) {
         context.preferencesCesson.edit { it[cleAffichage] = mode }
     }
 
-    /** Cartes de l'accueil détaillées ; par défaut compactes (l'essentiel). */
-    val accueilDetaille: Flow<Boolean> = context.preferencesCesson.data.map { it[cleAccueilDetaille] ?: false }
+    /** Cartes détaillées sur tous les écrans ; par défaut compactes (l'essentiel). Clé d'origine conservée. */
+    val cartesDetaillees: Flow<Boolean> = context.preferencesCesson.data.map { it[cleAccueilDetaille] ?: false }
 
-    suspend fun enregistrerAccueilDetaille(detaille: Boolean) {
+    suspend fun enregistrerCartesDetaillees(detaille: Boolean) {
         context.preferencesCesson.edit { it[cleAccueilDetaille] = detaille }
     }
 

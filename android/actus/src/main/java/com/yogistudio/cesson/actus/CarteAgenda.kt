@@ -33,6 +33,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.yogistudio.cesson.core.donnees.EtatModule
 import com.yogistudio.cesson.core.ui.CarteDonnee
+import com.yogistudio.cesson.core.ui.LocalCompact
 import com.yogistudio.cesson.core.ui.FuseauCesson
 import com.yogistudio.cesson.core.ui.Pastille
 import com.yogistudio.cesson.core.ui.TexteBientot
@@ -60,17 +61,19 @@ fun CarteAgenda(etat: EtatModule<DonneesAgenda>, modifier: Modifier = Modifier) 
             val filtres = FILTRES_AGENDA.filter { (id, _) -> id == null || d.evenements.any { it.theme == id } }
             val jours = agendaParJour(d, theme, aujourdhui)
             CarteDonnee("Agenda", Icons.Rounded.Event, modifier, etat.fraicheur, maintenant) {
-                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                    if (filtres.size > 1) {
+                // Compact : deux jours, titre, heure et lieu ; ni filtres ni conditions.
+                val compact = LocalCompact.current
+                Column(verticalArrangement = Arrangement.spacedBy(if (compact) 4.dp else 8.dp)) {
+                    if (!compact && filtres.size > 1) {
                         Row(Modifier.horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                             filtres.forEach { (id, nom) -> FilterChip(selected = theme == id, onClick = { theme = id }, label = { Text(nom) }) }
                         }
                     }
                     if (jours.isEmpty()) TexteBientot("Aucun événement à venir.")
-                    (if (tout) jours else jours.take(JOURS_REPLIES)).forEach { (jour, evenements) ->
+                    (if (tout) jours else jours.take(if (compact) 2 else JOURS_REPLIES)).forEach { (jour, evenements) ->
                         Text(libelleJour(jour, aujourdhui), style = MaterialTheme.typography.titleSmall,
                             color = MaterialTheme.colorScheme.primary, modifier = Modifier.padding(top = 6.dp).semantics { heading() })
-                        evenements.forEach { LigneEvenement(it) }
+                        evenements.forEach { LigneEvenement(it, details = !compact) }
                     }
                     if (jours.size > JOURS_REPLIES) {
                         TextButton(onClick = { tout = !tout }) {
@@ -84,14 +87,14 @@ fun CarteAgenda(etat: EtatModule<DonneesAgenda>, modifier: Modifier = Modifier) 
 }
 
 @Composable
-private fun LigneEvenement(e: Evenement) {
+private fun LigneEvenement(e: Evenement, details: Boolean = true) {
     val uri = LocalUriHandler.current
     val jusquau = libelleJusquau(e)
     Column(
         Modifier
             .fillMaxWidth()
             .clickable(role = Role.Button, onClickLabel = "Voir l'événement") { runCatching { uri.openUri(e.lien) } }
-            .padding(vertical = 6.dp)
+            .padding(vertical = if (details) 6.dp else 3.dp)
             .semantics(mergeDescendants = true) {
                 contentDescription = listOfNotNull(e.horaires, e.titre, e.lieu, jusquau, e.conditions).joinToString(", ")
             },
@@ -107,7 +110,7 @@ private fun LigneEvenement(e: Evenement) {
         }
         Text(listOfNotNull(e.lieu, jusquau).joinToString(" · "), style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant)
-        e.conditions?.let {
+        if (details) e.conditions?.let {
             Pastille(it, if (it.contains("libre", ignoreCase = true) || it.contains("gratuit", ignoreCase = true)) Ton.OUVERT else Ton.NEUTRE)
         }
     }

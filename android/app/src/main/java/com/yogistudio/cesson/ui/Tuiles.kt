@@ -1,6 +1,7 @@
 package com.yogistudio.cesson.ui
 
 import com.yogistudio.cesson.core.ui.rememberMaintenant
+import com.yogistudio.cesson.core.ui.LocalCompact
 import com.yogistudio.cesson.core.ui.formaterHeure
 import androidx.compose.material3.Surface
 import androidx.compose.foundation.gestures.detectTapGestures
@@ -121,6 +122,8 @@ fun EcranTuiles(
     val erreur by app.depot.derniereErreur.collectAsStateWithLifecycle()
     val messages = remember { SnackbarHostState() }
     val manifest by app.depot.manifest.collectAsStateWithLifecycle()
+    // Réglage « Cartes » : compactes (par défaut) ou détaillées, pour tous les écrans.
+    val detaillees by app.preferences.cartesDetaillees.collectAsStateWithLifecycle(false)
     val maintenant = rememberMaintenant()
     val cfg = config ?: return
     val visibles = cartesVisibles(onglet, cfg)
@@ -131,7 +134,7 @@ fun EcranTuiles(
         onRefresh = { portee.launch { app.depot.rafraichir() } },
         modifier = Modifier.fillMaxSize(),
     ) {
-        CompositionLocalProvider(LocalMessages provides messages) {
+        CompositionLocalProvider(LocalMessages provides messages, LocalCompact provides !detaillees) {
         LazyColumn(
             state = liste,
             contentPadding = PaddingValues(start = 16.dp, end = 16.dp, bottom = 16.dp),

@@ -28,6 +28,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.yogistudio.cesson.core.donnees.EtatModule
 import com.yogistudio.cesson.core.ui.CarteDonnee
+import com.yogistudio.cesson.core.ui.LocalCompact
 import com.yogistudio.cesson.core.ui.FuseauCesson
 import com.yogistudio.cesson.core.ui.Pastille
 import com.yogistudio.cesson.core.ui.TexteBientot
@@ -87,6 +88,7 @@ fun CarteMenus(etat: EtatModule<DonneesFamilles>, modifier: Modifier = Modifier)
                             }
                         }
                     }
+                    if (LocalCompact.current) return@Column  // compact : le menu du jour, sans le pied
                     d.restaurants?.let {
                         Text("Restaurants scolaires de $it. Menu susceptible de changer selon les livraisons.",
                             style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
@@ -109,21 +111,23 @@ fun CarteActusFamilles(etat: EtatModule<DonneesFamilles>, modifier: Modifier = M
             TexteBientot("Actualités pas encore reçues. Tirez vers le bas pour actualiser.")
         }
         is EtatModule.Disponible -> CarteDonnee(titre, Icons.Rounded.Campaign, modifier, etat.fraicheur, maintenant) {
-            val actus = etat.fichier.donnees.actualites
-            Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+            // Compact : les 3 premiers titres, sans catégorie ni résumé.
+            val compact = LocalCompact.current
+            val actus = etat.fichier.donnees.actualites.let { if (compact) it.take(3) else it }
+            Column(verticalArrangement = Arrangement.spacedBy(if (compact) 0.dp else 4.dp)) {
                 if (actus.isEmpty()) TexteBientot("Aucune actualité publique en ce moment.")
                 actus.forEach { a ->
                     Column(
                         Modifier.fillMaxWidth().clickable(role = Role.Button, onClickLabel = "Lire sur le portail") {
                             runCatching { uri.openUri(a.lien) }
-                        }.padding(vertical = 8.dp),
+                        }.padding(vertical = if (compact) 6.dp else 8.dp),
                         verticalArrangement = Arrangement.spacedBy(2.dp),
                     ) {
-                        a.categories.firstOrNull()?.let {
+                        if (!compact) a.categories.firstOrNull()?.let {
                             Text(it, style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.primary)
                         }
                         Text(a.titre, style = MaterialTheme.typography.titleSmall)
-                        a.resume?.let {
+                        if (!compact) a.resume?.let {
                             Text(it, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant, maxLines = 3)
                         }
                     }

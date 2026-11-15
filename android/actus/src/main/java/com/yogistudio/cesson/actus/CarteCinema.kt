@@ -28,6 +28,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.yogistudio.cesson.core.donnees.EtatModule
 import com.yogistudio.cesson.core.ui.CarteDonnee
+import com.yogistudio.cesson.core.ui.LocalCompact
 import com.yogistudio.cesson.core.ui.FuseauCesson
 import com.yogistudio.cesson.core.ui.Pastille
 import com.yogistudio.cesson.core.ui.TexteBientot
@@ -59,7 +60,9 @@ fun CarteCinema(etat: EtatModule<DonneesCinema>, modifier: Modifier = Modifier) 
             val jours = joursDeSeance(d, maintenant).take(JOURS_PROPOSES)
             val jour = jours.getOrNull(choix.coerceAtMost(jours.lastIndex.coerceAtLeast(0)))
             CarteDonnee(d.salle, Icons.Rounded.Movie, modifier, etat.fraicheur, maintenant) {
-                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                // Compact : les jours et, pour le jour choisi, chaque film et ses horaires ; ni notes, ni annonces, ni tarifs.
+                val compact = LocalCompact.current
+                Column(verticalArrangement = Arrangement.spacedBy(if (compact) 6.dp else 8.dp)) {
                     if (jours.isEmpty()) {
                         TexteBientot("Pas de séance annoncée pour l'instant : la grille du mois suivant arrive en fin de mois.")
                     } else {
@@ -85,18 +88,19 @@ fun CarteCinema(etat: EtatModule<DonneesCinema>, modifier: Modifier = Modifier) 
                                     Text(film.titre, style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold))
                                     FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
                                         seances.forEach { s ->
-                                            Pastille(heure(s) + (s.tarif?.let { " · $it" } ?: ""), Ton.INFO)
+                                            Pastille(heure(s) + (s.tarif?.takeIf { !compact }?.let { " · $it" } ?: ""), Ton.INFO)
                                         }
                                         if (film.vo) Pastille("VO", Ton.NEUTRE)
                                         if (film.sortieNationale) Pastille("Sortie nationale", Ton.OUVERT)
                                     }
-                                    seances.mapNotNull { it.note }.firstOrNull()?.let {
+                                    if (!compact) seances.mapNotNull { it.note }.firstOrNull()?.let {
                                         Text(it, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                                     }
                                 }
                             }
                         }
                     }
+                    if (compact) return@Column
                     d.annonces.forEach { Text(it, style = MaterialTheme.typography.bodySmall) }
                     d.tarifs?.let {
                         Text(it.replaceFirstChar { c -> c.uppercase() }, style = MaterialTheme.typography.bodySmall,

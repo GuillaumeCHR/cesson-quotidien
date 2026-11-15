@@ -34,6 +34,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.yogistudio.cesson.core.donnees.EtatModule
 import com.yogistudio.cesson.core.ui.CarteDonnee
+import com.yogistudio.cesson.core.ui.LocalCompact
 import com.yogistudio.cesson.core.ui.Palette
 import com.yogistudio.cesson.core.ui.Pastille
 import com.yogistudio.cesson.core.ui.TexteBientot
@@ -70,6 +71,16 @@ fun CarteUsagesEau(etat: EtatModule<DonneesUsagesEau>, modifier: Modifier = Modi
                             Text("depuis le ${jour(it)}" + (d.jusquAu?.let { f -> " jusqu'au ${jour(f)}" } ?: ""),
                                 style = MaterialTheme.typography.bodyMedium)
                         }
+                    }
+                    // Compact : le niveau, puis les thèmes restreints en une ligne (le détail en mode détaillé).
+                    if (LocalCompact.current) {
+                        Text(
+                            if (d.niveau == NiveauSecheresse.AUCUNE) "Aucune restriction d'eau en vigueur."
+                            else "${d.usages.size} usages limités ou interdits : " +
+                                parTheme(d.usages).joinToString(", ") { it.first.lowercase() } + ".",
+                            style = MaterialTheme.typography.bodyMedium,
+                        )
+                        return@Column
                     }
                     if (d.niveau == NiveauSecheresse.AUCUNE) {
                         Text("Aucune restriction d'eau en vigueur à Cesson-Sévigné.", style = MaterialTheme.typography.bodyMedium)

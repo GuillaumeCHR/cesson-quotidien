@@ -26,6 +26,7 @@ import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import com.yogistudio.cesson.core.ui.CarteDonnee
+import com.yogistudio.cesson.core.ui.LocalCompact
 
 // La prise de rendez-vous se fait dans un module intégré à cette page de la ville (Synbird).
 const val URL_RDV_IDENTITE = "https://www.ville-cesson-sevigne.fr/carte-nationale-didentite-cni-et-passeport/"
@@ -50,12 +51,13 @@ fun CarteIdentite(modifier: Modifier = Modifier) {
     val uri = LocalUriHandler.current
     CarteDonnee("Carte d'identité et passeport", Icons.Rounded.Badge, modifier) {
         Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
-            Text("1. Faites la pré-demande en ligne, gratuite, sur le seul site officiel (ANTS).\n" +
+            val compact = LocalCompact.current  // compact : les deux boutons seulement
+            if (!compact) Text("1. Faites la pré-demande en ligne, gratuite, sur le seul site officiel (ANTS).\n" +
                 "2. Prenez rendez-vous à la mairie (Espace Citoyen) pour déposer le dossier et les empreintes.",
                 style = MaterialTheme.typography.bodyMedium)
             Lien("Prendre rendez-vous en mairie", principal = true) { runCatching { uri.openUri(URL_RDV_IDENTITE) } }
             Lien("Pré-demande sur ants.gouv.fr", principal = false) { runCatching { uri.openUri(URL_ANTS) } }
-            Text("Les mineurs viennent au rendez-vous ; dès 12 ans, aussi au retrait. Délais plus longs avant l'été. " +
+            if (!compact) Text("Les mineurs viennent au rendez-vous ; dès 12 ans, aussi au retrait. Délais plus longs avant l'été. " +
                 "Méfiez-vous des sites payants : la démarche est gratuite.",
                 style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
         }
@@ -70,13 +72,17 @@ fun CarteSignalement(modifier: Modifier = Modifier) {
     fun ouvrir(lien: String) { runCatching { uri.openUri(lien) } }
     CarteDonnee("Faire un signalement", Icons.Rounded.ReportProblem, modifier) {
         Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
-            Text("À la ville", style = MaterialTheme.typography.titleSmall, modifier = Modifier.semantics { heading() })
-            Text("Parcs, espaces verts et aires de jeux, élagage, chemins piétons, bâtiments publics, plaques de rue, propreté.",
+            // Compact : qui fait quoi en une ligne chacun, et les deux formulaires.
+            val compact = LocalCompact.current
+            if (!compact) Text("À la ville", style = MaterialTheme.typography.titleSmall, modifier = Modifier.semantics { heading() })
+            Text(if (compact) "Ville : parcs, aires de jeux, propreté, plaques de rue." else
+                "Parcs, espaces verts et aires de jeux, élagage, chemins piétons, bâtiments publics, plaques de rue, propreté.",
                 style = MaterialTheme.typography.bodySmall)
             Lien("Signaler à la ville", principal = true) { ouvrir(URL_SIGNALEMENT_VILLE) }
             HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
-            Text("À Rennes Métropole", style = MaterialTheme.typography.titleSmall, modifier = Modifier.semantics { heading() })
-            Text("Voirie (trou, barrière, ralentisseur), éclairage public, eau et assainissement, déchets.",
+            if (!compact) Text("À Rennes Métropole", style = MaterialTheme.typography.titleSmall, modifier = Modifier.semantics { heading() })
+            Text(if (compact) "Métropole : voirie, éclairage, eau, déchets." else
+                "Voirie (trou, barrière, ralentisseur), éclairage public, eau et assainissement, déchets.",
                 style = MaterialTheme.typography.bodySmall)
             FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 Lien("Formulaire de la Métropole", principal = false) { ouvrir(URL_SIGNALEMENT_METROPOLE) }
@@ -86,7 +92,7 @@ fun CarteSignalement(modifier: Modifier = Modifier) {
                     Text("02 23 62 10 10")
                 }
             }
-            Text("Par téléphone : 8h30-17h30 en semaine, 9h-12h30 le samedi. Aussi par l'application « Ici Rennes ».",
+            if (!compact) Text("Par téléphone : 8h30-17h30 en semaine, 9h-12h30 le samedi. Aussi par l'application « Ici Rennes ».",
                 style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
         }
     }

@@ -28,6 +28,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.yogistudio.cesson.core.donnees.EtatModule
 import com.yogistudio.cesson.core.ui.CarteDonnee
+import com.yogistudio.cesson.core.ui.LocalCompact
 import com.yogistudio.cesson.core.ui.Pastille
 import com.yogistudio.cesson.core.ui.Ton
 import com.yogistudio.cesson.core.ui.rememberMaintenant
@@ -59,9 +60,11 @@ fun CartePolice(etat: EtatModule<DonneesEquipements>, modifier: Modifier = Modif
                 OutlinedButton(onClick = { ouvrir("tel:17") }) { IconeAppel(); Text("17") }
                 OutlinedButton(onClick = { ouvrir("tel:112") }) { IconeAppel(); Text("112") }
             }
+            // Compact : l'urgence, l'accueil ouvert ou fermé et le numéro direct.
+            val compact = LocalCompact.current
             HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
-            Text("Hôtel des Polices", style = MaterialTheme.typography.titleSmall, modifier = Modifier.semantics { heading() })
-            Text("6 mail de Bourgchevreuil. Police municipale et police nationale au même endroit.",
+            if (!compact) Text("Hôtel des Polices", style = MaterialTheme.typography.titleSmall, modifier = Modifier.semantics { heading() })
+            if (!compact) Text("6 mail de Bourgchevreuil. Police municipale et police nationale au même endroit.",
                 style = MaterialTheme.typography.bodySmall)
             police?.espaces?.firstOrNull()?.let { accueil ->
                 val (pastille, precision) = etiquetteOuverture(ouverture(accueil, maintenant), maintenant)
@@ -70,17 +73,18 @@ fun CartePolice(etat: EtatModule<DonneesEquipements>, modifier: Modifier = Modif
                     precision?.let { Spacer(Modifier.width(8.dp)); Text(it, style = MaterialTheme.typography.bodyMedium) }
                 }
             }
-            Text("Du lundi au vendredi de 9h à 18h ; le samedi de 7h à 12h, police municipale seule.",
+            if (!compact) Text("Du lundi au vendredi de 9h à 18h ; le samedi de 7h à 12h, police municipale seule.",
                 style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
             FlowRow {
                 TextButton(onClick = { ouvrir("tel:0299835214") }) { IconeAppel(); Text("02 99 83 52 14") }
-                TextButton(onClick = { ouvrir("tel:0609357392") }) { IconeAppel(); Text("06 09 35 73 92") }
-                TextButton(onClick = { ouvrir("mailto:police.municipale@ville-cesson-sevigne.fr") }) {
+                if (!compact) TextButton(onClick = { ouvrir("tel:0609357392") }) { IconeAppel(); Text("06 09 35 73 92") }
+                if (!compact) TextButton(onClick = { ouvrir("mailto:police.municipale@ville-cesson-sevigne.fr") }) {
                     Icon(Icons.Rounded.Mail, contentDescription = null, modifier = Modifier.size(16.dp))
                     Spacer(Modifier.width(4.dp))
                     Text("Courriel")
                 }
             }
+            if (compact) return@Column
             Text("Police nationale : 02 57 87 10 05", style = MaterialTheme.typography.bodySmall)
             FlowRow {
                 TextButton(onClick = { ouvrir(URL_TRANQUILLITE_VACANCES) }) { Text("Surveillance pendant vos vacances") }

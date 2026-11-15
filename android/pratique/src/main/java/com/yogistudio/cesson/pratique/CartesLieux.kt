@@ -43,6 +43,7 @@ import com.yogistudio.cesson.core.donnees.EtatModule
 import com.yogistudio.cesson.core.modele.Coord
 import com.yogistudio.cesson.core.modele.Lieu
 import com.yogistudio.cesson.core.ui.CarteDonnee
+import com.yogistudio.cesson.core.ui.LocalCompact
 import com.yogistudio.cesson.core.ui.Pastille
 import com.yogistudio.cesson.core.ui.TexteBientot
 import com.yogistudio.cesson.core.ui.Ton
@@ -50,6 +51,10 @@ import com.yogistudio.cesson.core.ui.rememberMaintenant
 import java.net.URLEncoder
 
 private const val NB_REPLIE = 5
+
+/** Compact : les 3 premiers, sans adresse ni détail. */
+@Composable
+private fun nbReplie() = if (LocalCompact.current) 3 else NB_REPLIE
 
 /** Bouton « Les plus proches de moi » : la position reste sur le téléphone et ne sert qu'à trier la liste. */
 @Composable
@@ -104,7 +109,8 @@ fun CarteDefibrillateurs(
             Surface(color = MaterialTheme.colorScheme.errorContainer, contentColor = MaterialTheme.colorScheme.onErrorContainer,
                 shape = MaterialTheme.shapes.medium) {
                 Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                    Text("Arrêt cardiaque : appelez le 15 (ou le 112), massez, et faites apporter un défibrillateur. " +
+                    Text(if (LocalCompact.current) "Arrêt cardiaque : appelez le 15, massez." else
+                        "Arrêt cardiaque : appelez le 15 (ou le 112), massez, et faites apporter un défibrillateur. " +
                         "Il vous guide pas à pas.", style = MaterialTheme.typography.bodyMedium)
                     Button(
                         onClick = { runCatching { uri.openUri("tel:15") } },
@@ -122,7 +128,7 @@ fun CarteDefibrillateurs(
                 is EtatModule.Disponible -> {
                     val liste = parProximite(etat.fichier.donnees.defibrillateurs, position) { it.lieu }
                     BoutonProximite(position, rechercheEnCours, onDemanderPosition)
-                    (if (tout) liste else liste.take(NB_REPLIE)).forEachIndexed { i, (d, dist) ->
+                    (if (tout) liste else liste.take(nbReplie())).forEachIndexed { i, (d, dist) ->
                         if (i > 0) HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
                         LigneLieu(d.lieu, dist, itineraire) {
                             when {
@@ -132,7 +138,7 @@ fun CarteDefibrillateurs(
                             }
                         }
                     }
-                    if (liste.size > NB_REPLIE) {
+                    if (liste.size > nbReplie()) {
                         TextButton(onClick = { tout = !tout }) {
                             Text(if (tout) "Afficher moins" else "Tous les défibrillateurs (${liste.size})")
                         }
@@ -165,7 +171,7 @@ fun CarteBornes(
             CarteDonnee("Bornes de recharge", Icons.Rounded.ElectricCar, modifier, etat.fraicheur, maintenant) {
                 Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
                     BoutonProximite(position, rechercheEnCours, onDemanderPosition)
-                    (if (tout) liste else liste.take(NB_REPLIE)).forEachIndexed { i, (s, dist) ->
+                    (if (tout) liste else liste.take(nbReplie())).forEachIndexed { i, (s, dist) ->
                         if (i > 0) HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
                         LigneLieu(s.lieu, dist, itineraire, sousTitre = listOfNotNull(
                             s.enseigne?.takeIf { e -> !s.lieu.nom.contains(e, ignoreCase = true) },
@@ -177,12 +183,12 @@ fun CarteBornes(
                             if (s.gratuit) Pastille("Gratuit", Ton.OUVERT)
                         }
                     }
-                    if (liste.size > NB_REPLIE) {
+                    if (liste.size > nbReplie()) {
                         TextButton(onClick = { tout = !tout }) {
                             Text(if (tout) "Afficher moins" else "Toutes les stations (${liste.size})")
                         }
                     }
-                    Text("Disponibilité en temps réel non publiée en open data : vérifiez dans l'app de l'opérateur.",
+                    if (!LocalCompact.current) Text("Disponibilité en temps réel non publiée en open data : vérifiez dans l'app de l'opérateur.",
                         style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 }
             }
@@ -214,10 +220,11 @@ private fun LigneLieu(
             Text(lieu.nom, style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold), modifier = Modifier.weight(1f))
             distance?.let { Text(formaterDistance(it), style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.primary) }
         }
-        lieu.adresse?.takeIf { it != lieu.nom }?.let {
+        val compact = LocalCompact.current
+        if (!compact) lieu.adresse?.takeIf { it != lieu.nom }?.let {
             Text(it, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
         }
-        sousTitre?.takeIf { it.isNotBlank() }?.let { Text(it, style = MaterialTheme.typography.bodySmall) }
+        if (!compact) sousTitre?.takeIf { it.isNotBlank() }?.let { Text(it, style = MaterialTheme.typography.bodySmall) }
         FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) { pastilles() }
     }
 }

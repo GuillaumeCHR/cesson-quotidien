@@ -79,18 +79,18 @@ fun EcranReglages(app: CessonApp) {
                 }
             }
         }
-        val detaille by app.preferences.accueilDetaille.collectAsStateWithLifecycle(false)
-        CarteDonnee("Cartes de l'accueil", Icons.Rounded.ViewAgenda) {
+        val detaille by app.preferences.cartesDetaillees.collectAsStateWithLifecycle(false)
+        CarteDonnee("Cartes", Icons.Rounded.ViewAgenda) {
             Column(Modifier.selectableGroup()) {
                 listOf(
                     Triple(false, "Compactes", "L'essentiel d'un coup d'œil : moins de détails, moins de défilement"),
-                    Triple(true, "Détaillées", "Toutes les informations, comme dans les autres onglets"),
+                    Triple(true, "Détaillées", "Toutes les informations, sur tous les écrans"),
                 ).forEach { (valeur, libelle, aide) ->
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
                         modifier = Modifier.fillMaxWidth()
                             .selectable(selected = detaille == valeur, role = Role.RadioButton) {
-                                portee.launch { app.preferences.enregistrerAccueilDetaille(valeur) }
+                                portee.launch { app.preferences.enregistrerCartesDetaillees(valeur) }
                             }
                             .padding(vertical = 6.dp),
                     ) {

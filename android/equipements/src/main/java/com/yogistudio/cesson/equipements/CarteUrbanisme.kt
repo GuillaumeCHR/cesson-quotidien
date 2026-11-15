@@ -29,6 +29,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import com.yogistudio.cesson.core.donnees.EtatModule
 import com.yogistudio.cesson.core.ui.CarteDonnee
+import com.yogistudio.cesson.core.ui.LocalCompact
 import com.yogistudio.cesson.core.ui.Pastille
 import com.yogistudio.cesson.core.ui.Ton
 import com.yogistudio.cesson.core.ui.rememberMaintenant
@@ -63,14 +64,16 @@ fun CarteUrbanisme(etat: EtatModule<DonneesEquipements>, modifier: Modifier = Mo
     val service = (etat as? EtatModule.Disponible)?.fichier?.donnees?.equipements?.firstOrNull { it.lieu.id == SERVICE_URBANISME }
     CarteDonnee("Urbanisme", Icons.Rounded.HomeWork, modifier, maintenant = maintenant) {
         Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
-            Text("Permis de construire, déclaration préalable : les demandes se déposent en ligne, sur le service de la ville.",
+            if (!LocalCompact.current) Text("Permis de construire, déclaration préalable : les demandes se déposent en ligne, sur le service de la ville.",
                 style = MaterialTheme.typography.bodyMedium)
             Button(onClick = { runCatching { uri.openUri(URL_DEPOT_URBANISME) } }) {
                 Text("Déposer une demande en ligne")
                 Spacer(Modifier.width(6.dp))
                 Icon(Icons.AutoMirrored.Rounded.OpenInNew, contentDescription = null, modifier = Modifier.size(16.dp))
             }
-            (if (details) AUTORISATIONS else AUTORISATIONS.take(2)).forEach { (nom, quand) ->
+            // Compact : le dépôt en ligne et le service (ouvert ou fermé, téléphone) ; les autorisations en détaillé.
+            val compact = LocalCompact.current
+            if (!compact) (if (details) AUTORISATIONS else AUTORISATIONS.take(2)).forEach { (nom, quand) ->
                 Column {
                     Text(nom, style = MaterialTheme.typography.titleSmall, modifier = Modifier.semantics { heading() })
                     Text(quand, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
@@ -80,10 +83,10 @@ fun CarteUrbanisme(etat: EtatModule<DonneesEquipements>, modifier: Modifier = Mo
                 Text("À savoir", style = MaterialTheme.typography.titleSmall, modifier = Modifier.semantics { heading() })
                 A_SAVOIR.forEach { Text("• $it", style = MaterialTheme.typography.bodySmall) }
             }
-            TextButton(onClick = { details = !details }) { Text(if (details) "Afficher moins" else "Les quatre autorisations et ce qu'il faut savoir") }
+            if (!compact) TextButton(onClick = { details = !details }) { Text(if (details) "Afficher moins" else "Les quatre autorisations et ce qu'il faut savoir") }
             HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
             Text("Service urbanisme", style = MaterialTheme.typography.titleSmall, modifier = Modifier.semantics { heading() })
-            Text("Mairie annexe, 1 place de la Chalotais. Dépôt papier possible aux heures d'ouverture.",
+            if (!compact) Text("Mairie annexe, 1 place de la Chalotais. Dépôt papier possible aux heures d'ouverture.",
                 style = MaterialTheme.typography.bodySmall)
             service?.espaces?.firstOrNull()?.let { accueil ->
                 val (pastille, precision) = etiquetteOuverture(ouverture(accueil, maintenant), maintenant)
@@ -98,7 +101,7 @@ fun CarteUrbanisme(etat: EtatModule<DonneesEquipements>, modifier: Modifier = Mo
                     Spacer(Modifier.width(4.dp))
                     Text("02 99 83 52 00")
                 }
-                TextButton(onClick = { runCatching { uri.openUri(URL_PAGE_URBANISME) } }) { Text("Page de la ville") }
+                if (!compact) TextButton(onClick = { runCatching { uri.openUri(URL_PAGE_URBANISME) } }) { Text("Page de la ville") }
             }
         }
     }

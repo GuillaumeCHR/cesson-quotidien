@@ -25,6 +25,7 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import com.yogistudio.cesson.core.donnees.EtatModule
 import com.yogistudio.cesson.core.ui.CarteDonnee
+import com.yogistudio.cesson.core.ui.LocalCompact
 import com.yogistudio.cesson.core.ui.FuseauCesson
 import com.yogistudio.cesson.core.ui.rememberMaintenant
 import java.time.format.DateTimeFormatter
@@ -49,8 +50,10 @@ fun CarteBilletterie(etat: EtatModule<DonneesAgenda>, modifier: Modifier = Modif
         agendaParJour(d, "carre_sevigne", aujourdhui).flatMap { (jour, evts) -> evts.map { jour to it } }.take(SPECTACLES_AFFICHES)
     }.orEmpty()
     CarteDonnee("Billetterie spectacles", Icons.Rounded.TheaterComedy, modifier, maintenant = maintenant) {
+        // Compact : le bouton et les deux prochains spectacles.
+        val compact = LocalCompact.current
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            Text("Saison culturelle du Carré Sévigné et du Pont des Arts : places en vente en ligne.",
+            if (!compact) Text("Saison culturelle du Carré Sévigné et du Pont des Arts : places en vente en ligne.",
                 style = MaterialTheme.typography.bodyMedium)
             Button(onClick = { ouvrir(URL_BILLETTERIE) }) {
                 Text("Réserver des places")
@@ -60,7 +63,7 @@ fun CarteBilletterie(etat: EtatModule<DonneesAgenda>, modifier: Modifier = Modif
             if (prochains.isNotEmpty()) {
                 HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
                 Text("Prochains spectacles", style = MaterialTheme.typography.titleSmall)
-                prochains.forEach { (jour, e) ->
+                (if (compact) prochains.take(2) else prochains).forEach { (jour, e) ->
                     Row(
                         Modifier.fillMaxWidth().clickable(role = Role.Button, onClickLabel = "Voir le spectacle") { ouvrir(e.lien) }
                             .padding(vertical = 4.dp),
@@ -70,7 +73,7 @@ fun CarteBilletterie(etat: EtatModule<DonneesAgenda>, modifier: Modifier = Modif
                             modifier = Modifier.width(84.dp).padding(top = 2.dp))
                         Column(Modifier.weight(1f)) {
                             Text(e.titre, style = MaterialTheme.typography.bodyMedium)
-                            listOfNotNull(e.horaires, e.lieu).takeIf { it.isNotEmpty() }?.let {
+                            if (!compact) listOfNotNull(e.horaires, e.lieu).takeIf { it.isNotEmpty() }?.let {
                                 Text(it.joinToString(" · "), style = MaterialTheme.typography.bodySmall,
                                     color = MaterialTheme.colorScheme.onSurfaceVariant)
                             }
@@ -78,7 +81,7 @@ fun CarteBilletterie(etat: EtatModule<DonneesAgenda>, modifier: Modifier = Modif
                     }
                 }
             }
-            TextButton(onClick = { ouvrir(URL_SAISON) }) { Text("Toute la saison culturelle") }
+            if (!compact) TextButton(onClick = { ouvrir(URL_SAISON) }) { Text("Toute la saison culturelle") }
         }
     }
 }

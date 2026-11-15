@@ -35,8 +35,8 @@ import com.yogistudio.cesson.core.donnees.Fraicheur
 import java.time.Instant
 
 /**
- * Accueil en mode compact (réglage « Cartes de l'accueil ») : chaque carte n'y garde que l'essentiel, et la ligne
- * « Mis à jour… » ne s'affiche que si les données sont anciennes. Fourni par l'écran d'accueil seulement.
+ * Cartes compactes (réglage « Cartes », par défaut) : chaque carte ne garde que l'essentiel, et la ligne
+ * « Mis à jour… » ne s'affiche que si les données sont anciennes. Fourni par les écrans à onglets (EcranTuiles).
  */
 val LocalCompact = staticCompositionLocalOf { false }
 
