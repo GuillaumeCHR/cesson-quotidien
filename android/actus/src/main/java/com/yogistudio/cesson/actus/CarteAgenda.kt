@@ -1,5 +1,6 @@
 package com.yogistudio.cesson.actus
 
+import java.time.LocalDate
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
@@ -61,8 +62,28 @@ fun CarteAgenda(etat: EtatModule<DonneesAgenda>, modifier: Modifier = Modifier) 
             val filtres = FILTRES_AGENDA.filter { (id, _) -> id == null || d.evenements.any { !it.saison && it.famille == id } }
             val jours = agendaParJour(d, theme, aujourdhui)
             CarteDonnee("Agenda", Icons.Rounded.Event, modifier, etat.fraicheur, maintenant) {
-                // Compact : deux jours, titre, heure et lieu ; ni filtres ni conditions.
+                // Compact : les 4 prochains événements, une ligne chacun (jour, titre) ; ni filtres, ni lieux, ni conditions.
                 val compact = LocalCompact.current
+                if (compact) {
+                    val uri = LocalUriHandler.current
+                    Column {
+                        if (jours.isEmpty()) TexteBientot("Aucun événement à venir.")
+                        jours.flatMap { (jour, evts) -> evts.map { jour to it } }.take(4).forEach { (jour, e) ->
+                            Row(
+                                Modifier.fillMaxWidth()
+                                    .clickable(role = Role.Button, onClickLabel = "Voir l'événement") { runCatching { uri.openUri(e.lien) } }
+                                    .padding(vertical = 5.dp),
+                                verticalAlignment = Alignment.CenterVertically,
+                            ) {
+                                Text(jourCourt(jour, aujourdhui), style = MaterialTheme.typography.labelLarge,
+                                    color = MaterialTheme.colorScheme.primary, modifier = Modifier.width(72.dp))
+                                Text(e.titre, style = MaterialTheme.typography.bodyMedium, maxLines = 1,
+                                    overflow = TextOverflow.Ellipsis, modifier = Modifier.weight(1f))
+                            }
+                        }
+                    }
+                    return@CarteDonnee
+                }
                 Column(verticalArrangement = Arrangement.spacedBy(if (compact) 4.dp else 8.dp)) {
                     if (!compact && filtres.size > 1) {
                         Row(Modifier.horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -114,4 +135,12 @@ private fun LigneEvenement(e: Evenement, details: Boolean = true) {
             Pastille(it, if (it.contains("libre", ignoreCase = true) || it.contains("gratuit", ignoreCase = true)) Ton.OUVERT else Ton.NEUTRE)
         }
     }
+}
+
+/** « Auj. », « Demain », « Sam. 21 » : le jour en quelques lettres, pour la version compacte. */
+fun jourCourt(jour: LocalDate, aujourdhui: LocalDate): String = when (jour) {
+    aujourdhui -> "Auj."
+    aujourdhui.plusDays(1) -> "Demain"
+    else -> java.time.format.DateTimeFormatter.ofPattern("EEE d", java.util.Locale.FRENCH).format(jour)
+        .replaceFirstChar { it.uppercase() }
 }

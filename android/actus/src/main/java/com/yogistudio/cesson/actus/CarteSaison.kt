@@ -1,5 +1,7 @@
 package com.yogistudio.cesson.actus
 
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.Alignment
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -75,8 +77,17 @@ fun CarteSaison(etat: EtatModule<DonneesAgenda>, modifier: Modifier = Modifier) 
                             style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.primary,
                             modifier = Modifier.width(84.dp).padding(top = 2.dp))
                         Column(Modifier.weight(1f)) {
-                            Text(titreSpectacle(e.titre), style = MaterialTheme.typography.titleSmall)
-                            e.categorie?.let { Pastille(it, Ton.INFO) }
+                            if (compact) {
+                                // Compact : une ligne, le titre puis le genre à sa droite.
+                                Row(verticalAlignment = Alignment.CenterVertically) {
+                                    Text(titreSpectacle(e.titre), style = MaterialTheme.typography.titleSmall, maxLines = 1,
+                                        overflow = TextOverflow.Ellipsis, modifier = Modifier.weight(1f, fill = false))
+                                    e.categorie?.let { Spacer(Modifier.width(8.dp)); Pastille(it, Ton.INFO) }
+                                }
+                            } else {
+                                Text(titreSpectacle(e.titre), style = MaterialTheme.typography.titleSmall)
+                                e.categorie?.let { Pastille(it, Ton.INFO) }
+                            }
                             if (!compact) listOfNotNull(e.horaires, e.lieu).takeIf { it.isNotEmpty() }?.let {
                                 Text(it.joinToString(" · "), style = MaterialTheme.typography.bodySmall,
                                     color = MaterialTheme.colorScheme.onSurfaceVariant)
