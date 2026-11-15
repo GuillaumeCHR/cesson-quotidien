@@ -1,73 +1,31 @@
 package com.yogistudio.cesson.ui
 
-import androidx.compose.foundation.gestures.detectTapGestures
-import androidx.compose.foundation.layout.Box
-import androidx.compose.material.icons.rounded.Tune
-import androidx.compose.material.icons.rounded.VisibilityOff
-import androidx.compose.material3.DropdownMenu
-import androidx.compose.material3.DropdownMenuItem
-import androidx.compose.material3.SnackbarDuration
-import androidx.compose.material3.SnackbarHost
-import androidx.compose.material3.SnackbarHostState
-import androidx.compose.material3.SnackbarResult
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.hapticfeedback.HapticFeedbackType
-import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.platform.LocalHapticFeedback
-import androidx.compose.ui.semantics.CustomAccessibilityAction
-import androidx.compose.ui.semantics.customActions
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Air
-import androidx.compose.material.icons.rounded.CloudOff
+import androidx.compose.material.icons.rounded.Celebration
 import androidx.compose.material.icons.rounded.DeleteOutline
 import androidx.compose.material.icons.rounded.DirectionsBus
-import androidx.compose.material.icons.rounded.KeyboardArrowDown
-import androidx.compose.material.icons.rounded.KeyboardArrowUp
 import androidx.compose.material.icons.rounded.LocalGasStation
 import androidx.compose.material.icons.rounded.Pool
+import androidx.compose.material.icons.rounded.Recycling
 import androidx.compose.material.icons.rounded.Train
+import androidx.compose.material.icons.rounded.VolunteerActivism
 import androidx.compose.material.icons.rounded.Water
 import androidx.compose.material.icons.rounded.WbCloudy
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
-import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.semantics.stateDescription
-import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.yogistudio.cesson.CessonApp
 import com.yogistudio.cesson.core.donnees.EtatModule
-import com.yogistudio.cesson.core.preferences.ConfigAccueil
-import com.yogistudio.cesson.core.preferences.deplacer
-import com.yogistudio.cesson.core.preferences.ordonnerTuiles
+import com.yogistudio.cesson.core.preferences.ACCUEIL
 import com.yogistudio.cesson.core.ui.CarteDonnee
 import com.yogistudio.cesson.core.ui.TexteBientot
 import com.yogistudio.cesson.eau.BandeauCrue
@@ -78,57 +36,57 @@ import com.yogistudio.cesson.eau.vilaine
 import com.yogistudio.cesson.environnement.CarteMeteo
 import com.yogistudio.cesson.environnement.meteo
 import com.yogistudio.cesson.equipements.CarteEquipements
+import com.yogistudio.cesson.equipements.DECHETERIE
 import com.yogistudio.cesson.equipements.Equipement
 import com.yogistudio.cesson.equipements.equipements
 import com.yogistudio.cesson.pratique.CarteCarburants
 import com.yogistudio.cesson.pratique.CarteCollecte
+import com.yogistudio.cesson.pratique.carburants
 import com.yogistudio.cesson.pratique.collecte
 import com.yogistudio.cesson.rappels.ReglageRappelCollecte
-import com.yogistudio.cesson.pratique.carburants
 import com.yogistudio.cesson.transport.CarteDeparts
 import com.yogistudio.cesson.transport.CarteMonArret
 import com.yogistudio.cesson.transport.CarteTrains
-import com.yogistudio.cesson.transport.trains
 import com.yogistudio.cesson.transport.lignesStar
+import com.yogistudio.cesson.transport.trains
 import kotlinx.coroutines.launch
 
-/**
- * Tuiles de l'accueil. L'utilisateur les ordonne et les masque (écran Personnaliser) ; le choix
- * reste sur le téléphone. Chaque nouveau module ajoute sa tuile ici : elle apparaît à la fin de
- * l'accueil des utilisateurs existants, sans effacer leur ordre.
- */
-data class Tuile(
-    val id: String,
-    val titre: String,
-    val icone: ImageVector,
-    val contenu: @Composable (CessonApp) -> Unit,
-)
+// --- Cartes, partagées entre les onglets -----------------------------------------------------
 
-val TUILES: List<Tuile> = listOf(
-    Tuile("meteo", "Météo", Icons.Rounded.WbCloudy) { app ->
-        val etat by remember(app) { app.depot.meteo() }.collectAsStateWithLifecycle(EtatModule.Absent)
-        CarteMeteo(etat)
-    },
-    Tuile("vilaine", "La Vilaine", Icons.Rounded.Water) { app ->
-        val etat by remember(app) { app.depot.vilaine() }.collectAsStateWithLifecycle(EtatModule.Absent)
-        val vigilance by remember(app) { app.depot.vigicrues() }.collectAsStateWithLifecycle(EtatModule.Absent)
-        CarteVilaine(etat, vigilance)
-    },
-    Tuile("arrets", "Prochains départs à Cesson-ViaSilva", Icons.Rounded.DirectionsBus) { app -> DepartsViaSilva(app) },
-    Tuile("mon_arret", "Mon arrêt", Icons.Rounded.DirectionsBus) { app -> MonArret(app) },
-    Tuile("trains", "Halte de Cesson-Sévigné", Icons.Rounded.Train) { app -> TrainsHalte(app) },
-    Tuile("collecte", "Ma collecte", Icons.Rounded.DeleteOutline) { app -> CollecteCesson(app) },
-    Tuile("equipements", "Mes équipements", Icons.Rounded.Pool) { app -> EquipementsCesson(app) },
-    Tuile("carburants", "Carburants", Icons.Rounded.LocalGasStation) { app ->
-        val etat by remember(app) { app.depot.carburants() }.collectAsStateWithLifecycle(EtatModule.Absent)
-        val suivi by app.preferences.carburantSuivi.collectAsStateWithLifecycle(null)
-        val portee = rememberCoroutineScope()
-        CarteCarburants(etat, suivi, onChoisir = { portee.launch { app.preferences.enregistrerCarburant(it) } })
-    },
-    Tuile("air", "Qualité de l'air", Icons.Rounded.Air) {
-        CarteBientot("Qualité de l'air", Icons.Rounded.Air, "Indice ATMO du jour, bientôt ici.")
-    },
-)
+private val METEO = Tuile("meteo", "Météo", Icons.Rounded.WbCloudy) { app ->
+    val etat by remember(app) { app.depot.meteo() }.collectAsStateWithLifecycle(EtatModule.Absent)
+    CarteMeteo(etat)
+}
+private val VILAINE = Tuile("vilaine", "La Vilaine", Icons.Rounded.Water) { app ->
+    val etat by remember(app) { app.depot.vilaine() }.collectAsStateWithLifecycle(EtatModule.Absent)
+    val vigilance by remember(app) { app.depot.vigicrues() }.collectAsStateWithLifecycle(EtatModule.Absent)
+    CarteVilaine(etat, vigilance)
+}
+private val VIASILVA = Tuile("arrets", "Prochains départs à Cesson-ViaSilva", Icons.Rounded.DirectionsBus) { DepartsViaSilva(it) }
+private val MON_ARRET = Tuile("mon_arret", "Mon arrêt", Icons.Rounded.DirectionsBus) { MonArret(it) }
+private val TRAINS = Tuile("trains", "Halte de Cesson-Sévigné", Icons.Rounded.Train) { TrainsHalte(it) }
+private val COLLECTE = Tuile("collecte", "Ma collecte", Icons.Rounded.DeleteOutline) { CollecteCesson(it) }
+private val MES_EQUIPEMENTS = Tuile("equipements", "Mes équipements", Icons.Rounded.Pool) { MesEquipements(it) }
+private val CARBURANTS = Tuile("carburants", "Carburants", Icons.Rounded.LocalGasStation) { CarburantsCesson(it) }
+private val AIR = Tuile("air", "Qualité de l'air", Icons.Rounded.Air) {
+    CarteBientot("Qualité de l'air", Icons.Rounded.Air, "Indice ATMO du jour, bientôt ici.")
+}
+private val EQUIPEMENTS_LOISIRS = Tuile("equipements", "Équipements", Icons.Rounded.Pool) { app ->
+    EquipementsCesson(app, titre = "Équipements") { it.lieu.id != DECHETERIE }
+}
+private val DECHETERIE_TUILE = Tuile("decheterie", "Déchèterie", Icons.Rounded.Recycling) { app ->
+    EquipementsCesson(app, titre = "Déchèterie") { it.lieu.id == DECHETERIE }
+}
+
+val ONGLET_ACCUEIL = OngletTuiles(ACCUEIL, "l'accueil",
+    listOf(METEO, VILAINE, VIASILVA, MON_ARRET, TRAINS, COLLECTE, MES_EQUIPEMENTS, CARBURANTS, AIR))
+val ONGLET_BOUGER = OngletTuiles("bouger", "l'onglet Bouger", listOf(VIASILVA, TRAINS, MON_ARRET, CARBURANTS))
+val ONGLET_SORTIR = OngletTuiles("sortir", "l'onglet Sortir", listOf(EQUIPEMENTS_LOISIRS))
+val ONGLET_PRATIQUE = OngletTuiles("pratique", "l'onglet Pratique", listOf(COLLECTE, DECHETERIE_TUILE))
+
+val ONGLETS_PERSONNALISABLES = listOf(ONGLET_ACCUEIL, ONGLET_BOUGER, ONGLET_SORTIR, ONGLET_PRATIQUE)
+
+// --- Branchement des cartes sur les données et les préférences --------------------------------
 
 /** Carte des prochains départs, avec les couleurs des lignes publiées par notre backend. */
 @Composable
@@ -143,10 +101,25 @@ fun EquipementsCesson(app: CessonApp, titre: String = "Mes équipements", garder
     CarteEquipements(etat, titre = titre, garder = garder)
 }
 
+/** « Mes équipements » de l'accueil : sans ceux que l'utilisateur a retirés (guide de démarrage). */
+@Composable
+fun MesEquipements(app: CessonApp) {
+    val masques by app.preferences.equipementsMasques.collectAsStateWithLifecycle(emptySet())
+    EquipementsCesson(app) { it.lieu.id !in masques }
+}
+
 @Composable
 fun CollecteCesson(app: CessonApp) {
     val etat by remember(app) { app.depot.collecte() }.collectAsStateWithLifecycle(EtatModule.Absent)
     CarteCollecte(etat, reglageRappel = { ReglageRappelCollecte(app) })
+}
+
+@Composable
+fun CarburantsCesson(app: CessonApp) {
+    val etat by remember(app) { app.depot.carburants() }.collectAsStateWithLifecycle(EtatModule.Absent)
+    val suivi by app.preferences.carburantSuivi.collectAsStateWithLifecycle(null)
+    val portee = rememberCoroutineScope()
+    CarteCarburants(etat, suivi, onChoisir = { portee.launch { app.preferences.enregistrerCarburant(it) } })
 }
 
 /** Trains à la halte : données du backend, relues toutes les 2 min tant que la carte est visible. */
@@ -170,199 +143,49 @@ fun MonArret(app: CessonApp) {
 private fun CarteBientot(titre: String, icone: ImageVector, texte: String) =
     CarteDonnee(titre, icone) { TexteBientot(texte) }
 
-@OptIn(ExperimentalMaterial3Api::class)
+/** Liste « bientôt dans cet onglet », en bas des onglets dont les modules arrivent plus tard. */
+@Composable
+fun CarteAVenir(icone: ImageVector, lignes: List<String>) {
+    CarteDonnee("Bientôt dans cet onglet", icone) {
+        Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
+            lignes.forEach { Text("• $it", style = MaterialTheme.typography.bodyMedium) }
+        }
+    }
+}
+
+// --- Écrans des onglets ----------------------------------------------------------------------
+
 @Composable
 fun EcranAujourdhui(app: CessonApp, onPersonnaliser: () -> Unit) {
-    val portee = rememberCoroutineScope()
-    val config by app.preferences.configAccueil.collectAsState(initial = null)
-    val bandeauVu by app.preferences.bandeauNonOfficielVu.collectAsState(initial = true)
-    val enCours by app.depot.rafraichissementEnCours.collectAsStateWithLifecycle()
-    val erreur by app.depot.derniereErreur.collectAsStateWithLifecycle()
-    val messages = remember { SnackbarHostState() }
     val vigilance by remember(app) { app.depot.vigicrues() }.collectAsStateWithLifecycle(EtatModule.Absent)
-    val cfg = config ?: return
-    val visibles = ordonnerTuiles(TUILES.map { it.id }, cfg.ordre)
-        .filter { it !in cfg.masquees }
-        .mapNotNull { id -> TUILES.firstOrNull { it.id == id } }
-
-    PullToRefreshBox(
-        isRefreshing = enCours,
-        onRefresh = { portee.launch { app.depot.rafraichir() } },
-        modifier = Modifier.fillMaxSize(),
-    ) {
-        LazyColumn(
-            contentPadding = PaddingValues(16.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp),
-            modifier = Modifier.fillMaxSize(),
-        ) {
-            // Vigilance crues jaune ou plus : toujours en tête, hors des tuiles personnalisables.
-            if (vigilance.enAlerte()) item("crue") { BandeauCrue(vigilance) }
-            if (!bandeauVu) {
-                item("bandeau") { BandeauNonOfficiel { portee.launch { app.preferences.marquerBandeauVu() } } }
-            }
-            if (erreur != null && !enCours) {
-                item("hors-ligne") {
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Icon(Icons.Rounded.CloudOff, contentDescription = null,
-                            tint = MaterialTheme.colorScheme.onSurfaceVariant)
-                        Spacer(Modifier.width(8.dp))
-                        Text("Hors connexion : dernières données reçues affichées.",
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant)
-                    }
-                }
-            }
-            items(visibles, key = { it.id }) { tuile ->
-                TuileMasquable(
-                    tuile = tuile,
-                    app = app,
-                    onMasquer = {
-                        val avant = cfg
-                        val ordre = ordonnerTuiles(TUILES.map { it.id }, cfg.ordre)
-                        portee.launch {
-                            app.preferences.enregistrerAccueil(ConfigAccueil(ordre, cfg.masquees + tuile.id))
-                            val r = messages.showSnackbar("Carte « ${tuile.titre} » masquée", actionLabel = "Annuler",
-                                duration = SnackbarDuration.Long)
-                            if (r == SnackbarResult.ActionPerformed) app.preferences.enregistrerAccueil(avant)
-                        }
-                    },
-                    onPersonnaliser = onPersonnaliser,
-                )
-            }
-            if (visibles.isEmpty()) {
-                item("vide") {
-                    Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.fillMaxWidth()) {
-                        Text("Toutes les tuiles sont masquées.", style = MaterialTheme.typography.bodyLarge)
-                        TextButton(onClick = onPersonnaliser) { Text("Personnaliser l'accueil") }
-                    }
-                }
-            }
-        }
-        SnackbarHost(messages, Modifier.align(Alignment.BottomCenter))
-    }
+    EcranTuiles(app, ONGLET_ACCUEIL, onPersonnaliser, entete = {
+        // Vigilance crues jaune ou plus : toujours en tête, hors des cartes personnalisables.
+        if (vigilance.enAlerte()) item("crue") { BandeauCrue(vigilance) }
+    })
 }
 
-/**
- * Appui long sur une carte : menu « Masquer cette carte » / « Personnaliser l'accueil ».
- * Les mêmes actions sont proposées à TalkBack (menu des actions), l'appui long n'y étant pas
- * découvrable. Les boutons de la carte (« Signaler une erreur »…) gardent leur propre clic.
- */
 @Composable
-private fun TuileMasquable(tuile: Tuile, app: CessonApp, onMasquer: () -> Unit, onPersonnaliser: () -> Unit) {
-    var menu by remember { mutableStateOf(false) }
-    val haptique = LocalHapticFeedback.current
-    Box(
-        Modifier
-            .pointerInput(tuile.id) {
-                detectTapGestures(onLongPress = {
-                    haptique.performHapticFeedback(HapticFeedbackType.LongPress)
-                    menu = true
-                })
-            }
-            .semantics {
-                customActions = listOf(
-                    CustomAccessibilityAction("Masquer cette carte") { onMasquer(); true },
-                    CustomAccessibilityAction("Personnaliser l'accueil") { onPersonnaliser(); true },
-                )
-            },
-    ) {
-        tuile.contenu(app)
-        DropdownMenu(expanded = menu, onDismissRequest = { menu = false }) {
-            DropdownMenuItem(
-                text = { Text("Masquer cette carte") },
-                leadingIcon = { Icon(Icons.Rounded.VisibilityOff, contentDescription = null) },
-                onClick = { menu = false; onMasquer() },
-            )
-            DropdownMenuItem(
-                text = { Text("Personnaliser l'accueil") },
-                leadingIcon = { Icon(Icons.Rounded.Tune, contentDescription = null) },
-                onClick = { menu = false; onPersonnaliser() },
-            )
-        }
-    }
-}
+fun EcranBouger(app: CessonApp, onPersonnaliser: () -> Unit) =
+    EcranTuiles(app, ONGLET_BOUGER, onPersonnaliser, pied = {
+        item("a-venir") { CarteAVenir(Icons.Rounded.DirectionsBus, listOf("Vélos en libre-service et parcs-relais", "Bornes de recharge")) }
+    })
 
-/** Montré au premier lancement : statut non officiel et promesse Yogi Studio. */
 @Composable
-private fun BandeauNonOfficiel(onCompris: () -> Unit) {
-    Card(colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer)) {
-        Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            Text("Bienvenue", style = MaterialTheme.typography.titleMedium)
-            Text(
-                "Cette application non officielle rassemble des données publiques sur Cesson-Sévigné. " +
-                    "Elle n'est éditée ni par la Ville ni par Rennes Métropole.",
-                style = MaterialTheme.typography.bodyMedium,
-            )
-            Text(PROMESSE, style = MaterialTheme.typography.bodyMedium.copy(fontWeight = MaterialTheme.typography.titleSmall.fontWeight))
-            Text(
-                "Réorganisez l'accueil avec le bouton de réglage, en haut à droite.",
-                style = MaterialTheme.typography.bodyMedium,
-            )
-            TextButton(onClick = onCompris, modifier = Modifier.align(Alignment.End)) { Text("J'ai compris") }
+fun EcranSortir(app: CessonApp, onPersonnaliser: () -> Unit) =
+    EcranTuiles(app, ONGLET_SORTIR, onPersonnaliser, pied = {
+        item("a-venir") {
+            CarteAVenir(Icons.Rounded.Celebration, listOf("Spectacles du Carré Sévigné", "Cinéma Le Sévigné",
+                "Programme de la médiathèque", "Pont des Arts et Galerie Pictura"))
         }
-    }
-}
+    })
+
+@Composable
+fun EcranPratique(app: CessonApp, onPersonnaliser: () -> Unit) =
+    EcranTuiles(app, ONGLET_PRATIQUE, onPersonnaliser, pied = {
+        item("a-venir") {
+            CarteAVenir(Icons.Rounded.VolunteerActivism, listOf("Demandes d'urbanisme", "Défibrillateurs",
+                "Accessibilité des lieux publics", "Bornes de recharge"))
+        }
+    })
 
 const val PROMESSE = "Aucun compte, aucune publicité, aucune donnée collectée."
-
-/**
- * Personnaliser l'accueil : monter, descendre, afficher ou masquer chaque tuile. Des boutons
- * plutôt qu'un glisser-déposer : ils fonctionnent tels quels avec TalkBack et au clavier.
- */
-@Composable
-fun EcranPersonnaliser(app: CessonApp) {
-    val portee = rememberCoroutineScope()
-    val config by app.preferences.configAccueil.collectAsState(initial = null)
-    val cfg = config ?: return
-    val ordre = ordonnerTuiles(TUILES.map { it.id }, cfg.ordre)
-
-    fun enregistrer(c: ConfigAccueil) = portee.launch { app.preferences.enregistrerAccueil(c) }
-
-    LazyColumn(contentPadding = PaddingValues(vertical = 8.dp)) {
-        item {
-            Text(
-                "Choisissez les tuiles affichées sur l'accueil et leur ordre. Ce réglage reste sur votre téléphone.",
-                style = MaterialTheme.typography.bodyMedium,
-                modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
-            )
-        }
-        items(ordre, key = { it }) { id ->
-            val tuile = TUILES.first { it.id == id }
-            val visible = id !in cfg.masquees
-            val index = ordre.indexOf(id)
-            ListItem(
-                headlineContent = { Text(tuile.titre) },
-                supportingContent = { Text(if (visible) "Affichée" else "Masquée") },
-                leadingContent = { Icon(tuile.icone, contentDescription = null) },
-                trailingContent = {
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        IconButton(enabled = index > 0,
-                            onClick = { enregistrer(cfg.copy(ordre = deplacer(ordre, id, -1))) }) {
-                            Icon(Icons.Rounded.KeyboardArrowUp, contentDescription = "Monter ${tuile.titre}")
-                        }
-                        IconButton(enabled = index < ordre.lastIndex,
-                            onClick = { enregistrer(cfg.copy(ordre = deplacer(ordre, id, +1))) }) {
-                            Icon(Icons.Rounded.KeyboardArrowDown, contentDescription = "Descendre ${tuile.titre}")
-                        }
-                        Switch(
-                            checked = visible,
-                            onCheckedChange = { afficher ->
-                                val m = if (afficher) cfg.masquees - id else cfg.masquees + id
-                                enregistrer(ConfigAccueil(ordre, m))
-                            },
-                            modifier = Modifier.semantics {
-                                stateDescription = if (visible) "${tuile.titre} affichée" else "${tuile.titre} masquée"
-                            },
-                        )
-                    }
-                },
-            )
-        }
-        item {
-            TextButton(
-                onClick = { enregistrer(ConfigAccueil(emptyList(), emptySet())) },
-                modifier = Modifier.padding(horizontal = 8.dp),
-            ) { Text("Rétablir l'ordre par défaut") }
-        }
-    }
-}

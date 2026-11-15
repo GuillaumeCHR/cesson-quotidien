@@ -37,7 +37,6 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.yogistudio.cesson.BuildConfig
 import com.yogistudio.cesson.CessonApp
-import com.yogistudio.cesson.equipements.DECHETERIE
 import com.yogistudio.cesson.core.donnees.EtatModule
 import com.yogistudio.cesson.core.signalement.ContexteSignalement
 import com.yogistudio.cesson.core.signalement.LocalSignaleur
@@ -64,53 +63,9 @@ private fun OngletAVenir(titre: String, icone: ImageVector, lignes: List<String>
 }
 
 @Composable
-fun EcranBouger(app: CessonApp) {
-    Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(12.dp)) {
-        DepartsViaSilva(app)
-        TrainsHalte(app)
-        MonArret(app)
-        CarteDonnee("Bientôt dans cet onglet", Icons.Rounded.DirectionsBus) {
-            Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
-                listOf("Vélos en libre-service et parcs-relais", "Bornes de recharge",
-                ).forEach { Text("• $it", style = MaterialTheme.typography.bodyMedium) }
-            }
-        }
-    }
-}
-
-@Composable
-fun EcranSortir(app: CessonApp) {
-    Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(12.dp)) {
-        EquipementsCesson(app, titre = "Équipements") { it.lieu.id != DECHETERIE }
-        CarteDonnee("Bientôt dans cet onglet", Icons.Rounded.Celebration) {
-            Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
-                listOf("Spectacles du Carré Sévigné", "Cinéma Le Sévigné", "Pont des Arts et Galerie Pictura")
-                    .forEach { Text("• $it", style = MaterialTheme.typography.bodyMedium) }
-            }
-        }
-    }
-}
-
-@Composable
-fun EcranPratique(app: CessonApp) {
-    Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(12.dp)) {
-        CollecteCesson(app)
-        EquipementsCesson(app, titre = "Déchèterie") { it.lieu.id == DECHETERIE }
-        CarteDonnee("Bientôt dans cet onglet", Icons.Rounded.VolunteerActivism) {
-            Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
-                listOf("Demandes d'urbanisme", "Défibrillateurs", "Accessibilité des lieux publics", "Bornes de recharge")
-                    .forEach { Text("• $it", style = MaterialTheme.typography.bodyMedium) }
-            }
-        }
-    }
-}
-
-@Composable
 fun EcranActus() = OngletAVenir("Actualités", Icons.Rounded.Newspaper, listOf(
-    "Fil d'actualités de la ville", "Lien d'abonnement à la chaîne WhatsApp municipale",
+    "Fil d'actualités de la ville", "Actualités d'Eau du Bassin Rennais : coupures d'eau, travaux, qualité de l'eau",
+    "Lien d'abonnement à la chaîne WhatsApp municipale",
 ))
 
 // --- Sources et licences ---------------------------------------------------------------------

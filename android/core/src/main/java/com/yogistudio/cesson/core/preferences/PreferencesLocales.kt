@@ -11,35 +11,59 @@ import kotlinx.coroutines.flow.map
 
 /**
  * Préférences qui restent sur le téléphone : aucune n'est envoyée nulle part.
- * Accueil personnalisable (ordre et tuiles masquées), bandeau de premier lancement, carburant et arrêt suivis.
+ * Cartes de chaque onglet (ordre et cartes masquées), guide de démarrage, carburant, arrêt et équipements suivis,
+ * rappel de collecte.
  */
 private val Context.preferencesCesson by preferencesDataStore(name = "preferences")
 
 data class ConfigAccueil(val ordre: List<String>, val masquees: Set<String>)
 
+const val ACCUEIL = "accueil"
+
 class PreferencesLocales(private val context: Context) {
-    private val ordre = stringPreferencesKey("accueil_ordre")
-    private val masquees = stringSetPreferencesKey("accueil_masquees")
-    private val bandeauVu = booleanPreferencesKey("bandeau_non_officiel_vu")
+    private val guideVu = booleanPreferencesKey("guide_demarrage_vu")
+    private val cleEquipementsMasques = stringSetPreferencesKey("equipements_masques")
     private val carburant = stringPreferencesKey("carburant_suivi")
     private val arret = stringPreferencesKey("arret_suivi")
     private val rappelCollecte = booleanPreferencesKey("rappel_collecte")
     private val dernierRappel = stringPreferencesKey("rappel_collecte_dernier")
 
-    val configAccueil: Flow<ConfigAccueil> = context.preferencesCesson.data.map { p ->
+    // L'accueil garde ses clés d'origine ; chaque onglet a les siennes (« onglet_bouger_ordre »…).
+    private fun cleOrdre(onglet: String) = stringPreferencesKey(if (onglet == ACCUEIL) "accueil_ordre" else "onglet_${onglet}_ordre")
+    private fun cleMasquees(onglet: String) =
+        stringSetPreferencesKey(if (onglet == ACCUEIL) "accueil_masquees" else "onglet_${onglet}_masquees")
+
+    /** Ordre et cartes masquées d'un onglet (« accueil », « bouger », « sortir », « pratique »). */
+    fun configOnglet(onglet: String): Flow<ConfigAccueil> = context.preferencesCesson.data.map { p ->
         ConfigAccueil(
-            ordre = p[ordre]?.split(',')?.filter { it.isNotBlank() } ?: emptyList(),
-            masquees = p[masquees] ?: emptySet(),
+            ordre = p[cleOrdre(onglet)]?.split(',')?.filter { it.isNotBlank() } ?: emptyList(),
+            masquees = p[cleMasquees(onglet)] ?: emptySet(),
         )
     }
 
-    val bandeauNonOfficielVu: Flow<Boolean> = context.preferencesCesson.data.map { it[bandeauVu] ?: false }
-
-    suspend fun enregistrerAccueil(config: ConfigAccueil) {
+    suspend fun enregistrerOnglet(onglet: String, config: ConfigAccueil) {
         context.preferencesCesson.edit {
-            it[ordre] = config.ordre.joinToString(",")
-            it[masquees] = config.masquees
+            it[cleOrdre(onglet)] = config.ordre.joinToString(",")
+            it[cleMasquees(onglet)] = config.masquees
         }
+    }
+
+    val configAccueil: Flow<ConfigAccueil> get() = configOnglet(ACCUEIL)
+
+    suspend fun enregistrerAccueil(config: ConfigAccueil) = enregistrerOnglet(ACCUEIL, config)
+
+    /** Guide de démarrage : montré au premier lancement, puis accessible depuis le menu. */
+    val guideDemarrageVu: Flow<Boolean> = context.preferencesCesson.data.map { it[guideVu] ?: false }
+
+    suspend fun marquerGuideVu() {
+        context.preferencesCesson.edit { it[guideVu] = true }
+    }
+
+    /** Équipements retirés de la carte « Mes équipements » (identifiants « equipement:… »). */
+    val equipementsMasques: Flow<Set<String>> = context.preferencesCesson.data.map { it[cleEquipementsMasques] ?: emptySet() }
+
+    suspend fun enregistrerEquipementsMasques(ids: Set<String>) {
+        context.preferencesCesson.edit { it[cleEquipementsMasques] = ids }
     }
 
     /** Code du carburant affiché sur la carte Carburants (gazole, e10…), null tant qu'aucun n'est choisi. */
@@ -70,9 +94,6 @@ class PreferencesLocales(private val context: Context) {
         context.preferencesCesson.edit { it[dernierRappel] = jour }
     }
 
-    suspend fun marquerBandeauVu() {
-        context.preferencesCesson.edit { it[bandeauVu] = true }
-    }
 }
 
 /**

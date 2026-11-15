@@ -75,7 +75,7 @@ fun CarteMonArret(
 
 @OptIn(ExperimentalMaterial3Api::class, androidx.compose.foundation.layout.ExperimentalLayoutApi::class)
 @Composable
-private fun ChoixArret(
+fun ChoixArret(
     arrets: List<ArretStar>,
     lignes: DonneesLignesStar?,
     actuel: String?,
