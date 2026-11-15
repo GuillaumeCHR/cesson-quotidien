@@ -15,6 +15,16 @@ Architecture : voir « Cesson au quotidien — Document d'architecture.md ».
 
 Planification et service : `backend/deploy/crontab`, `backend/deploy/nginx.conf`.
 
+### Hébergement sur un Raspberry Pi 4 (coût nul)
+
+1. Raspberry Pi Imager : *Raspberry Pi OS Lite (64-bit)*, version Trixie ; nom d'hôte `cesson-pi`,
+   ta clé SSH. Ethernet de préférence.
+2. Depuis le PC : `backend/deploy/raspberry/envoyer.sh` (même commande pour chaque mise à jour).
+   Le script installe le backend, nginx en local, le cron, et publie par Tailscale Funnel
+   (compte Tailscale gratuit, lien de connexion affiché au premier lancement).
+3. Il affiche l'adresse publique (`https://cesson-pi.….ts.net/`, à passer en `-Pcesson.donneesUrl`)
+   et le sujet ntfy à suivre pour les alertes.
+
 ## App Android
 
     cd android

@@ -1,0 +1,8 @@
+/srv/cesson/log/*.log {
+    weekly
+    rotate 4
+    compress
+    missingok
+    notifempty
+    su cesson cesson
+}
