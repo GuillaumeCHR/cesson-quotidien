@@ -15,6 +15,7 @@ import com.yogistudio.cesson.core.signalement.ContexteSignalement
 import com.yogistudio.cesson.core.signalement.LocalSignaleur
 import com.yogistudio.cesson.core.signalement.Signaleur
 import com.yogistudio.cesson.core.ui.CessonTheme
+import com.yogistudio.cesson.rappels.RappelsCollecte
 import com.yogistudio.cesson.ui.AppCesson
 import kotlinx.coroutines.launch
 
@@ -26,6 +27,8 @@ class MainActivity : ComponentActivity() {
         lifecycleScope.launch {
             app.depot.chargerCache()
             app.depot.rafraichir()
+            // Calendrier peut-être neuf : on recale le prochain rappel (sans effet s'il est désactivé).
+            RappelsCollecte.planifier(app)
         }
         setContent {
             CessonTheme {

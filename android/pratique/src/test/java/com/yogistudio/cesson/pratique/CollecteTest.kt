@@ -52,4 +52,21 @@ class CollecteTest {
         assertEquals("demain (lundi)", formaterJourCollecte(LocalDate.of(2026, 11, 16), maintenant))
         assertEquals("lundi 23 nov.", formaterJourCollecte(LocalDate.of(2026, 11, 23), maintenant))
     }
+
+    @Test
+    fun rappelLaVeilleA19h() {
+        // Dimanche 15 nov. : premier passage lundi 23 (bac gris), rappel dimanche 22 à 19h.
+        assertEquals(a("2026-11-22T18:00:00Z"), prochainRappel(d, a("2026-11-15T09:00:00Z")))
+        // Juste après ce rappel, le suivant est mardi 24 à 19h (bac jaune du mercredi 25).
+        assertEquals(a("2026-11-24T18:00:00Z"), prochainRappel(d, a("2026-11-22T18:00:00Z")))
+    }
+
+    @Test
+    fun bacsDuRappel() {
+        assertTrue(bacsARappeler(d, a("2026-11-22T17:30:00Z")).isEmpty()) // 18h30 : trop tôt
+        val bacs = bacsARappeler(d, a("2026-11-22T18:05:00Z"))
+        assertEquals(listOf("gris"), bacs.map { it.bac })
+        assertEquals("Sortez le bac gris ce soir" to "Collecte demain matin dès 5h30 (ordures ménagères).", texteRappel(bacs))
+        assertTrue(bacsARappeler(d, a("2026-11-23T18:05:00Z")).isEmpty()) // lundi soir : rien mardi
+    }
 }

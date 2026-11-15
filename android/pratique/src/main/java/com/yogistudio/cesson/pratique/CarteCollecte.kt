@@ -38,7 +38,11 @@ private val BacGris = Color(0xFF7D8480)
 
 /** « Ma collecte » : prochain passage de chaque bac, et rappel la veille. */
 @Composable
-fun CarteCollecte(etat: EtatModule<DonneesCollecte>, modifier: Modifier = Modifier) {
+fun CarteCollecte(
+    etat: EtatModule<DonneesCollecte>,
+    modifier: Modifier = Modifier,
+    reglageRappel: @Composable () -> Unit = {},
+) {
     val maintenant = rememberMaintenant()
     when (etat) {
         EtatModule.Absent -> CarteDonnee("Ma collecte", Icons.Rounded.DeleteOutline, modifier, maintenant = maintenant) {
@@ -56,6 +60,7 @@ fun CarteCollecte(etat: EtatModule<DonneesCollecte>, modifier: Modifier = Modifi
                         TexteBientot("Le calendrier suivant n'est pas encore dans l'app. Il est distribué chaque septembre.")
                     }
                     prochaines.forEach { LigneBac(it, maintenant) }
+                    reglageRappel()
                     Text(
                         "${d.public}. En immeuble, les jours peuvent différer." + (d.conseil?.let { "\n$it" } ?: ""),
                         style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant,

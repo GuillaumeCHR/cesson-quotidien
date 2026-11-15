@@ -1,5 +1,6 @@
 # Versions alignées sur les autres projets Yogi Studio (vérifiées le 2026-10-25).
 [versions]
+androidx-work = "2.11.2"
 agp = "9.5.1"
 kotlin = "2.4.21"
 compileSdk = "37"
@@ -18,6 +19,7 @@ okhttp = "5.5.1"
 junit4 = "4.13.2"
 
 [libraries]
+androidx-work-runtime = { module = "androidx.work:work-runtime-ktx", version.ref = "androidx-work" }
 androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "androidx-core" }
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activity" }
 androidx-compose-bom = { module = "androidx.compose:compose-bom", version.ref = "androidx-compose-bom" }

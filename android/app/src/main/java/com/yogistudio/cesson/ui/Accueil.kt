@@ -83,6 +83,7 @@ import com.yogistudio.cesson.equipements.equipements
 import com.yogistudio.cesson.pratique.CarteCarburants
 import com.yogistudio.cesson.pratique.CarteCollecte
 import com.yogistudio.cesson.pratique.collecte
+import com.yogistudio.cesson.rappels.ReglageRappelCollecte
 import com.yogistudio.cesson.pratique.carburants
 import com.yogistudio.cesson.transport.CarteDeparts
 import com.yogistudio.cesson.transport.CarteMonArret
@@ -145,7 +146,7 @@ fun EquipementsCesson(app: CessonApp, titre: String = "Mes équipements", garder
 @Composable
 fun CollecteCesson(app: CessonApp) {
     val etat by remember(app) { app.depot.collecte() }.collectAsStateWithLifecycle(EtatModule.Absent)
-    CarteCollecte(etat)
+    CarteCollecte(etat, reglageRappel = { ReglageRappelCollecte(app) })
 }
 
 /** Trains à la halte : données du backend, relues toutes les 2 min tant que la carte est visible. */

@@ -23,6 +23,8 @@ class PreferencesLocales(private val context: Context) {
     private val bandeauVu = booleanPreferencesKey("bandeau_non_officiel_vu")
     private val carburant = stringPreferencesKey("carburant_suivi")
     private val arret = stringPreferencesKey("arret_suivi")
+    private val rappelCollecte = booleanPreferencesKey("rappel_collecte")
+    private val dernierRappel = stringPreferencesKey("rappel_collecte_dernier")
 
     val configAccueil: Flow<ConfigAccueil> = context.preferencesCesson.data.map { p ->
         ConfigAccueil(
@@ -52,6 +54,20 @@ class PreferencesLocales(private val context: Context) {
 
     suspend fun enregistrerArret(nom: String) {
         context.preferencesCesson.edit { it[arret] = nom }
+    }
+
+    /** Rappel de collecte la veille au soir : désactivé tant que l'utilisateur ne l'a pas demandé. */
+    val rappelCollecteActif: Flow<Boolean> = context.preferencesCesson.data.map { it[rappelCollecte] ?: false }
+
+    suspend fun activerRappelCollecte(actif: Boolean) {
+        context.preferencesCesson.edit { it[rappelCollecte] = actif }
+    }
+
+    /** Date (AAAA-MM-JJ) du dernier rappel envoyé : jamais deux rappels le même soir. */
+    val dernierRappelCollecte: Flow<String?> = context.preferencesCesson.data.map { it[dernierRappel] }
+
+    suspend fun noterRappelCollecte(jour: String) {
+        context.preferencesCesson.edit { it[dernierRappel] = jour }
     }
 
     suspend fun marquerBandeauVu() {

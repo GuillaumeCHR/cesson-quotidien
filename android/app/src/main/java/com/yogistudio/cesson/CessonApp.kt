@@ -11,6 +11,11 @@ import java.util.concurrent.TimeUnit
 
 /** Conteneur de dépendances, sans framework : l'app est petite et le restera par domaine. */
 class CessonApp : Application() {
+    override fun onCreate() {
+        super.onCreate()
+        com.yogistudio.cesson.rappels.RappelsCollecte.creerCanal(this)
+    }
+
     val client: OkHttpClient by lazy {
         OkHttpClient.Builder()
             .connectTimeout(10, TimeUnit.SECONDS)

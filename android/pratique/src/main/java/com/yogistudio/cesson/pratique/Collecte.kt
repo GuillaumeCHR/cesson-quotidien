@@ -63,6 +63,30 @@ fun avisEnCours(d: DonneesCollecte, maintenant: Instant): List<AvisCollecte> {
     return d.avis.filter { !jour.isBefore(it.du) && !jour.isAfter(it.au) }
 }
 
+/** Heure du rappel de la veille (notification). */
+const val HEURE_RAPPEL = 19
+
+/** Prochain rappel strictement après [maintenant] : la veille d'un passage, à 19h. */
+fun prochainRappel(d: DonneesCollecte, maintenant: Instant): Instant? =
+    d.passages.map { it.date }.distinct().sorted()
+        .map { it.minusDays(1).atTime(HEURE_RAPPEL, 0).atZone(FuseauCesson).toInstant() }
+        .firstOrNull { it.isAfter(maintenant) }
+
+/** Bacs à rappeler maintenant : collecte demain, et il est 19h passées (jusqu'à minuit). */
+fun bacsARappeler(d: DonneesCollecte, maintenant: Instant): List<FluxCollecte> {
+    val z = maintenant.atZone(FuseauCesson)
+    if (z.hour < HEURE_RAPPEL) return emptyList()
+    val demain = z.toLocalDate().plusDays(1)
+    return d.flux.filter { f -> d.passages.any { it.flux == f.id && it.date == demain } }
+}
+
+/** Texte de la notification : « Sortez le bac gris ce soir ». */
+fun texteRappel(bacs: List<FluxCollecte>): Pair<String, String> {
+    val noms = bacs.joinToString(" et ") { "bac ${it.bac}" }
+    val flux = bacs.joinToString(" et ") { it.nom.lowercase() }
+    return "Sortez le $noms ce soir" to "Collecte demain matin dès 5h30 ($flux)."
+}
+
 /** « aujourd'hui », « demain », « lundi 23 nov. ». */
 fun formaterJourCollecte(date: LocalDate, maintenant: Instant): String {
     val aujourdhui = maintenant.atZone(FuseauCesson).toLocalDate()
