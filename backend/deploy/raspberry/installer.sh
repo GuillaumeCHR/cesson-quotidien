@@ -25,12 +25,18 @@ python3 -c 'import sys; sys.exit(sys.version_info < (3, 12))' || {
 timedatectl set-timezone Europe/Paris   # les heures du crontab (6h05…) sont en heure de Paris
 
 etape "Paquets"
+# Au premier démarrage, les mises à jour automatiques de Debian tiennent le verrou de dpkg : on attend
+# qu'elles finissent (jusqu'à 10 min) au lieu d'échouer, y compris pour l'installeur de Tailscale.
+echo 'DPkg::Lock::Timeout "600";' > /etc/apt/apt.conf.d/90cesson-attente-verrou
 apt-get update -q
 apt-get install -y -q python3-venv nginx rsync logrotate unattended-upgrades curl
 
 etape "Utilisateur et dossiers"
 id cesson &>/dev/null || useradd --system --create-home --home-dir "$RACINE" --shell /usr/sbin/nologin cesson
-install -d -o cesson -g cesson "$RACINE/public" "$RACINE/etat" "$RACINE/log"
+# useradd crée le dossier personnel en 700 : nginx (www-data) doit pouvoir le traverser pour lire public/.
+chmod 755 "$RACINE"
+install -d -o cesson -g cesson -m 755 "$RACINE/public"
+install -d -o cesson -g cesson -m 750 "$RACINE/etat" "$RACINE/log"
 
 etape "Code et environnement Python"
 # Le code appartient à root : l'utilisateur cesson ne peut écrire que public, etat et log.
@@ -64,7 +70,8 @@ etape "Première collecte"
 sudo -u cesson env CESSON_ALERTE_URL="https://ntfy.sh/$SUJET" bash -c \
     "cd $CODE && .venv/bin/python -m cesson collecter vilaine meteo vigicrues carburants lignes_star trains equipements collecte actus circulation usages_eau defibrillateurs bornes agenda --sortie $RACINE/public --etat $RACINE/etat" \
     || echo "Attention : une source a échoué, voir ci-dessus (le cron réessaiera)."
-curl -fsS -o /dev/null http://127.0.0.1:8080/manifest.json && echo "nginx sert bien manifest.json"
+if curl -fsS -o /dev/null http://127.0.0.1:8080/manifest.json; then echo "nginx sert bien manifest.json"
+else echo "Attention : nginx ne sert pas manifest.json (voir /var/log/nginx/error.log)."; fi
 
 etape "Exposition publique (Tailscale Funnel)"
 command -v tailscale &>/dev/null || curl -fsSL https://tailscale.com/install.sh | sh
