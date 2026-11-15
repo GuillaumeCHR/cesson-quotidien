@@ -124,6 +124,10 @@ private val Typo = Typography(
     labelSmall = TypoBase.labelSmall.atkinson(),
 )
 
+/** Palettes de l'app, aussi utilisées par le widget d'écran d'accueil. */
+val CouleursClaires: androidx.compose.material3.ColorScheme get() = Clair
+val CouleursSombres: androidx.compose.material3.ColorScheme get() = Sombre
+
 /** Vrai si l'app s'affiche en sombre (choix de l'utilisateur, ou celui du téléphone). À lire plutôt que isSystemInDarkTheme(). */
 val LocalSombre = staticCompositionLocalOf { false }
 

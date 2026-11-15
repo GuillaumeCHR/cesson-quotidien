@@ -1,5 +1,7 @@
 package com.yogistudio.cesson
 
+import androidx.glance.appwidget.updateAll
+import com.yogistudio.cesson.widget.WidgetCesson
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
@@ -39,6 +41,8 @@ class MainActivity : ComponentActivity() {
             app.depot.rafraichir()
             // Calendrier peut-être neuf : on recale le prochain rappel (sans effet s'il est désactivé).
             RappelsCollecte.planifier(app)
+            // Données fraîches : le widget d'écran d'accueil en profite aussitôt.
+            runCatching { WidgetCesson().updateAll(app) }
         }
         setContent {
             val affichage by app.preferences.affichage.collectAsStateWithLifecycle(AFFICHAGE_TELEPHONE)
