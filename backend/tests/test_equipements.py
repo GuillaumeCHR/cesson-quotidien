@@ -34,7 +34,7 @@ def heures(jour) -> list[str]:
 def test_saisie_versionnee_valide():
     d = donnees()
     assert {e.lieu.nom for e in d.equipements} == {"Piscine municipale", "Médiathèque", "Golf municipal",
-                                                     "Base Sports Nature"}
+                                                     "Base Sports Nature", "Déchèterie"}
     assert all(len(s.jours) == 14 for e in d.equipements for s in e.espaces)
 
 
@@ -74,6 +74,13 @@ def test_mediatheque_fermee_le_lundi():
     s = espace(donnees(), "mediatheque", "mediatheque")
     assert s.jours[0].connu and s.jours[0].plages == []
     assert heures(s.jours[2]) == ["10:00-12:30", "14:30-19:00"]
+
+
+def test_decheterie_fermee_jeudi_apres_midi_et_jours_feries():
+    s = espace(donnees(datetime(2026, 11, 9, 8, 0, tzinfo=timezone.utc)), "decheterie", "decheterie")
+    assert heures(s.jours[3]) == ["09:00-12:00"]  # jeudi 12 nov.
+    mercredi_11 = s.jours[2]
+    assert mercredi_11.plages == [] and mercredi_11.motif == "Jour férié (Armistice 1918)"
 
 
 @pytest.mark.parametrize("modif", [

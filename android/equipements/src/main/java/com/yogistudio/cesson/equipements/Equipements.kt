@@ -42,6 +42,7 @@ data class JourHoraire(
 data class Plage(val debut: Horodatage, val fin: Horodatage)
 
 const val MODULE_EQUIPEMENTS = "equipements"
+const val DECHETERIE = "equipement:decheterie"
 
 fun DepotModules.equipements(): Flow<EtatModule<DonneesEquipements>> =
     suivre(MODULE_EQUIPEMENTS, DonneesEquipements.serializer())

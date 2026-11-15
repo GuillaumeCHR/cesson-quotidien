@@ -1,0 +1,259 @@
+{
+  "$defs": {
+    "Avis": {
+      "additionalProperties": false,
+      "properties": {
+        "du": {
+          "format": "date",
+          "title": "Du",
+          "type": "string"
+        },
+        "au": {
+          "format": "date",
+          "title": "Au",
+          "type": "string"
+        },
+        "texte": {
+          "title": "Texte",
+          "type": "string"
+        }
+      },
+      "required": [
+        "du",
+        "au",
+        "texte"
+      ],
+      "title": "Avis",
+      "type": "object"
+    },
+    "DonneesCollecte": {
+      "additionalProperties": false,
+      "properties": {
+        "public": {
+          "title": "Public",
+          "type": "string"
+        },
+        "flux": {
+          "items": {
+            "$ref": "#/$defs/Flux"
+          },
+          "title": "Flux",
+          "type": "array"
+        },
+        "passages": {
+          "items": {
+            "$ref": "#/$defs/Passage"
+          },
+          "title": "Passages",
+          "type": "array"
+        },
+        "avis": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/Avis"
+          },
+          "title": "Avis",
+          "type": "array"
+        },
+        "conseil": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Conseil"
+        },
+        "info": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Info"
+        },
+        "url": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Url"
+        },
+        "verifie_le": {
+          "format": "date",
+          "title": "Verifie Le",
+          "type": "string"
+        },
+        "valable_au": {
+          "format": "date",
+          "title": "Valable Au",
+          "type": "string"
+        }
+      },
+      "required": [
+        "public",
+        "flux",
+        "passages",
+        "verifie_le",
+        "valable_au"
+      ],
+      "title": "DonneesCollecte",
+      "type": "object"
+    },
+    "Etat": {
+      "enum": [
+        "ok",
+        "perime",
+        "erreur"
+      ],
+      "title": "Etat",
+      "type": "string"
+    },
+    "Flux": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "nom": {
+          "title": "Nom",
+          "type": "string"
+        },
+        "bac": {
+          "title": "Bac",
+          "type": "string"
+        },
+        "regle": {
+          "title": "Regle",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "nom",
+        "bac",
+        "regle"
+      ],
+      "title": "Flux",
+      "type": "object"
+    },
+    "Meta": {
+      "additionalProperties": false,
+      "description": "Accompagne chaque fichier publié : source, licence et fraîcheur.",
+      "properties": {
+        "source": {
+          "title": "Source",
+          "type": "string"
+        },
+        "licence": {
+          "title": "Licence",
+          "type": "string"
+        },
+        "url_source": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Url Source"
+        },
+        "recupere_le": {
+          "format": "date-time",
+          "title": "Recupere Le",
+          "type": "string"
+        },
+        "valide_jusqu_a": {
+          "format": "date-time",
+          "title": "Valide Jusqu A",
+          "type": "string"
+        },
+        "etat": {
+          "$ref": "#/$defs/Etat",
+          "default": "ok"
+        }
+      },
+      "required": [
+        "source",
+        "licence",
+        "recupere_le",
+        "valide_jusqu_a"
+      ],
+      "title": "Meta",
+      "type": "object"
+    },
+    "Passage": {
+      "additionalProperties": false,
+      "properties": {
+        "flux": {
+          "title": "Flux",
+          "type": "string"
+        },
+        "date": {
+          "format": "date",
+          "title": "Date",
+          "type": "string"
+        },
+        "decale_par": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Decale Par"
+        }
+      },
+      "required": [
+        "flux",
+        "date"
+      ],
+      "title": "Passage",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "module": {
+      "title": "Module",
+      "type": "string"
+    },
+    "version_schema": {
+      "default": 1,
+      "title": "Version Schema",
+      "type": "integer"
+    },
+    "meta": {
+      "$ref": "#/$defs/Meta"
+    },
+    "donnees": {
+      "$ref": "#/$defs/DonneesCollecte"
+    }
+  },
+  "required": [
+    "module",
+    "meta",
+    "donnees"
+  ],
+  "title": "FichierModule[DonneesCollecte]",
+  "type": "object"
+}

@@ -78,8 +78,11 @@ import com.yogistudio.cesson.eau.vilaine
 import com.yogistudio.cesson.environnement.CarteMeteo
 import com.yogistudio.cesson.environnement.meteo
 import com.yogistudio.cesson.equipements.CarteEquipements
+import com.yogistudio.cesson.equipements.Equipement
 import com.yogistudio.cesson.equipements.equipements
 import com.yogistudio.cesson.pratique.CarteCarburants
+import com.yogistudio.cesson.pratique.CarteCollecte
+import com.yogistudio.cesson.pratique.collecte
 import com.yogistudio.cesson.pratique.carburants
 import com.yogistudio.cesson.transport.CarteDeparts
 import com.yogistudio.cesson.transport.CarteMonArret
@@ -113,10 +116,7 @@ val TUILES: List<Tuile> = listOf(
     Tuile("arrets", "Prochains départs à Cesson-ViaSilva", Icons.Rounded.DirectionsBus) { app -> DepartsViaSilva(app) },
     Tuile("mon_arret", "Mon arrêt", Icons.Rounded.DirectionsBus) { app -> MonArret(app) },
     Tuile("trains", "Halte de Cesson-Sévigné", Icons.Rounded.Train) { app -> TrainsHalte(app) },
-    Tuile("collecte", "Ma collecte", Icons.Rounded.DeleteOutline) {
-        CarteBientot("Ma collecte", Icons.Rounded.DeleteOutline,
-            "Choisissez bientôt votre secteur pour connaître la prochaine collecte.")
-    },
+    Tuile("collecte", "Ma collecte", Icons.Rounded.DeleteOutline) { app -> CollecteCesson(app) },
     Tuile("equipements", "Mes équipements", Icons.Rounded.Pool) { app -> EquipementsCesson(app) },
     Tuile("carburants", "Carburants", Icons.Rounded.LocalGasStation) { app ->
         val etat by remember(app) { app.depot.carburants() }.collectAsStateWithLifecycle(EtatModule.Absent)
@@ -137,9 +137,15 @@ fun DepartsViaSilva(app: CessonApp) {
 }
 
 @Composable
-fun EquipementsCesson(app: CessonApp) {
+fun EquipementsCesson(app: CessonApp, titre: String = "Mes équipements", garder: (Equipement) -> Boolean = { true }) {
     val etat by remember(app) { app.depot.equipements() }.collectAsStateWithLifecycle(EtatModule.Absent)
-    CarteEquipements(etat)
+    CarteEquipements(etat, titre = titre, garder = garder)
+}
+
+@Composable
+fun CollecteCesson(app: CessonApp) {
+    val etat by remember(app) { app.depot.collecte() }.collectAsStateWithLifecycle(EtatModule.Absent)
+    CarteCollecte(etat)
 }
 
 /** Trains à la halte : données du backend, relues toutes les 2 min tant que la carte est visible. */

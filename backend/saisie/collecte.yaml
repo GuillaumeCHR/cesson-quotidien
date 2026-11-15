@@ -1,0 +1,37 @@
+# Collecte des déchets à Cesson-Sévigné, maisons disposant de bacs roulants (Rennes Métropole).
+#
+# Source : page « Gestion des déchets » du site de la ville et calendrier 2026/2027 de Rennes
+# Métropole (PDF lié depuis cette page). Le calendrier s'écrit comme une règle : jour de la
+# semaine et parité de la semaine (numéro ISO). Les décalages des semaines à jour férié sont
+# calculés, pas recopiés ; les tests vérifient le résultat contre chaque date du PDF.
+#
+# Nouveau calendrier distribué chaque septembre : mettre à jour « valable_du / valable_au »,
+# les flux et « verifie_le ».
+
+collecte:
+  public: Maisons disposant de bacs roulants
+  url: https://www.ville-cesson-sevigne.fr/gestion-des-dechets/
+  calendrier: https://www.ville-cesson-sevigne.fr/wp-content/uploads/2026/08/collecte-dechets-2026-2027.pdf
+  verifie_le: 2026-11-15
+  valable_du: 2026-10-01
+  valable_au: 2027-09-30
+  conseil: "Collecte dès 5h30 : sortez le bac la veille au soir et rentrez-le après le passage du camion."
+  # « Semaine à jour férié : décalage d'une journée de toutes les collectes à partir du jour férié
+  # jusqu'à la fin de la semaine. »
+  decalage_jours_feries: true
+  flux:
+    - id: ordures_menageres
+      nom: Ordures ménagères
+      bac: gris
+      jour: Mo
+      semaines: paires
+    - id: recyclables
+      nom: Déchets recyclables
+      bac: jaune
+      jour: We
+      semaines: paires
+  avis:
+    - du: 2026-12-14
+      au: 2027-01-03
+      texte: Pas de collecte en semaines 53 et 1 (du 28 décembre au 10 janvier) ; sortez vos bacs gris et jaune en semaine 52.
+  info: Info Déchets de Rennes Métropole au 02 23 62 26 22.

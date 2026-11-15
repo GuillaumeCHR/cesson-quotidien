@@ -53,16 +53,21 @@ import java.time.Instant
  * ouvre la semaine détaillée, avec la date de dernière vérification et le lien vers la source.
  */
 @Composable
-fun CarteEquipements(etat: EtatModule<DonneesEquipements>, modifier: Modifier = Modifier) {
+fun CarteEquipements(
+    etat: EtatModule<DonneesEquipements>,
+    modifier: Modifier = Modifier,
+    titre: String = "Mes équipements",
+    garder: (Equipement) -> Boolean = { true },
+) {
     val maintenant = rememberMaintenant()
     var detail by rememberSaveable { mutableStateOf<String?>(null) }
     when (etat) {
-        EtatModule.Absent -> CarteDonnee("Mes équipements", Icons.Rounded.Pool, modifier, maintenant = maintenant) {
+        EtatModule.Absent -> CarteDonnee(titre, Icons.Rounded.Pool, modifier, maintenant = maintenant) {
             TexteBientot("Horaires pas encore reçus. Tirez vers le bas pour actualiser.")
         }
         is EtatModule.Disponible -> {
-            val d = etat.fichier.donnees
-            CarteDonnee("Mes équipements", Icons.Rounded.Pool, modifier, etat.fraicheur, maintenant) {
+            val d = etat.fichier.donnees.copy(equipements = etat.fichier.donnees.equipements.filter(garder))
+            CarteDonnee(titre, Icons.Rounded.Pool, modifier, etat.fraicheur, maintenant) {
                 Column {
                     d.equipements.forEachIndexed { i, e ->
                         if (i > 0) HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)

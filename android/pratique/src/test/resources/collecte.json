@@ -1,0 +1,67 @@
+{
+  "module": "collecte",
+  "version_schema": 1,
+  "meta": {
+    "source": "Rennes Métropole (calendrier de collecte), via le site de la ville ; saisie manuelle",
+    "licence": "Informations publiques de Rennes Métropole",
+    "url_source": "https://www.ville-cesson-sevigne.fr/gestion-des-dechets/",
+    "recupere_le": "2026-11-15T08:00:37.530690Z",
+    "valide_jusqu_a": "2026-11-16T20:00:37.530690Z",
+    "etat": "ok"
+  },
+  "donnees": {
+    "public": "Maisons disposant de bacs roulants",
+    "flux": [
+      {
+        "id": "ordures_menageres",
+        "nom": "Ordures ménagères",
+        "bac": "gris",
+        "regle": "le lundi des semaines paires"
+      },
+      {
+        "id": "recyclables",
+        "nom": "Déchets recyclables",
+        "bac": "jaune",
+        "regle": "le mercredi des semaines paires"
+      }
+    ],
+    "passages": [
+      {
+        "flux": "ordures_menageres",
+        "date": "2026-11-23"
+      },
+      {
+        "flux": "recyclables",
+        "date": "2026-11-25"
+      },
+      {
+        "flux": "ordures_menageres",
+        "date": "2026-12-07"
+      },
+      {
+        "flux": "recyclables",
+        "date": "2026-12-09"
+      },
+      {
+        "flux": "ordures_menageres",
+        "date": "2026-12-21"
+      },
+      {
+        "flux": "recyclables",
+        "date": "2026-12-23"
+      }
+    ],
+    "avis": [
+      {
+        "du": "2026-12-14",
+        "au": "2027-01-03",
+        "texte": "Pas de collecte en semaines 53 et 1 (du 28 décembre au 10 janvier) ; sortez vos bacs gris et jaune en semaine 52."
+      }
+    ],
+    "conseil": "Collecte dès 5h30 : sortez le bac la veille au soir et rentrez-le après le passage du camion.",
+    "info": "Info Déchets de Rennes Métropole au 02 23 62 26 22.",
+    "url": "https://www.ville-cesson-sevigne.fr/gestion-des-dechets/",
+    "verifie_le": "2026-11-15",
+    "valable_au": "2027-09-30"
+  }
+}

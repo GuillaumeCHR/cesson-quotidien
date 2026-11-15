@@ -7,7 +7,8 @@
 #
 # Un jour couvert par aucune période est publié « horaires non communiqués », jamais « fermé ».
 # Les exceptions (fériés, fermetures) s'appliquent à tous les espaces de l'équipement ;
-# sans « horaires », l'équipement est fermé sur l'exception.
+# sans « horaires », l'équipement est fermé sur l'exception. « fermee_jours_feries: true » ferme
+# l'équipement les jours fériés, calculés (seulement quand la source le dit).
 #
 # Mettre à jour « verifie_le » à chaque relecture de la source.
 
@@ -146,3 +147,18 @@ equipements:
             au: 2026-09-13
             horaires: Sa,Su 14:30-15:30,15:45-16:45,17:00-18:00
             remarque: Réservation conseillée ; arriver 30 minutes avant le créneau.
+
+  decheterie:
+    nom: Déchèterie
+    adresse: Route de Chantepie, Cesson-Sévigné
+    telephone: "02 23 62 26 22"
+    url: https://www.ville-cesson-sevigne.fr/gestion-des-dechets/
+    verifie_le: 2026-11-15
+    remarque: Géré par Rennes Métropole. La tonte de pelouse n'est plus acceptée depuis 2024.
+    fermee_jours_feries: true
+    espaces:
+      decheterie:
+        nom: Déchèterie
+        periodes:
+          - nom: Horaires habituels
+            horaires: Mo-We 09:00-12:00,14:00-18:00; Th 09:00-12:00; Fr,Sa 09:00-12:00,14:00-18:00

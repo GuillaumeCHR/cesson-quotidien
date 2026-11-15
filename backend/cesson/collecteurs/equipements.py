@@ -16,6 +16,7 @@ from typing import Any
 import yaml
 
 from ..commun.collecteur import Collecteur, ErreurValidation
+from ..commun.feries import ferie
 from ..commun.horaires import PARIS, HoraireInvalide, jours, lire, plages_du_jour
 from ..commun.modele import ExceptionHoraire, Horaire, Lieu, Modele
 
@@ -127,6 +128,10 @@ class CollecteurEquipements(Collecteur[DonneesEquipements]):
             exceptions = [ExceptionHoraire(du=x["du"], au=x["au"], motif=x["motif"],
                                            opening_hours=" ".join(x["horaires"].split()) if x.get("horaires") else None)
                           for x in e.get("exceptions") or []]
+            if e.get("fermee_jours_feries"):
+                # Fériés calculés, ajoutés après les exceptions saisies : celles-ci restent prioritaires.
+                exceptions += [ExceptionHoraire(du=j, au=j, motif=f"Jour férié ({ferie(j)})")
+                               for j in jours(aujourdhui, NB_JOURS) if ferie(j)]
             espaces, horaires = [], []
             for sid, s in e["espaces"].items():
                 periodes = [{**p, "du": p.get("du"), "au": p.get("au"), "semaine": self._lire(p["horaires"], sid)}

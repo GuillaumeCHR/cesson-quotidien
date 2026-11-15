@@ -62,7 +62,7 @@ sed "s#^CESSON_ALERTE_URL=.*#CESSON_ALERTE_URL=https://ntfy.sh/$SUJET#" "$SOURCE
 
 etape "Première collecte"
 sudo -u cesson env CESSON_ALERTE_URL="https://ntfy.sh/$SUJET" bash -c \
-    "cd $CODE && .venv/bin/python -m cesson collecter vilaine meteo vigicrues carburants lignes_star trains equipements --sortie $RACINE/public --etat $RACINE/etat" \
+    "cd $CODE && .venv/bin/python -m cesson collecter vilaine meteo vigicrues carburants lignes_star trains equipements collecte --sortie $RACINE/public --etat $RACINE/etat" \
     || echo "Attention : une source a échoué, voir ci-dessus (le cron réessaiera)."
 curl -fsS -o /dev/null http://127.0.0.1:8080/manifest.json && echo "nginx sert bien manifest.json"
 
