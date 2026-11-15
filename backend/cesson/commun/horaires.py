@@ -92,3 +92,9 @@ def plages_du_jour(semaine: Semaine, jour: date) -> list[tuple[datetime, datetim
 
 def jours(debut: date, nombre: int) -> list[date]:
     return [debut + timedelta(days=i) for i in range(nombre)]
+
+
+def heure_de_pointe(t: datetime) -> bool:
+    """En semaine, de 6h à 10h et de 17h à 21h (heure de Paris) : les collectes de « Bouger » s'y resserrent."""
+    local = t.astimezone(PARIS)
+    return local.weekday() < 5 and (6 <= local.hour < 10 or 17 <= local.hour < 21)

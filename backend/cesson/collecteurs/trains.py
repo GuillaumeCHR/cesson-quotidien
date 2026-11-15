@@ -213,7 +213,7 @@ class CollecteurTrains(Collecteur[DonneesTrains]):
     source = "SNCF (GTFS et GTFS-RT, transport.data.gouv.fr)"
     licence = "Licence Ouverte 2.0"
     url_source = "https://transport.data.gouv.fr/datasets/horaires-sncf"
-    fraicheur = timedelta(minutes=2)
+    fraicheur = timedelta(minutes=5)  # 2 min en pointe, 5 min le reste du temps (deploy/crontab)
     modele_donnees = DonneesTrains
 
     def __init__(self, dossier_etat: Path | None = None) -> None:

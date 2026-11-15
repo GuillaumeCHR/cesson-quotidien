@@ -23,14 +23,21 @@ PATH=/usr/bin:/bin
 # Toutes les 15 min (3, 18, 33, 48) : vigilance crues du tronçon Vilaine amont
 3-59/15 * * * * cd $CESSON && .venv/bin/python -m cesson collecter vigicrues --sortie /srv/cesson/public --etat /srv/cesson/etat >> /srv/cesson/log/collecte.log 2>&1
 
-# Toutes les 2 min de 5h à 23h59 : trains à la halte (GTFS extrait une fois par jour, GTFS-RT à chaque passage)
-*/2 5-23 * * *  cd $CESSON && .venv/bin/python -m cesson collecter trains --sortie /srv/cesson/public --etat /srv/cesson/etat >> /srv/cesson/log/collecte.log 2>&1
+# Trains à la halte (GTFS extrait une fois par jour, GTFS-RT à chaque passage), de 5h à 23h59 :
+# toutes les 2 min aux heures de pointe en semaine (6h-10h, 17h-21h), toutes les 5 min le reste du temps.
+*/2 6-9,17-20 * * 1-5   cd $CESSON && .venv/bin/python -m cesson collecter trains --sortie /srv/cesson/public --etat /srv/cesson/etat >> /srv/cesson/log/collecte.log 2>&1
+*/5 5,10-16,21-23 * * 1-5 cd $CESSON && .venv/bin/python -m cesson collecter trains --sortie /srv/cesson/public --etat /srv/cesson/etat >> /srv/cesson/log/collecte.log 2>&1
+*/5 5-23 * * 0,6        cd $CESSON && .venv/bin/python -m cesson collecter trains --sortie /srv/cesson/public --etat /srv/cesson/etat >> /srv/cesson/log/collecte.log 2>&1
 
-# Toutes les 3 min : circulation sur la rocade est et les axes de Cesson (Rennes Métropole, temps réel)
-*/3 * * * *   cd $CESSON && .venv/bin/python -m cesson collecter circulation --sortie /srv/cesson/public --etat /srv/cesson/etat >> /srv/cesson/log/collecte.log 2>&1
+# Circulation sur la rocade est et les axes de Cesson (Rennes Métropole, temps réel) : toutes les 3 min aux
+# heures de pointe en semaine, toutes les 10 min le reste de la journée et le week-end, toutes les 30 min la nuit.
+*/3 6-9,17-20 * * 1-5   cd $CESSON && .venv/bin/python -m cesson collecter circulation --sortie /srv/cesson/public --etat /srv/cesson/etat >> /srv/cesson/log/collecte.log 2>&1
+*/10 10-16 * * 1-5      cd $CESSON && .venv/bin/python -m cesson collecter circulation --sortie /srv/cesson/public --etat /srv/cesson/etat >> /srv/cesson/log/collecte.log 2>&1
+*/10 6-20 * * 0,6       cd $CESSON && .venv/bin/python -m cesson collecter circulation --sortie /srv/cesson/public --etat /srv/cesson/etat >> /srv/cesson/log/collecte.log 2>&1
+*/30 0-5,21-23 * * *    cd $CESSON && .venv/bin/python -m cesson collecter circulation --sortie /srv/cesson/public --etat /srv/cesson/etat >> /srv/cesson/log/collecte.log 2>&1
 
-# Toutes les 10 min (1, 11, 21…) : prix des carburants des stations de Cesson
-1-59/10 * * * * cd $CESSON && .venv/bin/python -m cesson collecter carburants --sortie /srv/cesson/public --etat /srv/cesson/etat >> /srv/cesson/log/collecte.log 2>&1
+# Toutes les 30 min (1, 31) : prix des carburants des stations de Cesson (ils changent quelques fois par jour)
+1,31 * * * *            cd $CESSON && .venv/bin/python -m cesson collecter carburants --sortie /srv/cesson/public --etat /srv/cesson/etat >> /srv/cesson/log/collecte.log 2>&1
 
 # Toutes les 6 h (0h45, 6h45, 12h45, 18h45) : agenda de la ville (extraction de son site, à pas lents)
 45 */6 * * *  cd $CESSON && .venv/bin/python -m cesson collecter agenda --sortie /srv/cesson/public --etat /srv/cesson/etat >> /srv/cesson/log/collecte.log 2>&1

@@ -77,7 +77,7 @@ class CollecteurCarburants(Collecteur[DonneesCarburants]):
     source = "Prix des carburants (ministère de l'Économie) ; noms des stations : OpenStreetMap"
     licence = "Licence Ouverte 2.0 ; ODbL pour les noms des stations"
     url_source = "https://www.prix-carburants.gouv.fr/"
-    fraicheur = timedelta(minutes=10)
+    fraicheur = timedelta(minutes=30)
     modele_donnees = DonneesCarburants
 
     def __init__(self, saisie: dict[int, dict[str, str]] | None = None) -> None:

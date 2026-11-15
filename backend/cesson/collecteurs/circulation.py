@@ -17,6 +17,7 @@ from typing import Any
 import httpx
 
 from ..commun.collecteur import Collecteur, ErreurValidation, obtenir
+from ..commun.horaires import PARIS, heure_de_pointe
 from ..commun.modele import Modele
 
 URL = "https://data.rennesmetropole.fr/api/explore/v2.1/catalog/datasets/etat-du-trafic-en-temps-reel/exports/json"
@@ -135,7 +136,7 @@ class CollecteurCirculation(Collecteur[DonneesCirculation]):
     source = "Rennes Métropole, état du trafic en temps réel"
     licence = "Licence Ouverte 2.0 ; positions des portes : OpenStreetMap (ODbL)"
     url_source = "https://data.rennesmetropole.fr/explore/dataset/etat-du-trafic-en-temps-reel/"
-    fraicheur = timedelta(minutes=3)
+    fraicheur = timedelta(minutes=30)  # la plus longue des cadences (la nuit) ; voir deploy/crontab
     modele_donnees = DonneesCirculation
 
     def telecharger(self, client: httpx.Client) -> Any:
@@ -201,5 +202,13 @@ class CollecteurCirculation(Collecteur[DonneesCirculation]):
         return DonneesCirculation(mesure_le=mesure, rocade_est=rocade, axes_cesson=liste)
 
     def valide_jusqu_a(self, donnees: DonneesCirculation, maintenant: datetime) -> datetime:
-        # Le trafic change vite : au-delà de 15 min, la carte s'affiche comme ancienne.
-        return donnees.mesure_le + timedelta(minutes=15)
+        # Le trafic change vite : la carte passe en « données anciennes » après deux collectes manquées.
+        return donnees.mesure_le + max(timedelta(minutes=15), 2 * pas_de_collecte(maintenant) + timedelta(minutes=5))
+
+
+def pas_de_collecte(t: datetime) -> timedelta:
+    """Cadence de deploy/crontab : 3 min en pointe, 30 min la nuit (21h-6h), 10 min le reste du temps."""
+    if heure_de_pointe(t):
+        return timedelta(minutes=3)
+    heure = t.astimezone(PARIS).hour
+    return timedelta(minutes=30) if heure < 6 or heure >= 21 else timedelta(minutes=10)

@@ -82,4 +82,13 @@ def test_publication(tmp_path):
             r = CollecteurCirculation().executer(publieur, sante, client, MAINTENANT)
     assert r.etat == Etat.OK, r.erreur
     f = FichierModule[DonneesCirculation].model_validate_json(publieur.chemin("circulation").read_text())
-    assert f.meta.valide_jusqu_a.isoformat() == "2026-11-15T12:06:00+01:00"
+    # Dimanche midi : cadence de 10 min, la carte reste à jour 25 min après la mesure (11h51).
+    assert f.meta.valide_jusqu_a.isoformat() == "2026-11-15T12:16:00+01:00"
+
+
+def test_cadence_selon_l_heure():
+    from cesson.collecteurs.circulation import pas_de_collecte
+    assert pas_de_collecte(datetime(2026, 11, 16, 7, 30, tzinfo=timezone.utc)).seconds == 180   # lundi 8h30
+    assert pas_de_collecte(datetime(2026, 11, 16, 12, 0, tzinfo=timezone.utc)).seconds == 600   # lundi 13h
+    assert pas_de_collecte(datetime(2026, 11, 16, 22, 0, tzinfo=timezone.utc)).seconds == 1800  # lundi 23h
+    assert pas_de_collecte(datetime(2026, 11, 15, 7, 30, tzinfo=timezone.utc)).seconds == 600   # dimanche 8h30
