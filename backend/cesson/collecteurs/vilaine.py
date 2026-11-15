@@ -26,7 +26,7 @@ STATION = Lieu(
     type="station_hydrometrique",
     coord=Coord(lat=48.123664694, lon=-1.56367843),
     source="Hub'Eau",
-    url=f"https://www.vigicrues.gouv.fr/niv3-station.php?CdEntVigiCru={CODE_STATION}",
+    url=f"https://www.vigicrues.gouv.fr/station/{CODE_STATION}",
 )
 
 # Une variation de plus de 2 cm en une heure est considérée comme une tendance.

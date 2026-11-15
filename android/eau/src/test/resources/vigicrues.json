@@ -1,0 +1,23 @@
+{
+  "module": "vigicrues",
+  "version_schema": 1,
+  "meta": {
+    "source": "Vigicrues (SCHAPI)",
+    "licence": "Licence Ouverte 2.0",
+    "url_source": "https://www.vigicrues.gouv.fr/territoire/8",
+    "recupere_le": "2026-11-15T07:16:04.499589Z",
+    "valide_jusqu_a": "2026-11-15T08:01:04.499589Z",
+    "etat": "ok"
+  },
+  "donnees": {
+    "troncon": {
+      "id": "vigicrues:BT9",
+      "nom": "Vilaine amont",
+      "type": "troncon_vigicrues",
+      "source": "Vigicrues",
+      "url": "https://www.vigicrues.gouv.fr/station/J709063002"
+    },
+    "vigilance": "vert",
+    "depuis": "2026-11-15T07:16:04.499589Z"
+  }
+}

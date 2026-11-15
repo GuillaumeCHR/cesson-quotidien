@@ -11,5 +11,8 @@ PATH=/usr/bin:/bin
 # Horaire, à la 7e minute : météo (Open-Meteo, modèles Météo-France)
 7 * * * *     cd $CESSON && .venv/bin/python -m cesson collecter meteo --sortie /srv/cesson/public --etat /srv/cesson/etat >> /srv/cesson/log/collecte.log 2>&1
 
+# Toutes les 15 min (3, 18, 33, 48) : vigilance crues du tronçon Vilaine amont
+3-59/15 * * * * cd $CESSON && .venv/bin/python -m cesson collecter vigicrues --sortie /srv/cesson/public --etat /srv/cesson/etat >> /srv/cesson/log/collecte.log 2>&1
+
 # Contrôle de santé toutes les heures : sort en erreur (et cron envoie un mail) si une source est en retard.
 17 * * * *    cd $CESSON && .venv/bin/python -m cesson sante --etat /srv/cesson/etat > /dev/null

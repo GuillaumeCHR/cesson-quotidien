@@ -7,7 +7,11 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.material.icons.automirrored.rounded.OpenInNew
+import androidx.compose.material3.TextButton
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.TrendingDown
 import androidx.compose.material.icons.automirrored.rounded.TrendingFlat
@@ -40,10 +44,16 @@ import com.yogistudio.cesson.core.ui.formaterDeHeure
 import com.yogistudio.cesson.core.ui.rememberMaintenant
 
 @Composable
-fun CarteVilaine(etat: EtatModule<DonneesVilaine>, modifier: Modifier = Modifier) {
+fun CarteVilaine(
+    etat: EtatModule<DonneesVilaine>,
+    vigilance: EtatModule<DonneesVigicrues>,
+    modifier: Modifier = Modifier,
+) {
+    val uri = LocalUriHandler.current
     val maintenant = rememberMaintenant()
     when (etat) {
         EtatModule.Absent -> CarteDonnee("La Vilaine", Icons.Rounded.Water, modifier, maintenant = maintenant) {
+            LigneVigilance(vigilance)
             TexteBientot("Niveau pas encore reçu. Tirez vers le bas pour actualiser.")
         }
         is EtatModule.Disponible -> {
@@ -63,6 +73,7 @@ fun CarteVilaine(etat: EtatModule<DonneesVilaine>, modifier: Modifier = Modifier
                 ),
             ) {
                 Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    LigneVigilance(vigilance)
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
                         modifier = Modifier.semantics(mergeDescendants = true) {
@@ -90,10 +101,15 @@ fun CarteVilaine(etat: EtatModule<DonneesVilaine>, modifier: Modifier = Modifier
                             color = MaterialTheme.colorScheme.onSurfaceVariant)
                     }
                     Text(
-                        "Repère : crue du 26 octobre 1966, 3,73 m. Pour la vigilance officielle, consultez Vigicrues.",
+                        "Repère : crue du 26 octobre 1966, 3,73 m.",
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
+                    TextButton(onClick = { uri.openUri(d.station.url ?: URL_VIGICRUES) }) {
+                        Text("Voir sur Vigicrues")
+                        Spacer(Modifier.width(4.dp))
+                        Icon(Icons.AutoMirrored.Rounded.OpenInNew, contentDescription = null, modifier = Modifier.size(16.dp))
+                    }
                 }
             }
         }

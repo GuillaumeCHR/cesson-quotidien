@@ -69,7 +69,10 @@ import com.yogistudio.cesson.core.preferences.deplacer
 import com.yogistudio.cesson.core.preferences.ordonnerTuiles
 import com.yogistudio.cesson.core.ui.CarteDonnee
 import com.yogistudio.cesson.core.ui.TexteBientot
+import com.yogistudio.cesson.eau.BandeauCrue
 import com.yogistudio.cesson.eau.CarteVilaine
+import com.yogistudio.cesson.eau.enAlerte
+import com.yogistudio.cesson.eau.vigicrues
 import com.yogistudio.cesson.eau.vilaine
 import com.yogistudio.cesson.environnement.CarteMeteo
 import com.yogistudio.cesson.environnement.meteo
@@ -94,7 +97,8 @@ val TUILES: List<Tuile> = listOf(
     },
     Tuile("vilaine", "La Vilaine", Icons.Rounded.Water) { app ->
         val etat by remember(app) { app.depot.vilaine() }.collectAsStateWithLifecycle(EtatModule.Absent)
-        CarteVilaine(etat)
+        val vigilance by remember(app) { app.depot.vigicrues() }.collectAsStateWithLifecycle(EtatModule.Absent)
+        CarteVilaine(etat, vigilance)
     },
     Tuile("arrets", "Prochains départs à Cesson-ViaSilva", Icons.Rounded.DirectionsBus) {
         CarteBientot("Prochains départs à Cesson-ViaSilva", Icons.Rounded.DirectionsBus,
@@ -130,6 +134,7 @@ fun EcranAujourdhui(app: CessonApp, onPersonnaliser: () -> Unit) {
     val enCours by app.depot.rafraichissementEnCours.collectAsStateWithLifecycle()
     val erreur by app.depot.derniereErreur.collectAsStateWithLifecycle()
     val messages = remember { SnackbarHostState() }
+    val vigilance by remember(app) { app.depot.vigicrues() }.collectAsStateWithLifecycle(EtatModule.Absent)
     val cfg = config ?: return
     val visibles = ordonnerTuiles(TUILES.map { it.id }, cfg.ordre)
         .filter { it !in cfg.masquees }
@@ -145,6 +150,8 @@ fun EcranAujourdhui(app: CessonApp, onPersonnaliser: () -> Unit) {
             verticalArrangement = Arrangement.spacedBy(12.dp),
             modifier = Modifier.fillMaxSize(),
         ) {
+            // Vigilance crues jaune ou plus : toujours en tête, hors des tuiles personnalisables.
+            if (vigilance.enAlerte()) item("crue") { BandeauCrue(vigilance) }
             if (!bandeauVu) {
                 item("bandeau") { BandeauNonOfficiel { portee.launch { app.preferences.marquerBandeauVu() } } }
             }

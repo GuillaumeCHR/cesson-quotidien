@@ -19,7 +19,7 @@
         "lon": -1.56367843
       },
       "source": "Hub'Eau",
-      "url": "https://www.vigicrues.gouv.fr/niv3-station.php?CdEntVigiCru=J709063002"
+      "url": "https://www.vigicrues.gouv.fr/station/J709063002"
     },
     "mesure": {
       "station": "hubeau:J709063002",

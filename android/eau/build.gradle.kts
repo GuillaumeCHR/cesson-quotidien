@@ -1,4 +1,4 @@
-// Domaine eau : niveau de la Vilaine à Pont Briand (puis vigilance crues).
+// Domaine eau : niveau de la Vilaine à Pont Briand et vigilance crues (Vigicrues).
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.compose)
