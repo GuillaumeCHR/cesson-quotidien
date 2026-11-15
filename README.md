@@ -4,6 +4,14 @@ Cesson'App (« Cesson au quotidien ») : app Android non officielle (Yogi Studio
 partir de données publiques. Aucun compte, aucune publicité, aucune donnée collectée.
 Architecture : voir « Cesson au quotidien — Document d'architecture.md ».
 
+<p>
+<img src="docs/captures/1-aujourdhui.png" width="19%" alt="Aujourd'hui">
+<img src="docs/captures/2-bouger.png" width="19%" alt="Bouger">
+<img src="docs/captures/3-sortir.png" width="19%" alt="Sortir">
+<img src="docs/captures/4-pratique.png" width="19%" alt="Pratique">
+<img src="docs/captures/5-actus.png" width="19%" alt="Actus">
+</p>
+
 ## Backend (collecteurs Python → fichiers JSON statiques)
 
     cd backend
@@ -35,7 +43,9 @@ En debug, l'app lit `http://127.0.0.1:8000/`. Pour tester sur un téléphone bra
     python3 -m http.server -b 127.0.0.1 -d backend/public 8000
     adb reverse tcp:8000 tcp:8000
 
-Release : `-Pcesson.donneesUrl=https://…` et `-Pcesson.contact=…`.
+Release : `./gradlew :app:assembleRelease :app:bundleRelease`. L'adresse des données et le contact sont dans
+`android/gradle.properties` ; la clé d'envoi Play Store est lue dans `~/.config/cessonapp/upload-key.properties`
+(jamais dans le dépôt ; sans elle, la release n'est pas signée).
 
 ## Carte de l'intro
 

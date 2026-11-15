@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
@@ -24,6 +26,21 @@ android {
         buildConfigField("String", "CONTACT", "\"$contact\"")
     }
 
+    // Clé d'envoi Play Store (upload key) : jamais dans le dépôt. Ses coordonnées sont lues dans un fichier
+    // local ; sans lui, la release est construite sans signature.
+    val cleEnvoi = providers.environmentVariable("CESSON_UPLOAD_KEY_PROPERTIES")
+        .orElse(providers.provider { "${System.getProperty("user.home")}/.config/cessonapp/upload-key.properties" })
+        .map { file(it) }.get()
+    if (cleEnvoi.isFile) {
+        val props = Properties().apply { cleEnvoi.inputStream().use { load(it) } }
+        signingConfigs.create("upload") {
+            storeFile = file(props.getProperty("storeFile"))
+            storePassword = props.getProperty("storePassword")
+            keyAlias = props.getProperty("keyAlias")
+            keyPassword = props.getProperty("keyPassword")
+        }
+    }
+
     buildTypes {
         debug {
             applicationIdSuffix = ".debug"
@@ -34,6 +51,7 @@ android {
             isMinifyEnabled = true
             isShrinkResources = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            signingConfig = signingConfigs.findByName("upload")
         }
     }
 
