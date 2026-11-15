@@ -37,8 +37,24 @@ case $etat in
            exit 0 ;;
 esac
 
+# Modules à recollecter tout de suite : ceux dont la saisie ou le collecteur a changé depuis le dernier déploiement
+# (sinon, une correction d'horaires attendrait la collecte suivante, parfois la nuit).
+AVANT=$(cat "$DEJA" 2>/dev/null || true)
+TOUCHES=""
+if [[ -n $AVANT ]] && git -C "$DEPOT" cat-file -e "$AVANT" 2>/dev/null; then
+    TOUCHES=$(git -C "$DEPOT" diff --name-only "$AVANT" "$SHA" -- backend/saisie backend/cesson/collecteurs | python3 -c '
+import sys, os
+lies = {"lieux_pratiques": "defibrillateurs bornes", "actus": "actus usages_eau"}
+mods = set()
+for f in sys.stdin.read().split():
+    nom = os.path.splitext(os.path.basename(f))[0]
+    if nom not in ("__init__", "README"):
+        mods.update(lies.get(nom, nom).split())
+print(" ".join(sorted(mods)))')
+fi
+
 git -C "$DEPOT" checkout -q --force "$SHA"
-if bash "$DEPOT/backend/deploy/raspberry/installer.sh" --auto; then
+if bash "$DEPOT/backend/deploy/raspberry/installer.sh" --auto $TOUCHES; then
     echo "$SHA" > "$DEJA"
     echo "$(date -Is) déployé ${SHA:0:7}"
 else

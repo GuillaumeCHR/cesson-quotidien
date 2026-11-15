@@ -12,7 +12,9 @@ set -euo pipefail
 
 [[ $EUID -eq 0 ]] || { echo "À lancer avec sudo." >&2; exit 1; }
 # --auto : lancé par la mise à jour automatique (mise-a-jour-auto.sh) ; ne collecte que les modules nouveaux.
-AUTO=0; [[ ${1:-} == --auto ]] && AUTO=1
+# Arguments suivants : modules à recollecter quoi qu'il arrive (leur saisie ou leur collecteur a changé).
+AUTO=0; [[ ${1:-} == --auto ]] && { AUTO=1; shift; }
+TOUCHES=" $* "
 MODULES="vilaine meteo vigicrues carburants lignes_star trains equipements collecte actus circulation usages_eau defibrillateurs bornes agenda cinema vacances_scolaires familles"
 
 SOURCE=$(cd "$(dirname "$0")/../.." && pwd)   # le dossier backend copié sur le Pi
@@ -99,7 +101,9 @@ systemctl enable --now cesson-mise-a-jour.timer
 etape "Première collecte"
 A_COLLECTER=$MODULES
 if (( AUTO )); then  # mise à jour : seulement les modules qui n'ont encore rien publié
-    A_COLLECTER=$(for m in $MODULES; do [[ -s $RACINE/public/$m.json ]] || printf '%s ' "$m"; done)
+    A_COLLECTER=$(for m in $MODULES; do
+        if [[ ! -s $RACINE/public/$m.json || $TOUCHES == *" $m "* ]]; then printf '%s ' "$m"; fi
+    done)
 fi
 if [[ -n ${A_COLLECTER// } ]]; then
     sudo -u cesson env CESSON_ALERTE_URL="https://ntfy.sh/$SUJET" bash -c \
