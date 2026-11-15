@@ -105,7 +105,7 @@ private fun LigneEvenement(e: Evenement, details: Boolean = true) {
                 Text(it, style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 Spacer(Modifier.width(8.dp))
             }
-            Text(e.titre, style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold), maxLines = 2,
+            Text(e.titre, style = MaterialTheme.typography.titleSmall, maxLines = 2,
                 overflow = TextOverflow.Ellipsis, modifier = Modifier.weight(1f))
         }
         Text(listOfNotNull(e.lieu, jusquau).joinToString(" · "), style = MaterialTheme.typography.bodySmall,

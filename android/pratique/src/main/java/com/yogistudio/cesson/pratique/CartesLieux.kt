@@ -217,7 +217,7 @@ private fun LigneLieu(
         verticalArrangement = Arrangement.spacedBy(4.dp),
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
-            Text(lieu.nom, style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold), modifier = Modifier.weight(1f))
+            Text(lieu.nom, style = MaterialTheme.typography.titleSmall, modifier = Modifier.weight(1f))
             distance?.let { Text(formaterDistance(it), style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.primary) }
         }
         val compact = LocalCompact.current

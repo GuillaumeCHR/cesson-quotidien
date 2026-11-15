@@ -85,7 +85,7 @@ fun CarteCinema(etat: EtatModule<DonneesCinema>, modifier: Modifier = Modifier) 
                                     },
                                     verticalArrangement = Arrangement.spacedBy(3.dp),
                                 ) {
-                                    Text(film.titre, style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold))
+                                    Text(film.titre, style = MaterialTheme.typography.titleSmall)
                                     FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
                                         seances.forEach { s ->
                                             Pastille(heure(s) + (s.tarif?.takeIf { !compact }?.let { " · $it" } ?: ""), Ton.INFO)

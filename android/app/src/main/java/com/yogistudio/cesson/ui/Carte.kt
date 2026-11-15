@@ -261,8 +261,9 @@ private fun creerCarte(context: Context): MapView {
         setTileSource(source)
         setMultiTouchControls(true)
         zoomController.setVisibility(CustomZoomButtonsController.Visibility.NEVER)
-        minZoomLevel = 13.0
-        maxZoomLevel = 18.0
+        // Tuiles du Pi : zooms 12 à 18. Au-delà de 18, osmdroid agrandit les tuiles du 18 : rien de plus à télécharger.
+        minZoomLevel = 12.0
+        maxZoomLevel = 20.0
         setScrollableAreaLimitDouble(EMPRISE)
         isVerticalMapRepetitionEnabled = false
         isHorizontalMapRepetitionEnabled = false

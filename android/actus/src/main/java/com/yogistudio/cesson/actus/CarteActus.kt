@@ -105,7 +105,7 @@ private fun LigneArticle(a: Article, maintenant: Instant, extrait: Boolean = tru
                 Pastille("Cesson", Ton.OUVERT)
             }
         }
-        Text(a.titre, style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold), maxLines = 3,
+        Text(a.titre, style = MaterialTheme.typography.titleSmall, maxLines = 3,
             overflow = TextOverflow.Ellipsis)
         if (extrait) a.extrait?.let {
             Text(it, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant,
