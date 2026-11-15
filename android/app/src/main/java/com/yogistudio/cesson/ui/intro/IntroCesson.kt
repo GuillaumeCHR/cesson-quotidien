@@ -4,7 +4,6 @@ import android.provider.Settings
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.WindowInsets
@@ -55,6 +54,7 @@ import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.yogistudio.cesson.core.ui.Atkinson
+import com.yogistudio.cesson.core.ui.LocalSombre
 import kotlin.math.min
 
 /** Couleurs de l'intro, en clair et en sombre : à plat, sans dégradé. */
@@ -114,7 +114,7 @@ fun IntroCesson(onFinished: () -> Unit, modifier: Modifier = Modifier, frameTime
     val elapsed = remember { mutableLongStateOf(frameTimeMs ?: 0L) }
     val currentOnFinished by rememberUpdatedState(onFinished)
     if (frameTimeMs == null) IntroClock(elapsed, reduced, end, currentOnFinished)
-    val teintes = if (isSystemInDarkTheme()) Sombre else Clair
+    val teintes = if (LocalSombre.current) Sombre else Clair
 
     Box(
         modifier = modifier
@@ -410,7 +410,7 @@ private fun LogoReveal(elapsed: MutableLongState) {
             "Cesson-Sévigné, au quotidien",
             fontFamily = Atkinson,
             fontSize = 16.sp,
-            color = if (isSystemInDarkTheme()) Sombre.discret else Clair.discret,
+            color = if (LocalSombre.current) Sombre.discret else Clair.discret,
             modifier = Modifier
                 .align(Alignment.TopCenter)
                 .graphicsLayer {

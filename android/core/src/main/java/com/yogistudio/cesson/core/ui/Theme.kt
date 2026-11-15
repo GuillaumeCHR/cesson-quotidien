@@ -1,6 +1,8 @@
 package com.yogistudio.cesson.core.ui
 
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Typography
 import androidx.compose.material3.darkColorScheme
@@ -122,7 +124,12 @@ private val Typo = Typography(
     labelSmall = TypoBase.labelSmall.atkinson(),
 )
 
+/** Vrai si l'app s'affiche en sombre (choix de l'utilisateur, ou celui du téléphone). À lire plutôt que isSystemInDarkTheme(). */
+val LocalSombre = staticCompositionLocalOf { false }
+
 @Composable
 fun CessonTheme(sombre: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) {
-    MaterialTheme(colorScheme = if (sombre) Sombre else Clair, typography = Typo, content = content)
+    CompositionLocalProvider(LocalSombre provides sombre) {
+        MaterialTheme(colorScheme = if (sombre) Sombre else Clair, typography = Typo, content = content)
+    }
 }

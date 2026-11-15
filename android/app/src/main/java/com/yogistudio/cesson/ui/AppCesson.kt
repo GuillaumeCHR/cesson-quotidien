@@ -10,6 +10,7 @@ import androidx.compose.material.icons.rounded.Info
 import androidx.compose.material.icons.rounded.Lightbulb
 import androidx.compose.material.icons.rounded.MoreVert
 import androidx.compose.material.icons.rounded.Newspaper
+import androidx.compose.material.icons.rounded.Settings
 import androidx.compose.material.icons.rounded.Source
 import androidx.compose.material.icons.rounded.Today
 import androidx.compose.material.icons.rounded.Tune
@@ -56,6 +57,7 @@ import kotlin.reflect.KClass
 @Serializable object RouteActus
 @Serializable data class RoutePersonnaliser(val onglet: String)
 @Serializable object RouteGuide
+@Serializable object RouteReglages
 @Serializable object RouteSources
 @Serializable object RouteAPropos
 @Serializable object RouteVosIdees
@@ -86,6 +88,7 @@ fun AppCesson(app: CessonApp) {
             "Personnaliser " + (ONGLETS_PERSONNALISABLES.firstOrNull { it.id == id }?.nom ?: "")
         }
         destination?.hasRoute(RouteGuide::class) == true -> "Guide de démarrage"
+        destination?.hasRoute(RouteReglages::class) == true -> "Réglages"
         destination?.hasRoute(RouteSources::class) == true -> "Sources et licences"
         destination?.hasRoute(RouteAPropos::class) == true -> "À propos"
         destination?.hasRoute(RouteVosIdees::class) == true -> "Vos idées"
@@ -151,6 +154,7 @@ fun AppCesson(app: CessonApp) {
                 val id = e.toRoute<RoutePersonnaliser>().onglet
                 EcranPersonnaliser(app, ONGLETS_PERSONNALISABLES.firstOrNull { it.id == id } ?: ONGLET_ACCUEIL)
             }
+            composable<RouteReglages> { EcranReglages(app) }
             composable<RouteGuide> { EcranGuide(app, onTerminer = { nav.popBackStack() }) }
             composable<RouteSources> { EcranSources(app) }
             composable<RouteAPropos> { EcranAPropos(onVosIdees = { nav.navigate(RouteVosIdees) }) }
@@ -165,6 +169,7 @@ private fun MenuPlus(nav: NavHostController) {
     IconButton(onClick = { ouvert = true }) { Icon(Icons.Rounded.MoreVert, contentDescription = "Plus d'options") }
     DropdownMenu(expanded = ouvert, onDismissRequest = { ouvert = false }) {
         listOf(
+            Triple("Réglages", Icons.Rounded.Settings, RouteReglages),
             Triple("Vos idées / signaler une erreur", Icons.Rounded.Lightbulb, RouteVosIdees),
             Triple("Guide de démarrage", Icons.Rounded.Explore, RouteGuide),
             Triple("Sources et licences", Icons.Rounded.Source, RouteSources),

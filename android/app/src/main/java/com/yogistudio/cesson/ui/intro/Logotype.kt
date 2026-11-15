@@ -1,6 +1,5 @@
 package com.yogistudio.cesson.ui.intro
 
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -15,6 +14,7 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import com.yogistudio.cesson.core.ui.Atkinson
+import com.yogistudio.cesson.core.ui.LocalSombre
 
 /** Taille du logotype dans l'en-tête de l'accueil : l'intro le fait glisser exactement jusque-là. */
 val HeaderLogotypeSize = 24.sp
@@ -27,7 +27,7 @@ const val NOM_APP = "Cesson'App"
  */
 @Composable
 fun CessonAppLogotype(modifier: Modifier = Modifier, fontSize: TextUnit = HeaderLogotypeSize) {
-    val sombre = isSystemInDarkTheme()
+    val sombre = LocalSombre.current
     val vert = if (sombre) Color(0xFF93D2B0) else Color(0xFF2F6B4F)
     val bleu = if (sombre) Color(0xFF9DCAF0) else Color(0xFF1F5F8B)
     Text(

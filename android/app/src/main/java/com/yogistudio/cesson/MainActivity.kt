@@ -15,6 +15,11 @@ import com.yogistudio.cesson.core.signalement.ContexteSignalement
 import com.yogistudio.cesson.core.signalement.LocalSignaleur
 import com.yogistudio.cesson.core.signalement.Signaleur
 import com.yogistudio.cesson.core.ui.CessonTheme
+import com.yogistudio.cesson.core.preferences.AFFICHAGE_CLAIR
+import com.yogistudio.cesson.core.preferences.AFFICHAGE_SOMBRE
+import com.yogistudio.cesson.core.preferences.AFFICHAGE_TELEPHONE
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.yogistudio.cesson.rappels.RappelsCollecte
 import com.yogistudio.cesson.ui.AppCesson
 import com.yogistudio.cesson.ui.intro.IntroCesson
@@ -36,7 +41,13 @@ class MainActivity : ComponentActivity() {
             RappelsCollecte.planifier(app)
         }
         setContent {
-            CessonTheme {
+            val affichage by app.preferences.affichage.collectAsStateWithLifecycle(AFFICHAGE_TELEPHONE)
+            val sombre = when (affichage) {
+                AFFICHAGE_CLAIR -> false
+                AFFICHAGE_SOMBRE -> true
+                else -> isSystemInDarkTheme()
+            }
+            CessonTheme(sombre) {
                 CompositionLocalProvider(LocalSignaleur provides Signaleur(::ouvrirMail)) {
                     // L'intro se joue pendant que le cache et les données se chargent (lancés plus haut) ;
                     // elle ne rejoue pas après une rotation de l'écran.

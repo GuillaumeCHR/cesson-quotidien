@@ -19,9 +19,13 @@ private val Context.preferencesCesson by preferencesDataStore(name = "preference
 data class ConfigAccueil(val ordre: List<String>, val masquees: Set<String>)
 
 const val ACCUEIL = "accueil"
+const val AFFICHAGE_TELEPHONE = "telephone"
+const val AFFICHAGE_CLAIR = "clair"
+const val AFFICHAGE_SOMBRE = "sombre"
 
 class PreferencesLocales(private val context: Context) {
     private val guideVu = booleanPreferencesKey("guide_demarrage_vu")
+    private val cleAffichage = stringPreferencesKey("affichage")
     private val cleEquipementsMasques = stringSetPreferencesKey("equipements_masques")
     private val carburant = stringPreferencesKey("carburant_suivi")
     private val arret = stringPreferencesKey("arret_suivi")
@@ -51,6 +55,13 @@ class PreferencesLocales(private val context: Context) {
     val configAccueil: Flow<ConfigAccueil> get() = configOnglet(ACCUEIL)
 
     suspend fun enregistrerAccueil(config: ConfigAccueil) = enregistrerOnglet(ACCUEIL, config)
+
+    /** Thème : « telephone » (par défaut, suit le réglage d'Android), « clair » ou « sombre ». */
+    val affichage: Flow<String> = context.preferencesCesson.data.map { it[cleAffichage] ?: AFFICHAGE_TELEPHONE }
+
+    suspend fun enregistrerAffichage(mode: String) {
+        context.preferencesCesson.edit { it[cleAffichage] = mode }
+    }
 
     /** Guide de démarrage : montré au premier lancement, puis accessible depuis le menu. */
     val guideDemarrageVu: Flow<Boolean> = context.preferencesCesson.data.map { it[guideVu] ?: false }
