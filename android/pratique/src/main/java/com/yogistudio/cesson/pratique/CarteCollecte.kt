@@ -1,5 +1,7 @@
 package com.yogistudio.cesson.pratique
 
+import com.yogistudio.cesson.core.ui.Ton
+import com.yogistudio.cesson.core.ui.Pastille
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -92,7 +94,13 @@ private fun LigneBac(p: ProchaineCollecte, maintenant: Instant) {
         Bac(p.flux.bac)
         Spacer(Modifier.width(12.dp))
         Column(Modifier.weight(1f)) {
-            Text("Bac ${p.flux.bac} · ${p.flux.nom}", style = MaterialTheme.typography.bodyMedium)
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Text("Bac ${p.flux.bac} · ${p.flux.nom}", style = MaterialTheme.typography.bodyMedium)
+                if (decale != null) {
+                    Spacer(Modifier.width(8.dp))
+                    Pastille("Décalé", Ton.ALERTE)
+                }
+            }
             Text(
                 decale?.let { "Décalé d'un jour : $it" } ?: p.flux.regle.replaceFirstChar { it.uppercase() },
                 style = MaterialTheme.typography.bodySmall,

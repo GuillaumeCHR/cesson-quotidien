@@ -1,5 +1,8 @@
 package com.yogistudio.cesson.transport
 
+import androidx.compose.material3.IconButton
+import androidx.compose.material.icons.rounded.NotificationsNone
+import androidx.compose.material.icons.rounded.NotificationsActive
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -65,6 +68,10 @@ fun CarteDeparts(
     nomArret: String = POLE_VIASILVA,
     titre: String = "Métro et bus ViaSilva",
     modifier: Modifier = Modifier,
+    /** Si fourni, une cloche par direction propose une alerte de passage. */
+    onAlerter: ((Direction) -> Unit)? = null,
+    /** Direction (ligne, destination) dont l'alerte est armée : sa cloche est pleine. */
+    alerteArmee: Pair<String, String>? = null,
     pied: @Composable () -> Unit = {},
 ) {
     var etat by remember(nomArret) { mutableStateOf(EtatDeparts()) }
@@ -92,7 +99,9 @@ fun CarteDeparts(
                 recus == null && !etat.erreur -> TexteBientot("Interrogation de STAR…")
                 recus == null -> LigneHorsConnexion("Impossible de joindre STAR pour le moment.")
                 directions.isNullOrEmpty() -> TexteBientot("Aucun départ annoncé dans les prochaines heures.")
-                else -> directions.take(8).forEach { LigneDirection(it, couleurs[it.ligne], maintenant) }
+                else -> directions.take(8).forEach {
+                    LigneDirection(it, couleurs[it.ligne], maintenant, onAlerter, alerteArmee == (it.ligne to it.destination))
+                }
             }
             if (recus != null && etat.erreur) {
                 LigneHorsConnexion("STAR injoignable : horaires reçus ${formaterDepuis(etat.recusA!!, maintenant)}.")
@@ -110,7 +119,13 @@ fun CarteDeparts(
 }
 
 @Composable
-private fun LigneDirection(d: Direction, ligne: LigneStar?, maintenant: Instant) {
+private fun LigneDirection(
+    d: Direction,
+    ligne: LigneStar?,
+    maintenant: Instant,
+    onAlerter: ((Direction) -> Unit)? = null,
+    armee: Boolean = false,
+) {
     val heures = d.departs.map { formaterAttente(it.heure, maintenant) { h -> formaterHeure(h, maintenant) } }
     val description = buildString {
         append(if (d.mode == Mode.METRO) "Métro ${d.ligne}" else "Ligne ${d.ligne}")
@@ -140,6 +155,16 @@ private fun LigneDirection(d: Direction, ligne: LigneStar?, maintenant: Instant)
                 ),
                 color = if (i == 0) MaterialTheme.colorScheme.onSurface else MaterialTheme.colorScheme.onSurfaceVariant,
             )
+        }
+        if (onAlerter != null) {
+            IconButton(onClick = { onAlerter(d) }, modifier = Modifier.size(40.dp)) {
+                Icon(
+                    if (armee) Icons.Rounded.NotificationsActive else Icons.Rounded.NotificationsNone,
+                    contentDescription = if (armee) "Alerte armée pour le ${d.ligne} vers ${d.destination}"
+                    else "M'alerter avant le passage du ${d.ligne} vers ${d.destination}",
+                    tint = if (armee) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            }
         }
     }
 }

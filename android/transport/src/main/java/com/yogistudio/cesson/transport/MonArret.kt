@@ -1,5 +1,14 @@
 package com.yogistudio.cesson.transport
 
+import androidx.compose.ui.Alignment
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.Row
+import androidx.compose.material3.IconButton
+import androidx.compose.material.icons.rounded.Remove
+import androidx.compose.material.icons.rounded.Add
+import androidx.compose.material.icons.rounded.NotificationsActive
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -48,6 +57,11 @@ fun CarteMonArret(
     arretSuivi: String?,
     onChoisir: (String) -> Unit,
     modifier: Modifier = Modifier,
+    alerte: AlerteBus? = null,
+    delaiAlerte: Int = DELAI_ALERTE_DEFAUT,
+    onAlerter: (Direction) -> Unit = {},
+    onAnnulerAlerte: () -> Unit = {},
+    onDelaiAlerte: (Int) -> Unit = {},
 ) {
     var choix by rememberSaveable { mutableStateOf(false) }
     val arrets = lignes?.arrets.orEmpty()
@@ -61,7 +75,12 @@ fun CarteMonArret(
             }
         }
     } else {
-        CarteDeparts(client, lignes, nomArret = arretSuivi, titre = "Mon arrêt de bus : $arretSuivi", modifier = modifier) {
+        val armee = alerte?.takeIf { it.arret == arretSuivi }
+        CarteDeparts(
+            client, lignes, nomArret = arretSuivi, titre = "Mon arrêt de bus : $arretSuivi", modifier = modifier,
+            onAlerter = onAlerter, alerteArmee = armee?.let { it.ligne to it.destination },
+        ) {
+            PiedAlerte(armee, delaiAlerte, onAnnulerAlerte, onDelaiAlerte)
             TextButton(onClick = { choix = true }, enabled = arrets.isNotEmpty()) { Text("Changer d'arrêt") }
         }
     }
@@ -125,6 +144,39 @@ fun ChoixArret(
                     }
                 }
                 HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
+            }
+        }
+    }
+}
+
+/**
+ * Proposition d'alerte : délai de prévenance réglable (2 à 15 min), et l'alerte en cours avec « Annuler ».
+ * Pour armer, une cloche sur chaque direction.
+ */
+@Composable
+private fun PiedAlerte(alerte: AlerteBus?, delai: Int, onAnnuler: () -> Unit, onDelai: (Int) -> Unit) {
+    Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+        if (alerte != null) {
+            val heure = com.yogistudio.cesson.core.ui.formaterHeure(java.time.Instant.ofEpochSecond(alerte.heureVisee), java.time.Instant.now())
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Icon(Icons.Rounded.NotificationsActive, contentDescription = null, tint = MaterialTheme.colorScheme.primary,
+                    modifier = Modifier.size(18.dp))
+                Spacer(Modifier.width(8.dp))
+                Text("Alerte ${alerte.delaiMin} min avant le ${alerte.ligne} vers ${alerte.destination} (passage prévu à $heure)",
+                    style = MaterialTheme.typography.bodySmall, modifier = Modifier.weight(1f))
+                TextButton(onClick = onAnnuler) { Text("Annuler") }
+            }
+        }
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Text("Touchez une cloche pour être prévenu", style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.weight(1f))
+            IconButton(onClick = { onDelai((delai - 1).coerceIn(DELAIS_ALERTE)) }, enabled = delai > DELAIS_ALERTE.first) {
+                Icon(Icons.Rounded.Remove, contentDescription = "Prévenir moins tôt")
+            }
+            Text("$delai min avant", style = MaterialTheme.typography.labelLarge,
+                modifier = Modifier.semantics { contentDescription = "Prévenir $delai minutes avant le passage" })
+            IconButton(onClick = { onDelai((delai + 1).coerceIn(DELAIS_ALERTE)) }, enabled = delai < DELAIS_ALERTE.last) {
+                Icon(Icons.Rounded.Add, contentDescription = "Prévenir plus tôt")
             }
         }
     }

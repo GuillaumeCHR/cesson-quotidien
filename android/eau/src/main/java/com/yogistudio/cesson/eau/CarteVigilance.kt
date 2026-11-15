@@ -1,5 +1,10 @@
 package com.yogistudio.cesson.eau
 
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.material3.Surface
+import androidx.compose.foundation.shape.RoundedCornerShape
+import com.yogistudio.cesson.core.ui.Ton
+import com.yogistudio.cesson.core.ui.Pastille
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -67,15 +72,27 @@ fun LigneVigilance(etat: EtatModule<DonneesVigicrues>) {
                     contentDescription = "${d.vigilance.libelleCourt()} sur la ${d.troncon.nom}$precision"
                 },
             ) {
-                Box(Modifier.size(12.dp).background(couleurVigilance(d.vigilance), CircleShape))
-                Spacer(Modifier.width(8.dp))
-                Column {
-                    Text(d.vigilance.libelleCourt(), style = MaterialTheme.typography.titleSmall)
-                    Text("Tronçon ${d.troncon.nom}$precision", style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant)
-                }
+                PastilleVigilance(d.vigilance)
+                Spacer(Modifier.width(10.dp))
+                Text("Tronçon ${d.troncon.nom}$precision",
+                    style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
         }
+    }
+}
+
+/** Pastille de vigilance : vert, jaune, orange ou rouge, toujours écrite en toutes lettres. */
+@Composable
+fun PastilleVigilance(v: Vigilance) {
+    when (v) {
+        Vigilance.VERT -> Pastille("Pas de vigilance crues", Ton.OUVERT)
+        Vigilance.JAUNE -> Pastille("Vigilance jaune", Ton.ALERTE)
+        Vigilance.ORANGE -> Surface(color = Palette.VigilanceOrange, contentColor = Color(0xFF2B1600), shape = RoundedCornerShape(50)) {
+            Text("Vigilance orange", style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Bold),
+                modifier = Modifier.padding(horizontal = 9.dp, vertical = 3.dp))
+        }
+        Vigilance.ROUGE -> Pastille("Vigilance rouge", Ton.FERME)
+        Vigilance.INCONNUE -> Pastille("Vigilance : à vérifier", Ton.NEUTRE)
     }
 }
 

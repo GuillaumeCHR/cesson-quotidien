@@ -1,5 +1,21 @@
 package com.yogistudio.cesson.ui
 
+import java.time.Instant
+import com.yogistudio.cesson.transport.departAViser
+import com.yogistudio.cesson.transport.Direction
+import com.yogistudio.cesson.transport.DELAI_ALERTE_DEFAUT
+import com.yogistudio.cesson.transport.AlerteBus
+import com.yogistudio.cesson.rappels.RappelsCollecte
+import com.yogistudio.cesson.rappels.AlertesBus
+import com.yogistudio.cesson.core.ui.formaterHeure
+import com.yogistudio.cesson.core.modele.JsonCesson
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.compose.rememberLauncherForActivityResult
+import android.os.Build
+import android.Manifest
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.icons.Icons
@@ -129,14 +145,60 @@ fun TrainsHalte(app: CessonApp) {
     CarteTrains(etat, rafraichir = { app.depot.rafraichir() })
 }
 
-/** Carte « Mon arrêt » : l'arrêt choisi reste dans les préférences du téléphone. */
+/**
+ * Carte « Mon arrêt » : l'arrêt choisi et l'alerte de passage restent dans les préférences du téléphone.
+ * Armer une alerte demande la permission de notification (Android 13+) la première fois.
+ */
 @Composable
 fun MonArret(app: CessonApp) {
+    val context = LocalContext.current
     val lignes by remember(app) { app.depot.lignesStar() }.collectAsStateWithLifecycle(EtatModule.Absent)
     val arret by app.preferences.arretSuivi.collectAsStateWithLifecycle(null)
+    val alerteJson by app.preferences.alerteBus.collectAsStateWithLifecycle(null)
+    val alerte = remember(alerteJson) { alerteJson?.let { runCatching { JsonCesson.decodeFromString(AlerteBus.serializer(), it) }.getOrNull() } }
+    val delai by app.preferences.delaiAlerteBus.collectAsStateWithLifecycle(DELAI_ALERTE_DEFAUT)
     val portee = rememberCoroutineScope()
-    CarteMonArret(app.star, (lignes as? EtatModule.Disponible)?.fichier?.donnees, arret,
-        onChoisir = { portee.launch { app.preferences.enregistrerArret(it) } })
+    val messages = LocalMessages.current
+    var enAttente by remember { mutableStateOf<Direction?>(null) }
+
+    fun armer(d: Direction) {
+        val a = arret ?: return
+        val bus = departAViser(d.departs, d.ligne, d.destination, delai, Instant.now())
+        portee.launch {
+            if (bus == null) {
+                messages?.showSnackbar("Aucun ${d.ligne} vers ${d.destination} à plus de $delai min pour l'instant.")
+                return@launch
+            }
+            AlertesBus.armer(context, AlerteBus(a, d.ligne, d.destination, bus.heure.epochSecond, delai))
+            messages?.showSnackbar("Alerte armée : $delai min avant le ${d.ligne} de ${formaterHeure(bus.heure, Instant.now())}.")
+        }
+    }
+    val permission = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { accordee ->
+        val d = enAttente
+        enAttente = null
+        if (accordee && d != null) armer(d)
+        else if (!accordee) portee.launch { messages?.showSnackbar("Notifications refusées : l'alerte ne peut pas vous prévenir.") }
+    }
+    CarteMonArret(
+        app.star, (lignes as? EtatModule.Disponible)?.fichier?.donnees, arret,
+        onChoisir = { nouveau ->
+            portee.launch {
+                app.preferences.enregistrerArret(nouveau)
+                if (alerte != null && alerte.arret != nouveau) AlertesBus.annuler(context) // l'alerte visait l'ancien arrêt
+            }
+        },
+        alerte = alerte,
+        delaiAlerte = delai,
+        onAlerter = { d ->
+            when {
+                alerte?.ligne == d.ligne && alerte.destination == d.destination -> portee.launch { AlertesBus.annuler(context) }
+                RappelsCollecte.notificationsAutorisees(context) -> armer(d)
+                Build.VERSION.SDK_INT >= 33 -> { enAttente = d; permission.launch(Manifest.permission.POST_NOTIFICATIONS) }
+            }
+        },
+        onAnnulerAlerte = { portee.launch { AlertesBus.annuler(context) } },
+        onDelaiAlerte = { portee.launch { app.preferences.enregistrerDelaiAlerteBus(it) } },
+    )
 }
 
 @Composable

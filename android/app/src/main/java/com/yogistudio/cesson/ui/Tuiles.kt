@@ -14,6 +14,16 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.MutableTransitionState
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.slideInVertically
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.CloudOff
 import androidx.compose.material.icons.rounded.KeyboardArrowDown
@@ -107,6 +117,7 @@ fun EcranTuiles(
         onRefresh = { portee.launch { app.depot.rafraichir() } },
         modifier = Modifier.fillMaxSize(),
     ) {
+        CompositionLocalProvider(LocalMessages provides messages) {
         LazyColumn(
             contentPadding = PaddingValues(16.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp),
@@ -123,7 +134,8 @@ fun EcranTuiles(
                     }
                 }
             }
-            items(visibles, key = { it.id }) { tuile ->
+            itemsIndexed(visibles, key = { _, t -> t.id }) { index, tuile ->
+                EntreeCarte(onglet.id, index) {
                 TuileMasquable(
                     tuile = tuile,
                     app = app,
@@ -140,6 +152,7 @@ fun EcranTuiles(
                     },
                     onPersonnaliser = onPersonnaliser,
                 )
+                }
             }
             if (visibles.isEmpty()) {
                 item("vide") {
@@ -151,8 +164,30 @@ fun EcranTuiles(
             }
             pied()
         }
+        }
         SnackbarHost(messages, Modifier.align(Alignment.BottomCenter))
     }
+}
+
+/** Barre de messages de l'écran courant, pour qu'une carte confirme une action (« Alerte armée… »). */
+val LocalMessages = staticCompositionLocalOf<SnackbarHostState?> { null }
+
+/** Onglets dont les cartes ont déjà fait leur entrée depuis le lancement de l'app. */
+private val entreesJouees = mutableSetOf<String>()
+
+/**
+ * Entrée des cartes au premier affichage d'un onglet : elles montent et apparaissent l'une après l'autre.
+ * Une seule fois par lancement : changer d'onglet ou revenir en arrière ne rejoue rien.
+ */
+@Composable
+private fun EntreeCarte(onglet: String, index: Int, contenu: @Composable () -> Unit) {
+    val etat = remember { MutableTransitionState(onglet in entreesJouees).apply { targetState = true } }
+    LaunchedEffect(Unit) { entreesJouees += onglet }
+    AnimatedVisibility(
+        visibleState = etat,
+        enter = fadeIn(tween(320, delayMillis = 60 * index.coerceAtMost(6))) +
+            slideInVertically(tween(380, delayMillis = 60 * index.coerceAtMost(6), easing = FastOutSlowInEasing)) { it / 5 },
+    ) { contenu() }
 }
 
 /**

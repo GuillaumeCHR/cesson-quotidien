@@ -1,5 +1,7 @@
 package com.yogistudio.cesson.transport
 
+import com.yogistudio.cesson.core.ui.Ton
+import com.yogistudio.cesson.core.ui.Pastille
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -145,14 +147,10 @@ private fun LigneTrain(t: DepartTrain, maintenant: Instant) {
 
 @Composable
 private fun PastilleStatut(statut: StatutTrain, texte: String) {
-    val (fond, encre) = when (statut) {
-        StatutTrain.A_L_HEURE -> MaterialTheme.colorScheme.primaryContainer to MaterialTheme.colorScheme.onPrimaryContainer
-        StatutTrain.RETARD -> Palette.VigilanceOrange to Color(0xFF2B1600)
-        StatutTrain.SUPPRIME -> MaterialTheme.colorScheme.errorContainer to MaterialTheme.colorScheme.onErrorContainer
-        StatutTrain.THEORIQUE -> MaterialTheme.colorScheme.surfaceVariant to MaterialTheme.colorScheme.onSurfaceVariant
-    }
-    Surface(color = fond, shape = MaterialTheme.shapes.small) {
-        Text(texte, style = MaterialTheme.typography.labelMedium, color = encre,
-            modifier = Modifier.padding(horizontal = 8.dp, vertical = 3.dp))
-    }
+    Pastille(texte.replaceFirstChar { it.uppercase() }, when (statut) {
+        StatutTrain.A_L_HEURE -> Ton.OUVERT
+        StatutTrain.RETARD -> Ton.ALERTE
+        StatutTrain.SUPPRIME -> Ton.FERME
+        StatutTrain.THEORIQUE -> Ton.NEUTRE
+    })
 }

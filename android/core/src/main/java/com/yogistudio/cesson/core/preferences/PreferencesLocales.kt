@@ -26,6 +26,8 @@ const val AFFICHAGE_SOMBRE = "sombre"
 class PreferencesLocales(private val context: Context) {
     private val guideVu = booleanPreferencesKey("guide_demarrage_vu")
     private val cleAffichage = stringPreferencesKey("affichage")
+    private val cleAlerteBus = stringPreferencesKey("alerte_bus")
+    private val cleDelaiAlerte = androidx.datastore.preferences.core.intPreferencesKey("alerte_bus_delai")
     private val cleEquipementsMasques = stringSetPreferencesKey("equipements_masques")
     private val carburant = stringPreferencesKey("carburant_suivi")
     private val arret = stringPreferencesKey("arret_suivi")
@@ -61,6 +63,20 @@ class PreferencesLocales(private val context: Context) {
 
     suspend fun enregistrerAffichage(mode: String) {
         context.preferencesCesson.edit { it[cleAffichage] = mode }
+    }
+
+    /** Alerte de passage armée (JSON d'AlerteBus), null sans alerte. */
+    val alerteBus: Flow<String?> = context.preferencesCesson.data.map { it[cleAlerteBus] }
+
+    suspend fun enregistrerAlerteBus(json: String?) {
+        context.preferencesCesson.edit { if (json == null) it.remove(cleAlerteBus) else it[cleAlerteBus] = json }
+    }
+
+    /** Délai de prévenance des alertes de passage, en minutes (5 par défaut). */
+    val delaiAlerteBus: Flow<Int> = context.preferencesCesson.data.map { it[cleDelaiAlerte] ?: 5 }
+
+    suspend fun enregistrerDelaiAlerteBus(minutes: Int) {
+        context.preferencesCesson.edit { it[cleDelaiAlerte] = minutes }
     }
 
     /** Guide de démarrage : montré au premier lancement, puis accessible depuis le menu. */

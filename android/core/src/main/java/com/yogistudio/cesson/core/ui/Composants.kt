@@ -1,6 +1,10 @@
 package com.yogistudio.cesson.core.ui
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -20,7 +24,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
@@ -42,13 +48,20 @@ fun CarteDonnee(
 ) {
     Card(
         modifier = modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(22.dp),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerLowest),
         elevation = CardDefaults.cardElevation(defaultElevation = 1.dp),
     ) {
-        Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+        Column(Modifier.padding(start = 18.dp, end = 18.dp, top = 16.dp, bottom = 14.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Icon(icone, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
-                Spacer(Modifier.width(10.dp))
+                // Pastille d'icône, comme les épingles de l'intro.
+                Box(
+                    Modifier.size(34.dp).background(MaterialTheme.colorScheme.primaryContainer, CircleShape),
+                    contentAlignment = Alignment.Center,
+                ) {
+                    Icon(icone, contentDescription = null, tint = MaterialTheme.colorScheme.onPrimaryContainer, modifier = Modifier.size(20.dp))
+                }
+                Spacer(Modifier.width(12.dp))
                 Text(titre, style = MaterialTheme.typography.titleMedium, modifier = Modifier.semantics { heading() })
             }
             contenu()
@@ -86,4 +99,27 @@ fun LigneFraicheur(fraicheur: Fraicheur, maintenant: Instant, modifier: Modifier
 @Composable
 fun TexteBientot(texte: String) {
     Text(texte, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+}
+
+/** Tons des pastilles d'état, les mêmes que dans l'intro. */
+enum class Ton { OUVERT, FERME, ALERTE, INFO, NEUTRE }
+
+/**
+ * Pastille d'état pleine et contrastée : « Ouvert », « Fermé », « +7 min », « Supprimé »… Le texte porte toujours
+ * l'information ; la couleur la souligne.
+ */
+@Composable
+fun Pastille(texte: String, ton: Ton, modifier: Modifier = Modifier) {
+    val sombre = LocalSombre.current
+    val (fond, encre) = when (ton) {
+        Ton.OUVERT -> (if (sombre) Color(0xFF93D2B0) else Color(0xFF2F8A5B)) to (if (sombre) Color(0xFF0E2E20) else Color.White)
+        Ton.FERME -> (if (sombre) Color(0xFFFFB4AB) else Color(0xFFC0392B)) to (if (sombre) Color(0xFF5C1111) else Color.White)
+        Ton.ALERTE -> Palette.VigilanceJaune to Color(0xFF2B2100)
+        Ton.INFO -> (if (sombre) Color(0xFF9DCAF0) else Palette.BleuVilaine) to (if (sombre) Color(0xFF00324F) else Color.White)
+        Ton.NEUTRE -> MaterialTheme.colorScheme.surfaceVariant to MaterialTheme.colorScheme.onSurfaceVariant
+    }
+    Surface(color = fond, contentColor = encre, shape = RoundedCornerShape(50), modifier = modifier) {
+        Text(texte, style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Bold),
+            modifier = Modifier.padding(horizontal = 9.dp, vertical = 3.dp), maxLines = 1)
+    }
 }

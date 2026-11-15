@@ -44,6 +44,8 @@ import androidx.compose.ui.unit.dp
 import com.yogistudio.cesson.core.donnees.EtatModule
 import com.yogistudio.cesson.core.ui.CarteDonnee
 import com.yogistudio.cesson.core.ui.FuseauCesson
+import com.yogistudio.cesson.core.ui.Pastille
+import com.yogistudio.cesson.core.ui.Ton
 import com.yogistudio.cesson.core.ui.TexteBientot
 import com.yogistudio.cesson.core.ui.rememberMaintenant
 import java.time.Instant
@@ -101,30 +103,34 @@ private fun LigneEquipement(e: Equipement, maintenant: Instant, onOuvrir: () -> 
     ) {
         Text(e.lieu.nom, style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Medium))
         if (regroupe) {
-            LigneEtat(null, etats.first().second, libelles.first())
+            LigneEtat(null, etats.first().second, maintenant)
         } else {
-            etats.zip(libelles).forEach { (eo, l) -> LigneEtat(eo.first.nom, eo.second, l) }
+            etats.forEach { (espace, o) -> LigneEtat(espace.nom, o, maintenant) }
         }
     }
 }
 
 @Composable
-private fun LigneEtat(nom: String?, o: Ouverture, libelle: String) {
+private fun LigneEtat(nom: String?, o: Ouverture, maintenant: Instant) {
+    val (pastille, precision) = etiquetteOuverture(o, maintenant)
+    val ton = when (o) {
+        is Ouverture.Ouvert -> Ton.OUVERT
+        is Ouverture.Ferme -> Ton.FERME
+        is Ouverture.Inconnu -> Ton.NEUTRE
+    }
     Row(verticalAlignment = Alignment.CenterVertically) {
-        Box(Modifier.size(10.dp).background(couleur(o), CircleShape))
-        Spacer(Modifier.width(8.dp))
         if (nom != null) {
-            Text("$nom : ", style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            Text(nom, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant,
+                modifier = Modifier.weight(1f), maxLines = 1)
+            Spacer(Modifier.width(8.dp))
         }
-        Text(libelle, style = MaterialTheme.typography.bodyMedium)
+        Pastille(pastille, ton)
+        precision?.let {
+            Spacer(Modifier.width(8.dp))
+            Text(it, style = MaterialTheme.typography.bodyMedium, maxLines = 1,
+                modifier = if (nom == null) Modifier.weight(1f) else Modifier)
+        }
     }
-}
-
-@Composable
-private fun couleur(o: Ouverture): Color = when (o) {
-    is Ouverture.Ouvert -> MaterialTheme.colorScheme.primary
-    is Ouverture.Ferme -> MaterialTheme.colorScheme.error
-    is Ouverture.Inconnu -> MaterialTheme.colorScheme.outline
 }
 
 @OptIn(ExperimentalMaterial3Api::class)

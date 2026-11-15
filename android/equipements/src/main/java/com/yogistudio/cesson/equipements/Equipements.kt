@@ -97,6 +97,16 @@ fun libelleOuverture(o: Ouverture, maintenant: Instant): String = when (o) {
     is Ouverture.Inconnu -> o.motif?.let { "$it : horaires à vérifier" } ?: "Horaires non communiqués"
 }
 
+/** Pastille et précision, pour l'affichage : (« Ouvert », « jusqu'à 13h30 »), (« Fermé », « ouvre mardi à 14h30 »). */
+fun etiquetteOuverture(o: Ouverture, maintenant: Instant): Pair<String, String?> = when (o) {
+    is Ouverture.Ouvert -> "Ouvert" to "jusqu'à ${formaterHeureCourte(o.jusqua)}"
+    is Ouverture.Ferme -> "Fermé" to listOfNotNull(
+        o.motif?.replaceFirstChar { it.lowercase() },
+        o.prochaine?.let { "ouvre ${formaterProchaine(it, maintenant)}" },
+    ).joinToString(" · ").ifEmpty { null }
+    is Ouverture.Inconnu -> (if (o.motif != null) "À vérifier" else "Non communiqué") to o.motif?.replaceFirstChar { it.lowercase() }
+}
+
 /** Plages d'un jour, en clair : « 10h – 12h30, 14h30 – 19h », « fermé », « non communiqué ». */
 fun libelleJour(j: JourHoraire): String = when {
     !j.connu -> j.motif?.let { "${it.replaceFirstChar { c -> c.lowercase() }} : à vérifier" } ?: "non communiqué"

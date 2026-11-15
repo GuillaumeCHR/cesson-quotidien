@@ -1,5 +1,7 @@
 package com.yogistudio.cesson.pratique
 
+import com.yogistudio.cesson.core.ui.Ton
+import com.yogistudio.cesson.core.ui.Pastille
 import android.content.ActivityNotFoundException
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
@@ -120,11 +122,7 @@ private fun LigneStation(ligne: LigneCarburant, libelle: String, maintenant: Ins
                 Text(lieu.nom, style = MaterialTheme.typography.bodyLarge)
                 if (ligne is LigneCarburant.Prix && ligne.moinsCher) {
                     Spacer(Modifier.width(8.dp))
-                    Surface(color = MaterialTheme.colorScheme.primaryContainer, shape = MaterialTheme.shapes.small) {
-                        Text("Le moins cher", style = MaterialTheme.typography.labelSmall,
-                            color = MaterialTheme.colorScheme.onPrimaryContainer,
-                            modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp))
-                    }
+                    Pastille("Le moins cher", Ton.OUVERT)
                 }
             }
             if (detail.isNotEmpty()) {
@@ -133,12 +131,15 @@ private fun LigneStation(ligne: LigneCarburant, libelle: String, maintenant: Ins
                     else MaterialTheme.colorScheme.onSurfaceVariant)
             }
         }
-        Text(
-            valeur,
-            style = if (ligne is LigneCarburant.Prix) StyleChiffres.copy(fontWeight = FontWeight.SemiBold)
-            else MaterialTheme.typography.bodyMedium,
-            color = if (ligne is LigneCarburant.Prix && !ligne.ancien) MaterialTheme.colorScheme.onSurface
-            else MaterialTheme.colorScheme.onSurfaceVariant,
-        )
+        if (ligne is LigneCarburant.Rupture) {
+            Pastille("Rupture", Ton.FERME)
+        } else {
+            Text(
+                valeur,
+                style = StyleChiffres.copy(fontWeight = FontWeight.SemiBold),
+                color = if (ligne is LigneCarburant.Prix && !ligne.ancien) MaterialTheme.colorScheme.onSurface
+                else MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+        }
     }
 }
