@@ -254,7 +254,7 @@ Le projet avance en 7 étapes, des données les plus sûres vers celles qui dema
 4. **Notifications.** Rappels locaux de collecte, puis alertes FCM : crue d'abord, puis fermetures, trains et bus.
 5. **Guide de démarrage et personnalisation.** Au premier lancement, un guide court fait choisir les cartes de l'accueil et les réglages qui vont avec (mon arrêt, mon carburant, mes équipements, plus tard mon secteur de collecte). Chaque onglet (Bouger, Sortir, Pratique, Actus) devient personnalisable comme l'accueil : cartes affichées et ordre. Le guide reste accessible depuis le menu pour tout revoir. Tous les choix restent sur le téléphone.
 6. **Widget Glance** « Aujourd'hui à Cesson ».
-7. **Contenus et partenariats.** Actualités, spectacles du Carré Sévigné, cinéma Le Sévigné, défibrillateurs, bornes, accessibilité. Dans l'onglet Pratique : demandes d'urbanisme (permis de construire, déclaration préalable…), avec l'accès au dépôt en ligne et les informations utiles avant de déposer.
+7. **Contenus et partenariats.** Actualités, spectacles du Carré Sévigné, cinéma Le Sévigné, programme de la médiathèque dans l'onglet Sortir (lectures pour les tout-petits et les enfants, ateliers créatifs, club de lecture, jeux, expositions), défibrillateurs, bornes, accessibilité. Dans l'onglet Pratique : demandes d'urbanisme (permis de construire, déclaration préalable…), avec l'accès au dépôt en ligne et les informations utiles avant de déposer.
 
 Une page web de consultation pour iPhone, alimentée par les mêmes JSON, reste possible après l'étape 7.
 
