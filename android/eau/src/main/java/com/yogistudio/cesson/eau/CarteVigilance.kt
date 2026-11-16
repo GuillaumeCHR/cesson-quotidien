@@ -5,25 +5,15 @@ import androidx.compose.material3.Surface
 import androidx.compose.foundation.shape.RoundedCornerShape
 import com.yogistudio.cesson.core.ui.Ton
 import com.yogistudio.cesson.core.ui.Pastille
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.OpenInNew
-import androidx.compose.material.icons.rounded.Warning
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -33,12 +23,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalUriHandler
-import androidx.compose.ui.semantics.LiveRegionMode
 import androidx.compose.ui.semantics.contentDescription
-import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import com.yogistudio.cesson.core.donnees.EtatModule
+import com.yogistudio.cesson.core.ui.BandeauAlerte
 import com.yogistudio.cesson.core.ui.Palette
 import com.yogistudio.cesson.core.ui.formaterHeure
 import com.yogistudio.cesson.core.ui.rememberMaintenant
@@ -107,31 +96,21 @@ fun BandeauCrue(etat: EtatModule<DonneesVigicrues>) {
     val maintenant = rememberMaintenant()
     val ancienne = etat.fraicheur.estPerimee(maintenant)
     val uri = LocalUriHandler.current
-    Card(
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerHigh),
-        modifier = Modifier.fillMaxWidth().semantics { liveRegion = LiveRegionMode.Polite },
-    ) {
-        Row(Modifier.height(IntrinsicSize.Min)) {
-            Box(Modifier.width(8.dp).fillMaxHeight().background(couleurVigilance(d.vigilance)))
-            Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Icon(Icons.Rounded.Warning, contentDescription = null, tint = MaterialTheme.colorScheme.onSurface)
-                    Spacer(Modifier.width(8.dp))
-                    Text("${d.vigilance.libelleCourt()} · ${d.troncon.nom}", style = MaterialTheme.typography.titleMedium)
-                }
-                Text(d.vigilance.definition(), style = MaterialTheme.typography.bodyMedium)
-                Text(
-                    if (ancienne) "Niveau connu à ${formaterHeure(etat.fraicheur.recupereLe, maintenant)} : " +
-                        "il a pu changer depuis. Vérifiez sur Vigicrues."
-                    else "Signalée depuis ${formaterHeure(d.depuis, maintenant)} au moins.",
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                )
-                TextButton(onClick = { uri.openUri(d.troncon.url ?: URL_VIGICRUES) }) {
-                    Text("Bulletin officiel sur Vigicrues")
-                    Spacer(Modifier.width(4.dp))
-                    Icon(Icons.AutoMirrored.Rounded.OpenInNew, contentDescription = null, modifier = Modifier.size(16.dp))
-                }
+    // Compact : « Vigilance crues jaune · Vilaine amont ».
+    BandeauAlerte(couleurVigilance(d.vigilance), "${d.vigilance.libelleCourt()} · ${d.troncon.nom}") {
+        Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
+            Text(d.vigilance.definition(), style = MaterialTheme.typography.bodyMedium)
+            Text(
+                if (ancienne) "Niveau connu à ${formaterHeure(etat.fraicheur.recupereLe, maintenant)} : " +
+                    "il a pu changer depuis. Vérifiez sur Vigicrues."
+                else "Signalée depuis ${formaterHeure(d.depuis, maintenant)} au moins.",
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+            TextButton(onClick = { uri.openUri(d.troncon.url ?: URL_VIGICRUES) }) {
+                Text("Bulletin officiel sur Vigicrues")
+                Spacer(Modifier.width(4.dp))
+                Icon(Icons.AutoMirrored.Rounded.OpenInNew, contentDescription = null, modifier = Modifier.size(16.dp))
             }
         }
     }
