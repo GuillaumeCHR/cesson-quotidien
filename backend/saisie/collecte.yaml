@@ -12,7 +12,7 @@ collecte:
   public: Maisons disposant de bacs roulants
   url: https://www.ville-cesson-sevigne.fr/gestion-des-dechets/
   calendrier: https://www.ville-cesson-sevigne.fr/wp-content/uploads/2026/08/collecte-dechets-2026-2027.pdf
-  verifie_le: 2026-11-15
+  verifie_le: 2026-11-16
   valable_du: 2026-10-01
   valable_au: 2027-09-30
   conseil: "Collecte dès 5h30 : sortez le bac la veille au soir et rentrez-le après le passage du camion."

@@ -24,7 +24,7 @@ equipements:
     adresse: Rue de l'Hôtel de Ville, Cesson-Sévigné
     telephone: "02 99 83 52 00"
     url: https://www.ville-cesson-sevigne.fr/contacts/piscine-municipale/
-    verifie_le: 2026-11-15
+    verifie_le: 2026-11-16
     remarque: Les caisses ferment 40 minutes avant l'évacuation des bassins.
     # Ouverte certains jours fériés, notamment l'été : seules les fermetures annoncées sont saisies.
     jours_feries: a_verifier
@@ -74,7 +74,7 @@ equipements:
     coord: {lat: 48.11688, lon: -1.60283}  # OpenStreetMap
     adresse: Centre culturel Le Pont des Arts, Cesson-Sévigné
     url: https://www.ville-cesson-sevigne.fr/contacts/mediatheque/
-    verifie_le: 2026-11-15
+    verifie_le: 2026-11-16
     espaces:
       mediatheque:
         nom: Médiathèque
@@ -87,7 +87,7 @@ equipements:
     nom: Golf municipal
     coord: {lat: 48.13095, lon: -1.58476}  # OpenStreetMap
     url: https://www.ville-cesson-sevigne.fr/contacts/golf/
-    verifie_le: 2026-11-15
+    verifie_le: 2026-11-16
     remarque: Les week-ends et jours fériés ont les mêmes horaires de club-house.
     # La page du golf donne des horaires « week-ends et jours fériés » : ouvert, horaires du dimanche.
     jours_feries: comme_le_dimanche
@@ -131,7 +131,7 @@ equipements:
     nom: Base Sports Nature
     coord: {lat: 48.11477, lon: -1.60739}  # OpenStreetMap
     url: https://www.ville-cesson-sevigne.fr/contacts/base-sports-nature/
-    verifie_le: 2026-11-15
+    verifie_le: 2026-11-16
     remarque: "Locations de canoë, kayak, paddle et rafting en saison seulement. Saison 2026 : du 6 juillet au 13 septembre ; la saison 2027 n'est pas encore annoncée (sans doute à des dates proches)."
     # Dates de la saison suivante à reporter ici dès leur publication.
     # Ouverte seulement en saison : hors des périodes ci-dessous, l'app affiche « Fermé · hors saison ».
@@ -171,7 +171,7 @@ equipements:
     adresse: Route de Chantepie, Cesson-Sévigné
     telephone: "02 23 62 26 22"
     url: https://www.ville-cesson-sevigne.fr/gestion-des-dechets/
-    verifie_le: 2026-11-15
+    verifie_le: 2026-11-16
     remarque: Géré par Rennes Métropole. La tonte de pelouse n'est plus acceptée depuis 2024.
     espaces:
       decheterie:
@@ -186,7 +186,7 @@ equipements:
     adresse: Mairie annexe, 1 place de la Chalotais, Cesson-Sévigné
     telephone: "02 99 83 52 00"
     url: https://www.ville-cesson-sevigne.fr/contacts/service-urbanisme/
-    verifie_le: 2026-11-15
+    verifie_le: 2026-11-16
     espaces:
       accueil:
         nom: Accueil du public
@@ -200,7 +200,7 @@ equipements:
     adresse: Hôtel des Polices, 6 mail de Bourgchevreuil, Cesson-Sévigné
     telephone: "02 99 83 52 14"
     url: https://www.ville-cesson-sevigne.fr/contacts/lhotel-des-polices-police-municipale-et-police-nationale/
-    verifie_le: 2026-11-15
+    verifie_le: 2026-11-16
     remarque: Accueil commun avec la police nationale en semaine ; le samedi matin, police municipale seule.
     espaces:
       accueil:
