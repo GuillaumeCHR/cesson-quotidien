@@ -68,7 +68,13 @@ def test_validation_rejette(modif):
         CollecteurLignesStar().valider(b)
 
 
-def test_collecte_complete(tmp_path):
+@pytest.mark.parametrize("avec_cle", [True, False])
+def test_collecte_complete(tmp_path, monkeypatch, avec_cle):
+    # Avec la clé du compte STAR, chaque appel la porte ; sans fichier de clé, appels anonymes.
+    cle = tmp_path / "star.env"
+    if avec_cle:
+        cle.write_text("cle_api=0123abcd\n")
+    monkeypatch.setenv("CESSON_STAR_IDENTIFIANTS", str(cle))
     publieur, sante = Publieur(tmp_path / "public"), Sante(tmp_path / "etat", url_alerte="")
     with respx.mock() as mock:
         for jeu, nom in [("tco-bus-topologie-pointsarret-td", "bus_arrets"),
@@ -80,6 +86,8 @@ def test_collecte_complete(tmp_path):
             mock.get(url(jeu)).mock(return_value=httpx.Response(200, json=lire(nom)))
         with httpx.Client() as client:
             r = CollecteurLignesStar().executer(publieur, sante, client, MAINTENANT)
+        autorisations = {c.request.headers.get("Authorization") for c in mock.calls}
     assert r.etat == Etat.OK, r.erreur
+    assert autorisations == ({"Apikey 0123abcd"} if avec_cle else {None})
     f = FichierModule[DonneesLignesStar].model_validate_json(publieur.chemin("lignes_star").read_text())
     assert f.meta.licence == "ODbL" and len(f.donnees.lignes) > 10

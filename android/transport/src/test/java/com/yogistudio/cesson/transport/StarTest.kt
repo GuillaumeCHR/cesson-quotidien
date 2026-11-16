@@ -92,6 +92,49 @@ class StarTest {
         serveur.close()
     }
 
+    /** Avec une clé, elle accompagne chaque appel ; quota du compte épuisé (429) : seconde tentative anonyme. */
+    @Test
+    fun cleEnvoyeePuisSecoursAnonyme() = runTest {
+        val serveur = MockWebServer()
+        var quotaDuCompteEpuise = false
+        val autorisations = mutableListOf<String?>()
+        serveur.dispatcher = object : Dispatcher() {
+            override fun dispatch(request: RecordedRequest): MockResponse {
+                val auth = request.headers["Authorization"]
+                synchronized(autorisations) { autorisations += auth }
+                if (auth != null && quotaDuCompteEpuise) return MockResponse.Builder().code(429).build()
+                return MockResponse.Builder().body(if ("metro" in request.url.encodedPath) metro else bus).build()
+            }
+        }
+        serveur.start()
+        val client = ClientStar(OkHttpClient(), serveur.url("/d").toString().removeSuffix("/"), cle = "cle0de0test")
+        assertEquals(35, client.departs(POLE_VIASILVA).size)
+        assertEquals(setOf("Apikey cle0de0test"), autorisations.toSet())
+
+        autorisations.clear()
+        quotaDuCompteEpuise = true
+        assertEquals(35, client.departs(POLE_VIASILVA).size)
+        assertEquals(2, autorisations.count { it == "Apikey cle0de0test" })
+        assertEquals(2, autorisations.count { it == null })
+        serveur.close()
+    }
+
+    @Test
+    fun sansCleAucunEnTeteDAutorisation() = runTest {
+        val serveur = MockWebServer()
+        val autorisations = mutableListOf<String?>()
+        serveur.dispatcher = object : Dispatcher() {
+            override fun dispatch(request: RecordedRequest): MockResponse {
+                synchronized(autorisations) { autorisations += request.headers["Authorization"] }
+                return MockResponse.Builder().body(if ("metro" in request.url.encodedPath) metro else bus).build()
+            }
+        }
+        serveur.start()
+        ClientStar(OkHttpClient(), serveur.url("/d").toString().removeSuffix("/")).departs(POLE_VIASILVA)
+        assertEquals(listOf<String?>(null, null), autorisations)
+        serveur.close()
+    }
+
     @Test
     fun rechercheDArret() {
         val f = JsonCesson.decodeFromString(FichierModule.serializer(DonneesLignesStar.serializer()),

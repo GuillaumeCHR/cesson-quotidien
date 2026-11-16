@@ -28,5 +28,5 @@ class CessonApp : Application() {
     val depot: DepotModules by lazy { DepotModules(BuildConfig.DONNEES_URL, File(filesDir, "donnees"), client) }
     val preferences: PreferencesLocales by lazy { PreferencesLocales(this) }
     /** Prochains passages : demandés directement à STAR, sans passer par notre serveur. */
-    val star: ClientStar by lazy { ClientStar(client) }
+    val star: ClientStar by lazy { ClientStar(client, cle = BuildConfig.STAR_CLE) }
 }

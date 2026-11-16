@@ -10,6 +10,14 @@ plugins {
 // `python -m http.server -d backend/public 8000`, relayé par `adb reverse tcp:8000 tcp:8000`.
 // Pour une release : -Pcesson.donneesUrl=https://… (ou dans ~/.gradle/gradle.properties).
 val donneesUrl = providers.gradleProperty("cesson.donneesUrl").orNull
+// Clé d'API du portail open data STAR (data.explore.star.fr), gratuite et limitée aux données publiques : avec elle,
+// les appels comptent sur le quota du compte (2 millions par jour) et non sur le quota anonyme commun à tout le
+// portail (150 000 par jour, épuisé certains soirs). Jamais dans le dépôt : -Pcesson.starCle=…, ou à défaut le
+// fichier ~/.config/cesson/star.env (ligne « cle_api=… »). Sans clé, l'app interroge STAR anonymement.
+val starCle: String = providers.gradleProperty("cesson.starCle").orNull
+    ?: File(System.getProperty("user.home"), ".config/cesson/star.env").takeIf { it.isFile }?.readLines()
+        ?.firstOrNull { it.startsWith("cle_api=") }?.substringAfter("=")?.trim()?.trim('"', '\'')
+    ?: ""
 // Adresse de la rubrique « Vos idées / signaler une erreur ». À renseigner avant publication.
 val contact = providers.gradleProperty("cesson.contact").getOrElse("contact@example.org")
 
@@ -24,6 +32,7 @@ android {
         versionCode = 1
         versionName = "0.1.0"
         buildConfigField("String", "CONTACT", "\"$contact\"")
+        buildConfigField("String", "STAR_CLE", "\"${starCle.filter { it.isLetterOrDigit() }}\"")
     }
 
     // Clé d'envoi Play Store (upload key) : jamais dans le dépôt. Ses coordonnées sont lues dans un fichier

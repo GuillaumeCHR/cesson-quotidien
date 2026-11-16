@@ -18,8 +18,9 @@ from typing import Any
 
 import httpx
 
-from ..commun.collecteur import Collecteur, ErreurValidation, obtenir
+from ..commun.collecteur import Collecteur, ErreurSource, ErreurValidation, obtenir
 from ..commun.modele import Coord, Mode, Modele
+from ..commun.secrets import lire_secrets
 
 BASE = "https://data.explore.star.fr/api/explore/v2.1/catalog/datasets"
 CODE_INSEE = "35051"
@@ -29,6 +30,16 @@ MIN_LIGNES = 5
 
 def url(jeu: str) -> str:
     return f"{BASE}/{jeu}/exports/json"
+
+
+def entetes_star() -> dict[str, str]:
+    """Clé d'API du portail STAR si le serveur en a une (/srv/cesson/secrets/star.env, « cle_api=… ») : les appels
+    comptent alors sur le quota du compte (2 millions par jour) et non sur le quota anonyme commun à tout le portail
+    (150 000 par jour, épuisé certains soirs : HTTP 429 le 16/11). Sans fichier, appels anonymes."""
+    try:
+        return {"Authorization": f"Apikey {lire_secrets('STAR', 'CESSON_STAR_IDENTIFIANTS', 'star.env', ('cle_api',))['cle_api']}"}
+    except ErreurSource:
+        return {}
 
 
 class LigneStar(Modele):
@@ -81,8 +92,10 @@ class CollecteurLignesStar(Collecteur[DonneesLignesStar]):
     modele_donnees = DonneesLignesStar
 
     def telecharger(self, client: httpx.Client) -> Any:
+        entetes = entetes_star()
+
         def lire(jeu: str, **params: str) -> Any:
-            r = obtenir(client, url(jeu), params=params)
+            r = obtenir(client, url(jeu), params=params, headers=entetes)
             try:
                 return r.json()
             except ValueError as e:

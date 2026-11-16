@@ -5,8 +5,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.Serializable
 import okhttp3.HttpUrl.Companion.toHttpUrl
-import okhttp3.Request
-import java.io.IOException
 import java.time.Instant
 import java.time.OffsetDateTime
 
@@ -47,19 +45,8 @@ private data class ReponseParcs(val results: List<ParcRelais> = emptyList())
 
 fun decoderParcsRelais(json: String): List<ParcRelais> = JsonCesson.decodeFromString(ReponseParcs.serializer(), json).results
 
-/** Interroge la STAR directement depuis le téléphone, comme pour les passages (données ouvertes, sans clé). */
+/** Interroge la STAR directement depuis le téléphone, comme pour les passages (même clé, même secours anonyme). */
 suspend fun ClientStar.parcsRelais(): List<ParcRelais> = withContext(Dispatchers.IO) {
-    val url = "https://data.explore.star.fr/api/explore/v2.1/catalog/datasets/tco-parcsrelais-star-etat-tr/records"
-        .toHttpUrl().newBuilder().addQueryParameter("limit", "20").build()
-    val requete = Request.Builder().url(url).header("Cache-Control", "no-cache").build()
-    try {
-        client.newCall(requete).execute().use { r ->
-            if (!r.isSuccessful) throw ErreurStar("STAR a répondu ${r.code}")
-            decoderParcsRelais(r.body.string())
-        }
-    } catch (e: IOException) {
-        throw ErreurStar("STAR injoignable", e)
-    } catch (e: IllegalArgumentException) {
-        throw ErreurStar("réponse STAR illisible", e)
-    }
+    val url = "$base/tco-parcsrelais-star-etat-tr/records".toHttpUrl().newBuilder().addQueryParameter("limit", "20").build()
+    decoder(appeler(url), ::decoderParcsRelais)
 }
