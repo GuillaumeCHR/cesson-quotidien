@@ -15,24 +15,16 @@ import androidx.compose.material3.FilterChip
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import com.yogistudio.cesson.rappels.ReglageRappelCollecte
+import com.yogistudio.cesson.rappels.ReglageAlerteEpisodes
+import com.yogistudio.cesson.rappels.ReglageAlertePollens
 import com.yogistudio.cesson.rappels.AlertesBus
 import com.yogistudio.cesson.transport.AlerteBus
-import com.yogistudio.cesson.transport.DELAI_ALERTE_DEFAUT
-import com.yogistudio.cesson.transport.DELAIS_ALERTE
 import com.yogistudio.cesson.core.modele.JsonCesson
-import com.yogistudio.cesson.core.ui.formaterHeure
 import androidx.compose.material.icons.rounded.NotificationsActive
-import androidx.compose.material.icons.rounded.Add
-import androidx.compose.material.icons.rounded.Remove
 import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.Icon
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.remember
-import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
-import java.time.Instant
 import android.app.UiModeManager
 import android.content.Context
 import android.os.Build
@@ -160,49 +152,21 @@ fun appliquerAffichageSysteme(context: Context, mode: String) {
 }
 
 /**
- * Les deux notifications de l'app, calculées sur le téléphone : rappel de collecte la veille, et alerte de passage
- * à mon arrêt (délai de prévenance ; l'alerte elle-même s'arme d'une cloche sur la carte « Mon arrêt »).
+ * Les notifications de l'app, calculées sur le téléphone : rappel de collecte la veille, pollens et épisodes de
+ * pollution. L'alerte de passage du bus n'est pas ici : elle s'arme ligne par ligne sur la carte « Mon arrêt de bus ».
  */
 @Composable
 private fun CarteNotifications(app: CessonApp) {
-    val context = LocalContext.current
-    val portee = rememberCoroutineScope()
-    val arret by app.preferences.arretSuivi.collectAsStateWithLifecycle(null)
-    val delai by app.preferences.delaiAlerteBus.collectAsStateWithLifecycle(DELAI_ALERTE_DEFAUT)
-    val alerteJson by app.preferences.alerteBus.collectAsStateWithLifecycle(null)
-    val alerte = remember(alerteJson) {
-        alerteJson?.let { runCatching { JsonCesson.decodeFromString(AlerteBus.serializer(), it) }.getOrNull() }
-    }
     CarteDonnee("Notifications", Icons.Rounded.NotificationsActive) {
         Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
             Text("Sortir la poubelle", style = MaterialTheme.typography.titleSmall, modifier = Modifier.semantics { heading() })
             ReglageRappelCollecte(app)
             HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
-            Text("Passage du bus à mon arrêt", style = MaterialTheme.typography.titleSmall, modifier = Modifier.semantics { heading() })
-            Text(
-                if (arret == null) "Choisissez d'abord votre arrêt sur la carte « Mon arrêt de bus », puis touchez la cloche " +
-                    "d'une ligne pour être prévenu avant son passage."
-                else "Sur la carte « Mon arrêt de bus » ($arret), touchez la cloche d'une ligne : une notification arrive " +
-                    "avant le passage du prochain bus.",
-                style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant,
-            )
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Text("Me prévenir", style = MaterialTheme.typography.bodyMedium, modifier = Modifier.weight(1f))
-                IconButton(onClick = { portee.launch { app.preferences.enregistrerDelaiAlerteBus((delai - 1).coerceIn(DELAIS_ALERTE)) } },
-                    enabled = delai > DELAIS_ALERTE.first) { Icon(Icons.Rounded.Remove, contentDescription = "Prévenir moins tôt") }
-                Text("$delai min avant", style = MaterialTheme.typography.labelLarge,
-                    modifier = Modifier.semantics { contentDescription = "Prévenir $delai minutes avant le passage" })
-                IconButton(onClick = { portee.launch { app.preferences.enregistrerDelaiAlerteBus((delai + 1).coerceIn(DELAIS_ALERTE)) } },
-                    enabled = delai < DELAIS_ALERTE.last) { Icon(Icons.Rounded.Add, contentDescription = "Prévenir plus tôt") }
-            }
-            alerte?.let { a ->
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Text("Alerte en cours : ${a.ligne} vers ${a.destination}, ${a.delaiMin} min avant " +
-                        formaterHeure(Instant.ofEpochSecond(a.heureVisee), Instant.now()) + ".",
-                        style = MaterialTheme.typography.bodySmall, modifier = Modifier.weight(1f))
-                    TextButton(onClick = { portee.launch { AlertesBus.annuler(context) } }) { Text("Annuler") }
-                }
-            }
+            Text("Pollens", style = MaterialTheme.typography.titleSmall, modifier = Modifier.semantics { heading() })
+            ReglageAlertePollens(app)
+            HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
+            Text("Épisodes de pollution", style = MaterialTheme.typography.titleSmall, modifier = Modifier.semantics { heading() })
+            ReglageAlerteEpisodes(app)
         }
     }
 }
