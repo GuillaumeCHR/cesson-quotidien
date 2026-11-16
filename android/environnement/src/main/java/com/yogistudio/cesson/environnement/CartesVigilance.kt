@@ -109,6 +109,9 @@ fun LigneVigilanceMeteo(etat: EtatModule<DonneesVigilanceMeteo>) {
             Text("Vigilance connue à ${formaterHeure(etat.fraicheur.recupereLe, maintenant)} : vérifiez sur Météo-France.",
                 style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
         }
+        // Source et date du bulletin, exigées par la licence de Météo-France, même en mode compact.
+        Text(d.mentionSource() + ".", style = MaterialTheme.typography.labelSmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant)
     }
 }
 
@@ -146,6 +149,8 @@ fun BandeauVigilanceMeteo(etat: EtatModule<DonneesVigilanceMeteo>) {
                     )
                 }
                 Text(pire.consigne(), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                Text(d.mentionSource() + ".", style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant)
                 if (d.textes.isNotEmpty()) {
                     if (details) {
                         d.textes.forEach { t ->

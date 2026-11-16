@@ -37,6 +37,7 @@ class VigilanceMeteoTest {
         assertEquals("vigilance:2026-11-17:jaune:1-2-3", n.cle)
         assertEquals("Vigilance jaune demain en Ille-et-Vilaine", n.titre)
         assertTrue(n.texte.startsWith("Vent violent jusqu'à 8h et de 15h à 20h ; pluie-inondation jusqu'à 6h ; orages de 14h à 20h. Soyez attentif"))
+        assertTrue(n.texte.endsWith("Source : Météo-France, bulletin du 16/11 à 16h02."))
         assertTrue(notificationsVigilance(d, soirDu16, CouleurVigilance.JAUNE, setOf(n.cle)).isEmpty())
     }
 

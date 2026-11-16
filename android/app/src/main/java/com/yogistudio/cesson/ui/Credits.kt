@@ -78,8 +78,10 @@ private val CREDITS = listOf(
         "Ils surveillent la rivière à Pont Briand. Nous ne faisons que relayer, et renvoyer vers eux."),
     Bloc("Météo", "Open-Meteo, modèles de Météo-France",
         "Sous CC BY 4.0. Le parapluie reste à votre appréciation."),
-    Bloc("Vigilance météo", "Météo-France",
-        "Jaune, orange ou rouge : c'est elle qui décide, sous Licence Ouverte. L'app relaie, jamais elle n'invente une couleur."),
+    Bloc("Vigilance météo", "Source : Météo-France",
+        "Vigilance météorologique et bulletins de Météo-France, sous Licence Ouverte Etalab 2.0, reproduits sans " +
+            "modification avec la date de leur dernière mise à jour. Jaune, orange ou rouge : c'est Météo-France qui " +
+            "décide, l'app ne fait que relayer."),
     Bloc("Qualité de l'air et pollens", "Source : Atmo France / AASQA",
         "Indice ATMO, pollens et épisodes de pollution mesurés et prévus par Air Breizh, l'AASQA de Bretagne, " +
             "sous licence ODbL. Ils surveillent l'air de Cesson ; nous, on se contente de vous le dire."),
