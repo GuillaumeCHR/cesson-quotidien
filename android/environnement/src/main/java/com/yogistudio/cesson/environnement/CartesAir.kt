@@ -38,6 +38,7 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.yogistudio.cesson.core.donnees.EtatModule
 import com.yogistudio.cesson.core.ui.CarteDonnee
@@ -147,7 +148,7 @@ private fun JourQualiteAir(j: JourAtmo, nom: String, principal: Boolean) {
             cause?.let {
                 Spacer(Modifier.width(8.dp))
                 Text(it.replaceFirstChar { c -> c.uppercase() }, style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant, maxLines = 1)
+                    color = MaterialTheme.colorScheme.onSurfaceVariant, maxLines = 1, overflow = TextOverflow.Ellipsis)
             }
         }
     }
@@ -245,7 +246,7 @@ private fun LigneJourPollen(j: JourPollen, nom: String, secondaire: Boolean = fa
         if (especes.isNotEmpty()) {
             Spacer(Modifier.width(8.dp))
             Text(especes.joinToString(", "), style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant, maxLines = 1)
+                color = MaterialTheme.colorScheme.onSurfaceVariant, maxLines = 1, overflow = TextOverflow.Ellipsis)
         }
     }
 }
@@ -318,7 +319,7 @@ fun CarteEpisodes(etat: EtatModule<DonneesEpisodes>, modifier: Modifier = Modifi
                                 Text("${nomJour(j.date, aujourdhui)} ", style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold))
                                 PastilleEpisode(j.etat)
                                 Spacer(Modifier.width(8.dp))
-                                Text(j.polluantsVises(), style = MaterialTheme.typography.bodyMedium, maxLines = 1)
+                                Text(j.polluantsVises(), style = MaterialTheme.typography.bodyMedium, maxLines = 1, overflow = TextOverflow.Ellipsis)
                             }
                             if (!compact) TexteSecondaire("${j.etat.libelle()} · ${j.polluants.filter { it.etat == j.etat }.joinToString(", ") { it.nom }}")
                         }

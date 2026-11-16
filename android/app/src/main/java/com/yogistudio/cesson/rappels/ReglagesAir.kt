@@ -1,17 +1,15 @@
 package com.yogistudio.cesson.rappels
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -22,6 +20,7 @@ import com.yogistudio.cesson.environnement.libellePollen
 import kotlinx.coroutines.launch
 
 /** « Me prévenir des pollens », puis le niveau à partir duquel prévenir. */
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun ReglageAlertePollens(app: CessonApp) {
     val context = LocalContext.current
@@ -41,13 +40,16 @@ fun ReglageAlertePollens(app: CessonApp) {
             }
         }
         if (actif) {
-            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                Text("À partir de", style = MaterialTheme.typography.bodySmall, modifier = Modifier.padding(end = 4.dp))
+            Text("Me prévenir à partir de", style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant)
+            // Trois puces ne tiennent pas toujours sur une ligne (« Très élevé » et la coche de la puce choisie) :
+            // elles passent à la ligne plutôt que de s'écraser.
+            FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 SEUILS_POLLENS.forEach { s ->
                     FilterChip(
                         selected = s == seuil,
                         onClick = { portee.launch { app.preferences.enregistrerSeuilPollens(s); AlertesAir.verifier(context) } },
-                        label = { Text(libellePollen(s)) },
+                        label = { Text(libellePollen(s), maxLines = 1, softWrap = false) },
                     )
                 }
             }
