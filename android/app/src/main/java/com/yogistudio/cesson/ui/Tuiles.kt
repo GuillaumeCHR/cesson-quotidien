@@ -80,6 +80,8 @@ import com.yogistudio.cesson.core.preferences.ConfigAccueil
 import com.yogistudio.cesson.core.preferences.deplacer
 import com.yogistudio.cesson.core.preferences.ordonnerTuiles
 import kotlinx.coroutines.launch
+import com.yogistudio.cesson.core.donnees.ResultatRafraichissement
+import kotlinx.coroutines.delay
 
 /**
  * Une carte d'un onglet. L'utilisateur ordonne et masque les cartes de chaque onglet ; le choix
@@ -129,9 +131,22 @@ fun EcranTuiles(
     val visibles = cartesVisibles(onglet, cfg)
     val premiereTuile = remember { mutableIntStateOf(0) }
 
+    // Actualisation « tirer vers le bas » : elle ne lit souvent que le manifest et dure une fraction de seconde. On garde
+    // l'indicateur au moins 0,7 s et on dit toujours ce qui s'est passé, sinon le geste semble ne rien faire.
+    var tire by remember { mutableStateOf(false) }
     PullToRefreshBox(
-        isRefreshing = enCours,
-        onRefresh = { portee.launch { app.depot.rafraichir() } },
+        isRefreshing = enCours || tire,
+        onRefresh = {
+            portee.launch {
+                tire = true
+                val debut = System.currentTimeMillis()
+                val r = app.depot.rafraichir()
+                delay((700 - (System.currentTimeMillis() - debut)).coerceAtLeast(0))
+                tire = false
+                messages.currentSnackbarData?.dismiss()
+                messages.showSnackbar(messageActualisation(r))
+            }
+        },
         modifier = Modifier.fillMaxSize(),
     ) {
         CompositionLocalProvider(LocalMessages provides messages, LocalCompact provides !detaillees) {
@@ -366,5 +381,15 @@ fun EcranPersonnaliser(app: CessonApp, onglet: OngletTuiles) {
                 Text("Rétablir l'ordre par défaut")
             }
         }
+    }
+}
+
+/** Ce que l'utilisateur lit après avoir tiré vers le bas. */
+internal fun messageActualisation(r: ResultatRafraichissement): String = when (r) {
+    is ResultatRafraichissement.Echec -> "Actualisation impossible : ${r.cause}"
+    is ResultatRafraichissement.Reussi -> when (val n = r.modulesTelecharges.size) {
+        0 -> "Tout est déjà à jour."
+        1 -> "1 donnée mise à jour."
+        else -> "$n données mises à jour."
     }
 }
