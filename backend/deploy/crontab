@@ -11,8 +11,10 @@ PATH=/usr/bin:/bin
 # Quotidien, 0h05 : horaires des équipements (14 jours) et prochaines collectes de déchets (8 semaines), depuis saisie/
 5 0 * * *     cd $CESSON && .venv/bin/python -m cesson collecter equipements collecte --sortie /srv/cesson/public --etat /srv/cesson/etat >> /srv/cesson/log/collecte.log 2>&1
 
-# Quotidien, 0h40 (après la publication du GTFS STAR vers 23h30) : lignes STAR qui desservent Cesson
-40 0 * * *    cd $CESSON && .venv/bin/python -m cesson collecter lignes_star --sortie /srv/cesson/public --etat /srv/cesson/etat >> /srv/cesson/log/collecte.log 2>&1
+# Quotidien, 2h40 : lignes STAR qui desservent Cesson. Après la publication du GTFS STAR (vers 23h30) et
+# surtout après la remise à zéro du quota commun de data.explore.star.fr (0h00 UTC, soit 1h ou 2h à Paris) :
+# à 0h40, le quota de la veille était déjà épuisé (HTTP 429 le 16/11).
+40 2 * * *    cd $CESSON && .venv/bin/python -m cesson collecter lignes_star --sortie /srv/cesson/public --etat /srv/cesson/etat >> /srv/cesson/log/collecte.log 2>&1
 
 # Horaire, à la 27e minute : actualités de la ville (RSS), restrictions d'eau (VigiEau) et consignes d'Eau du Bassin Rennais
 27 * * * *    cd $CESSON && .venv/bin/python -m cesson collecter actus usages_eau --sortie /srv/cesson/public --etat /srv/cesson/etat >> /srv/cesson/log/collecte.log 2>&1
