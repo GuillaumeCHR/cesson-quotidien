@@ -121,6 +121,8 @@ import com.yogistudio.cesson.pratique.CarteCollecte
 import com.yogistudio.cesson.pratique.carburants
 import com.yogistudio.cesson.pratique.collecte
 import com.yogistudio.cesson.rappels.ReglageRappelCollecte
+import com.yogistudio.cesson.rappels.ReglageAlerteEpisodes
+import com.yogistudio.cesson.rappels.ReglageAlertePollens
 import com.yogistudio.cesson.transport.CarteDeparts
 import com.yogistudio.cesson.transport.CarteMonArret
 import com.yogistudio.cesson.transport.CarteTrains
@@ -156,11 +158,11 @@ private val AIR = Tuile("air", "Qualité de l'air", Icons.Rounded.Air) { app ->
 }
 private val POLLENS = Tuile("pollens", "Indice pollen", Icons.Rounded.LocalFlorist) { app ->
     val etat by remember(app) { app.depot.pollens() }.collectAsStateWithLifecycle(EtatModule.Absent)
-    CartePollens(etat)
+    CartePollens(etat, reglageAlerte = { ReglageAlertePollens(app) })
 }
 private val EPISODES = Tuile("episodes_pollution", "Épisodes de pollution", Icons.Rounded.Masks) { app ->
     val etat by remember(app) { app.depot.episodesPollution() }.collectAsStateWithLifecycle(EtatModule.Absent)
-    CarteEpisodes(etat)
+    CarteEpisodes(etat, reglageAlerte = { ReglageAlerteEpisodes(app) })
 }
 private val EQUIPEMENTS_LOISIRS = Tuile("equipements", "Équipements", Icons.Rounded.Pool) { app ->
     EquipementsCesson(app, titre = "Équipements") { it.lieu.id != DECHETERIE && it.lieu.id !in SERVICES_A_PART }

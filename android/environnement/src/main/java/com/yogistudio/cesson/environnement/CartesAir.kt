@@ -187,7 +187,7 @@ private fun tonPollen(code: Int): Ton = when (code) {
 }
 
 @Composable
-fun CartePollens(etat: EtatModule<DonneesPollens>, modifier: Modifier = Modifier) {
+fun CartePollens(etat: EtatModule<DonneesPollens>, modifier: Modifier = Modifier, reglageAlerte: @Composable () -> Unit = {}) {
     val maintenant = rememberMaintenant()
     val titre = "Indice pollen"
     when (etat) {
@@ -221,6 +221,7 @@ fun CartePollens(etat: EtatModule<DonneesPollens>, modifier: Modifier = Modifier
                         suivants.forEach { LigneJourPollen(it, nomJour(it.date, aujourdhui), secondaire = true) }
                     }
                     if (!compact && !j.horsSaison) Especes(j)
+                    reglageAlerte()
                     if (!compact) TexteSecondaire("Indice calculé pour ${d.commune}.")
                 }
             }
@@ -285,7 +286,7 @@ private fun couleurEpisode(e: EtatEpisode): Color = when (e) {
 }
 
 @Composable
-fun CarteEpisodes(etat: EtatModule<DonneesEpisodes>, modifier: Modifier = Modifier) {
+fun CarteEpisodes(etat: EtatModule<DonneesEpisodes>, modifier: Modifier = Modifier, reglageAlerte: @Composable () -> Unit = {}) {
     val maintenant = rememberMaintenant()
     val titre = "Épisodes de pollution"
     when (etat) {
@@ -326,6 +327,7 @@ fun CarteEpisodes(etat: EtatModule<DonneesEpisodes>, modifier: Modifier = Modifi
                             LienAirBreizh("Recommandations sur Air Breizh")
                         }
                     }
+                    reglageAlerte()
                 }
             }
         }
