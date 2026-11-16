@@ -2,7 +2,7 @@
   "module": "episodes_pollution",
   "version_schema": 1,
   "meta": {
-    "source": "Atmo France / Air Breizh",
+    "source": "Atmo France / AASQA",
     "licence": "ODbL",
     "url_source": "https://www.airbreizh.asso.fr/",
     "recupere_le": "2026-11-16T20:04:52.667916Z",

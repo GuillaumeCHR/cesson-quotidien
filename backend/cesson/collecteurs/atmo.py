@@ -37,7 +37,8 @@ from ..commun.modele import Alerte, Modele, NiveauAlerte
 
 BASE = "https://admindata.atmo-france.org"
 IDENTIFIANTS_DEFAUT = "/srv/cesson/secrets/atmo.env"
-SOURCE = "Atmo France / Air Breizh"
+# Mention imposée par les conditions d'utilisation d'Atmo Data, à reprendre telle quelle partout.
+SOURCE = "Atmo France / AASQA"
 LICENCE = "ODbL"
 URL_AIR_BREIZH = "https://www.airbreizh.asso.fr/"
 CODE_EPCI = "243500139"  # Rennes Métropole

@@ -196,6 +196,8 @@ def test_collecte_complete_avec_jeton(tmp_path, identifiants):
     assert json.loads(login.calls[0].request.content) == {"username": "essai", "password": "secret-de-test"}
     f = FichierModule[DonneesQualiteAir].model_validate_json(publieur.chemin("qualite_air").read_text())
     assert f.meta.licence == "ODbL" and f.donnees.jours[0].libelle == "Moyen"
+    # Mention exigée par les conditions d'utilisation d'Atmo Data, affichée sous chaque carte.
+    assert f.meta.source == "Atmo France / AASQA"
 
 
 def test_episodes_lus_en_csv_avec_le_jeton(tmp_path, identifiants):
