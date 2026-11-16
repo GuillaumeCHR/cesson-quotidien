@@ -94,10 +94,9 @@ const val URL_PORTAIL_FAMILLES = "https://portail-familles.ville-cesson-sevigne.
 
 private val LIENS_FAMILLES = listOf(
     "Démarches scolaires (inscriptions)" to "https://www.ville-cesson-sevigne.fr/demarches-scolaires/",
-    "Accueil de loisirs et périscolaire (2-11 ans)" to "https://www.ville-cesson-sevigne.fr/accueil-de-loisirs-et-periscolaire-2-11ans/",
+    "Accueil de loisirs et périscolaire (2-11 ans)" to "https://www.ville-cesson-sevigne.fr/accueil_enfant_2_11_ans/",
     "Stages pendant les vacances" to "https://www.ville-cesson-sevigne.fr/stages-vacances-scolaires/",
-    "Relais petite enfance et modes de garde" to
-        "https://www.ville-cesson-sevigne.fr/relais-petite-enfance-structures-collectives-assistants-maternels-et-garde-denfants-a-domicile/",
+    "Relais petite enfance et modes de garde" to "https://www.ville-cesson-sevigne.fr/relais-petite-enfance/",
 )
 
 /** Portail familles (inscriptions, réservations, factures) et pages utiles de la ville. */
