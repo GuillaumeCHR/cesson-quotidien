@@ -1,25 +1,16 @@
 package com.yogistudio.cesson.environnement
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.OpenInNew
-import androidx.compose.material.icons.rounded.Warning
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -34,14 +25,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalUriHandler
-import androidx.compose.ui.semantics.LiveRegionMode
 import androidx.compose.ui.semantics.contentDescription
-import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.yogistudio.cesson.core.donnees.EtatModule
+import com.yogistudio.cesson.core.ui.BandeauAlerte
 import com.yogistudio.cesson.core.ui.FuseauCesson
 import com.yogistudio.cesson.core.ui.Palette
 import com.yogistudio.cesson.core.ui.Pastille
@@ -127,46 +117,36 @@ fun BandeauVigilanceMeteo(etat: EtatModule<DonneesVigilanceMeteo>) {
     if (jours.isEmpty()) return
     val aujourdhui = maintenant.atZone(FuseauCesson).toLocalDate()
     val pire = jours.flatMap { it.aSignaler() }.couleurMax()
+    val quand = jours.joinToString(" et ") { nomJourVigilance(it.date(), aujourdhui) }
+    val phenomenes = jours.flatMap { it.aSignaler() }.map { it.nom }.distinct().joinToString(", ")
     val uri = LocalUriHandler.current
-    var details by remember { mutableStateOf(false) }
-    Card(
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerHigh),
-        modifier = Modifier.fillMaxWidth().semantics { liveRegion = LiveRegionMode.Polite },
-    ) {
-        Row(Modifier.height(IntrinsicSize.Min)) {
-            Box(Modifier.width(8.dp).fillMaxHeight().background(couleurVigilanceMeteo(pire)))
-            Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Icon(Icons.Rounded.Warning, contentDescription = null, tint = MaterialTheme.colorScheme.onSurface)
-                    Spacer(Modifier.width(8.dp))
-                    Text("Vigilance ${pire.nom()} · ${d.departement}", style = MaterialTheme.typography.titleMedium)
-                }
-                jours.forEach { j ->
-                    Text(
-                        nomJourVigilance(j.date(), aujourdhui).replaceFirstChar { it.uppercase() } + " : " +
-                            j.aSignaler().joinToString(" ; ") { "${it.description()} (${it.couleur.nom()})" } + ".",
-                        style = MaterialTheme.typography.bodyMedium,
-                    )
-                }
-                Text(pire.consigne(), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                Text(d.mentionSource() + ".", style = MaterialTheme.typography.labelSmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant)
-                if (d.textes.isNotEmpty()) {
-                    if (details) {
-                        d.textes.forEach { t ->
-                            Text(t.titre, style = MaterialTheme.typography.labelLarge)
-                            Text(t.texte, style = MaterialTheme.typography.bodySmall)
-                        }
-                    }
-                    TextButton(onClick = { details = !details }, contentPadding = PaddingValues(0.dp)) {
-                        Text(if (details) "Masquer le bulletin" else "Lire le bulletin de Météo-France")
+    var bulletin by remember { mutableStateOf(false) }
+    // Compact : « Vigilance jaune demain · vent violent, pluie-inondation, orages » et la source datée.
+    BandeauAlerte(couleurVigilanceMeteo(pire), "Vigilance ${pire.nom()} $quand · $phenomenes", mention = d.mentionSource() + ".") {
+        Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
+            jours.forEach { j ->
+                Text(
+                    nomJourVigilance(j.date(), aujourdhui).replaceFirstChar { it.uppercase() } + " : " +
+                        j.aSignaler().joinToString(" ; ") { "${it.description()} (${it.couleur.nom()})" } + ".",
+                    style = MaterialTheme.typography.bodyMedium,
+                )
+            }
+            Text(pire.consigne(), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            if (d.textes.isNotEmpty()) {
+                if (bulletin) {
+                    d.textes.forEach { t ->
+                        Text(t.titre, style = MaterialTheme.typography.labelLarge)
+                        Text(t.texte, style = MaterialTheme.typography.bodySmall)
                     }
                 }
-                TextButton(onClick = { uri.openUri(URL_VIGILANCE_METEO) }, contentPadding = PaddingValues(0.dp)) {
-                    Text("Vigilance officielle sur Météo-France")
-                    Spacer(Modifier.width(4.dp))
-                    Icon(Icons.AutoMirrored.Rounded.OpenInNew, contentDescription = null, modifier = Modifier.size(16.dp))
+                TextButton(onClick = { bulletin = !bulletin }, contentPadding = PaddingValues(0.dp)) {
+                    Text(if (bulletin) "Masquer le bulletin" else "Lire le bulletin de Météo-France")
                 }
+            }
+            TextButton(onClick = { uri.openUri(URL_VIGILANCE_METEO) }, contentPadding = PaddingValues(0.dp)) {
+                Text("Vigilance officielle sur Météo-France")
+                Spacer(Modifier.width(4.dp))
+                Icon(Icons.AutoMirrored.Rounded.OpenInNew, contentDescription = null, modifier = Modifier.size(16.dp))
             }
         }
     }

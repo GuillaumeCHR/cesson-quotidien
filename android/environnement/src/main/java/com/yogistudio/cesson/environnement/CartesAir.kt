@@ -4,10 +4,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -21,8 +19,6 @@ import androidx.compose.material.icons.rounded.Air
 import androidx.compose.material.icons.rounded.LocalFlorist
 import androidx.compose.material.icons.rounded.Masks
 import androidx.compose.material.icons.rounded.Warning
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -33,14 +29,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalUriHandler
-import androidx.compose.ui.semantics.LiveRegionMode
 import androidx.compose.ui.semantics.contentDescription
-import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.yogistudio.cesson.core.donnees.EtatModule
+import com.yogistudio.cesson.core.ui.BandeauAlerte
 import com.yogistudio.cesson.core.ui.CarteDonnee
 import com.yogistudio.cesson.core.ui.FuseauCesson
 import com.yogistudio.cesson.core.ui.LocalCompact
@@ -345,22 +340,15 @@ fun BandeauPollution(etat: EtatModule<DonneesEpisodes>) {
     val maintenant = rememberMaintenant()
     val aujourdhui = maintenant.atZone(FuseauCesson).toLocalDate()
     val pire = d.aVenir(aujourdhui).maxByOrNull { it.etat.ordinal } ?: return
-    Card(
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerHigh),
-        modifier = Modifier.fillMaxWidth().semantics { liveRegion = LiveRegionMode.Polite },
+    // Compact : « Pollution PM10 demain · Information et recommandation » et la source.
+    BandeauAlerte(
+        couleurEpisode(pire.etat),
+        "Pollution ${pire.polluantsVises()} ${nomJour(pire.date, aujourdhui).lowercase(Locale.FRANCE)} · ${pire.etat.libelle()}",
+        mention = "Source : Atmo France / AASQA.",
     ) {
-        Row(Modifier.height(IntrinsicSize.Min)) {
-            Box(Modifier.width(8.dp).fillMaxHeight().background(couleurEpisode(pire.etat)))
-            Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Icon(Icons.Rounded.Warning, contentDescription = null, tint = MaterialTheme.colorScheme.onSurface)
-                    Spacer(Modifier.width(8.dp))
-                    Text("Pollution ${pire.polluantsVises()} ${nomJour(pire.date, aujourdhui).lowercase(Locale.FRANCE)}",
-                        style = MaterialTheme.typography.titleMedium)
-                }
-                Text("${pire.etat.libelle()} en ${d.zone}. ${pire.etat.definition()}", style = MaterialTheme.typography.bodyMedium)
-                LienAirBreizh("Recommandations sur Air Breizh")
-            }
+        Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
+            Text("${pire.etat.libelle()} en ${d.zone}. ${pire.etat.definition()}", style = MaterialTheme.typography.bodyMedium)
+            LienAirBreizh("Recommandations sur Air Breizh")
         }
     }
 }
