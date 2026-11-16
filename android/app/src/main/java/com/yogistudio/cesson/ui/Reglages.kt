@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.FlowRow
 import com.yogistudio.cesson.rappels.ReglageRappelCollecte
 import com.yogistudio.cesson.rappels.ReglageAlerteEpisodes
 import com.yogistudio.cesson.rappels.ReglageAlertePollens
+import com.yogistudio.cesson.rappels.ReglageAlerteVigilance
 import com.yogistudio.cesson.rappels.AlertesBus
 import com.yogistudio.cesson.transport.AlerteBus
 import com.yogistudio.cesson.core.modele.JsonCesson
@@ -152,8 +153,8 @@ fun appliquerAffichageSysteme(context: Context, mode: String) {
 }
 
 /**
- * Les notifications de l'app, calculées sur le téléphone : rappel de collecte la veille, pollens et épisodes de
- * pollution. L'alerte de passage du bus n'est pas ici : elle s'arme ligne par ligne sur la carte « Mon arrêt de bus ».
+ * Les notifications de l'app, calculées sur le téléphone : rappel de collecte la veille, vigilance météo, pollens et
+ * épisodes de pollution. L'alerte de passage du bus n'est pas ici : elle s'arme ligne par ligne sur la carte « Mon arrêt de bus ».
  */
 @Composable
 private fun CarteNotifications(app: CessonApp) {
@@ -161,6 +162,9 @@ private fun CarteNotifications(app: CessonApp) {
         Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
             Text("Sortir la poubelle", style = MaterialTheme.typography.titleSmall, modifier = Modifier.semantics { heading() })
             ReglageRappelCollecte(app)
+            HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
+            Text("Vigilance météo", style = MaterialTheme.typography.titleSmall, modifier = Modifier.semantics { heading() })
+            ReglageAlerteVigilance(app)
             HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
             Text("Pollens", style = MaterialTheme.typography.titleSmall, modifier = Modifier.semantics { heading() })
             ReglageAlertePollens(app)

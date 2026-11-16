@@ -17,8 +17,9 @@ from .trains import CollecteurTrains
 from .usages_eau import CollecteurUsagesEau
 from .vacances_scolaires import CollecteurVacancesScolaires
 from .vigicrues import CollecteurVigicrues
+from .vigilance_meteo import CollecteurVigilanceMeteo
 from .vilaine import CollecteurVilaine
 
 COLLECTEURS: dict[str, type[Collecteur]] = {
-    c.module: c for c in (CollecteurActus, CollecteurAgenda, CollecteurBornes, CollecteurCarburants, CollecteurCinema, CollecteurCirculation, CollecteurCollecte, CollecteurDefibrillateurs, CollecteurEpisodes, CollecteurEquipements, CollecteurFamilles, CollecteurLignesStar, CollecteurMeteo, CollecteurPollens, CollecteurQualiteAir, CollecteurTrains, CollecteurUsagesEau, CollecteurVacancesScolaires, CollecteurVigicrues, CollecteurVilaine)
+    c.module: c for c in (CollecteurActus, CollecteurAgenda, CollecteurBornes, CollecteurCarburants, CollecteurCinema, CollecteurCirculation, CollecteurCollecte, CollecteurDefibrillateurs, CollecteurEpisodes, CollecteurEquipements, CollecteurFamilles, CollecteurLignesStar, CollecteurMeteo, CollecteurPollens, CollecteurQualiteAir, CollecteurTrains, CollecteurUsagesEau, CollecteurVacancesScolaires, CollecteurVigicrues, CollecteurVigilanceMeteo, CollecteurVilaine)
 }

@@ -40,6 +40,8 @@ class PreferencesLocales(private val context: Context) {
     private val cleSeuilPollens = intPreferencesKey("alerte_pollens_seuil")
     private val cleAlerteEpisodes = booleanPreferencesKey("alerte_episodes")
     private val cleAlertesAirEnvoyees = stringSetPreferencesKey("alertes_air_envoyees")
+    private val cleAlerteVigilance = booleanPreferencesKey("alerte_vigilance")
+    private val cleSeuilVigilance = stringPreferencesKey("alerte_vigilance_seuil")
 
     // L'accueil garde ses clés d'origine ; chaque onglet a les siennes (« onglet_bouger_ordre »…).
     private fun cleOrdre(onglet: String) = stringPreferencesKey(if (onglet == ACCUEIL) "accueil_ordre" else "onglet_${onglet}_ordre")
@@ -170,10 +172,27 @@ class PreferencesLocales(private val context: Context) {
         context.preferencesCesson.edit { it[cleAlertesAirEnvoyees] = cles }
     }
 
+    /** Alerte vigilance météo : désactivée tant que l'utilisateur ne l'a pas demandée. */
+    val alerteVigilanceActive: Flow<Boolean> = context.preferencesCesson.data.map { it[cleAlerteVigilance] ?: false }
+
+    suspend fun activerAlerteVigilance(actif: Boolean) {
+        context.preferencesCesson.edit { it[cleAlerteVigilance] = actif }
+    }
+
+    /** Couleur à partir de laquelle prévenir : « JAUNE » (par défaut), « ORANGE » ou « ROUGE ». */
+    val seuilVigilance: Flow<String> = context.preferencesCesson.data.map { it[cleSeuilVigilance] ?: SEUIL_VIGILANCE_DEFAUT }
+
+    suspend fun enregistrerSeuilVigilance(seuil: String) {
+        context.preferencesCesson.edit { it[cleSeuilVigilance] = seuil }
+    }
+
 }
 
 /** Par défaut, on prévient à partir d'un indice pollen « élevé ». */
 const val SEUIL_POLLENS_DEFAUT = 4
+
+/** Par défaut, on prévient dès la vigilance météo jaune. */
+const val SEUIL_VIGILANCE_DEFAUT = "JAUNE"
 
 /**
  * Ordre effectif des tuiles : l'ordre enregistré d'abord (sans les tuiles qui n'existent plus),

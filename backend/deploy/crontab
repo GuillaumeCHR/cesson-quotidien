@@ -23,6 +23,10 @@ PATH=/usr/bin:/bin
 # 7h20, 11h20, 16h20 et 18h20 : épisodes de pollution en Ille-et-Vilaine (procédures préfectorales, mises à jour en journée)
 20 7,11,16,18 * * * cd $CESSON && .venv/bin/python -m cesson collecter episodes_pollution --sortie /srv/cesson/public --etat /srv/cesson/etat >> /srv/cesson/log/collecte.log 2>&1
 
+# Toutes les 15 min (1, 16, 31, 46) : vigilance météo de Météo-France en Ille-et-Vilaine
+# (identifiant d'application dans /srv/cesson/secrets/meteofrance.env)
+1-59/15 * * * * cd $CESSON && .venv/bin/python -m cesson collecter vigilance_meteo --sortie /srv/cesson/public --etat /srv/cesson/etat >> /srv/cesson/log/collecte.log 2>&1
+
 # Horaire, à la 27e minute : actualités de la ville (RSS), restrictions d'eau (VigiEau) et consignes d'Eau du Bassin Rennais
 27 * * * *    cd $CESSON && .venv/bin/python -m cesson collecter actus usages_eau --sortie /srv/cesson/public --etat /srv/cesson/etat >> /srv/cesson/log/collecte.log 2>&1
 

@@ -21,11 +21,18 @@ private val Paris: ZoneId = ZoneId.of("Europe/Paris")
  */
 val CONTROLES_AIR: List<LocalTime> = listOf(LocalTime.of(7, 30), LocalTime.of(11, 30), LocalTime.of(16, 30), LocalTime.of(18, 30))
 
-/** Prochaine heure de contrôle strictement après [maintenant]. */
-fun prochainControleAir(maintenant: Instant): Instant {
+/**
+ * Vigilance météo : une vigilance orange peut tomber à toute heure. Quand son alerte est active, on contrôle en plus
+ * chaque heure de 7h35 à 22h35, juste après la collecte du serveur (toutes les 15 min, à la 31e minute notamment).
+ */
+val CONTROLES_VIGILANCE: List<LocalTime> = (7..22).map { LocalTime.of(it, 35) }
+
+/** Prochaine heure de contrôle strictement après [maintenant], parmi [creneaux]. */
+fun prochainControleAir(maintenant: Instant, creneaux: List<LocalTime> = CONTROLES_AIR): Instant {
+    val tries = creneaux.sorted()
     val z = maintenant.atZone(Paris)
-    val aujourdhui = CONTROLES_AIR.map { z.toLocalDate().atTime(it).atZone(Paris).toInstant() }.firstOrNull { it.isAfter(maintenant) }
-    return aujourdhui ?: z.toLocalDate().plusDays(1).atTime(CONTROLES_AIR.first()).atZone(Paris).toInstant()
+    val aujourdhui = tries.map { z.toLocalDate().atTime(it).atZone(Paris).toInstant() }.firstOrNull { it.isAfter(maintenant) }
+    return aujourdhui ?: z.toLocalDate().plusDays(1).atTime(tries.first()).atZone(Paris).toInstant()
 }
 
 /** Seuils proposés pour l'alerte pollens, avec leur libellé. */
