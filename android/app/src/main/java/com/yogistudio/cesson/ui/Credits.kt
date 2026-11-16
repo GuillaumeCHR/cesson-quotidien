@@ -78,6 +78,9 @@ private val CREDITS = listOf(
         "Ils surveillent la rivière à Pont Briand. Nous ne faisons que relayer, et renvoyer vers eux."),
     Bloc("Météo", "Open-Meteo, modèles de Météo-France",
         "Sous CC BY 4.0. Le parapluie reste à votre appréciation."),
+    Bloc("Qualité de l'air et pollens", "Source : Atmo France / AASQA",
+        "Indice ATMO, pollens et épisodes de pollution mesurés et prévus par Air Breizh, l'AASQA de Bretagne, " +
+            "sous licence ODbL. Ils surveillent l'air de Cesson ; nous, on se contente de vous le dire."),
     Bloc("Prix à la pompe", "Ministère de l'Économie (data.economie.gouv.fr)",
         "Chaque prix garde sa date : un prix d'il y a dix jours n'est jamais « le moins cher »."),
     Bloc("Cartographie", "Les contributrices et contributeurs d'OpenStreetMap",
@@ -96,7 +99,8 @@ private val CREDITS = listOf(
 private val REMERCIEMENTS = listOf(
     "Aux bénévoles d'OpenStreetMap, qui ont dessiné Cesson-Sévigné bien avant nous.",
     "Aux services de la Ville et de Rennes Métropole, qui publient horaires, calendriers et données ouvertes.",
-    "À STAR, à la SNCF, à Hub'Eau, à Vigicrues et à Open-Meteo, dont les données ouvertes font tout le travail.",
+    "À STAR, à la SNCF, à Hub'Eau, à Vigicrues, à Open-Meteo, à Atmo France et à Air Breizh, dont les données ouvertes " +
+        "font tout le travail.",
     "À celles et ceux qui sortent leur bac la veille au soir.",
 )
 
