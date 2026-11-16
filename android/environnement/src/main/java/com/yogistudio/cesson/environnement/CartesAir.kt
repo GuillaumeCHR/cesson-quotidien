@@ -69,6 +69,16 @@ private fun LienAirBreizh(texte: String) {
     }
 }
 
+/** Mention exigée par la licence d'Atmo Data, visible même en mode compact (où la ligne de fraîcheur est masquée). */
+const val MENTION_ATMO = "Source : Atmo France / AASQA"
+
+@Composable
+private fun MentionAtmo() {
+    if (LocalCompact.current) {
+        Text(MENTION_ATMO, style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+    }
+}
+
 @Composable
 private fun TexteSecondaire(texte: String) =
     Text(texte, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
@@ -112,6 +122,7 @@ fun CarteQualiteAir(etat: EtatModule<DonneesQualiteAir>, modifier: Modifier = Mo
                         JourQualiteAir(j, nomJour(j.date, aujourdhui), principal = i == 0 && !compact)
                         if (i == 0 && !compact) JaugeAtmo(j.code)
                     }
+                    MentionAtmo()
                     if (!compact) {
                         jours.firstOrNull()?.takeIf { it.sousIndices.isNotEmpty() }?.let { SousIndices(it) }
                         TexteSecondaire("Indice calculé pour ${d.zone}, qui vaut pour Cesson.")
@@ -253,6 +264,7 @@ fun CartePollens(etat: EtatModule<DonneesPollens>, modifier: Modifier = Modifier
                     }
                     if (!compact && !j.horsSaison) Especes(j)
                     reglageAlerte()
+                    MentionAtmo()
                     if (!compact) TexteSecondaire("Indice calculé pour ${d.commune}.")
                 }
             }
@@ -358,6 +370,7 @@ fun CarteEpisodes(etat: EtatModule<DonneesEpisodes>, modifier: Modifier = Modifi
                             LienAirBreizh("Recommandations sur Air Breizh")
                         }
                     }
+                    MentionAtmo()
                     reglageAlerte()
                 }
             }
@@ -379,7 +392,7 @@ fun BandeauPollution(etat: EtatModule<DonneesEpisodes>) {
     BandeauAlerte(
         couleurEpisode(pire.etat),
         "Pollution ${pire.polluantsVises()} ${nomJour(pire.date, aujourdhui).lowercase(Locale.FRANCE)} · ${pire.etat.libelle()}",
-        mention = "Source : Atmo France / AASQA.",
+        mention = "$MENTION_ATMO.",
     ) {
         Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
             Text("${pire.etat.libelle()} en ${d.zone}. ${pire.etat.definition()}", style = MaterialTheme.typography.bodyMedium)
