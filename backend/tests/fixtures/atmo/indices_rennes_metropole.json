@@ -1,0 +1,9 @@
+{
+"type": "FeatureCollection",
+"name": "national_data.national_ind_atmo_2021",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::3857" } },
+"features": [
+{ "type": "Feature", "properties": { "aasqa": "53", "date_maj": "2026-11-16T15:47:19.614+01:00", "code_no2": 1, "code_o3": 2, "code_pm10": 1, "code_pm25": 1, "code_qual": 2, "code_so2": 1, "code_zone": "243500139", "coul_qual": "#50CCAA", "date_dif": "2026-11-16", "date_ech": "2026-11-16", "epsg_reg": "2154", "lib_qual": "Moyen", "lib_zone": "Rennes Métropole", "source": "Air Breizh", "type_zone": "epci", "x_reg": 351902.3, "x_wgs84": -1.68005409066314, "y_reg": 6789342.2, "y_wgs84": 48.111582472011399, "gml_id2": null }, "geometry": { "type": "Point", "coordinates": [ -187022.765877777041169, 6125438.298448445275426 ] } },
+{ "type": "Feature", "properties": { "aasqa": "53", "date_maj": "2026-11-16T15:47:19.614+01:00", "code_no2": 1, "code_o3": 2, "code_pm10": 1, "code_pm25": 1, "code_qual": 2, "code_so2": 1, "code_zone": "243500139", "coul_qual": "#50CCAA", "date_dif": "2026-11-16", "date_ech": "2026-11-17", "epsg_reg": "2154", "lib_qual": "Moyen", "lib_zone": "Rennes Métropole", "source": "Air Breizh", "type_zone": "epci", "x_reg": 351902.3, "x_wgs84": -1.68005409066314, "y_reg": 6789342.2, "y_wgs84": 48.111582472011399, "gml_id2": null }, "geometry": { "type": "Point", "coordinates": [ -187022.765877777041169, 6125438.298448445275426 ] } }
+]
+}

@@ -1,0 +1,184 @@
+{
+  "$defs": {
+    "DonneesPollens": {
+      "additionalProperties": false,
+      "properties": {
+        "commune": {
+          "title": "Commune",
+          "type": "string"
+        },
+        "mis_a_jour": {
+          "format": "date-time",
+          "title": "Mis A Jour",
+          "type": "string"
+        },
+        "jours": {
+          "items": {
+            "$ref": "#/$defs/JourPollen"
+          },
+          "title": "Jours",
+          "type": "array"
+        }
+      },
+      "required": [
+        "commune",
+        "mis_a_jour",
+        "jours"
+      ],
+      "title": "DonneesPollens",
+      "type": "object"
+    },
+    "Etat": {
+      "enum": [
+        "ok",
+        "perime",
+        "erreur"
+      ],
+      "title": "Etat",
+      "type": "string"
+    },
+    "IndiceEspece": {
+      "additionalProperties": false,
+      "properties": {
+        "espece": {
+          "title": "Espece",
+          "type": "string"
+        },
+        "nom": {
+          "title": "Nom",
+          "type": "string"
+        },
+        "code": {
+          "title": "Code",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "espece",
+        "nom",
+        "code"
+      ],
+      "title": "IndiceEspece",
+      "type": "object"
+    },
+    "JourPollen": {
+      "additionalProperties": false,
+      "properties": {
+        "date": {
+          "format": "date",
+          "title": "Date",
+          "type": "string"
+        },
+        "code": {
+          "title": "Code",
+          "type": "integer"
+        },
+        "libelle": {
+          "title": "Libelle",
+          "type": "string"
+        },
+        "alerte": {
+          "title": "Alerte",
+          "type": "boolean"
+        },
+        "especes": {
+          "items": {
+            "$ref": "#/$defs/IndiceEspece"
+          },
+          "title": "Especes",
+          "type": "array"
+        },
+        "responsables": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Responsables",
+          "type": "array"
+        }
+      },
+      "required": [
+        "date",
+        "code",
+        "libelle",
+        "alerte",
+        "especes",
+        "responsables"
+      ],
+      "title": "JourPollen",
+      "type": "object"
+    },
+    "Meta": {
+      "additionalProperties": false,
+      "description": "Accompagne chaque fichier publié : source, licence et fraîcheur.",
+      "properties": {
+        "source": {
+          "title": "Source",
+          "type": "string"
+        },
+        "licence": {
+          "title": "Licence",
+          "type": "string"
+        },
+        "url_source": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Url Source"
+        },
+        "recupere_le": {
+          "format": "date-time",
+          "title": "Recupere Le",
+          "type": "string"
+        },
+        "valide_jusqu_a": {
+          "format": "date-time",
+          "title": "Valide Jusqu A",
+          "type": "string"
+        },
+        "etat": {
+          "$ref": "#/$defs/Etat",
+          "default": "ok"
+        }
+      },
+      "required": [
+        "source",
+        "licence",
+        "recupere_le",
+        "valide_jusqu_a"
+      ],
+      "title": "Meta",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "module": {
+      "title": "Module",
+      "type": "string"
+    },
+    "version_schema": {
+      "default": 1,
+      "title": "Version Schema",
+      "type": "integer"
+    },
+    "meta": {
+      "$ref": "#/$defs/Meta"
+    },
+    "donnees": {
+      "$ref": "#/$defs/DonneesPollens"
+    }
+  },
+  "required": [
+    "module",
+    "meta",
+    "donnees"
+  ],
+  "title": "FichierModule[DonneesPollens]",
+  "type": "object"
+}

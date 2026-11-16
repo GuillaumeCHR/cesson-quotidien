@@ -122,6 +122,16 @@
           ],
           "default": null,
           "title": "Theme"
+        },
+        "saison": {
+          "default": false,
+          "title": "Saison",
+          "type": "boolean"
+        },
+        "famille": {
+          "default": "autre",
+          "title": "Famille",
+          "type": "string"
         }
       },
       "required": [

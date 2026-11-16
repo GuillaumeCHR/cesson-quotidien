@@ -1,0 +1,96 @@
+{
+  "module": "episodes_pollution",
+  "version_schema": 1,
+  "meta": {
+    "source": "Atmo France / Air Breizh",
+    "licence": "ODbL",
+    "url_source": "https://www.airbreizh.asso.fr/",
+    "recupere_le": "2026-11-16T20:04:52.667916Z",
+    "valide_jusqu_a": "2026-11-17T08:04:52.667916Z",
+    "etat": "ok"
+  },
+  "donnees": {
+    "zone": "Ille-et-Vilaine",
+    "mis_a_jour": "2026-11-16T15:21:40.674000+01:00",
+    "jours": [
+      {
+        "date": "2026-11-15",
+        "etat": "aucun",
+        "polluants": [
+          {
+            "polluant": "NO₂",
+            "nom": "Dioxyde d'azote",
+            "etat": "aucun"
+          },
+          {
+            "polluant": "O₃",
+            "nom": "Ozone",
+            "etat": "aucun"
+          },
+          {
+            "polluant": "PM10",
+            "nom": "Particules fines PM10",
+            "etat": "aucun"
+          },
+          {
+            "polluant": "PM2,5",
+            "nom": "Particules fines PM2.5",
+            "etat": "aucun"
+          }
+        ]
+      },
+      {
+        "date": "2026-11-16",
+        "etat": "aucun",
+        "polluants": [
+          {
+            "polluant": "NO₂",
+            "nom": "Dioxyde d'azote",
+            "etat": "aucun"
+          },
+          {
+            "polluant": "O₃",
+            "nom": "Ozone",
+            "etat": "aucun"
+          },
+          {
+            "polluant": "PM10",
+            "nom": "Particules fines PM10",
+            "etat": "aucun"
+          },
+          {
+            "polluant": "PM2,5",
+            "nom": "Particules fines PM2.5",
+            "etat": "aucun"
+          }
+        ]
+      },
+      {
+        "date": "2026-11-17",
+        "etat": "aucun",
+        "polluants": [
+          {
+            "polluant": "NO₂",
+            "nom": "Dioxyde d'azote",
+            "etat": "aucun"
+          },
+          {
+            "polluant": "O₃",
+            "nom": "Ozone",
+            "etat": "aucun"
+          },
+          {
+            "polluant": "PM10",
+            "nom": "Particules fines PM10",
+            "etat": "aucun"
+          },
+          {
+            "polluant": "PM2,5",
+            "nom": "Particules fines PM2.5",
+            "etat": "aucun"
+          }
+        ]
+      }
+    ]
+  }
+}

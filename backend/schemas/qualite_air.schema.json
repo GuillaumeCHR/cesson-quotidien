@@ -1,0 +1,184 @@
+{
+  "$defs": {
+    "DonneesQualiteAir": {
+      "additionalProperties": false,
+      "properties": {
+        "zone": {
+          "title": "Zone",
+          "type": "string"
+        },
+        "mis_a_jour": {
+          "format": "date-time",
+          "title": "Mis A Jour",
+          "type": "string"
+        },
+        "jours": {
+          "items": {
+            "$ref": "#/$defs/JourAtmo"
+          },
+          "title": "Jours",
+          "type": "array"
+        }
+      },
+      "required": [
+        "zone",
+        "mis_a_jour",
+        "jours"
+      ],
+      "title": "DonneesQualiteAir",
+      "type": "object"
+    },
+    "Etat": {
+      "enum": [
+        "ok",
+        "perime",
+        "erreur"
+      ],
+      "title": "Etat",
+      "type": "string"
+    },
+    "JourAtmo": {
+      "additionalProperties": false,
+      "properties": {
+        "date": {
+          "format": "date",
+          "title": "Date",
+          "type": "string"
+        },
+        "code": {
+          "title": "Code",
+          "type": "integer"
+        },
+        "libelle": {
+          "title": "Libelle",
+          "type": "string"
+        },
+        "couleur": {
+          "title": "Couleur",
+          "type": "string"
+        },
+        "sous_indices": {
+          "items": {
+            "$ref": "#/$defs/SousIndice"
+          },
+          "title": "Sous Indices",
+          "type": "array"
+        },
+        "responsables": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Responsables",
+          "type": "array"
+        }
+      },
+      "required": [
+        "date",
+        "code",
+        "libelle",
+        "couleur",
+        "sous_indices",
+        "responsables"
+      ],
+      "title": "JourAtmo",
+      "type": "object"
+    },
+    "Meta": {
+      "additionalProperties": false,
+      "description": "Accompagne chaque fichier publié : source, licence et fraîcheur.",
+      "properties": {
+        "source": {
+          "title": "Source",
+          "type": "string"
+        },
+        "licence": {
+          "title": "Licence",
+          "type": "string"
+        },
+        "url_source": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Url Source"
+        },
+        "recupere_le": {
+          "format": "date-time",
+          "title": "Recupere Le",
+          "type": "string"
+        },
+        "valide_jusqu_a": {
+          "format": "date-time",
+          "title": "Valide Jusqu A",
+          "type": "string"
+        },
+        "etat": {
+          "$ref": "#/$defs/Etat",
+          "default": "ok"
+        }
+      },
+      "required": [
+        "source",
+        "licence",
+        "recupere_le",
+        "valide_jusqu_a"
+      ],
+      "title": "Meta",
+      "type": "object"
+    },
+    "SousIndice": {
+      "additionalProperties": false,
+      "properties": {
+        "polluant": {
+          "title": "Polluant",
+          "type": "string"
+        },
+        "nom": {
+          "title": "Nom",
+          "type": "string"
+        },
+        "code": {
+          "title": "Code",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "polluant",
+        "nom",
+        "code"
+      ],
+      "title": "SousIndice",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "module": {
+      "title": "Module",
+      "type": "string"
+    },
+    "version_schema": {
+      "default": 1,
+      "title": "Version Schema",
+      "type": "integer"
+    },
+    "meta": {
+      "$ref": "#/$defs/Meta"
+    },
+    "donnees": {
+      "$ref": "#/$defs/DonneesQualiteAir"
+    }
+  },
+  "required": [
+    "module",
+    "meta",
+    "donnees"
+  ],
+  "title": "FichierModule[DonneesQualiteAir]",
+  "type": "object"
+}

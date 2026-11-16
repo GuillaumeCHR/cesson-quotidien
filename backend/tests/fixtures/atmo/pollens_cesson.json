@@ -1,0 +1,9 @@
+{
+"type": "FeatureCollection",
+"name": "national_data.national_ind_pol",
+"features": [
+{ "type": "Feature", "properties": { "aasqa": "53", "date_maj": "2026-11-16T16:12:04.074+01:00", "alerte": false, "code_ambr": 1.0, "code_arm": 1.0, "code_aul": 1.0, "code_boul": 1.0, "code_gram": 1.0, "code_oliv": 1.0, "code_zone": "35051", "conc_ambr": 0.0, "conc_arm": 0.0, "conc_aul": 0.0, "conc_boul": 0.0, "conc_gram": 0.0, "conc_oliv": 0.0, "date_dif": "2026-11-16", "date_ech": "2026-11-16", "lib_qual": "Très faible", "lib_zone": "Cesson-Sévigné", "type_zone": "commune", "pollen_resp": "ALNUS AMBROSIA ARTEMISI BETULA GRAMINEE OLEA", "source": "Air Breizh", "code_qual": 1, "name": null }, "geometry": null },
+{ "type": "Feature", "properties": { "aasqa": "53", "date_maj": "2026-11-16T16:12:04.074+01:00", "alerte": false, "code_ambr": 1.0, "code_arm": 1.0, "code_aul": 1.0, "code_boul": 1.0, "code_gram": 1.0, "code_oliv": 1.0, "code_zone": "35051", "conc_ambr": 0.0, "conc_arm": 0.0, "conc_aul": 0.0, "conc_boul": 0.0, "conc_gram": 0.0, "conc_oliv": 0.0, "date_dif": "2026-11-16", "date_ech": "2026-11-17", "lib_qual": "Très faible", "lib_zone": "Cesson-Sévigné", "type_zone": "commune", "pollen_resp": "ALNUS AMBROSIA ARTEMISI BETULA GRAMINEE OLEA", "source": "Air Breizh", "code_qual": 1, "name": null }, "geometry": null },
+{ "type": "Feature", "properties": { "aasqa": "53", "date_maj": "2026-11-16T16:12:04.074+01:00", "alerte": false, "code_ambr": 1.0, "code_arm": 1.0, "code_aul": 1.0, "code_boul": 1.0, "code_gram": 1.0, "code_oliv": 1.0, "code_zone": "35051", "conc_ambr": 0.0, "conc_arm": 0.0, "conc_aul": 0.0, "conc_boul": 0.0, "conc_gram": 0.0, "conc_oliv": 0.0, "date_dif": "2026-11-16", "date_ech": "2026-11-18", "lib_qual": "Très faible", "lib_zone": "Cesson-Sévigné", "type_zone": "commune", "pollen_resp": "ALNUS AMBROSIA ARTEMISI BETULA GRAMINEE OLEA", "source": "Air Breizh", "code_qual": 1, "name": null }, "geometry": null }
+]
+}

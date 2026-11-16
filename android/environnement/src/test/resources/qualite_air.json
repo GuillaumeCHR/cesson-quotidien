@@ -1,0 +1,90 @@
+{
+  "module": "qualite_air",
+  "version_schema": 1,
+  "meta": {
+    "source": "Atmo France / Air Breizh",
+    "licence": "ODbL",
+    "url_source": "https://www.airbreizh.asso.fr/",
+    "recupere_le": "2026-11-16T20:04:50.534470Z",
+    "valide_jusqu_a": "2026-11-17T22:04:50.534470Z",
+    "etat": "ok"
+  },
+  "donnees": {
+    "zone": "Rennes Métropole",
+    "mis_a_jour": "2026-11-16T15:47:19.614000+01:00",
+    "jours": [
+      {
+        "date": "2026-11-16",
+        "code": 2,
+        "libelle": "Moyen",
+        "couleur": "#50ccaa",
+        "sous_indices": [
+          {
+            "polluant": "no2",
+            "nom": "NO₂",
+            "code": 1
+          },
+          {
+            "polluant": "o3",
+            "nom": "O₃",
+            "code": 2
+          },
+          {
+            "polluant": "pm10",
+            "nom": "PM10",
+            "code": 1
+          },
+          {
+            "polluant": "pm25",
+            "nom": "PM2,5",
+            "code": 1
+          },
+          {
+            "polluant": "so2",
+            "nom": "SO₂",
+            "code": 1
+          }
+        ],
+        "responsables": [
+          "o3"
+        ]
+      },
+      {
+        "date": "2026-11-17",
+        "code": 2,
+        "libelle": "Moyen",
+        "couleur": "#50ccaa",
+        "sous_indices": [
+          {
+            "polluant": "no2",
+            "nom": "NO₂",
+            "code": 1
+          },
+          {
+            "polluant": "o3",
+            "nom": "O₃",
+            "code": 2
+          },
+          {
+            "polluant": "pm10",
+            "nom": "PM10",
+            "code": 1
+          },
+          {
+            "polluant": "pm25",
+            "nom": "PM2,5",
+            "code": 1
+          },
+          {
+            "polluant": "so2",
+            "nom": "SO₂",
+            "code": 1
+          }
+        ],
+        "responsables": [
+          "o3"
+        ]
+      }
+    ]
+  }
+}

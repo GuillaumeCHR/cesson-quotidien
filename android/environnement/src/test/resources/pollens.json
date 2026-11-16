@@ -1,0 +1,135 @@
+{
+  "module": "pollens",
+  "version_schema": 1,
+  "meta": {
+    "source": "Atmo France / Air Breizh",
+    "licence": "ODbL",
+    "url_source": "https://www.airbreizh.asso.fr/",
+    "recupere_le": "2026-11-16T20:04:51.385719Z",
+    "valide_jusqu_a": "2026-11-17T22:04:51.385719Z",
+    "etat": "ok"
+  },
+  "donnees": {
+    "commune": "Cesson-Sévigné",
+    "mis_a_jour": "2026-11-16T16:12:04.074000+01:00",
+    "jours": [
+      {
+        "date": "2026-11-16",
+        "code": 1,
+        "libelle": "Très faible",
+        "alerte": false,
+        "especes": [
+          {
+            "espece": "aul",
+            "nom": "Aulne",
+            "code": 1
+          },
+          {
+            "espece": "boul",
+            "nom": "Bouleau",
+            "code": 1
+          },
+          {
+            "espece": "oliv",
+            "nom": "Olivier",
+            "code": 1
+          },
+          {
+            "espece": "gram",
+            "nom": "Graminées",
+            "code": 1
+          },
+          {
+            "espece": "arm",
+            "nom": "Armoise",
+            "code": 1
+          },
+          {
+            "espece": "ambr",
+            "nom": "Ambroisie",
+            "code": 1
+          }
+        ],
+        "responsables": []
+      },
+      {
+        "date": "2026-11-17",
+        "code": 1,
+        "libelle": "Très faible",
+        "alerte": false,
+        "especes": [
+          {
+            "espece": "aul",
+            "nom": "Aulne",
+            "code": 1
+          },
+          {
+            "espece": "boul",
+            "nom": "Bouleau",
+            "code": 1
+          },
+          {
+            "espece": "oliv",
+            "nom": "Olivier",
+            "code": 1
+          },
+          {
+            "espece": "gram",
+            "nom": "Graminées",
+            "code": 1
+          },
+          {
+            "espece": "arm",
+            "nom": "Armoise",
+            "code": 1
+          },
+          {
+            "espece": "ambr",
+            "nom": "Ambroisie",
+            "code": 1
+          }
+        ],
+        "responsables": []
+      },
+      {
+        "date": "2026-11-18",
+        "code": 1,
+        "libelle": "Très faible",
+        "alerte": false,
+        "especes": [
+          {
+            "espece": "aul",
+            "nom": "Aulne",
+            "code": 1
+          },
+          {
+            "espece": "boul",
+            "nom": "Bouleau",
+            "code": 1
+          },
+          {
+            "espece": "oliv",
+            "nom": "Olivier",
+            "code": 1
+          },
+          {
+            "espece": "gram",
+            "nom": "Graminées",
+            "code": 1
+          },
+          {
+            "espece": "arm",
+            "nom": "Armoise",
+            "code": 1
+          },
+          {
+            "espece": "ambr",
+            "nom": "Ambroisie",
+            "code": 1
+          }
+        ],
+        "responsables": []
+      }
+    ]
+  }
+}

@@ -65,12 +65,12 @@ def nouveau_client() -> httpx.Client:
 
 
 def obtenir(client: httpx.Client, url: str, *, params: dict[str, Any] | None = None,
-            pause: float = 2.0) -> httpx.Response:
+            headers: dict[str, str] | None = None, pause: float = 2.0) -> httpx.Response:
     """GET avec délai maximal et 2 nouvelles tentatives sur erreur réseau ou 5xx/429."""
     derniere: Exception | None = None
     for essai in range(TENTATIVES_SUPPLEMENTAIRES + 1):
         try:
-            r = client.get(url, params=params)
+            r = client.get(url, params=params, headers=headers)
             if r.status_code == 429 or r.status_code >= 500:
                 raise httpx.HTTPStatusError(f"HTTP {r.status_code}", request=r.request, response=r)
             r.raise_for_status()

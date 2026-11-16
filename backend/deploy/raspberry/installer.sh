@@ -15,7 +15,7 @@ set -euo pipefail
 # Arguments suivants : modules à recollecter quoi qu'il arrive (leur saisie ou leur collecteur a changé).
 AUTO=0; [[ ${1:-} == --auto ]] && { AUTO=1; shift; }
 TOUCHES=" $* "
-MODULES="vilaine meteo vigicrues carburants lignes_star trains equipements collecte actus circulation usages_eau defibrillateurs bornes agenda cinema vacances_scolaires familles"
+MODULES="vilaine meteo vigicrues carburants lignes_star trains equipements collecte actus circulation usages_eau defibrillateurs bornes agenda cinema vacances_scolaires familles qualite_air pollens episodes_pollution"
 
 SOURCE=$(cd "$(dirname "$0")/../.." && pwd)   # le dossier backend copié sur le Pi
 RACINE=/srv/cesson
@@ -58,6 +58,10 @@ id cesson &>/dev/null || useradd --system --create-home --home-dir "$RACINE" --s
 chmod 755 "$RACINE"
 install -d -o cesson -g cesson -m 755 "$RACINE/public"
 install -d -o cesson -g cesson -m 750 "$RACINE/etat" "$RACINE/log"
+# Identifiants des API à compte (Atmo Data) : saisis à la main par le mainteneur, jamais dans le dépôt.
+# root les possède, l'utilisateur cesson peut seulement les lire (fichiers en 640 root:cesson).
+install -d -o root -g cesson -m 750 "$RACINE/secrets"
+[[ -s $RACINE/secrets/atmo.env ]] || echo "Attention : $RACINE/secrets/atmo.env manque, qualité de l'air et pollens resteront vides."
 
 etape "Code et environnement Python"
 # Le code appartient à root : l'utilisateur cesson ne peut écrire que public, etat et log.

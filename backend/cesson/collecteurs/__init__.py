@@ -3,6 +3,7 @@
 from ..commun.collecteur import Collecteur
 from .actus import CollecteurActus
 from .agenda import CollecteurAgenda
+from .atmo import CollecteurEpisodes, CollecteurPollens, CollecteurQualiteAir
 from .carburants import CollecteurCarburants
 from .cinema import CollecteurCinema
 from .circulation import CollecteurCirculation
@@ -19,5 +20,5 @@ from .vigicrues import CollecteurVigicrues
 from .vilaine import CollecteurVilaine
 
 COLLECTEURS: dict[str, type[Collecteur]] = {
-    c.module: c for c in (CollecteurActus, CollecteurAgenda, CollecteurBornes, CollecteurCarburants, CollecteurCinema, CollecteurCirculation, CollecteurCollecte, CollecteurDefibrillateurs, CollecteurEquipements, CollecteurFamilles, CollecteurLignesStar, CollecteurMeteo, CollecteurTrains, CollecteurUsagesEau, CollecteurVacancesScolaires, CollecteurVigicrues, CollecteurVilaine)
+    c.module: c for c in (CollecteurActus, CollecteurAgenda, CollecteurBornes, CollecteurCarburants, CollecteurCinema, CollecteurCirculation, CollecteurCollecte, CollecteurDefibrillateurs, CollecteurEpisodes, CollecteurEquipements, CollecteurFamilles, CollecteurLignesStar, CollecteurMeteo, CollecteurPollens, CollecteurQualiteAir, CollecteurTrains, CollecteurUsagesEau, CollecteurVacancesScolaires, CollecteurVigicrues, CollecteurVilaine)
 }
