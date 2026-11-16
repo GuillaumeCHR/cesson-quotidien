@@ -3,6 +3,9 @@ package com.yogistudio.cesson.equipements
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -124,7 +127,8 @@ private fun LigneEquipementCompacte(e: Equipement, maintenant: Instant, onOuvrir
             .semantics(mergeDescendants = true) {},
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        Text(e.lieu.nom, style = MaterialTheme.typography.bodyMedium, modifier = Modifier.weight(1f), maxLines = 1)
+        Text(e.lieu.nom, style = MaterialTheme.typography.bodyMedium, modifier = Modifier.weight(1f), maxLines = 1,
+            overflow = TextOverflow.Ellipsis)
         if (o != null) {
             val (pastille, precision) = etiquetteOuverture(o, maintenant)
             precision?.let {
@@ -136,6 +140,7 @@ private fun LigneEquipementCompacte(e: Equipement, maintenant: Instant, onOuvrir
     }
 }
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 private fun LigneEtat(nom: String?, o: Ouverture, maintenant: Instant) {
     val (pastille, precision) = etiquetteOuverture(o, maintenant)
@@ -144,17 +149,28 @@ private fun LigneEtat(nom: String?, o: Ouverture, maintenant: Instant) {
         is Ouverture.Ferme -> Ton.FERME
         is Ouverture.Inconnu -> Ton.NEUTRE
     }
-    Row(verticalAlignment = Alignment.CenterVertically) {
-        if (nom != null) {
-            Text(nom, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant,
-                modifier = Modifier.weight(1f), maxLines = 1)
-            Spacer(Modifier.width(8.dp))
+    if (nom == null) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Pastille(pastille, ton)
+            precision?.let {
+                Spacer(Modifier.width(8.dp))
+                Text(it, style = MaterialTheme.typography.bodyMedium, maxLines = 1, overflow = TextOverflow.Ellipsis,
+                    modifier = Modifier.weight(1f))
+            }
         }
-        Pastille(pastille, ton)
-        precision?.let {
-            Spacer(Modifier.width(8.dp))
-            Text(it, style = MaterialTheme.typography.bodyMedium, maxLines = 1,
-                modifier = if (nom == null) Modifier.weight(1f) else Modifier)
+        return
+    }
+    // Le nom de l'espace (« Bassin ludique », « Bassin sportif ») s'affiche toujours en entier : faute de place,
+    // la pastille et l'horaire passent à la ligne au lieu de le tronquer au premier mot.
+    FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(2.dp)) {
+        Text(nom, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant,
+            modifier = Modifier.align(Alignment.CenterVertically))
+        Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.align(Alignment.CenterVertically)) {
+            Pastille(pastille, ton)
+            precision?.let {
+                Spacer(Modifier.width(8.dp))
+                Text(it, style = MaterialTheme.typography.bodyMedium, maxLines = 1)
+            }
         }
     }
 }
