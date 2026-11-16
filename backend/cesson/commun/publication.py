@@ -38,9 +38,11 @@ def en_json(modele: BaseModel) -> str:
     return modele.model_dump_json(indent=2, exclude_none=True) + "\n"
 
 
-def empreinte(donnees: BaseModel) -> str:
-    """Empreinte stable des seules données (sans Meta) : l'app ne retélécharge que si elle change."""
-    brut = json.dumps(donnees.model_dump(mode="json"), sort_keys=True, ensure_ascii=False)
+def empreinte(donnees: BaseModel, *mentions: str | None) -> str:
+    """Empreinte stable des données et des [mentions] (source, licence, adresse de la source), sans les horodatages :
+    l'app ne retélécharge un module que si elle change. Les mentions y entrent pour qu'un changement de source exigé
+    par une licence (« Atmo France / AASQA ») parvienne aux téléphones même quand les données n'ont pas bougé."""
+    brut = json.dumps([donnees.model_dump(mode="json"), *mentions], sort_keys=True, ensure_ascii=False)
     return hashlib.sha256(brut.encode()).hexdigest()[:16]
 
 

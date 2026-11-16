@@ -135,7 +135,7 @@ class Collecteur(ABC, Generic[D]):
                     recupere_le=maintenant, valide_jusqu_a=self.valide_jusqu_a(donnees, maintenant),
                     etat=Etat.OK)
         fichier = FichierModule[self.modele_donnees](module=self.module, meta=meta, donnees=donnees)
-        publieur.publier(self.module, fichier, empreinte(donnees), meta.recupere_le,
+        publieur.publier(self.module, fichier, empreinte(donnees, meta.source, meta.licence, meta.url_source), meta.recupere_le,
                          meta.valide_jusqu_a, Etat.OK)
         sante.enregistrer(self.module, self.source, self.fraicheur, reussi=True)
         return Resultat(self.module, Etat.OK, publie=True, changements=changements)
@@ -161,7 +161,8 @@ class Collecteur(ABC, Generic[D]):
 
         meta = ancien.meta.model_copy(update={"etat": Etat.PERIME})
         fichier = ancien.model_copy(update={"meta": meta})
-        publieur.publier(self.module, fichier, empreinte(ancien.donnees), meta.recupere_le,
+        publieur.publier(self.module, fichier, empreinte(ancien.donnees, meta.source, meta.licence, meta.url_source),
+                         meta.recupere_le,
                          meta.valide_jusqu_a, Etat.PERIME)
         sante.enregistrer(self.module, self.source, self.fraicheur, reussi=False,
                           erreur=erreur, etat=Etat.PERIME)
