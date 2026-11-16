@@ -128,6 +128,15 @@ fun nomJourVigilance(d: LocalDate, aujourdhui: LocalDate): String = when (d) {
     else -> java.time.format.DateTimeFormatter.ofPattern("EEEE d MMMM", Locale.FRANCE).format(d)
 }
 
+private val FormatBulletin = java.time.format.DateTimeFormatter.ofPattern("dd/MM 'à' H'h'mm", Locale.FRANCE)
+
+/**
+ * Mention exigée par la licence de l'API Vigilance (Licence Ouverte 2.0 et article L. 322-1 du CRPA) : la source
+ * et la date de la dernière mise à jour des données, quel que soit le support. « Source : Météo-France, bulletin
+ * du 16/11 à 16h02 ».
+ */
+fun DonneesVigilanceMeteo.mentionSource(): String = "Source : Météo-France, bulletin du ${FormatBulletin.format(misAJour.atZone(Paris))}"
+
 /** Seuils proposés pour la notification de vigilance. */
 val SEUILS_VIGILANCE: List<CouleurVigilance> = listOf(CouleurVigilance.JAUNE, CouleurVigilance.ORANGE, CouleurVigilance.ROUGE)
 
@@ -144,7 +153,8 @@ fun notificationsVigilance(d: DonneesVigilanceMeteo, maintenant: Instant, seuil:
         NotificationAir(
             cle = "vigilance:${j.date()}:${couleur.name.lowercase(Locale.ROOT)}:${retenus.map { it.id }.sorted().joinToString("-")}",
             titre = "Vigilance ${couleur.nom()} ${nomJourVigilance(j.date(), aujourdhui)} en ${d.departement}",
-            texte = retenus.joinToString(" ; ") { it.description() }.replaceFirstChar { it.uppercase() } + ". " + couleur.consigne(),
+            texte = retenus.joinToString(" ; ") { it.description() }.replaceFirstChar { it.uppercase() } + ". " + couleur.consigne() +
+                " " + d.mentionSource() + ".",
         )
     }.filter { it.cle !in dejaEnvoyees }
 }

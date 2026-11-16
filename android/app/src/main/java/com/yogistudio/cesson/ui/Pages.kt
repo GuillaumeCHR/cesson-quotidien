@@ -105,6 +105,8 @@ fun EcranSources(app: CessonApp) {
                     "sous licence ODbL. L'app les demande directement à STAR, comme l'occupation du parc relais.\n\n" +
                     "Qualité de l'air, pollens et épisodes de pollution : données d'Air Breizh, sous licence ODbL. " +
                     "Source : Atmo France / AASQA.\n\n" +
+                    "Vigilance météo : Source : Météo-France (vigilance.meteofrance.fr), sous Licence Ouverte Etalab 2.0. " +
+                    "La date du bulletin de Météo-France est indiquée avec chaque vigilance.\n\n" +
                     "Carte de Cesson : © les contributeurs d'OpenStreetMap (ODbL). Tuiles de la Fondation OpenStreetMap, " +
                     "relayées et gardées en cache par le serveur de l'app : OpenStreetMap ne voit pas les utilisateurs.\n\n" +
                     "Polices Atkinson Hyperlegible et Roboto Flex, sous licence SIL Open Font License 1.1.",
