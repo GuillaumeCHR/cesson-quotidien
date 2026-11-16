@@ -2,6 +2,7 @@ package com.yogistudio.cesson.core.preferences
 
 import android.content.Context
 import androidx.datastore.preferences.core.booleanPreferencesKey
+import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.core.stringSetPreferencesKey
@@ -35,6 +36,10 @@ class PreferencesLocales(private val context: Context) {
     private val rappelCollecte = booleanPreferencesKey("rappel_collecte")
     private val cleAccueilDetaille = booleanPreferencesKey("accueil_detaille")
     private val dernierRappel = stringPreferencesKey("rappel_collecte_dernier")
+    private val cleAlertePollens = booleanPreferencesKey("alerte_pollens")
+    private val cleSeuilPollens = intPreferencesKey("alerte_pollens_seuil")
+    private val cleAlerteEpisodes = booleanPreferencesKey("alerte_episodes")
+    private val cleAlertesAirEnvoyees = stringSetPreferencesKey("alertes_air_envoyees")
 
     // L'accueil garde ses clés d'origine ; chaque onglet a les siennes (« onglet_bouger_ordre »…).
     private fun cleOrdre(onglet: String) = stringPreferencesKey(if (onglet == ACCUEIL) "accueil_ordre" else "onglet_${onglet}_ordre")
@@ -137,7 +142,38 @@ class PreferencesLocales(private val context: Context) {
         context.preferencesCesson.edit { it[dernierRappel] = jour }
     }
 
+    /** Alerte pollens : désactivée tant que l'utilisateur ne l'a pas demandée. */
+    val alertePollensActive: Flow<Boolean> = context.preferencesCesson.data.map { it[cleAlertePollens] ?: false }
+
+    suspend fun activerAlertePollens(actif: Boolean) {
+        context.preferencesCesson.edit { it[cleAlertePollens] = actif }
+    }
+
+    /** Niveau de l'indice pollen à partir duquel prévenir (3 modéré, 4 élevé, 5 très élevé). */
+    val seuilPollens: Flow<Int> = context.preferencesCesson.data.map { it[cleSeuilPollens] ?: SEUIL_POLLENS_DEFAUT }
+
+    suspend fun enregistrerSeuilPollens(seuil: Int) {
+        context.preferencesCesson.edit { it[cleSeuilPollens] = seuil }
+    }
+
+    /** Alerte épisodes de pollution : désactivée tant que l'utilisateur ne l'a pas demandée. */
+    val alerteEpisodesActive: Flow<Boolean> = context.preferencesCesson.data.map { it[cleAlerteEpisodes] ?: false }
+
+    suspend fun activerAlerteEpisodes(actif: Boolean) {
+        context.preferencesCesson.edit { it[cleAlerteEpisodes] = actif }
+    }
+
+    /** Alertes air déjà envoyées (« pollens:2026-04-12 », « episode:2026-07-03:alerte ») : jamais deux fois la même. */
+    val alertesAirEnvoyees: Flow<Set<String>> = context.preferencesCesson.data.map { it[cleAlertesAirEnvoyees] ?: emptySet() }
+
+    suspend fun enregistrerAlertesAirEnvoyees(cles: Set<String>) {
+        context.preferencesCesson.edit { it[cleAlertesAirEnvoyees] = cles }
+    }
+
 }
+
+/** Par défaut, on prévient à partir d'un indice pollen « élevé ». */
+const val SEUIL_POLLENS_DEFAUT = 4
 
 /**
  * Ordre effectif des tuiles : l'ordre enregistré d'abord (sans les tuiles qui n'existent plus),

@@ -41,6 +41,9 @@ class MainActivity : ComponentActivity() {
             app.depot.rafraichir()
             // Calendrier peut-être neuf : on recale le prochain rappel (sans effet s'il est désactivé).
             RappelsCollecte.planifier(app)
+            // Alertes pollens et pollution : prochain contrôle recalé, et vérification avec les données fraîches.
+            com.yogistudio.cesson.rappels.AlertesAir.planifier(app)
+            com.yogistudio.cesson.rappels.AlertesAir.verifier(app)
             // Données fraîches : le widget d'écran d'accueil en profite aussitôt.
             runCatching { WidgetCesson().updateAll(app) }
         }

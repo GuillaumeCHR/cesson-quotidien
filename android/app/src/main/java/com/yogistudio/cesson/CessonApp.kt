@@ -15,6 +15,7 @@ class CessonApp : Application() {
         super.onCreate()
         com.yogistudio.cesson.rappels.RappelsCollecte.creerCanal(this)
         com.yogistudio.cesson.rappels.AlertesBus.creerCanal(this)
+        com.yogistudio.cesson.rappels.AlertesAir.creerCanal(this)
     }
 
     val client: OkHttpClient by lazy {

@@ -34,16 +34,25 @@ fun ReglageRappelCollecte(app: CessonApp) {
     val context = LocalContext.current
     val portee = rememberCoroutineScope()
     val actif by app.preferences.rappelCollecteActif.collectAsStateWithLifecycle(false)
-    var refusee by remember { mutableStateOf(false) }
-
-    fun enregistrer(valeur: Boolean) = portee.launch {
-        app.preferences.activerRappelCollecte(valeur)
-        RappelsCollecte.planifier(context)
+    InterrupteurNotification("Me le rappeler la veille à 19h", "Notification calculée sur le téléphone, sans serveur.", actif) { valeur ->
+        portee.launch {
+            app.preferences.activerRappelCollecte(valeur)
+            RappelsCollecte.planifier(context)
+        }
     }
+}
 
+/**
+ * Interrupteur d'une notification calculée sur le téléphone. L'activer demande la permission de notification
+ * (Android 13+) si besoin ; si elle est refusée ou retirée, un lien mène aux réglages d'Android.
+ */
+@Composable
+fun InterrupteurNotification(titre: String, detail: String, actif: Boolean, onChanger: (Boolean) -> Unit) {
+    val context = LocalContext.current
+    var refusee by remember { mutableStateOf(false) }
     val permission = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { accordee ->
         refusee = !accordee
-        if (accordee) enregistrer(true)
+        if (accordee) onChanger(true)
     }
 
     Column {
@@ -51,16 +60,15 @@ fun ReglageRappelCollecte(app: CessonApp) {
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.fillMaxWidth().toggleable(value = actif, role = Role.Switch) { voulu ->
                 when {
-                    !voulu -> enregistrer(false)
-                    RappelsCollecte.notificationsAutorisees(context) -> enregistrer(true)
+                    !voulu -> onChanger(false)
+                    RappelsCollecte.notificationsAutorisees(context) -> onChanger(true)
                     Build.VERSION.SDK_INT >= 33 -> permission.launch(Manifest.permission.POST_NOTIFICATIONS)
                 }
             },
         ) {
             Column(Modifier.weight(1f)) {
-                Text("Me le rappeler la veille à 19h", style = MaterialTheme.typography.bodyMedium)
-                Text("Notification calculée sur le téléphone, sans serveur.",
-                    style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                Text(titre, style = MaterialTheme.typography.bodyMedium)
+                Text(detail, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
             Switch(checked = actif, onCheckedChange = null)
         }
