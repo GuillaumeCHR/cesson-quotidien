@@ -1,6 +1,7 @@
 package com.yogistudio.cesson.environnement
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -107,7 +108,10 @@ fun CarteQualiteAir(etat: EtatModule<DonneesQualiteAir>, modifier: Modifier = Mo
                     return@CarteDonnee
                 }
                 Column(verticalArrangement = Arrangement.spacedBy(if (compact) 6.dp else 10.dp)) {
-                    jours.forEachIndexed { i, j -> JourQualiteAir(j, nomJour(j.date, aujourdhui), principal = i == 0 && !compact) }
+                    jours.forEachIndexed { i, j ->
+                        JourQualiteAir(j, nomJour(j.date, aujourdhui), principal = i == 0 && !compact)
+                        if (i == 0 && !compact) JaugeAtmo(j.code)
+                    }
                     if (!compact) {
                         jours.firstOrNull()?.takeIf { it.sousIndices.isNotEmpty() }?.let { SousIndices(it) }
                         TexteSecondaire("Indice calculé pour ${d.zone}, qui vaut pour Cesson.")
@@ -145,6 +149,37 @@ private fun JourQualiteAir(j: JourAtmo, nom: String, principal: Boolean) {
                 Text(it.replaceFirstChar { c -> c.uppercase() }, style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant, maxLines = 1, overflow = TextOverflow.Ellipsis)
             }
+        }
+    }
+}
+
+/**
+ * Jauge des six niveaux de l'indice ATMO aux couleurs officielles, le niveau du jour en relief : « Moyen », vert d'eau,
+ * se lit ainsi comme le 2ᵉ niveau sur 6, juste avant le jaune « Dégradé ». Rien pour « Absent » ni « Événement ».
+ */
+@Composable
+private fun JaugeAtmo(code: Int) {
+    if (code !in 1..6) return
+    Column(
+        verticalArrangement = Arrangement.spacedBy(4.dp),
+        modifier = Modifier.semantics(mergeDescendants = true) {
+            contentDescription = "Niveau $code sur 6 de l'indice ATMO, de Bon à Extrêmement mauvais"
+        },
+    ) {
+        Row(Modifier.fillMaxWidth().height(14.dp), horizontalArrangement = Arrangement.spacedBy(3.dp),
+            verticalAlignment = Alignment.CenterVertically) {
+            (1..6).forEach { n ->
+                val actuel = n == code
+                Box(
+                    Modifier.weight(1f).height(if (actuel) 14.dp else 6.dp)
+                        .background(Color(couleurAtmo(n)).copy(alpha = if (actuel) 1f else 0.55f), RoundedCornerShape(3.dp))
+                        .then(if (actuel) Modifier.border(1.5.dp, MaterialTheme.colorScheme.onSurface, RoundedCornerShape(3.dp)) else Modifier),
+                )
+            }
+        }
+        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+            Text("Bon", style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            Text("Extrêmement mauvais", style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
         }
     }
 }
