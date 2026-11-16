@@ -99,6 +99,18 @@ import com.yogistudio.cesson.eau.enAlerte
 import com.yogistudio.cesson.eau.vigicrues
 import com.yogistudio.cesson.eau.vilaine
 import com.yogistudio.cesson.environnement.CarteMeteo
+import com.yogistudio.cesson.environnement.BandeauPollution
+import com.yogistudio.cesson.environnement.CarteEpisodes
+import com.yogistudio.cesson.environnement.CartePollens
+import com.yogistudio.cesson.environnement.CarteQualiteAir
+import com.yogistudio.cesson.environnement.episodesPollution
+import com.yogistudio.cesson.environnement.pollens
+import com.yogistudio.cesson.environnement.qualiteAir
+import com.yogistudio.cesson.environnement.enAlerte as episodeEnAlerte
+import com.yogistudio.cesson.core.ui.FuseauCesson
+import com.yogistudio.cesson.core.ui.rememberMaintenant
+import androidx.compose.material.icons.rounded.LocalFlorist
+import androidx.compose.material.icons.rounded.Masks
 import com.yogistudio.cesson.environnement.meteo
 import com.yogistudio.cesson.equipements.CarteEquipements
 import com.yogistudio.cesson.equipements.DECHETERIE
@@ -138,8 +150,17 @@ private val CIRCULATION = Tuile("circulation", "Circulation", Icons.Rounded.Dire
     val etat by remember(app) { app.depot.circulation() }.collectAsStateWithLifecycle(EtatModule.Absent)
     CarteCirculation(etat)
 }
-private val AIR = Tuile("air", "Qualité de l'air", Icons.Rounded.Air) {
-    CarteBientot("Qualité de l'air", Icons.Rounded.Air, "Indice ATMO du jour, bientôt ici.")
+private val AIR = Tuile("air", "Qualité de l'air", Icons.Rounded.Air) { app ->
+    val etat by remember(app) { app.depot.qualiteAir() }.collectAsStateWithLifecycle(EtatModule.Absent)
+    CarteQualiteAir(etat)
+}
+private val POLLENS = Tuile("pollens", "Indice pollen", Icons.Rounded.LocalFlorist) { app ->
+    val etat by remember(app) { app.depot.pollens() }.collectAsStateWithLifecycle(EtatModule.Absent)
+    CartePollens(etat)
+}
+private val EPISODES = Tuile("episodes_pollution", "Épisodes de pollution", Icons.Rounded.Masks) { app ->
+    val etat by remember(app) { app.depot.episodesPollution() }.collectAsStateWithLifecycle(EtatModule.Absent)
+    CarteEpisodes(etat)
 }
 private val EQUIPEMENTS_LOISIRS = Tuile("equipements", "Équipements", Icons.Rounded.Pool) { app ->
     EquipementsCesson(app, titre = "Équipements") { it.lieu.id != DECHETERIE && it.lieu.id !in SERVICES_A_PART }
@@ -164,7 +185,7 @@ private val ACTUS_VILLE = Tuile("actus_ville", "Actualités de la ville", Icons.
 private val CANAUX_TUILE = Tuile("canaux", "WhatsApp et Facebook", Icons.Rounded.Forum) { CarteCanaux() }
 // Les actualités de la ville sont à l'accueil : c'est ce qui se passe aujourd'hui à Cesson.
 val ONGLET_ACCUEIL = OngletTuiles(ACCUEIL, "l'accueil",
-    listOf(METEO, VILAINE, VIASILVA, MON_ARRET, TRAINS, CIRCULATION, COLLECTE, MES_EQUIPEMENTS, CARBURANTS, AIR, ACTUS_VILLE, CANAUX_TUILE))
+    listOf(METEO, VILAINE, VIASILVA, MON_ARRET, TRAINS, CIRCULATION, COLLECTE, MES_EQUIPEMENTS, CARBURANTS, AIR, POLLENS, EPISODES, ACTUS_VILLE, CANAUX_TUILE))
 val ONGLET_BOUGER = OngletTuiles("bouger", "l'onglet Bouger", listOf(VIASILVA, PARC_RELAIS, TRAINS, MON_ARRET, CIRCULATION, CARBURANTS, BORNES))
 private val AGENDA = Tuile("agenda", "Agenda", Icons.Rounded.Event) { app ->
     val etat by remember(app) { app.depot.agenda() }.collectAsStateWithLifecycle(EtatModule.Absent)
@@ -320,10 +341,6 @@ fun MonArret(app: CessonApp) {
     )
 }
 
-@Composable
-private fun CarteBientot(titre: String, icone: ImageVector, texte: String) =
-    CarteDonnee(titre, icone) { TexteBientot(texte) }
-
 /** Liste « bientôt dans cet onglet », en bas des onglets dont les modules arrivent plus tard. */
 @Composable
 fun CarteAVenir(icone: ImageVector, lignes: List<String>) {
@@ -343,9 +360,19 @@ fun EcranFamilles(app: CessonApp, onPersonnaliser: () -> Unit) =
 @Composable
 fun EcranAujourdhui(app: CessonApp, onPersonnaliser: () -> Unit) {
     val vigilance by remember(app) { app.depot.vigicrues() }.collectAsStateWithLifecycle(EtatModule.Absent)
-    // Vigilance crues jaune ou plus : toujours en tête, hors des cartes personnalisables.
+    val pollution by remember(app) { app.depot.episodesPollution() }.collectAsStateWithLifecycle(EtatModule.Absent)
+    val aujourdhui = rememberMaintenant().atZone(FuseauCesson).toLocalDate()
+    val crue = vigilance.enAlerte()
+    val episode = pollution.episodeEnAlerte(aujourdhui)
+    // Vigilance crues jaune ou plus, procédure de pollution aujourd'hui ou demain : toujours en tête,
+    // hors des cartes personnalisables.
     EcranTuiles(app, ONGLET_ACCUEIL, onPersonnaliser,
-        entete = if (vigilance.enAlerte()) ({ BandeauCrue(vigilance) }) else null)
+        entete = if (crue || episode) ({
+            Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                if (crue) BandeauCrue(vigilance)
+                if (episode) BandeauPollution(pollution)
+            }
+        }) else null)
 }
 
 @Composable

@@ -1,0 +1,261 @@
+{
+  "$defs": {
+    "Alerte": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "niveau": {
+          "$ref": "#/$defs/NiveauAlerte"
+        },
+        "titre": {
+          "title": "Titre",
+          "type": "string"
+        },
+        "zone": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Zone"
+        },
+        "debut": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Debut"
+        },
+        "fin": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Fin"
+        },
+        "source": {
+          "title": "Source",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "niveau",
+        "titre",
+        "source"
+      ],
+      "title": "Alerte",
+      "type": "object"
+    },
+    "DonneesEpisodes": {
+      "additionalProperties": false,
+      "properties": {
+        "zone": {
+          "title": "Zone",
+          "type": "string"
+        },
+        "mis_a_jour": {
+          "format": "date-time",
+          "title": "Mis A Jour",
+          "type": "string"
+        },
+        "jours": {
+          "items": {
+            "$ref": "#/$defs/JourEpisodes"
+          },
+          "title": "Jours",
+          "type": "array"
+        },
+        "alerte": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Alerte"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "required": [
+        "zone",
+        "mis_a_jour",
+        "jours"
+      ],
+      "title": "DonneesEpisodes",
+      "type": "object"
+    },
+    "EpisodePolluant": {
+      "additionalProperties": false,
+      "properties": {
+        "polluant": {
+          "title": "Polluant",
+          "type": "string"
+        },
+        "nom": {
+          "title": "Nom",
+          "type": "string"
+        },
+        "etat": {
+          "$ref": "#/$defs/EtatEpisode"
+        }
+      },
+      "required": [
+        "polluant",
+        "nom",
+        "etat"
+      ],
+      "title": "EpisodePolluant",
+      "type": "object"
+    },
+    "Etat": {
+      "enum": [
+        "ok",
+        "perime",
+        "erreur"
+      ],
+      "title": "Etat",
+      "type": "string"
+    },
+    "EtatEpisode": {
+      "enum": [
+        "aucun",
+        "information",
+        "alerte_persistance",
+        "alerte"
+      ],
+      "title": "EtatEpisode",
+      "type": "string"
+    },
+    "JourEpisodes": {
+      "additionalProperties": false,
+      "properties": {
+        "date": {
+          "format": "date",
+          "title": "Date",
+          "type": "string"
+        },
+        "etat": {
+          "$ref": "#/$defs/EtatEpisode"
+        },
+        "polluants": {
+          "items": {
+            "$ref": "#/$defs/EpisodePolluant"
+          },
+          "title": "Polluants",
+          "type": "array"
+        }
+      },
+      "required": [
+        "date",
+        "etat",
+        "polluants"
+      ],
+      "title": "JourEpisodes",
+      "type": "object"
+    },
+    "Meta": {
+      "additionalProperties": false,
+      "description": "Accompagne chaque fichier publié : source, licence et fraîcheur.",
+      "properties": {
+        "source": {
+          "title": "Source",
+          "type": "string"
+        },
+        "licence": {
+          "title": "Licence",
+          "type": "string"
+        },
+        "url_source": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Url Source"
+        },
+        "recupere_le": {
+          "format": "date-time",
+          "title": "Recupere Le",
+          "type": "string"
+        },
+        "valide_jusqu_a": {
+          "format": "date-time",
+          "title": "Valide Jusqu A",
+          "type": "string"
+        },
+        "etat": {
+          "$ref": "#/$defs/Etat",
+          "default": "ok"
+        }
+      },
+      "required": [
+        "source",
+        "licence",
+        "recupere_le",
+        "valide_jusqu_a"
+      ],
+      "title": "Meta",
+      "type": "object"
+    },
+    "NiveauAlerte": {
+      "enum": [
+        "info",
+        "jaune",
+        "orange",
+        "rouge"
+      ],
+      "title": "NiveauAlerte",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "module": {
+      "title": "Module",
+      "type": "string"
+    },
+    "version_schema": {
+      "default": 1,
+      "title": "Version Schema",
+      "type": "integer"
+    },
+    "meta": {
+      "$ref": "#/$defs/Meta"
+    },
+    "donnees": {
+      "$ref": "#/$defs/DonneesEpisodes"
+    }
+  },
+  "required": [
+    "module",
+    "meta",
+    "donnees"
+  ],
+  "title": "FichierModule[DonneesEpisodes]",
+  "type": "object"
+}

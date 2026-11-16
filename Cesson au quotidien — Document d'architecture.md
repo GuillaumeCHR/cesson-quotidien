@@ -46,7 +46,7 @@ Toutes les données passent par des fichiers JSON statiques avant d'atteindre l'
 | Trains (halte de Cesson) | [Horaires SNCF](https://www.data.gouv.fr/datasets/horaires-sncf) : GTFS national + GTFS-RT | Théorique : GTFS TER BreizhGo ou GTFS SNCF national. Temps réel : GTFS-RT SNCF national uniquement (TU toutes les 2 min pour les 60 prochaines minutes, SA pour les perturbations) | 2 min | Non |
 | Niveau de la Vilaine | [Hub'Eau Hydrométrie](https://www.data.gouv.fr/dataservices/hubeau-hydrometrie/reuses), station de Pont Briand (J709063002), hauteur H en mm | REST JSON, Licence Ouverte | Quotidien (carte informative) | Non |
 | Vigilance crues | [Flux Vigicrues des tronçons](https://www.data.gouv.fr/datasets/troncons-de-cours-deau-vigicrues-simplifies-avec-niveau-de-vigilance-crues) | GeoJSON national `services/InfoVigiCru.geojson` (≈ 2,2 Mo), champ `NivInfViCr` (1 vert à 4 rouge) ; Cesson est sur le tronçon BT9 « Vilaine amont » | 2 fois par jour au moins ; collecte toutes les 15 min | Non |
-| Qualité de l'air | [API Atmo Data](https://atmo-France.org/sites/federation/files/medias/documents/2023-10/FAQ_API_Atmo_Data_20231010_0.pdf) (Air Breizh) | REST, filtre code\_zone = 35051 | Chaque jour à 14h | Oui |
+| Qualité de l'air, pollens, épisodes de pollution | [API Atmo Data](https://atmo-France.org/sites/federation/files/medias/documents/2023-10/FAQ_API_Atmo_Data_20231010_0.pdf) (Air Breizh) | REST avec compte (jeton JWT de 24 h). Indice ATMO de Rennes Métropole (EPCI 243500139, Air Breizh ne le calcule pas par commune), pollens de Cesson (35051), épisodes d'Ille-et-Vilaine en CSV | Indice vers 15h45, pollens vers 16h15 ; épisodes en journée | Oui |
 | Météo (prévisions) | [Open-Meteo](https://open-meteo.com/), modèles Météo-France AROME et ARPEGE | REST JSON, CC BY 4.0 ; pas de probabilité de pluie avec ces modèles, d'où des cumuls en mm | Horaire | Non |
 | Vigilance météo | API Météo-France (portail-api) | REST | Plusieurs fois par jour | Oui (à confirmer) |
 | Carburants | [Flux instantané v2](https://data.economie.gouv.fr/explore/dataset/prix-des-carburants-en-france-flux-instantane-v2/table/?flg=fr-fr) | REST (API Opendatasoft), prix, horaires et services par station, filtré sur le code postal 35510 ; pas de nom de station, saisi dans `saisie/carburants.yaml` d'après OpenStreetMap (ODbL) | 10 min | Non |
@@ -96,7 +96,7 @@ Chaque source a un collecteur Python dédié, lancé à la cadence que sa donné
 | 2 min | Trains (GTFS-RT TU), filtrés sur la halte | Serveur avec cron fiable |
 | 10 à 15 min | Vigicrues, carburants, alertes STAR et SNCF | Serveur avec cron fiable |
 | Horaire | Météo, actualités, vigilance météo | Serveur |
-| Quotidien | Hauteur de la Vilaine (6h05), GTFS STAR (0h30), GTFS SNCF, qualité de l'air (14h15), spectacles, cinéma, déchèterie | Serveur |
+| Quotidien | Hauteur de la Vilaine (6h05), GTFS STAR (0h30), GTFS SNCF, qualité de l'air et pollens (16h20, rattrapage à 18h20), épisodes de pollution (7h20, 11h20, 16h20, 18h20), spectacles, cinéma, déchèterie | Serveur |
 | Hebdomadaire ou mensuel | Défibrillateurs, bornes, acceslibre, contrôle des YAML | Serveur |
 
 Les crons de GitHub Actions peuvent prendre des dizaines de minutes de retard. Ils ne conviennent donc pas aux cadences de 2 à 15 min, en particulier pour Vigicrues. Ces tâches tournent sur un petit VPS : le décodage du GTFS-RT SNCF national dépasserait les limites de calcul de Cloudflare Workers.
