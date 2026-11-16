@@ -169,12 +169,17 @@ fun formaterAttente(heure: Instant, maintenant: Instant, heureLocale: (Instant) 
 class ErreurStar(message: String, cause: Throwable? = null) : IOException(message, cause)
 
 /**
- * Client des jeux temps réel de data.explore.star.fr (ODbL, sans clé). L'app l'interroge
- * directement : seuls le nom de l'arrêt et l'adresse IP du téléphone parviennent à STAR.
+ * Client des jeux temps réel de data.explore.star.fr (ODbL). L'app l'interroge directement : seuls le nom de
+ * l'arrêt et l'adresse IP du téléphone parviennent à STAR.
+ *
+ * Avec [cle] (clé d'API gratuite du portail, injectée à la compilation), les appels comptent sur le quota du compte
+ * (2 millions par jour) au lieu du quota anonyme commun à tout le portail (150 000 par jour, épuisé certains soirs).
+ * Si la clé est refusée ou son quota épuisé, on retente sans elle : la clé n'est jamais un point de panne.
  */
 class ClientStar(
     internal val client: OkHttpClient,
-    private val base: String = "https://data.explore.star.fr/api/explore/v2.1/catalog/datasets",
+    internal val base: String = "https://data.explore.star.fr/api/explore/v2.1/catalog/datasets",
+    private val cle: String = "",
 ) {
     suspend fun departs(nomArret: String): List<Depart> = withContext(Dispatchers.IO) {
         coroutineScope {
@@ -190,19 +195,37 @@ class ClientStar(
             .addQueryParameter("order_by", "depart")
             .addQueryParameter("limit", "100")
             .build()
-        // Pas de cache HTTP : un horaire temps réel d'il y a deux minutes est faux.
-        val requete = Request.Builder().url(url).header("Cache-Control", "no-cache").build()
+        return decoder(appeler(url), decoder)
+    }
+
+    /**
+     * GET sans cache (un horaire temps réel d'il y a deux minutes est faux), avec la clé si elle existe. Clé refusée
+     * (401, 403) ou quota du compte épuisé (429) : une seconde tentative anonyme.
+     */
+    internal fun appeler(url: okhttp3.HttpUrl): String {
+        fun requete(avecCle: Boolean) = Request.Builder().url(url).header("Cache-Control", "no-cache").apply {
+            if (avecCle) header("Authorization", "Apikey $cle")
+        }.build()
         try {
-            client.newCall(requete).execute().use { r ->
-                if (!r.isSuccessful) throw ErreurStar("STAR a répondu ${r.code}")
-                return decoder(r.body.string())
+            var r = client.newCall(requete(cle.isNotBlank())).execute()
+            if (cle.isNotBlank() && r.code in setOf(401, 403, 429)) {
+                r.close()
+                r = client.newCall(requete(false)).execute()
+            }
+            r.use {
+                if (!it.isSuccessful) throw ErreurStar("STAR a répondu ${it.code}")
+                return it.body.string()
             }
         } catch (e: ErreurStar) {
             throw e
         } catch (e: IOException) {
             throw ErreurStar("STAR injoignable", e)
-        } catch (e: IllegalArgumentException) {
-            throw ErreurStar("réponse STAR illisible", e) // SerializationException en hérite
         }
+    }
+
+    internal fun <T> decoder(json: String, lecture: (String) -> T): T = try {
+        lecture(json)
+    } catch (e: IllegalArgumentException) {
+        throw ErreurStar("réponse STAR illisible", e) // SerializationException en hérite
     }
 }
