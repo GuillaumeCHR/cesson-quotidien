@@ -48,7 +48,7 @@ Toutes les données passent par des fichiers JSON statiques avant d'atteindre l'
 | Vigilance crues | [Flux Vigicrues des tronçons](https://www.data.gouv.fr/datasets/troncons-de-cours-deau-vigicrues-simplifies-avec-niveau-de-vigilance-crues) | GeoJSON national `services/InfoVigiCru.geojson` (≈ 2,2 Mo), champ `NivInfViCr` (1 vert à 4 rouge) ; Cesson est sur le tronçon BT9 « Vilaine amont » | 2 fois par jour au moins ; collecte toutes les 15 min | Non |
 | Qualité de l'air, pollens, épisodes de pollution | [API Atmo Data](https://atmo-France.org/sites/federation/files/medias/documents/2023-10/FAQ_API_Atmo_Data_20231010_0.pdf) (Air Breizh) | REST avec compte (jeton JWT de 24 h). Indice ATMO de Rennes Métropole (EPCI 243500139, Air Breizh ne le calcule pas par commune), pollens de Cesson (35051), épisodes d'Ille-et-Vilaine en CSV | Indice vers 15h45, pollens vers 16h15 ; épisodes en journée | Oui |
 | Météo (prévisions) | [Open-Meteo](https://open-meteo.com/), modèles Météo-France AROME et ARPEGE | REST JSON, CC BY 4.0 ; pas de probabilité de pluie avec ces modèles, d'où des cumuls en mm | Horaire | Non |
-| Vigilance météo | API Météo-France (portail-api) | REST | Plusieurs fois par jour | Oui (à confirmer) |
+| Vigilance météo | [API Bulletin Vigilance](https://portail-api.meteofrance.fr/) de Météo-France | REST JSON, OAuth2 (identifiant d'application échangé contre un jeton d'une heure) ; carte (couleur par phénomène et chronologie, J et J+1) et textes du bulletin départemental, filtrés sur l'Ille-et-Vilaine | 15 min | Oui |
 | Carburants | [Flux instantané v2](https://data.economie.gouv.fr/explore/dataset/prix-des-carburants-en-france-flux-instantane-v2/table/?flg=fr-fr) | REST (API Opendatasoft), prix, horaires et services par station, filtré sur le code postal 35510 ; pas de nom de station, saisi dans `saisie/carburants.yaml` d'après OpenStreetMap (ODbL) | 10 min | Non |
 | Bornes de recharge | Fichier national IRVE (data.gouv) | CSV | Hebdomadaire | Non |
 | Défibrillateurs | Base nationale Géo'DAE (data.gouv) | CSV | Hebdomadaire | Non |
@@ -95,7 +95,8 @@ Chaque source a un collecteur Python dédié, lancé à la cadence que sa donné
 | Sur le téléphone, en direct | Prochains passages STAR | Aucun |
 | 2 min | Trains (GTFS-RT TU), filtrés sur la halte | Serveur avec cron fiable |
 | 10 à 15 min | Vigicrues, carburants, alertes STAR et SNCF | Serveur avec cron fiable |
-| Horaire | Météo, actualités, vigilance météo | Serveur |
+| Horaire | Météo, actualités | Serveur |
+| 15 min | Vigilance crues, vigilance météo | Serveur |
 | Quotidien | Hauteur de la Vilaine (6h05), GTFS STAR (0h30), GTFS SNCF, qualité de l'air et pollens (16h20, rattrapage à 18h20), épisodes de pollution (7h20, 11h20, 16h20, 18h20), spectacles, cinéma, déchèterie | Serveur |
 | Hebdomadaire ou mensuel | Défibrillateurs, bornes, acceslibre, contrôle des YAML | Serveur |
 
@@ -276,7 +277,8 @@ Le risque principal est une information fausse sur une crue ou une fermeture. El
 - [ ] Le site de la ville expose-t-il un flux RSS ou l'API WordPress pour les actualités ?
 - [ ] L'agenda de la ville est-il publié sur OpenAgenda ou un flux équivalent ?
 - [ ] Quel logiciel de billetterie utilise le cinéma Le Sévigné, et exporte-t-il un programme ?
-- [ ] Les API Météo-France et acceslibre exigent-elles bien une clé ?
+- [x] Météo-France exige un compte (identifiant d'application OAuth2, obtenu le 16/11/2026).
+- [ ] acceslibre exige-t-elle bien une clé ?
 - [ ] Adresse de contact de la rubrique « Vos idées » (paramètre de build `cesson.contact`).
 - [ ] Accélérer la collecte de la hauteur de la Vilaine en cas de vigilance crues ?
 - [ ] Combien de secteurs de collecte compte Cesson, et quels sont leurs jours ?

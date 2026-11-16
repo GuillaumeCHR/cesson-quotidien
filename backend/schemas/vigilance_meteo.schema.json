@@ -1,0 +1,344 @@
+{
+  "$defs": {
+    "Alerte": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "niveau": {
+          "$ref": "#/$defs/NiveauAlerte"
+        },
+        "titre": {
+          "title": "Titre",
+          "type": "string"
+        },
+        "zone": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Zone"
+        },
+        "debut": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Debut"
+        },
+        "fin": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Fin"
+        },
+        "source": {
+          "title": "Source",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "niveau",
+        "titre",
+        "source"
+      ],
+      "title": "Alerte",
+      "type": "object"
+    },
+    "Couleur": {
+      "enum": [
+        "vert",
+        "jaune",
+        "orange",
+        "rouge"
+      ],
+      "title": "Couleur",
+      "type": "string"
+    },
+    "DonneesVigilanceMeteo": {
+      "additionalProperties": false,
+      "properties": {
+        "departement": {
+          "title": "Departement",
+          "type": "string"
+        },
+        "mis_a_jour": {
+          "format": "date-time",
+          "title": "Mis A Jour",
+          "type": "string"
+        },
+        "jours": {
+          "items": {
+            "$ref": "#/$defs/JourVigilance"
+          },
+          "title": "Jours",
+          "type": "array"
+        },
+        "textes": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/TexteVigilance"
+          },
+          "title": "Textes",
+          "type": "array"
+        },
+        "alerte": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Alerte"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "required": [
+        "departement",
+        "mis_a_jour",
+        "jours"
+      ],
+      "title": "DonneesVigilanceMeteo",
+      "type": "object"
+    },
+    "Etat": {
+      "enum": [
+        "ok",
+        "perime",
+        "erreur"
+      ],
+      "title": "Etat",
+      "type": "string"
+    },
+    "JourVigilance": {
+      "additionalProperties": false,
+      "properties": {
+        "echeance": {
+          "title": "Echeance",
+          "type": "string"
+        },
+        "debut": {
+          "format": "date-time",
+          "title": "Debut",
+          "type": "string"
+        },
+        "fin": {
+          "format": "date-time",
+          "title": "Fin",
+          "type": "string"
+        },
+        "couleur": {
+          "$ref": "#/$defs/Couleur"
+        },
+        "phenomenes": {
+          "items": {
+            "$ref": "#/$defs/Phenomene"
+          },
+          "title": "Phenomenes",
+          "type": "array"
+        }
+      },
+      "required": [
+        "echeance",
+        "debut",
+        "fin",
+        "couleur",
+        "phenomenes"
+      ],
+      "title": "JourVigilance",
+      "type": "object"
+    },
+    "Meta": {
+      "additionalProperties": false,
+      "description": "Accompagne chaque fichier publié : source, licence et fraîcheur.",
+      "properties": {
+        "source": {
+          "title": "Source",
+          "type": "string"
+        },
+        "licence": {
+          "title": "Licence",
+          "type": "string"
+        },
+        "url_source": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Url Source"
+        },
+        "recupere_le": {
+          "format": "date-time",
+          "title": "Recupere Le",
+          "type": "string"
+        },
+        "valide_jusqu_a": {
+          "format": "date-time",
+          "title": "Valide Jusqu A",
+          "type": "string"
+        },
+        "etat": {
+          "$ref": "#/$defs/Etat",
+          "default": "ok"
+        }
+      },
+      "required": [
+        "source",
+        "licence",
+        "recupere_le",
+        "valide_jusqu_a"
+      ],
+      "title": "Meta",
+      "type": "object"
+    },
+    "NiveauAlerte": {
+      "enum": [
+        "info",
+        "jaune",
+        "orange",
+        "rouge"
+      ],
+      "title": "NiveauAlerte",
+      "type": "string"
+    },
+    "Phenomene": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "nom": {
+          "title": "Nom",
+          "type": "string"
+        },
+        "couleur": {
+          "$ref": "#/$defs/Couleur"
+        },
+        "plages": {
+          "items": {
+            "$ref": "#/$defs/Plage"
+          },
+          "title": "Plages",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "nom",
+        "couleur",
+        "plages"
+      ],
+      "title": "Phenomene",
+      "type": "object"
+    },
+    "Plage": {
+      "additionalProperties": false,
+      "properties": {
+        "debut": {
+          "format": "date-time",
+          "title": "Debut",
+          "type": "string"
+        },
+        "fin": {
+          "format": "date-time",
+          "title": "Fin",
+          "type": "string"
+        },
+        "couleur": {
+          "$ref": "#/$defs/Couleur"
+        }
+      },
+      "required": [
+        "debut",
+        "fin",
+        "couleur"
+      ],
+      "title": "Plage",
+      "type": "object"
+    },
+    "TexteVigilance": {
+      "additionalProperties": false,
+      "properties": {
+        "titre": {
+          "title": "Titre",
+          "type": "string"
+        },
+        "alea": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Alea"
+        },
+        "texte": {
+          "title": "Texte",
+          "type": "string"
+        }
+      },
+      "required": [
+        "titre",
+        "texte"
+      ],
+      "title": "TexteVigilance",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "module": {
+      "title": "Module",
+      "type": "string"
+    },
+    "version_schema": {
+      "default": 1,
+      "title": "Version Schema",
+      "type": "integer"
+    },
+    "meta": {
+      "$ref": "#/$defs/Meta"
+    },
+    "donnees": {
+      "$ref": "#/$defs/DonneesVigilanceMeteo"
+    }
+  },
+  "required": [
+    "module",
+    "meta",
+    "donnees"
+  ],
+  "title": "FichierModule[DonneesVigilanceMeteo]",
+  "type": "object"
+}

@@ -1,0 +1,90 @@
+{
+  "module": "vigilance_meteo",
+  "version_schema": 1,
+  "meta": {
+    "source": "Météo-France",
+    "licence": "Licence Ouverte 2.0",
+    "url_source": "https://vigilance.meteofrance.fr/fr/ille-et-vilaine",
+    "recupere_le": "2026-11-16T20:47:47.243463Z",
+    "valide_jusqu_a": "2026-11-16T21:32:47.243463Z",
+    "etat": "ok"
+  },
+  "donnees": {
+    "departement": "Ille-et-Vilaine",
+    "mis_a_jour": "2026-11-16T15:02:12Z",
+    "jours": [
+      {
+        "echeance": "J",
+        "debut": "2026-11-16T15:00:00Z",
+        "fin": "2026-11-16T23:00:00Z",
+        "couleur": "vert",
+        "phenomenes": []
+      },
+      {
+        "echeance": "J1",
+        "debut": "2026-11-16T23:00:00Z",
+        "fin": "2026-11-17T23:00:00Z",
+        "couleur": "jaune",
+        "phenomenes": [
+          {
+            "id": "1",
+            "nom": "vent violent",
+            "couleur": "jaune",
+            "plages": [
+              {
+                "debut": "2026-11-16T23:00:00Z",
+                "fin": "2026-11-17T07:00:00Z",
+                "couleur": "jaune"
+              },
+              {
+                "debut": "2026-11-17T14:00:00Z",
+                "fin": "2026-11-17T19:00:00Z",
+                "couleur": "jaune"
+              }
+            ]
+          },
+          {
+            "id": "2",
+            "nom": "pluie-inondation",
+            "couleur": "jaune",
+            "plages": [
+              {
+                "debut": "2026-11-16T23:00:00Z",
+                "fin": "2026-11-17T05:00:00Z",
+                "couleur": "jaune"
+              }
+            ]
+          },
+          {
+            "id": "3",
+            "nom": "orages",
+            "couleur": "jaune",
+            "plages": [
+              {
+                "debut": "2026-11-17T13:00:00Z",
+                "fin": "2026-11-17T19:00:00Z",
+                "couleur": "jaune"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "textes": [
+      {
+        "titre": "Aggravation possible du niveau de Vigilance",
+        "alea": "tous aléas",
+        "texte": "Des averses parfois orageuses sont attendues mardi entre la mi-journée et la fin d'après-midi, circulant sur la Bretagne d'ouest en est. Elles seront accompagnées de fortes rafales de vent. Les rafales prévues relèvent actuellement d'une vigilance jaune \"vent\", mais une aggravation vers le niveau orange ne peut être exclue si les prévisions devaient être revues à la hausse."
+      }
+    ],
+    "alerte": {
+      "id": "vigilance:35:2026-11-17:jaune:1-2-3",
+      "niveau": "jaune",
+      "titre": "Vigilance jaune vent violent, pluie-inondation, orages",
+      "zone": "Ille-et-Vilaine",
+      "debut": "2026-11-16T23:00:00Z",
+      "fin": "2026-11-17T19:00:00Z",
+      "source": "Météo-France"
+    }
+  }
+}

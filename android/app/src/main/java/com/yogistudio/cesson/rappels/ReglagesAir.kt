@@ -15,6 +15,10 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.yogistudio.cesson.CessonApp
 import com.yogistudio.cesson.core.preferences.SEUIL_POLLENS_DEFAUT
+import com.yogistudio.cesson.core.preferences.SEUIL_VIGILANCE_DEFAUT
+import com.yogistudio.cesson.environnement.CouleurVigilance
+import com.yogistudio.cesson.environnement.SEUILS_VIGILANCE
+import com.yogistudio.cesson.environnement.nom
 import com.yogistudio.cesson.environnement.SEUILS_POLLENS
 import com.yogistudio.cesson.environnement.libellePollen
 import kotlinx.coroutines.launch
@@ -71,6 +75,42 @@ fun ReglageAlerteEpisodes(app: CessonApp) {
             app.preferences.activerAlerteEpisodes(valeur)
             AlertesAir.planifier(context)
             if (valeur) AlertesAir.verifier(context)
+        }
+    }
+}
+
+/** « Me prévenir d'une vigilance météo », puis la couleur à partir de laquelle prévenir (jaune par défaut). */
+@OptIn(ExperimentalLayoutApi::class)
+@Composable
+fun ReglageAlerteVigilance(app: CessonApp) {
+    val context = LocalContext.current
+    val portee = rememberCoroutineScope()
+    val actif by app.preferences.alerteVigilanceActive.collectAsStateWithLifecycle(false)
+    val seuil by app.preferences.seuilVigilance.collectAsStateWithLifecycle(SEUIL_VIGILANCE_DEFAUT)
+    Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+        InterrupteurNotification(
+            "Me prévenir d'une vigilance météo",
+            "Aujourd'hui ou demain en Ille-et-Vilaine, dès la vigilance ${CouleurVigilance.entries.firstOrNull { it.name == seuil }?.nom() ?: "jaune"}. Calculé sur le téléphone.",
+            actif,
+        ) { valeur ->
+            portee.launch {
+                app.preferences.activerAlerteVigilance(valeur)
+                AlertesAir.planifier(context)
+                if (valeur) AlertesAir.verifier(context)
+            }
+        }
+        if (actif) {
+            Text("Me prévenir à partir de", style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant)
+            FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                SEUILS_VIGILANCE.forEach { c ->
+                    FilterChip(
+                        selected = c.name == seuil,
+                        onClick = { portee.launch { app.preferences.enregistrerSeuilVigilance(c.name); AlertesAir.verifier(context) } },
+                        label = { Text(c.nom().replaceFirstChar { it.uppercase() }, maxLines = 1, softWrap = false) },
+                    )
+                }
+            }
         }
     }
 }

@@ -22,11 +22,9 @@ from __future__ import annotations
 
 import csv
 import io
-import os
 import re
 from datetime import date, datetime, timedelta
 from enum import StrEnum
-from pathlib import Path
 from typing import Any
 from zoneinfo import ZoneInfo
 
@@ -34,9 +32,9 @@ import httpx
 
 from ..commun.collecteur import Collecteur, ErreurSource, ErreurValidation, obtenir
 from ..commun.modele import Alerte, Modele, NiveauAlerte
+from ..commun.secrets import lire_secrets
 
 BASE = "https://admindata.atmo-france.org"
-IDENTIFIANTS_DEFAUT = "/srv/cesson/secrets/atmo.env"
 # Mention imposée par les conditions d'utilisation d'Atmo Data, à reprendre telle quelle partout.
 SOURCE = "Atmo France / AASQA"
 LICENCE = "ODbL"
@@ -50,17 +48,9 @@ COULEUR = re.compile(r"^#[0-9a-fA-F]{6}$")
 
 # --- Connexion -------------------------------------------------------------------------------
 
-def lire_identifiants(chemin: str | None = None) -> tuple[str, str]:
-    p = Path(chemin or os.environ.get("CESSON_ATMO_IDENTIFIANTS") or IDENTIFIANTS_DEFAUT)
-    try:
-        lignes = p.read_text(encoding="utf-8").splitlines()
-    except OSError as e:
-        raise ErreurSource(f"identifiants Atmo illisibles ({p}) : {e.strerror}") from e
-    valeurs = dict(l.split("=", 1) for l in lignes if "=" in l)
-    utilisateur, mot_de_passe = valeurs.get("utilisateur", "").strip(), valeurs.get("mot_de_passe", "").strip()
-    if not utilisateur or not mot_de_passe:
-        raise ErreurSource(f"identifiants Atmo incomplets dans {p}")
-    return utilisateur, mot_de_passe
+def lire_identifiants() -> tuple[str, str]:
+    v = lire_secrets("Atmo", "CESSON_ATMO_IDENTIFIANTS", "atmo.env", ("utilisateur", "mot_de_passe"))
+    return v["utilisateur"], v["mot_de_passe"]
 
 
 def connexion(client: httpx.Client) -> dict[str, str]:

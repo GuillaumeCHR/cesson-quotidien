@@ -46,7 +46,12 @@ private val FormatHeure = DateTimeFormatter.ofPattern("HH'h'", Locale.FRANCE)
 private val FormatHeureMinute = DateTimeFormatter.ofPattern("H'h'mm", Locale.FRANCE)
 
 @Composable
-fun CarteMeteo(etat: EtatModule<DonneesMeteo>, modifier: Modifier = Modifier) {
+fun CarteMeteo(
+    etat: EtatModule<DonneesMeteo>,
+    modifier: Modifier = Modifier,
+    vigilance: EtatModule<DonneesVigilanceMeteo> = EtatModule.Absent,
+    reglageAlerte: @Composable () -> Unit = {},
+) {
     val maintenant = rememberMaintenant()
     when (etat) {
         EtatModule.Absent -> CarteDonnee("Météo à Cesson", Icons.Rounded.WbCloudy, modifier, maintenant = maintenant) {
@@ -65,6 +70,7 @@ fun CarteMeteo(etat: EtatModule<DonneesMeteo>, modifier: Modifier = Modifier) {
                 maintenant = maintenant,
             ) {
                 Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                    LigneVigilanceMeteo(vigilance)
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
                         modifier = Modifier.semantics(mergeDescendants = true) {
@@ -114,6 +120,8 @@ fun CarteMeteo(etat: EtatModule<DonneesMeteo>, modifier: Modifier = Modifier) {
                             )
                         }
                     }
+                    // L'interrupteur de la notification de vigilance, en mode détaillé (il est aussi dans les réglages).
+                    if (!compact) reglageAlerte()
                 }
             }
         }

@@ -17,7 +17,12 @@ import com.yogistudio.cesson.MainActivity
 import com.yogistudio.cesson.R
 import com.yogistudio.cesson.core.donnees.EtatModule
 import com.yogistudio.cesson.core.ui.FuseauCesson
+import com.yogistudio.cesson.environnement.CONTROLES_AIR
+import com.yogistudio.cesson.environnement.CONTROLES_VIGILANCE
+import com.yogistudio.cesson.environnement.CouleurVigilance
 import com.yogistudio.cesson.environnement.NotificationAir
+import com.yogistudio.cesson.environnement.notificationsVigilance
+import com.yogistudio.cesson.environnement.vigilanceMeteo
 import com.yogistudio.cesson.environnement.clesAirAGarder
 import com.yogistudio.cesson.environnement.episodesPollution
 import com.yogistudio.cesson.environnement.notificationsEpisodes
@@ -30,23 +35,27 @@ import java.time.Instant
 import java.util.concurrent.TimeUnit
 
 /**
- * Alertes pollens et épisodes de pollution, décidées sur le téléphone (voir environnement/NotificationsAir.kt) :
+ * Alertes pollens, épisodes de pollution et vigilance météo, décidées sur le téléphone (voir environnement/NotificationsAir.kt) :
  * aucun serveur de notification, aucun identifiant d'appareil. WorkManager réveille l'app aux heures de contrôle
- * (7h30, 11h30, 16h30, 18h30, à quelques minutes près) ; chaque passage planifie le suivant.
+ * (7h30, 11h30, 16h30, 18h30, et chaque heure de 7h35 à 22h35 si l'alerte de vigilance est active, à quelques
+ * minutes près) ; chaque passage planifie le suivant.
  */
 object AlertesAir {
     private const val TRAVAIL = "alertes_air"
     const val CANAL = "air"
+    const val CANAL_VIGILANCE = "vigilance_meteo"
 
     suspend fun planifier(context: Context) {
         val app = context.applicationContext as CessonApp
         val wm = WorkManager.getInstance(context)
-        if (!app.preferences.alertePollensActive.first() && !app.preferences.alerteEpisodesActive.first()) {
+        val p = app.preferences
+        if (!p.alertePollensActive.first() && !p.alerteEpisodesActive.first() && !p.alerteVigilanceActive.first()) {
             wm.cancelUniqueWork(TRAVAIL)
             return
         }
         val maintenant = Instant.now()
-        val delai = Duration.between(maintenant, prochainControleAir(maintenant))
+        val creneaux = if (p.alerteVigilanceActive.first()) CONTROLES_AIR + CONTROLES_VIGILANCE else CONTROLES_AIR
+        val delai = Duration.between(maintenant, prochainControleAir(maintenant, creneaux))
         wm.enqueueUniqueWork(
             TRAVAIL, ExistingWorkPolicy.REPLACE,
             OneTimeWorkRequestBuilder<TravailAlertesAir>().setInitialDelay(delai.toMillis(), TimeUnit.MILLISECONDS).build(),
@@ -57,7 +66,10 @@ object AlertesAir {
         val canal = NotificationChannel(CANAL, "Pollens et pollution", NotificationManager.IMPORTANCE_DEFAULT).apply {
             description = "Indice pollen élevé et épisodes de pollution à Cesson, aujourd'hui ou demain."
         }
-        context.getSystemService(NotificationManager::class.java).createNotificationChannel(canal)
+        val vigilance = NotificationChannel(CANAL_VIGILANCE, "Vigilance météo", NotificationManager.IMPORTANCE_HIGH).apply {
+            description = "Vigilance jaune, orange ou rouge de Météo-France en Ille-et-Vilaine, aujourd'hui ou demain."
+        }
+        context.getSystemService(NotificationManager::class.java).createNotificationChannels(listOf(canal, vigilance))
     }
 
     /** Vérifie tout de suite, avec les données en cache (à l'activation d'une alerte, par exemple). */
@@ -77,6 +89,12 @@ object AlertesAir {
                     addAll(notificationsEpisodes(it.fichier.donnees, aujourdhui, deja))
                 }
             }
+            if (p.alerteVigilanceActive.first()) {
+                val seuil = runCatching { CouleurVigilance.valueOf(p.seuilVigilance.first()) }.getOrDefault(CouleurVigilance.JAUNE)
+                (app.depot.vigilanceMeteo().first() as? EtatModule.Disponible)?.takeIf { !it.fraicheur.estPerimee(maintenant) }?.let {
+                    addAll(notificationsVigilance(it.fichier.donnees, maintenant, seuil, deja))
+                }
+            }
         }
         if (aEnvoyer.isEmpty() || !RappelsCollecte.notificationsAutorisees(context)) return
         val envoyees = aEnvoyer.filter { envoyer(context, it) }.map { it.cle }
@@ -88,14 +106,15 @@ object AlertesAir {
             context, 0, Intent(context, MainActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
             PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT,
         )
-        val notification = NotificationCompat.Builder(context, CANAL)
+        val vigilance = n.cle.startsWith("vigilance:")
+        val notification = NotificationCompat.Builder(context, if (vigilance) CANAL_VIGILANCE else CANAL)
             .setSmallIcon(R.drawable.ic_notif_air)
             .setContentTitle(n.titre)
             .setContentText(n.texte)
             .setStyle(NotificationCompat.BigTextStyle().bigText(n.texte))
             .setContentIntent(ouvrir)
             .setAutoCancel(true)
-            .setCategory(NotificationCompat.CATEGORY_RECOMMENDATION)
+            .setCategory(if (vigilance) NotificationCompat.CATEGORY_ALARM else NotificationCompat.CATEGORY_RECOMMENDATION)
             .build()
         return try {
             NotificationManagerCompat.from(context).notify(n.cle.hashCode(), notification)

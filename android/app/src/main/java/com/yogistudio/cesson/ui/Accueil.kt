@@ -100,6 +100,10 @@ import com.yogistudio.cesson.eau.vigicrues
 import com.yogistudio.cesson.eau.vilaine
 import com.yogistudio.cesson.environnement.CarteMeteo
 import com.yogistudio.cesson.environnement.BandeauPollution
+import com.yogistudio.cesson.environnement.BandeauVigilanceMeteo
+import com.yogistudio.cesson.environnement.enVigilance
+import com.yogistudio.cesson.environnement.vigilanceMeteo
+import com.yogistudio.cesson.rappels.ReglageAlerteVigilance
 import com.yogistudio.cesson.environnement.CarteEpisodes
 import com.yogistudio.cesson.environnement.CartePollens
 import com.yogistudio.cesson.environnement.CarteQualiteAir
@@ -134,7 +138,8 @@ import kotlinx.coroutines.launch
 
 private val METEO = Tuile("meteo", "Météo", Icons.Rounded.WbCloudy) { app ->
     val etat by remember(app) { app.depot.meteo() }.collectAsStateWithLifecycle(EtatModule.Absent)
-    CarteMeteo(etat)
+    val vigilance by remember(app) { app.depot.vigilanceMeteo() }.collectAsStateWithLifecycle(EtatModule.Absent)
+    CarteMeteo(etat, vigilance = vigilance, reglageAlerte = { ReglageAlerteVigilance(app) })
 }
 private val VILAINE = Tuile("vilaine", "La Vilaine et les crues", Icons.Rounded.Water) { app ->
     val etat by remember(app) { app.depot.vilaine() }.collectAsStateWithLifecycle(EtatModule.Absent)
@@ -363,15 +368,19 @@ fun EcranFamilles(app: CessonApp, onPersonnaliser: () -> Unit) =
 fun EcranAujourdhui(app: CessonApp, onPersonnaliser: () -> Unit) {
     val vigilance by remember(app) { app.depot.vigicrues() }.collectAsStateWithLifecycle(EtatModule.Absent)
     val pollution by remember(app) { app.depot.episodesPollution() }.collectAsStateWithLifecycle(EtatModule.Absent)
-    val aujourdhui = rememberMaintenant().atZone(FuseauCesson).toLocalDate()
+    val meteo by remember(app) { app.depot.vigilanceMeteo() }.collectAsStateWithLifecycle(EtatModule.Absent)
+    val maintenant = rememberMaintenant()
+    val aujourdhui = maintenant.atZone(FuseauCesson).toLocalDate()
     val crue = vigilance.enAlerte()
+    val vigilanceMeteo = meteo.enVigilance(maintenant)
     val episode = pollution.episodeEnAlerte(aujourdhui)
-    // Vigilance crues jaune ou plus, procédure de pollution aujourd'hui ou demain : toujours en tête,
+    // Vigilance crues ou météo jaune ou plus, procédure de pollution aujourd'hui ou demain : toujours en tête,
     // hors des cartes personnalisables.
     EcranTuiles(app, ONGLET_ACCUEIL, onPersonnaliser,
-        entete = if (crue || episode) ({
+        entete = if (crue || vigilanceMeteo || episode) ({
             Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
                 if (crue) BandeauCrue(vigilance)
+                if (vigilanceMeteo) BandeauVigilanceMeteo(meteo)
                 if (episode) BandeauPollution(pollution)
             }
         }) else null)
