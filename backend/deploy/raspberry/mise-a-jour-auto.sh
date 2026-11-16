@@ -44,7 +44,8 @@ TOUCHES=""
 if [[ -n $AVANT ]] && git -C "$DEPOT" cat-file -e "$AVANT" 2>/dev/null; then
     TOUCHES=$(git -C "$DEPOT" diff --name-only "$AVANT" "$SHA" -- backend/saisie backend/cesson/collecteurs | python3 -c '
 import sys, os
-lies = {"lieux_pratiques": "defibrillateurs bornes", "actus": "actus usages_eau"}
+lies = {"lieux_pratiques": "defibrillateurs bornes", "actus": "actus usages_eau",
+        "atmo": "qualite_air pollens episodes_pollution"}
 mods = set()
 for f in sys.stdin.read().split():
     nom = os.path.splitext(os.path.basename(f))[0]
