@@ -1,0 +1,16 @@
+{
+  "name": "Cesson'App",
+  "short_name": "Cesson'App",
+  "description": "L'information pratique de Cesson-Sévigné, à partir de données publiques. Application non officielle.",
+  "lang": "fr-FR",
+  "start_url": "./#aujourdhui",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#F6F3EC",
+  "theme_color": "#2F6B4F",
+  "icons": [
+    { "src": "icones/icone-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icones/icone-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icones/icone-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

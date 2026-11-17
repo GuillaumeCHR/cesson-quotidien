@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src https://cesson-pi.tail7e6f0d.ts.net https://data.explore.star.fr; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<meta name="description" content="Cesson'App, version web : l'information pratique de Cesson-Sévigné à partir de données publiques. Application non officielle, sans compte ni publicité.">
+<meta name="theme-color" content="#2F6B4F">
+<title>Cesson'App</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icones/icone.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icones/icone-180.png">
+<link rel="stylesheet" href="app.css">
+<script type="module" src="app.js"></script>
+</head>
+<body>
+<header class="barre">
+  <a class="logo" href="#aujourdhui">Cesson<span>'</span>App</a>
+  <button id="actualiser" class="bouton-icone" type="button" aria-label="Actualiser les données" title="Actualiser">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.65 6.35A7.95 7.95 0 0 0 12 4a8 8 0 1 0 7.73 10h-2.08A6 6 0 1 1 12 6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/></svg>
+  </button>
+</header>
+<nav class="onglets" aria-label="Rubriques">
+  <a href="#aujourdhui" data-onglet="aujourdhui">Aujourd'hui</a>
+  <a href="#bouger" data-onglet="bouger">Bouger</a>
+  <a href="#sortir" data-onglet="sortir">Sortir</a>
+  <a href="#familles" data-onglet="familles">Familles</a>
+  <a href="#pratique" data-onglet="pratique">Pratique</a>
+</nav>
+<main id="contenu" tabindex="-1">
+  <noscript><p class="carte">La version web de Cesson'App a besoin de JavaScript pour lire les données publiques.</p></noscript>
+</main>
+<footer class="pied">
+  <p><strong>Application non officielle.</strong> Elle n'est éditée ni par la Ville de Cesson-Sévigné ni par Rennes
+  Métropole, et ne remplace ni les canaux officiels de la ville, ni Vigicrues, ni FR-Alert.</p>
+  <p>Aucun compte, aucune publicité, aucune donnée collectée.
+  <a href="#apropos">À propos et sources</a> ·
+  <a href="https://guillaumechr.github.io/cesson-quotidien-site/confidentialite.html">Confidentialité</a> ·
+  <a href="https://github.com/GuillaumeCHR/cesson-quotidien">Code source</a></p>
+</footer>
+</body>
+</html>
