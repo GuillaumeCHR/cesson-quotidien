@@ -23,3 +23,6 @@ upload-key.properties
 
 # Sorties des outils (audit de sécurité…)
 /build/
+
+# Fichiers de verrou de LibreOffice
+.~lock.*#
