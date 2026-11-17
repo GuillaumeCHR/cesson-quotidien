@@ -8,6 +8,16 @@ import androidx.compose.material.icons.rounded.LocalParking
 import com.yogistudio.cesson.actus.CarteSaison
 import com.yogistudio.cesson.pratique.CarteIdentite
 import com.yogistudio.cesson.pratique.CarteSignalement
+import com.yogistudio.cesson.pratique.CartePharmacieGarde
+import com.yogistudio.cesson.pratique.pharmacies
+import com.yogistudio.cesson.pratique.CarteUrgences
+import com.yogistudio.cesson.pratique.CarteAccessibilite
+import com.yogistudio.cesson.pratique.InfosDecheterie
+import com.yogistudio.cesson.pratique.decheterie
+import com.yogistudio.cesson.pratique.accessibilite
+import androidx.compose.material.icons.rounded.Accessible
+import androidx.compose.material.icons.rounded.LocalPharmacy
+import androidx.compose.material.icons.rounded.LocalHospital
 import androidx.compose.material.icons.rounded.TheaterComedy
 import androidx.compose.material.icons.rounded.Badge
 import androidx.compose.material.icons.rounded.ReportProblem
@@ -76,7 +86,6 @@ import androidx.compose.material.icons.rounded.LocalGasStation
 import androidx.compose.material.icons.rounded.Pool
 import androidx.compose.material.icons.rounded.Recycling
 import androidx.compose.material.icons.rounded.Train
-import androidx.compose.material.icons.rounded.VolunteerActivism
 import androidx.compose.material.icons.rounded.Water
 import androidx.compose.material.icons.rounded.WbCloudy
 import androidx.compose.material3.MaterialTheme
@@ -170,10 +179,12 @@ private val EPISODES = Tuile("episodes_pollution", "Épisodes de pollution", Ico
     CarteEpisodes(etat, reglageAlerte = { ReglageAlerteEpisodes(app) })
 }
 private val EQUIPEMENTS_LOISIRS = Tuile("equipements", "Équipements", Icons.Rounded.Pool) { app ->
-    EquipementsCesson(app, titre = "Équipements") { it.lieu.id != DECHETERIE && it.lieu.id !in SERVICES_A_PART }
+    EquipementsCesson(app, titre = "Équipements", garder = { it.lieu.id !in SERVICES_A_PART })
 }
 private val DECHETERIE_TUILE = Tuile("decheterie", "Déchèterie", Icons.Rounded.Recycling) { app ->
-    EquipementsCesson(app, titre = "Déchèterie") { it.lieu.id == DECHETERIE }
+    val dechets by remember(app) { app.depot.decheterie() }.collectAsStateWithLifecycle(EtatModule.Absent)
+    EquipementsCesson(app, titre = "Déchèterie", icone = Icons.Rounded.Recycling, garder = { it.lieu.id == DECHETERIE },
+        pied = (dechets as? EtatModule.Disponible)?.let { d -> { InfosDecheterie(d.fichier.donnees) } })
 }
 
 private val DEFIBRILLATEURS = Tuile("defibrillateurs", "Défibrillateurs", Icons.Rounded.Favorite) { app ->
@@ -221,8 +232,19 @@ private val POLICE = Tuile("police", "Police municipale", Icons.Rounded.LocalPol
 }
 private val IDENTITE = Tuile("identite", "Carte d'identité et passeport", Icons.Rounded.Badge) { CarteIdentite() }
 private val SIGNALEMENT = Tuile("signalement", "Faire un signalement", Icons.Rounded.ReportProblem) { CarteSignalement() }
+private val PHARMACIE_GARDE = Tuile("pharmacie_garde", "Pharmacies", Icons.Rounded.LocalPharmacy) { app ->
+    val etat by remember(app) { app.depot.pharmacies() }.collectAsStateWithLifecycle(EtatModule.Absent)
+    CartePharmacieGarde(etat)
+}
+private val URGENCES = Tuile("urgences", "Urgences", Icons.Rounded.LocalHospital) { CarteUrgences() }
+private val ACCESSIBILITE = Tuile("accessibilite", "Accessibilité des lieux", Icons.Rounded.Accessible) { app ->
+    val etat by remember(app) { app.depot.accessibilite() }.collectAsStateWithLifecycle(EtatModule.Absent)
+    val position by Position.actuelle.collectAsStateWithLifecycle()
+    val demande = rememberDemandePosition()
+    CarteAccessibilite(etat, position, demande.enCours, demande.demander)
+}
 val ONGLET_PRATIQUE = OngletTuiles("pratique", "l'onglet Pratique",
-    listOf(COLLECTE, USAGES_EAU, IDENTITE, SIGNALEMENT, DECHETERIE_TUILE, DEFIBRILLATEURS, URBANISME, POLICE))
+    listOf(COLLECTE, USAGES_EAU, IDENTITE, SIGNALEMENT, DECHETERIE_TUILE, DEFIBRILLATEURS, PHARMACIE_GARDE, URGENCES, ACCESSIBILITE, URBANISME, POLICE))
 private val VACANCES = Tuile("vacances", "Vacances scolaires", Icons.Rounded.BeachAccess) { app ->
     val etat by remember(app) { app.depot.vacancesScolaires() }.collectAsStateWithLifecycle(EtatModule.Absent)
     CarteVacances(etat)
@@ -256,16 +278,22 @@ fun DepartsViaSilva(app: CessonApp) {
 }
 
 @Composable
-fun EquipementsCesson(app: CessonApp, titre: String = "Mes équipements", garder: (Equipement) -> Boolean = { true }) {
+fun EquipementsCesson(
+    app: CessonApp,
+    titre: String = "Mes équipements",
+    icone: ImageVector = Icons.Rounded.Pool,
+    garder: (Equipement) -> Boolean = { true },
+    pied: (@Composable () -> Unit)? = null,
+) {
     val etat by remember(app) { app.depot.equipements() }.collectAsStateWithLifecycle(EtatModule.Absent)
-    CarteEquipements(etat, titre = titre, garder = garder)
+    CarteEquipements(etat, titre = titre, icone = icone, garder = garder, pied = pied)
 }
 
 /** « Mes équipements » de l'accueil : sans ceux que l'utilisateur a retirés (guide de démarrage). */
 @Composable
 fun MesEquipements(app: CessonApp) {
     val masques by app.preferences.equipementsMasques.collectAsStateWithLifecycle(emptySet())
-    EquipementsCesson(app) { it.lieu.id !in masques && it.lieu.id !in SERVICES_A_PART }
+    EquipementsCesson(app, garder = { it.lieu.id !in masques && it.lieu.id !in SERVICES_A_PART })
 }
 
 @Composable
@@ -398,8 +426,6 @@ fun EcranSortir(app: CessonApp, onPersonnaliser: () -> Unit) =
 
 @Composable
 fun EcranPratique(app: CessonApp, onPersonnaliser: () -> Unit) =
-    EcranTuiles(app, ONGLET_PRATIQUE, onPersonnaliser, pied = {
-        CarteAVenir(Icons.Rounded.VolunteerActivism, listOf("Accessibilité des lieux publics"))
-    })
+    EcranTuiles(app, ONGLET_PRATIQUE, onPersonnaliser)
 
 const val PROMESSE = "Aucun compte, aucune publicité, aucune donnée collectée."

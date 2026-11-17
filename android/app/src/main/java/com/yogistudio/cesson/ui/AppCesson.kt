@@ -1,5 +1,10 @@
 package com.yogistudio.cesson.ui
 
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import kotlinx.coroutines.launch
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.material.icons.rounded.UnfoldMore
+import androidx.compose.material.icons.rounded.UnfoldLess
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
@@ -104,6 +109,8 @@ fun AppCesson(app: CessonApp) {
         if (!app.preferences.guideDemarrageVu.first()) nav.navigate(RouteGuide)
     }
 
+    val detaillees by app.preferences.cartesDetaillees.collectAsStateWithLifecycle(false)
+    val portee = rememberCoroutineScope()
     Scaffold(
         topBar = {
             TopAppBar(
@@ -117,6 +124,11 @@ fun AppCesson(app: CessonApp) {
                     }
                 },
                 actions = {
+                    // Bascule compactes / détaillées : le même réglage que Réglages → Cartes, à portée de pouce.
+                    if (onglet != null) IconButton(onClick = { portee.launch { app.preferences.enregistrerCartesDetaillees(!detaillees) } }) {
+                        Icon(if (detaillees) Icons.Rounded.UnfoldLess else Icons.Rounded.UnfoldMore,
+                            contentDescription = if (detaillees) "Passer aux cartes compactes" else "Passer aux cartes détaillées")
+                    }
                     if (onglet != null) IconButton(onClick = { nav.navigate(RouteCarte) }) {
                         Icon(Icons.Rounded.Map, contentDescription = "Carte de Cesson-Sévigné")
                     }

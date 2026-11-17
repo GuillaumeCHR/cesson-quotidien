@@ -83,8 +83,11 @@ private val CREDITS = listOf(
             "modification avec la date de leur dernière mise à jour. Jaune, orange ou rouge : c'est Météo-France qui " +
             "décide, l'app ne fait que relayer."),
     Bloc("Qualité de l'air et pollens", "Source : Atmo France / AASQA",
-        "Indice ATMO, pollens et épisodes de pollution mesurés et prévus par Air Breizh, l'AASQA de Bretagne, " +
+        "Qualité de l'air, pollens et épisodes de pollution mesurés et prévus par Air Breizh, l'observatoire de l'air en Bretagne, " +
             "sous licence ODbL. Ils surveillent l'air de Cesson ; nous, on se contente de vous le dire."),
+    Bloc("Accessibilité des lieux", "acceslibre (ministère de la Transition écologique)",
+        "Entrées, marches, places réservées, sanitaires : décrits par les établissements et par des contributeurs, " +
+            "sous Licence Ouverte. Une fiche incomplète se complète chez eux, en deux minutes."),
     Bloc("Prix à la pompe", "Ministère de l'Économie (data.economie.gouv.fr)",
         "Chaque prix garde sa date : un prix d'il y a dix jours n'est jamais « le moins cher »."),
     Bloc("Cartographie", "Les contributrices et contributeurs d'OpenStreetMap",
@@ -103,7 +106,7 @@ private val CREDITS = listOf(
 private val REMERCIEMENTS = listOf(
     "Aux bénévoles d'OpenStreetMap, qui ont dessiné Cesson-Sévigné bien avant nous.",
     "Aux services de la Ville et de Rennes Métropole, qui publient horaires, calendriers et données ouvertes.",
-    "À STAR, à la SNCF, à Hub'Eau, à Vigicrues, à Météo-France, à Open-Meteo, à Atmo France et à Air Breizh, dont les " +
+    "À STAR, à la SNCF, à Hub'Eau, à Vigicrues, à Météo-France, à Open-Meteo, à Air Breizh et à acceslibre, dont les " +
         "données ouvertes font tout le travail.",
     "À celles et ceux qui sortent leur bac la veille au soir.",
 )

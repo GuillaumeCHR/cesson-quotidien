@@ -1,0 +1,133 @@
+{
+  "$defs": {
+    "DonneesDecheterie": {
+      "additionalProperties": false,
+      "properties": {
+        "nom": {
+          "title": "Nom",
+          "type": "string"
+        },
+        "acceptes": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Acceptes",
+          "type": "array"
+        },
+        "refuses": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Refuses",
+          "type": "array"
+        },
+        "reemploi": {
+          "title": "Reemploi",
+          "type": "boolean"
+        },
+        "fermeture_exceptionnelle": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Fermeture Exceptionnelle"
+        }
+      },
+      "required": [
+        "nom",
+        "acceptes",
+        "refuses",
+        "reemploi"
+      ],
+      "title": "DonneesDecheterie",
+      "type": "object"
+    },
+    "Etat": {
+      "enum": [
+        "ok",
+        "perime",
+        "erreur"
+      ],
+      "title": "Etat",
+      "type": "string"
+    },
+    "Meta": {
+      "additionalProperties": false,
+      "description": "Accompagne chaque fichier publié : source, licence et fraîcheur.",
+      "properties": {
+        "source": {
+          "title": "Source",
+          "type": "string"
+        },
+        "licence": {
+          "title": "Licence",
+          "type": "string"
+        },
+        "url_source": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Url Source"
+        },
+        "recupere_le": {
+          "format": "date-time",
+          "title": "Recupere Le",
+          "type": "string"
+        },
+        "valide_jusqu_a": {
+          "format": "date-time",
+          "title": "Valide Jusqu A",
+          "type": "string"
+        },
+        "etat": {
+          "$ref": "#/$defs/Etat",
+          "default": "ok"
+        }
+      },
+      "required": [
+        "source",
+        "licence",
+        "recupere_le",
+        "valide_jusqu_a"
+      ],
+      "title": "Meta",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "module": {
+      "title": "Module",
+      "type": "string"
+    },
+    "version_schema": {
+      "default": 1,
+      "title": "Version Schema",
+      "type": "integer"
+    },
+    "meta": {
+      "$ref": "#/$defs/Meta"
+    },
+    "donnees": {
+      "$ref": "#/$defs/DonneesDecheterie"
+    }
+  },
+  "required": [
+    "module",
+    "meta",
+    "donnees"
+  ],
+  "title": "FichierModule[DonneesDecheterie]",
+  "type": "object"
+}

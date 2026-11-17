@@ -83,7 +83,9 @@ fun EcranSources(app: CessonApp) {
         if (etats.isEmpty()) {
             item { Text("Aucune donnée reçue pour l'instant.", Modifier.padding(16.dp)) }
         }
-        items(etats.filterIsInstance<EtatModule.Disponible<JsonElement>>(), key = { it.fichier.module }) { e ->
+        // Une ligne par source : la qualité de l'air, les pollens et les épisodes de pollution viennent tous d'Atmo.
+        items(etats.filterIsInstance<EtatModule.Disponible<JsonElement>>().distinctBy { it.fichier.meta.source },
+            key = { it.fichier.module }) { e ->
             val meta = e.fichier.meta
             ListItem(
                 headlineContent = { Text(meta.source) },
@@ -103,8 +105,6 @@ fun EcranSources(app: CessonApp) {
             Text(
                 "Prochains passages du métro et des bus : STAR (Rennes Métropole, Keolis Rennes), en temps réel, " +
                     "sous licence ODbL. L'app les demande directement à STAR, comme l'occupation du parc relais.\n\n" +
-                    "Qualité de l'air, pollens et épisodes de pollution : données d'Air Breizh, sous licence ODbL. " +
-                    "Source : Atmo France / AASQA.\n\n" +
                     "Vigilance météo : Source : Météo-France (vigilance.meteofrance.fr), sous Licence Ouverte Etalab 2.0. " +
                     "La date du bulletin de Météo-France est indiquée avec chaque vigilance.\n\n" +
                     "Carte de Cesson : © les contributeurs d'OpenStreetMap (ODbL). Tuiles de la Fondation OpenStreetMap, " +
@@ -135,6 +135,8 @@ private val CANAUX_OFFICIELS = listOf(
     "SNCF / TER BreizhGo" to "https://www.ter.sncf.com/bretagne",
 )
 
+const val URL_CODE_SOURCE = "https://github.com/GuillaumeCHR/cesson-quotidien"
+
 @Composable
 fun EcranAPropos(onVosIdees: () -> Unit) {
     val uri = LocalUriHandler.current
@@ -164,6 +166,13 @@ fun EcranAPropos(onVosIdees: () -> Unit) {
                 Text(nom, Modifier.weight(1f))
                 Icon(Icons.AutoMirrored.Rounded.OpenInNew, contentDescription = null)
             }
+        }
+        Titre("Code source")
+        Text("L'app et son serveur sont des logiciels libres, sous licence GNU GPL v3 : le code est public, chacun peut " +
+            "le lire, vérifier ce qu'il fait et proposer une amélioration.", style = MaterialTheme.typography.bodyMedium)
+        OutlinedButton(onClick = { runCatching { uri.openUri(URL_CODE_SOURCE) } }, modifier = Modifier.fillMaxWidth()) {
+            Text("Le projet sur GitHub", Modifier.weight(1f))
+            Icon(Icons.AutoMirrored.Rounded.OpenInNew, contentDescription = null)
         }
         Titre("Contact")
         Text("Une idée, une erreur ? ${BuildConfig.CONTACT}", style = MaterialTheme.typography.bodyMedium)

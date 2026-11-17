@@ -56,13 +56,16 @@ sealed interface Ouverture {
     data class Inconnu(val motif: String? = null) : Ouverture
 }
 
-fun ouverture(espace: Espace, maintenant: Instant): Ouverture {
+fun ouverture(espace: Espace, maintenant: Instant): Ouverture = ouverture(espace.jours, maintenant)
+
+/** Même calcul pour tout lieu publié avec ses jours d'ouverture (équipements, pharmacies). */
+fun ouverture(jours: List<JourHoraire>, maintenant: Instant): Ouverture {
     val aujourdhui = maintenant.atZone(FuseauCesson).toLocalDate()
-    val jour = espace.jours.firstOrNull { it.date == aujourdhui } ?: return Ouverture.Inconnu()
+    val jour = jours.firstOrNull { it.date == aujourdhui } ?: return Ouverture.Inconnu()
     jour.plages.firstOrNull { !maintenant.isBefore(it.debut) && maintenant.isBefore(it.fin) }
         ?.let { return Ouverture.Ouvert(it.fin) }
     if (!jour.connu) return Ouverture.Inconnu(jour.motif)
-    val prochaine = espace.jours.filter { !it.date.isBefore(aujourdhui) }
+    val prochaine = jours.filter { !it.date.isBefore(aujourdhui) }
         .flatMap { it.plages }
         .firstOrNull { it.debut.isAfter(maintenant) }
     return Ouverture.Ferme(prochaine?.debut, jour.motif)

@@ -58,8 +58,16 @@ PATH=/usr/bin:/bin
 # Deux fois par jour (7h20, 19h20) : séances du cinéma Le Sévigné (grille mensuelle en PDF)
 20 7,19 * * * cd $CESSON && .venv/bin/python -m cesson collecter cinema --sortie /srv/cesson/public --etat /srv/cesson/etat >> /srv/cesson/log/collecte.log 2>&1
 
+# Quotidien, 4h35 : déchets acceptés à la déchèterie (Rennes Métropole)
+35 4 * * *    cd $CESSON && .venv/bin/python -m cesson collecter decheterie --sortie /srv/cesson/public --etat /srv/cesson/etat >> /srv/cesson/log/collecte.log 2>&1
+
+# Quotidien, 4h25 : pharmacies de Cesson et leurs horaires (OpenStreetMap, 14 jours recalculés chaque nuit)
+25 4 * * *    cd $CESSON && .venv/bin/python -m cesson collecter pharmacies --sortie /srv/cesson/public --etat /srv/cesson/etat >> /srv/cesson/log/collecte.log 2>&1
+
 # Hebdomadaire, lundi 3h15 : défibrillateurs (Géo'DAE) et bornes de recharge (IRVE)
 15 3 * * 1    cd $CESSON && .venv/bin/python -m cesson collecter defibrillateurs bornes --sortie /srv/cesson/public --etat /srv/cesson/etat >> /srv/cesson/log/collecte.log 2>&1
+# Hebdomadaire, lundi 3h20 : accessibilité des lieux recevant du public (acceslibre, clé dans /srv/cesson/secrets/acceslibre.env)
+20 3 * * 1    cd $CESSON && .venv/bin/python -m cesson collecter accessibilite --sortie /srv/cesson/public --etat /srv/cesson/etat >> /srv/cesson/log/collecte.log 2>&1
 40 6,12,18 * * * cd $CESSON && .venv/bin/python -m cesson collecter familles --sortie /srv/cesson/public --etat /srv/cesson/etat >> /srv/cesson/log/collecte.log 2>&1
 50 5 * * *    cd $CESSON && .venv/bin/python -m cesson collecter vacances_scolaires --sortie /srv/cesson/public --etat /srv/cesson/etat >> /srv/cesson/log/collecte.log 2>&1
 

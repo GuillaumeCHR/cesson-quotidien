@@ -1,0 +1,132 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-11-17T07:45:49Z",
+    "timestamp_areas_base": "2026-11-17T05:14:54Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "node",
+  "id": 311363337,
+  "lat": 48.1083557,
+  "lon": -1.6102058,
+  "tags": {
+    "addr:city": "Cesson-Sévigné",
+    "addr:housenumber": "48",
+    "addr:postcode": "35510",
+    "addr:street": "Rue de Bray",
+    "amenity": "pharmacy",
+    "brand": "Pharmacie Principale",
+    "brand:wikidata": "Q1547749",
+    "brand:wikipedia": "fr:Groupe PP Holding",
+    "check_date:opening_hours": "2025-11-22",
+    "dispensing": "yes",
+    "fax": "+33 2 99 83 16 19",
+    "healthcare": "pharmacy",
+    "name": "Pharmacie de la Monniais",
+    "opening_hours": "Mo-Fr 09:00-13:00,14:00-20:00; Sa 09:00-13:00",
+    "phone": "+33 2 99 83 23 18",
+    "ref:FR:FINESS": "350000105",
+    "ref:FR:NAF": "47.73Z",
+    "ref:FR:SIRET": "80427765500028",
+    "type:FR:FINESS": "620",
+    "website": "https://www.pharmaciedelamonniais.fr/",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 1362032683,
+  "lat": 48.1140174,
+  "lon": -1.6192788,
+  "tags": {
+    "addr:city": "Cesson-Sévigné",
+    "addr:housenumber": "49A",
+    "addr:postcode": "35510",
+    "addr:street": "Rue de Rennes",
+    "amenity": "pharmacy",
+    "check_date": "2025-02-15",
+    "dispensing": "yes",
+    "healthcare": "pharmacy",
+    "name": "Pharmacie Le Brun",
+    "opening_hours": "Mo-Fr 08:30-19:30; Sa 09:00-13:00,14:00-18:00",
+    "phone": "+33299832221",
+    "ref:FR:FINESS": "350029955",
+    "ref:FR:SIRET": "39244255400037",
+    "source": "Le ministère des solidarités et de la santé - 08/2018",
+    "source:addr": "Rennes Métropole",
+    "source:addr:housenumber:ref": "50488",
+    "source:addr:version": "2016-04-01"
+  }
+},
+{
+  "type": "node",
+  "id": 1931300043,
+  "lat": 48.1224192,
+  "lon": -1.5993047,
+  "tags": {
+    "amenity": "pharmacy",
+    "contact:phone": "+33 2 99 83 27 76",
+    "dispensing": "yes",
+    "email": "lebret.pharmacie@laposte.net",
+    "healthcare": "pharmacy",
+    "name": "Pharmacie Lebret",
+    "opening_hours": "Mo-Sa 09:00-13:00, 14:00-19:30",
+    "ref:FR:FINESS": "350020889",
+    "ref:FR:SIRET": "33027871400028",
+    "source": "Le ministère des solidarités et de la santé - 08/2018"
+  }
+},
+{
+  "type": "node",
+  "id": 4837416092,
+  "lat": 48.1173503,
+  "lon": -1.6092112,
+  "tags": {
+    "addr:city": "Cesson-Sévigné",
+    "addr:postcode": "35510",
+    "addr:street": "Rue des Lilas",
+    "amenity": "pharmacy",
+    "dispensing": "yes",
+    "drive_through": "no",
+    "email": "pharmacie.beausoleil@orange.fr",
+    "healthcare": "pharmacy",
+    "name": "Pharmacie Beausoleil",
+    "opening_hours": "Mo-Fr 08:30-12:30,14:00-19:45; Sa 08:30-13:00,14:00-19:00",
+    "phone": "+33 2 99 83 74 60",
+    "ref:FR:FINESS": "350018909",
+    "ref:FR:SIRET": "40922278300022",
+    "source": "Le ministère des solidarités et de la santé - 10/2018",
+    "website": "https://www.pharmacie-beausoleil-cesson-sevigne.fr"
+  }
+},
+{
+  "type": "way",
+  "id": 762660776,
+  "center": {
+    "lat": 48.1122433,
+    "lon": -1.5899928
+  },
+  "tags": {
+    "addr:city": "Cesson-Sévigné",
+    "addr:postcode": "35510",
+    "addr:street": "Rue de la Rigourdière",
+    "amenity": "pharmacy",
+    "dispensing": "yes",
+    "healthcare": "pharmacy",
+    "indoor": "room",
+    "level": "0",
+    "name": "Pharmacie Bouriel et Salmon",
+    "opening_hours": "Mo-Sa 09:00-20:00",
+    "phone": "+33 2 99 83 97 80",
+    "ref:FR:FINESS": "350020459",
+    "ref:FR:SIRET": "79923514800019",
+    "wheelchair": "yes"
+  }
+}
+
+  ]
+}

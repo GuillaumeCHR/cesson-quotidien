@@ -52,7 +52,7 @@ Toutes les données passent par des fichiers JSON statiques avant d'atteindre l'
 | Carburants | [Flux instantané v2](https://data.economie.gouv.fr/explore/dataset/prix-des-carburants-en-france-flux-instantane-v2/table/?flg=fr-fr) | REST (API Opendatasoft), prix, horaires et services par station, filtré sur le code postal 35510 ; pas de nom de station, saisi dans `saisie/carburants.yaml` d'après OpenStreetMap (ODbL) | 10 min | Non |
 | Bornes de recharge | Fichier national IRVE (data.gouv) | CSV | Hebdomadaire | Non |
 | Défibrillateurs | Base nationale Géo'DAE (data.gouv) | CSV | Hebdomadaire | Non |
-| Accessibilité | API acceslibre | REST | Mensuel | Oui (à confirmer) |
+| Accessibilité | API acceslibre | REST | Hebdomadaire | Oui (clé d'essai de 3 mois reçue le 17/11/2026, clé pérenne à demander mi-février 2027) |
 | Déchèterie | [Jeu de données Rennes Métropole](https://www.data.gouv.fr/datasets/decheteries-et-plateformes-vegetaux-sur-rennes-metropole-1) + page des horaires | CSV + extraction de page | Quotidien | Non |
 | Collecte des déchets | Calendrier papier de Rennes Métropole | Saisie YAML par secteur | Annuel + jours fériés | — |
 | Piscine, médiathèque, Pont des Arts | Site et magazine de la ville | Saisie YAML + exceptions | À chaque changement | — |
@@ -278,7 +278,7 @@ Le risque principal est une information fausse sur une crue ou une fermeture. El
 - [ ] L'agenda de la ville est-il publié sur OpenAgenda ou un flux équivalent ?
 - [ ] Quel logiciel de billetterie utilise le cinéma Le Sévigné, et exporte-t-il un programme ?
 - [x] Météo-France exige un compte (identifiant d'application OAuth2, obtenu le 16/11/2026).
-- [ ] acceslibre exige-t-elle bien une clé ?
+- [x] acceslibre exige une clé (« Authorization: Api-Key … »), obtenue le 17/11/2026 pour 3 mois d'essai ; demander la clé pérenne avant le 17/02/2027.
 - [ ] Adresse de contact de la rubrique « Vos idées » (paramètre de build `cesson.contact`).
 - [ ] Accélérer la collecte de la hauteur de la Vilaine en cas de vigilance crues ?
 - [ ] Combien de secteurs de collecte compte Cesson, et quels sont leurs jours ?

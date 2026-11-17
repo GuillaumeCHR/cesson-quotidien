@@ -18,6 +18,7 @@ android {
 
 dependencies {
     implementation(project(":core"))
+    implementation(project(":equipements"))
     debugImplementation(libs.androidx.compose.ui.tooling)
     testImplementation(libs.junit4)
 }

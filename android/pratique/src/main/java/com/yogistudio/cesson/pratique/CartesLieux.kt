@@ -59,7 +59,7 @@ private fun nbReplie() = if (LocalCompact.current) 3 else NB_REPLIE
 
 /** Bouton « Les plus proches de moi » : la position reste sur le téléphone et ne sert qu'à trier la liste. */
 @Composable
-private fun BoutonProximite(position: Coord?, enCours: Boolean, onDemander: () -> Unit) {
+internal fun BoutonProximite(position: Coord?, enCours: Boolean, onDemander: () -> Unit) {
     if (position != null) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Icon(Icons.Rounded.MyLocation, contentDescription = null, modifier = Modifier.size(16.dp), tint = MaterialTheme.colorScheme.primary)
@@ -77,7 +77,7 @@ private fun BoutonProximite(position: Coord?, enCours: Boolean, onDemander: () -
 }
 
 @Composable
-private fun ouvrirItineraire(): (Lieu) -> Unit {
+internal fun ouvrirItineraire(): (Lieu) -> Unit {
     val uri = LocalUriHandler.current
     return { lieu ->
         lieu.coord?.let { c ->
@@ -249,7 +249,7 @@ fun CarteBornes(
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-private fun LigneLieu(
+internal fun LigneLieu(
     lieu: Lieu,
     distance: Double?,
     itineraire: (Lieu) -> Unit,

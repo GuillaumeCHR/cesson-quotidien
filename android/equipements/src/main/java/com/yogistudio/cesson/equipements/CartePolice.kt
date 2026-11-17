@@ -38,7 +38,7 @@ const val URL_PAGE_POLICE = "https://www.ville-cesson-sevigne.fr/contacts/lhotel
 const val URL_TRANQUILLITE_VACANCES = "https://www.ville-cesson-sevigne.fr/operation-tranquilite-vacances/"
 
 /** Services de la ville qui ont leur propre carte : ils ne s'affichent pas dans la liste des équipements. */
-val SERVICES_A_PART = setOf(SERVICE_URBANISME, POLICE_MUNICIPALE)
+val SERVICES_A_PART = setOf(SERVICE_URBANISME, POLICE_MUNICIPALE, DECHETERIE)
 
 /**
  * Police municipale : l'urgence d'abord (17, 112), puis l'accueil à l'Hôtel des Polices, ouvert ou fermé

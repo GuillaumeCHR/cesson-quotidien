@@ -21,6 +21,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.OpenInNew
 import androidx.compose.material.icons.rounded.Call
 import androidx.compose.material.icons.rounded.Pool
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -63,23 +64,26 @@ fun CarteEquipements(
     etat: EtatModule<DonneesEquipements>,
     modifier: Modifier = Modifier,
     titre: String = "Mes équipements",
+    icone: ImageVector = Icons.Rounded.Pool,
     garder: (Equipement) -> Boolean = { true },
+    pied: (@Composable () -> Unit)? = null,  // complément affiché sous la liste, hors mode compact
 ) {
     val maintenant = rememberMaintenant()
     var detail by rememberSaveable { mutableStateOf<String?>(null) }
     when (etat) {
-        EtatModule.Absent -> CarteDonnee(titre, Icons.Rounded.Pool, modifier, maintenant = maintenant) {
+        EtatModule.Absent -> CarteDonnee(titre, icone, modifier, maintenant = maintenant) {
             TexteBientot("Horaires pas encore reçus. Tirez vers le bas pour actualiser.")
         }
         is EtatModule.Disponible -> {
             val d = etat.fichier.donnees.copy(equipements = etat.fichier.donnees.equipements.filter(garder))
-            CarteDonnee(titre, Icons.Rounded.Pool, modifier, etat.fraicheur, maintenant) {
+            CarteDonnee(titre, icone, modifier, etat.fraicheur, maintenant) {
                 Column {
                     d.equipements.forEachIndexed { i, e ->
                         if (i > 0) HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
                         if (LocalCompact.current) LigneEquipementCompacte(e, maintenant) { detail = e.lieu.id }
                         else LigneEquipement(e, maintenant) { detail = e.lieu.id }
                     }
+                    if (pied != null && !LocalCompact.current) pied()
                 }
             }
             d.equipements.firstOrNull { it.lieu.id == detail }?.let { e ->

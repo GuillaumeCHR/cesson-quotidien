@@ -1,0 +1,5081 @@
+{
+ "count": 120,
+ "next": null,
+ "previous": null,
+ "results": [
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/la-belle-equipe-4/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/cafeteria/erp/la-belle-equipe-4/",
+   "uuid": "8471aead-b963-4032-a775-f808ec0844d1",
+   "activite": {
+    "nom": "Café, bar, brasserie",
+    "slug": "cafeteria"
+   },
+   "nom": "La Belle Equipe",
+   "slug": "la-belle-equipe-4",
+   "adresse": "1 Place de l'Eglise 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.604903,
+     48.116573
+    ]
+   },
+   "user_type": "public",
+   "updated_at": "2026-11-13T14:53:17.140371+01:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "transport_station_presence": false,
+     "stationnement_presence": false
+    },
+    "cheminement_ext": {
+     "cheminement_ext_presence": false
+    },
+    "entree": {
+     "entree_reperage": false,
+     "entree_porte_presence": true,
+     "entree_porte_manoeuvre": "coulissante",
+     "entree_porte_type": "automatique",
+     "entree_vitree": true,
+     "entree_vitree_vitrophanie": true,
+     "entree_dispositif_appel": true,
+     "entree_dispositif_appel_type": [
+      "interphone"
+     ],
+     "entree_balise_sonore": false,
+     "entree_aide_humaine": false,
+     "entree_largeur_mini": 90,
+     "entree_pmr": false
+    },
+    "accueil": {
+     "accueil_visibilite": false,
+     "accueil_retrecissement": false,
+     "accueil_personnels": "formés",
+     "accueil_audiodescription_presence": false,
+     "accueil_equipements_malentendants_presence": false
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/felicitas-avocat/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/avocat/erp/felicitas-avocat/",
+   "uuid": "461b5871-a776-4240-a164-70bf222b6907",
+   "activite": {
+    "nom": "Avocat",
+    "slug": "avocat"
+   },
+   "nom": "Felicitas Avocat",
+   "slug": "felicitas-avocat",
+   "adresse": "1 Rue de Paris 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.602763,
+     48.113853
+    ]
+   },
+   "user_type": "gestionnaire",
+   "updated_at": "2026-04-17T12:14:34.618077+02:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "transport_station_presence": true,
+     "stationnement_presence": true,
+     "stationnement_pmr": false,
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": false
+    },
+    "cheminement_ext": {
+     "cheminement_ext_presence": true,
+     "cheminement_ext_terrain_stable": true,
+     "cheminement_ext_plain_pied": true,
+     "cheminement_ext_devers": "aucun",
+     "cheminement_ext_bande_guidage": false,
+     "cheminement_ext_retrecissement": false
+    },
+    "entree": {
+     "entree_reperage": true,
+     "entree_porte_presence": true,
+     "entree_porte_manoeuvre": "battante",
+     "entree_porte_type": "manuelle",
+     "entree_vitree": true,
+     "entree_vitree_vitrophanie": true,
+     "entree_plain_pied": false,
+     "entree_ascenseur": true,
+     "entree_ascenseur_pmr": true,
+     "entree_marches_sens": "montant",
+     "entree_marches_reperage": false,
+     "entree_marches_main_courante": true,
+     "entree_marches_rampe": "aucune",
+     "entree_dispositif_appel": false,
+     "entree_balise_sonore": false,
+     "entree_aide_humaine": true,
+     "entree_largeur_mini": 90,
+     "entree_pmr": false
+    },
+    "accueil": {
+     "accueil_visibilite": false,
+     "accueil_cheminement_plain_pied": false,
+     "accueil_cheminement_ascenseur": true,
+     "accueil_cheminement_ascenseur_pmr": true,
+     "accueil_cheminement_sens_marches": "montant",
+     "accueil_cheminement_reperage_marches": false,
+     "accueil_cheminement_main_courante": true,
+     "accueil_retrecissement": false,
+     "accueil_audiodescription_presence": false,
+     "accueil_equipements_malentendants_presence": false,
+     "sanitaires_presence": true,
+     "sanitaires_adaptes": false
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/gwenael-prost-plieur/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/art/erp/gwenael-prost-plieur/",
+   "uuid": "ce8c0132-d728-4083-b448-2bb733fe80c3",
+   "activite": {
+    "nom": "Art, centre d'art",
+    "slug": "art"
+   },
+   "nom": "Gwenael Prost - Plieur",
+   "slug": "gwenael-prost-plieur",
+   "adresse": "13 Rue de Bray 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.628638,
+     48.105713
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2025-07-16T10:07:48.130135+02:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_presence": false,
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": true
+    },
+    "entree": {
+     "entree_plain_pied": false,
+     "entree_marches": 25,
+     "entree_marches_sens": "montant",
+     "entree_marches_rampe": "aucune"
+    },
+    "accueil": {
+     "sanitaires_presence": true,
+     "sanitaires_adaptes": false
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/pizzeria-maria-3/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/restaurant/erp/pizzeria-maria-3/",
+   "uuid": "f1a5610c-a118-4457-aa43-c16d1a58b42c",
+   "activite": {
+    "nom": "Restaurant",
+    "slug": "restaurant"
+   },
+   "nom": "Pizzeria MARIA",
+   "slug": "pizzeria-maria-3",
+   "adresse": "Rue de la Villa Romaine 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.613286,
+     48.131777
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2025-06-04T17:31:48.171348+02:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_presence": false,
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": true
+    },
+    "entree": {
+     "entree_plain_pied": false,
+     "entree_marches": 10,
+     "entree_marches_sens": "montant",
+     "entree_marches_rampe": "aucune"
+    },
+    "accueil": {
+     "sanitaires_presence": true,
+     "sanitaires_adaptes": false
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/les-aviateurs/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/restaurant/erp/les-aviateurs/",
+   "uuid": "fdd79c70-5895-445c-8d2c-af4040721eae",
+   "activite": {
+    "nom": "Restaurant",
+    "slug": "restaurant"
+   },
+   "nom": "Les Aviateurs",
+   "slug": "les-aviateurs",
+   "adresse": "40 Rue de Bray 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.614798,
+     48.107642
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2025-06-04T16:54:26.717694+02:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_presence": true,
+     "stationnement_pmr": true
+    },
+    "cheminement_ext": {
+     "cheminement_ext_presence": true,
+     "cheminement_ext_terrain_stable": true,
+     "cheminement_ext_plain_pied": true,
+     "cheminement_ext_retrecissement": false
+    },
+    "entree": {
+     "entree_plain_pied": false,
+     "entree_marches": 6,
+     "entree_marches_sens": "montant",
+     "entree_marches_rampe": "fixe"
+    },
+    "accueil": {
+     "sanitaires_presence": true,
+     "sanitaires_adaptes": true
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/la-table-dhippolyte-2/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/restaurant/erp/la-table-dhippolyte-2/",
+   "uuid": "f37bcc81-e513-49e8-b39a-68e1982a16ad",
+   "activite": {
+    "nom": "Restaurant",
+    "slug": "restaurant"
+   },
+   "nom": "La Table D'Hippolyte",
+   "slug": "la-table-dhippolyte-2",
+   "adresse": "40 Forum de la Rocade 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.616806,
+     48.099517
+    ]
+   },
+   "user_type": "gestionnaire",
+   "updated_at": "2025-02-26T18:54:42.191625+01:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_presence": true,
+     "stationnement_pmr": true
+    },
+    "cheminement_ext": {
+     "cheminement_ext_presence": true,
+     "cheminement_ext_terrain_stable": true,
+     "cheminement_ext_plain_pied": true,
+     "cheminement_ext_devers": "léger",
+     "cheminement_ext_bande_guidage": false,
+     "cheminement_ext_retrecissement": false
+    },
+    "entree": {
+     "entree_porte_presence": true,
+     "entree_porte_manoeuvre": "coulissante",
+     "entree_porte_type": "automatique",
+     "entree_vitree": true,
+     "entree_vitree_vitrophanie": true,
+     "entree_plain_pied": true,
+     "entree_dispositif_appel": true,
+     "entree_dispositif_appel_type": [
+      "bouton"
+     ],
+     "entree_balise_sonore": false,
+     "entree_aide_humaine": true,
+     "entree_largeur_mini": 150,
+     "entree_pmr": false
+    },
+    "accueil": {
+     "accueil_cheminement_plain_pied": true,
+     "accueil_retrecissement": false,
+     "accueil_personnels": "non-formés",
+     "accueil_audiodescription_presence": false,
+     "accueil_equipements_malentendants_presence": false,
+     "sanitaires_presence": true,
+     "sanitaires_adaptes": true
+    },
+    "commentaire": {
+     "commentaire": "Le Restaurant est mitoyen à l'hôtel Mercure et communiquant par l'intérieur"
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/mediatheque-499/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/bibliotheque-mediatheque/erp/mediatheque-499/",
+   "uuid": "2dcca545-e131-4d89-8db3-389f583529fb",
+   "activite": {
+    "nom": "Bibliothèque médiathèque",
+    "slug": "bibliotheque-mediatheque"
+   },
+   "nom": "Médiathèque",
+   "slug": "mediatheque-499",
+   "adresse": "Parc du Manoir du Bourgchevreuil 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.60319,
+     48.117649
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2024-11-03T13:31:30.675454+01:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": true
+    },
+    "entree": {
+     "entree_porte_presence": true,
+     "entree_plain_pied": true,
+     "entree_largeur_mini": 80
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/lakshmi-beauty-institut/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/soins-de-beaute/erp/lakshmi-beauty-institut/",
+   "uuid": "c71e2d0e-69c0-4c93-84f7-06c651f65e3f",
+   "activite": {
+    "nom": "Soins de beauté, esthétique",
+    "slug": "soins-de-beaute"
+   },
+   "nom": "Lakshmi Beauty institut",
+   "slug": "lakshmi-beauty-institut",
+   "adresse": "Chemin de la Guilbonnais 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.635466,
+     48.134533
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2024-08-11T12:12:38.572849+02:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_presence": false,
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": true
+    },
+    "entree": {
+     "entree_porte_presence": true,
+     "entree_plain_pied": false,
+     "entree_marches": 17,
+     "entree_marches_sens": "montant",
+     "entree_marches_rampe": "aucune",
+     "entree_largeur_mini": 80
+    },
+    "accueil": {
+     "sanitaires_presence": true,
+     "sanitaires_adaptes": false
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/tatoo-shop/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/tatouage-piercing/erp/tatoo-shop/",
+   "uuid": "d1054f40-be87-46cf-b2d8-4b01ad83c142",
+   "activite": {
+    "nom": "Tatouage Piercing",
+    "slug": "tatouage-piercing"
+   },
+   "nom": "Tatoo Shop",
+   "slug": "tatoo-shop",
+   "adresse": "3 Cours de la Vilaine 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.604798,
+     48.116387
+    ]
+   },
+   "user_type": "public",
+   "updated_at": "2024-08-07T10:02:47.720868+02:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "transport_station_presence": true,
+     "transport_information": "Muguet Arrêt de bus C6\r\nLycée Sévigné Arrêt de bus\r\nChalotais Arrêt de bus 34 C6\r\nCesson Gare Arrêt de bus 14 34 67\r\nPeupliers Arrêt de bus 14 34 67",
+     "stationnement_presence": false,
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": false
+    },
+    "cheminement_ext": {
+     "cheminement_ext_presence": false
+    },
+    "entree": {
+     "entree_reperage": true,
+     "entree_porte_presence": true,
+     "entree_porte_manoeuvre": "battante",
+     "entree_porte_type": "manuelle",
+     "entree_vitree": true,
+     "entree_vitree_vitrophanie": true,
+     "entree_plain_pied": true,
+     "entree_aide_humaine": false,
+     "entree_largeur_mini": 90,
+     "entree_pmr": false
+    },
+    "accueil": {
+     "accueil_personnels": "non-formés",
+     "sanitaires_presence": false
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/piscine-canopia/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/piscine/erp/piscine-canopia/",
+   "uuid": "990cc3d2-fb03-44f9-a436-c5f75797aa5d",
+   "activite": {
+    "nom": "Piscine, centre aquatique",
+    "slug": "piscine"
+   },
+   "nom": "Piscine Canopia",
+   "slug": "piscine-canopia",
+   "adresse": "11 Rue du Chêne Germain 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.624586,
+     48.130624
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2024-08-29T16:32:28.745539+02:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": true
+    },
+    "entree": {
+     "entree_porte_presence": true,
+     "entree_plain_pied": true,
+     "entree_largeur_mini": 80
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/declic-conseil/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/psychologie-psychiatrie/erp/declic-conseil/",
+   "uuid": "128fd656-473c-4720-befc-4ec5539167f7",
+   "activite": {
+    "nom": "Psychologie, Psychiatrie",
+    "slug": "psychologie-psychiatrie"
+   },
+   "nom": "Declic Conseil",
+   "slug": "declic-conseil",
+   "adresse": "48 Rue de la Monniais 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.610641,
+     48.108235
+    ]
+   },
+   "user_type": "gestionnaire",
+   "updated_at": "2024-07-22T09:53:25.130383+02:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_presence": true,
+     "stationnement_pmr": true,
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": true
+    },
+    "cheminement_ext": {
+     "cheminement_ext_presence": true,
+     "cheminement_ext_terrain_stable": true,
+     "cheminement_ext_plain_pied": true,
+     "cheminement_ext_pente_presence": false,
+     "cheminement_ext_devers": "aucun"
+    },
+    "entree": {
+     "entree_reperage": true,
+     "entree_porte_presence": true,
+     "entree_porte_manoeuvre": "battante",
+     "entree_porte_type": "manuelle",
+     "entree_vitree": true,
+     "entree_vitree_vitrophanie": false,
+     "entree_plain_pied": true,
+     "entree_dispositif_appel": false,
+     "entree_balise_sonore": false,
+     "entree_aide_humaine": true,
+     "entree_pmr": false
+    },
+    "accueil": {
+     "accueil_visibilite": false,
+     "accueil_cheminement_plain_pied": false,
+     "accueil_cheminement_ascenseur": true,
+     "accueil_cheminement_sens_marches": "montant",
+     "accueil_cheminement_main_courante": true,
+     "accueil_cheminement_rampe": "fixe",
+     "accueil_retrecissement": false,
+     "accueil_personnels": "formés",
+     "accueil_audiodescription_presence": false,
+     "accueil_equipements_malentendants_presence": false,
+     "sanitaires_presence": true,
+     "sanitaires_adaptes": true
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/federation-des-offices-de-tourisme-de-bretagne/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/office-du-tourisme/erp/federation-des-offices-de-tourisme-de-bretagne/",
+   "uuid": "5615573f-30e8-4a80-85a5-3cfd605ef0a2",
+   "activite": {
+    "nom": "Office de tourisme",
+    "slug": "office-du-tourisme"
+   },
+   "nom": "Fédération des Offices de Tourisme de Bretagne",
+   "slug": "federation-des-offices-de-tourisme-de-bretagne",
+   "adresse": "1d Avenue de Belle Fontaine 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.626137,
+     48.128249
+    ]
+   },
+   "user_type": "public",
+   "updated_at": "2025-05-15T16:18:07.299279+02:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "transport_station_presence": true,
+     "transport_information": "Arrêt de Métro Atalante - Ligne B\r\nArrêt de bus Atalante - Ligne C4",
+     "stationnement_presence": true,
+     "stationnement_pmr": true,
+     "stationnement_ext_presence": true
+    },
+    "cheminement_ext": {
+     "cheminement_ext_presence": true,
+     "cheminement_ext_terrain_stable": true,
+     "cheminement_ext_plain_pied": false,
+     "cheminement_ext_ascenseur": false,
+     "cheminement_ext_reperage_marches": true,
+     "cheminement_ext_main_courante": true,
+     "cheminement_ext_rampe": "fixe",
+     "cheminement_ext_pente_presence": false,
+     "cheminement_ext_retrecissement": false
+    },
+    "entree": {
+     "entree_reperage": true,
+     "entree_porte_presence": true,
+     "entree_porte_manoeuvre": "coulissante",
+     "entree_porte_type": "automatique",
+     "entree_vitree": true,
+     "entree_vitree_vitrophanie": true,
+     "entree_plain_pied": false,
+     "entree_ascenseur": false,
+     "entree_marches_reperage": true,
+     "entree_marches_main_courante": true,
+     "entree_marches_rampe": "fixe",
+     "entree_dispositif_appel": true,
+     "entree_dispositif_appel_type": [
+      "bouton",
+      "interphone",
+      "visiophone"
+     ],
+     "entree_balise_sonore": false,
+     "entree_aide_humaine": true,
+     "entree_pmr": false
+    },
+    "accueil": {
+     "accueil_visibilite": true,
+     "accueil_cheminement_plain_pied": true,
+     "accueil_retrecissement": false,
+     "accueil_audiodescription_presence": false,
+     "sanitaires_presence": true,
+     "sanitaires_adaptes": true
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/gca-rennes-voitures-doccasion/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/commerce-automobile/erp/gca-rennes-voitures-doccasion/",
+   "uuid": "adec2f4e-d178-4bb7-b381-10f14a8e3ec0",
+   "activite": {
+    "nom": "Commerce automobile",
+    "slug": "commerce-automobile"
+   },
+   "nom": "Gca Rennes - voitures d'occasion",
+   "slug": "gca-rennes-voitures-doccasion",
+   "adresse": "9 Rue de Paris 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.597928366240333,
+     48.11370291422746
+    ]
+   },
+   "user_type": "admin",
+   "updated_at": "2024-06-22T10:04:34.187907+02:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "transport_station_presence": true,
+     "transport_information": "arrêt Bordage, lignes C6, 67, 167",
+     "stationnement_presence": true,
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": true
+    },
+    "cheminement_ext": {
+     "cheminement_ext_presence": true,
+     "cheminement_ext_terrain_stable": true,
+     "cheminement_ext_plain_pied": true,
+     "cheminement_ext_pente_presence": true,
+     "cheminement_ext_pente_degre_difficulte": "légère",
+     "cheminement_ext_pente_longueur": "longue",
+     "cheminement_ext_bande_guidage": false,
+     "cheminement_ext_retrecissement": false
+    },
+    "entree": {
+     "entree_reperage": true,
+     "entree_porte_presence": true,
+     "entree_porte_manoeuvre": "battante",
+     "entree_porte_type": "manuelle",
+     "entree_vitree": true,
+     "entree_vitree_vitrophanie": true,
+     "entree_plain_pied": false,
+     "entree_ascenseur": false,
+     "entree_marches": 2,
+     "entree_marches_sens": "montant",
+     "entree_marches_reperage": false,
+     "entree_marches_main_courante": false,
+     "entree_marches_rampe": "aucune",
+     "entree_dispositif_appel": false,
+     "entree_balise_sonore": false,
+     "entree_pmr": false
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/maison-des-consultation-canopia/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/vente-de-materiel-pour-piscine/erp/maison-des-consultation-canopia/",
+   "uuid": "44f3304f-d57d-4167-bb55-9f7321cbcc4e",
+   "activite": {
+    "nom": "Vente de matériel pour piscine",
+    "slug": "vente-de-materiel-pour-piscine"
+   },
+   "nom": "maison des consultation Canopia",
+   "slug": "maison-des-consultation-canopia",
+   "adresse": "13 Rue du Chêne Germain 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.623938,
+     48.130651
+    ]
+   },
+   "user_type": "admin",
+   "updated_at": "2024-09-26T10:55:56.653528+02:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_presence": true,
+     "stationnement_pmr": true
+    },
+    "cheminement_ext": {
+     "cheminement_ext_presence": true,
+     "cheminement_ext_terrain_stable": true,
+     "cheminement_ext_plain_pied": true,
+     "cheminement_ext_pente_presence": false,
+     "cheminement_ext_devers": "aucun",
+     "cheminement_ext_bande_guidage": false,
+     "cheminement_ext_retrecissement": false
+    },
+    "entree": {
+     "entree_reperage": true,
+     "entree_porte_presence": true,
+     "entree_porte_manoeuvre": "coulissante",
+     "entree_porte_type": "automatique",
+     "entree_vitree": true,
+     "entree_vitree_vitrophanie": true,
+     "entree_plain_pied": true,
+     "entree_dispositif_appel": false,
+     "entree_balise_sonore": false,
+     "entree_largeur_mini": 140,
+     "entree_pmr": false
+    },
+    "accueil": {
+     "accueil_visibilite": true,
+     "accueil_cheminement_plain_pied": true,
+     "accueil_retrecissement": false,
+     "accueil_personnels": "formés",
+     "sanitaires_presence": true,
+     "sanitaires_adaptes": true
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/charlene-viel-sophrologue-energeticienne/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/sophrologue/erp/charlene-viel-sophrologue-energeticienne/",
+   "uuid": "635d161e-527a-42d8-bd46-7ba0f774ec1b",
+   "activite": {
+    "nom": "Sophrologue",
+    "slug": "sophrologue"
+   },
+   "nom": "Charlène Viel Sophrologue Energeticienne",
+   "slug": "charlene-viel-sophrologue-energeticienne",
+   "adresse": "10 Rue du Pont de Sévigné 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.611192,
+     48.113248
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2024-06-03T14:21:20.514779+02:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_presence": false,
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": true
+    },
+    "entree": {
+     "entree_plain_pied": false,
+     "entree_marches": 10,
+     "entree_marches_sens": "montant",
+     "entree_marches_rampe": "fixe"
+    },
+    "accueil": {
+     "sanitaires_presence": true,
+     "sanitaires_adaptes": false
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/la-poste-5888/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/bureau-de-poste/erp/la-poste-5888/",
+   "uuid": "8baba383-e1fc-47dd-93f4-383fce965108",
+   "activite": {
+    "nom": "Bureau de poste",
+    "slug": "bureau-de-poste"
+   },
+   "nom": "La Poste",
+   "slug": "la-poste-5888",
+   "adresse": "Mail de Bourgchevreuil 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.606404,
+     48.118193
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2024-05-07T10:33:24.489959+02:00",
+   "published": true,
+   "accessibilite": {
+    "entree": {
+     "entree_plain_pied": true,
+     "entree_balise_sonore": false,
+     "entree_largeur_mini": 80
+    },
+    "accueil": {
+     "accueil_cheminement_plain_pied": true,
+     "accueil_retrecissement": false,
+     "accueil_equipements_malentendants_presence": true,
+     "accueil_equipements_malentendants": [
+      "bim"
+     ]
+    },
+    "conformite": {
+     "conformite": true
+    },
+    "commentaire": {
+     "commentaire": "GAB avec prise audio pour malvoyant. Equipement affranchissement avec prise audio. Bande de guidage intérieure. Guichet avec tablette PMR. Présence d'un espace confidentiel accessible ."
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/pharmacie-beausoleil-4/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/pharmacie/erp/pharmacie-beausoleil-4/",
+   "uuid": "1a687dba-0a00-485f-a238-4d6819953f59",
+   "activite": {
+    "nom": "Pharmacie",
+    "slug": "pharmacie"
+   },
+   "nom": "Pharmacie Beausoleil",
+   "slug": "pharmacie-beausoleil-4",
+   "adresse": "Rue des Lilas 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.612087,
+     48.116049
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2024-02-22T15:40:12.162119+01:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_presence": true,
+     "stationnement_pmr": true,
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": true
+    },
+    "entree": {
+     "entree_porte_presence": true,
+     "entree_plain_pied": true,
+     "entree_largeur_mini": 80
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/sophie-latron-gruel-art-therapie-rennes/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/bien-etre/erp/sophie-latron-gruel-art-therapie-rennes/",
+   "uuid": "a46a7df2-369f-4067-9a11-7f0ba5c677e8",
+   "activite": {
+    "nom": "Bien-être",
+    "slug": "bien-etre"
+   },
+   "nom": "Sophie LATRON GRUEL | Art-thérapie |Rennes",
+   "slug": "sophie-latron-gruel-art-therapie-rennes",
+   "adresse": "3 Boulevard de Dézerseul 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.594612,
+     48.119504
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2024-05-07T10:32:06.710419+02:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_presence": true,
+     "stationnement_pmr": false,
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": true
+    },
+    "entree": {
+     "entree_plain_pied": false,
+     "entree_marches": 1,
+     "entree_marches_sens": "montant",
+     "entree_marches_rampe": "aucune"
+    },
+    "accueil": {
+     "sanitaires_presence": true,
+     "sanitaires_adaptes": false
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/ibis-styles-rennes-cesson/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/hotel/erp/ibis-styles-rennes-cesson/",
+   "uuid": "f8a4f966-bfc0-4737-9c3d-82874bbb30e9",
+   "activite": {
+    "nom": "Hôtel",
+    "slug": "hotel"
+   },
+   "nom": "ibis Styles Rennes Cesson",
+   "slug": "ibis-styles-rennes-cesson",
+   "adresse": "1ter Route de Fougères 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.634188,
+     48.132532
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2024-05-08T10:08:08.514399+02:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_presence": true,
+     "stationnement_pmr": true
+    },
+    "cheminement_ext": {
+     "cheminement_ext_presence": true,
+     "cheminement_ext_terrain_stable": true,
+     "cheminement_ext_plain_pied": true,
+     "cheminement_ext_pente_presence": false,
+     "cheminement_ext_devers": "aucun",
+     "cheminement_ext_bande_guidage": true,
+     "cheminement_ext_retrecissement": false
+    },
+    "entree": {
+     "entree_reperage": true,
+     "entree_porte_presence": true,
+     "entree_porte_manoeuvre": "coulissante",
+     "entree_porte_type": "automatique",
+     "entree_vitree": true,
+     "entree_vitree_vitrophanie": true,
+     "entree_plain_pied": true,
+     "entree_balise_sonore": false,
+     "entree_aide_humaine": true,
+     "entree_largeur_mini": 180,
+     "entree_pmr": false
+    },
+    "accueil": {
+     "accueil_visibilite": true,
+     "accueil_cheminement_plain_pied": true,
+     "accueil_retrecissement": false,
+     "accueil_chambre_nombre_accessibles": 3,
+     "accueil_chambre_douche_plain_pied": true,
+     "accueil_chambre_douche_barre_appui": true,
+     "accueil_chambre_sanitaires_barre_appui": true,
+     "accueil_chambre_sanitaires_espace_usage": true,
+     "accueil_personnels": "formés",
+     "accueil_equipements_malentendants_presence": false,
+     "sanitaires_presence": true,
+     "sanitaires_adaptes": true
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/le-boeuf-tricolore-2/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/boucherie/erp/le-boeuf-tricolore-2/",
+   "uuid": "a34a175f-7c87-4bcb-a18f-1122a0b06888",
+   "activite": {
+    "nom": "Boucherie / commerce de viande",
+    "slug": "boucherie"
+   },
+   "nom": "Le Boeuf Tricolore",
+   "slug": "le-boeuf-tricolore-2",
+   "adresse": "1 Rue de la Carrière 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.612321,
+     48.108591
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2026-02-27T11:29:02.550388+01:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "transport_station_presence": false,
+     "stationnement_presence": true,
+     "stationnement_pmr": true,
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": true
+    },
+    "cheminement_ext": {
+     "cheminement_ext_presence": false
+    },
+    "entree": {
+     "entree_reperage": true,
+     "entree_porte_presence": true,
+     "entree_porte_manoeuvre": "battante",
+     "entree_porte_type": "manuelle",
+     "entree_vitree": true,
+     "entree_plain_pied": true,
+     "entree_dispositif_appel": false,
+     "entree_balise_sonore": false,
+     "entree_aide_humaine": false,
+     "entree_largeur_mini": 80,
+     "entree_pmr": false
+    },
+    "accueil": {
+     "accueil_personnels": "non-formés",
+     "accueil_audiodescription_presence": false,
+     "accueil_equipements_malentendants_presence": false,
+     "sanitaires_presence": false
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/localhost-by-1cubatech/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/coworking/erp/localhost-by-1cubatech/",
+   "uuid": "5b3e27ec-cdc1-42bf-8d4b-17b975cb59d2",
+   "activite": {
+    "nom": "Coworking",
+    "slug": "coworking"
+   },
+   "nom": "Localhost by 1cubatech",
+   "slug": "localhost-by-1cubatech",
+   "adresse": "3d Rue de Paris 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.601911,
+     48.113542
+    ]
+   },
+   "user_type": "gestionnaire",
+   "updated_at": "2025-07-15T22:15:13.318291+02:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "transport_station_presence": true,
+     "transport_information": "Arrêt de bus et halte ferroviaire à proximité.",
+     "stationnement_presence": true,
+     "stationnement_pmr": true,
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": true
+    },
+    "cheminement_ext": {
+     "cheminement_ext_presence": true,
+     "cheminement_ext_terrain_stable": true,
+     "cheminement_ext_plain_pied": false,
+     "cheminement_ext_ascenseur": true,
+     "cheminement_ext_reperage_marches": false,
+     "cheminement_ext_main_courante": true,
+     "cheminement_ext_rampe": "amovible",
+     "cheminement_ext_pente_presence": true,
+     "cheminement_ext_pente_degre_difficulte": "légère",
+     "cheminement_ext_pente_longueur": "courte",
+     "cheminement_ext_devers": "aucun",
+     "cheminement_ext_bande_guidage": false,
+     "cheminement_ext_retrecissement": false
+    },
+    "entree": {
+     "entree_reperage": true,
+     "entree_porte_presence": true,
+     "entree_porte_manoeuvre": "coulissante",
+     "entree_porte_type": "automatique",
+     "entree_vitree": true,
+     "entree_vitree_vitrophanie": true,
+     "entree_plain_pied": true,
+     "entree_dispositif_appel": true,
+     "entree_dispositif_appel_type": [
+      "visiophone"
+     ],
+     "entree_balise_sonore": false,
+     "entree_aide_humaine": true,
+     "entree_largeur_mini": 150,
+     "entree_pmr": false
+    },
+    "accueil": {
+     "accueil_cheminement_plain_pied": true,
+     "accueil_retrecissement": false,
+     "accueil_audiodescription_presence": false,
+     "accueil_equipements_malentendants_presence": false,
+     "sanitaires_presence": true,
+     "sanitaires_adaptes": true
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/monceau-fleurs-73/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/fleuriste/erp/monceau-fleurs-73/",
+   "uuid": "74023a90-146d-4b2b-8f41-a138116c3b87",
+   "activite": {
+    "nom": "Fleuriste",
+    "slug": "fleuriste"
+   },
+   "nom": "Monceau Fleurs",
+   "slug": "monceau-fleurs-73",
+   "adresse": "1 Rue de Rennes 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.609813570976258,
+     48.11412553869076
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2025-07-29T15:31:47.032480+02:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "transport_station_presence": true,
+     "transport_information": "bus C6 (sports et nature)",
+     "stationnement_presence": false,
+     "stationnement_ext_presence": false
+    },
+    "cheminement_ext": {
+     "cheminement_ext_presence": false
+    },
+    "entree": {
+     "entree_reperage": true,
+     "entree_porte_presence": true,
+     "entree_porte_manoeuvre": "battante",
+     "entree_porte_type": "manuelle",
+     "entree_vitree": true,
+     "entree_vitree_vitrophanie": true,
+     "entree_plain_pied": true,
+     "entree_dispositif_appel": false,
+     "entree_balise_sonore": false,
+     "entree_aide_humaine": false,
+     "entree_largeur_mini": 80,
+     "entree_pmr": false
+    },
+    "accueil": {
+     "accueil_visibilite": false,
+     "accueil_personnels": "non-formés",
+     "accueil_audiodescription_presence": false,
+     "sanitaires_presence": false
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/brasserie-skumenn/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/cafeteria/erp/brasserie-skumenn/",
+   "uuid": "436d0942-8d92-44e6-a303-5d969c0e24fc",
+   "activite": {
+    "nom": "Café, bar, brasserie",
+    "slug": "cafeteria"
+   },
+   "nom": "Brasserie Skumenn",
+   "slug": "brasserie-skumenn",
+   "adresse": "Impasse des Charmilles 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.623171,
+     48.10528
+    ]
+   },
+   "user_type": "public",
+   "updated_at": "2026-11-12T11:28:28.860822+01:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "transport_station_presence": true,
+     "transport_information": "bus 11, 34, 214 (charmilles)\r\nbus 11 (erbonière)",
+     "stationnement_presence": false,
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": true
+    },
+    "cheminement_ext": {
+     "cheminement_ext_presence": false
+    },
+    "entree": {
+     "entree_reperage": true,
+     "entree_porte_presence": true,
+     "entree_porte_manoeuvre": "battante",
+     "entree_porte_type": "manuelle",
+     "entree_vitree": true,
+     "entree_plain_pied": false,
+     "entree_ascenseur": false,
+     "entree_marches": 0,
+     "entree_marches_reperage": false,
+     "entree_marches_main_courante": false,
+     "entree_marches_rampe": "fixe",
+     "entree_dispositif_appel": false,
+     "entree_balise_sonore": false,
+     "entree_aide_humaine": false,
+     "entree_largeur_mini": 90,
+     "entree_pmr": false
+    },
+    "accueil": {
+     "accueil_personnels": "non-formés",
+     "accueil_audiodescription_presence": false,
+     "sanitaires_presence": true,
+     "sanitaires_adaptes": true
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/piscine-de-cesson-sevigne/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/piscine/erp/piscine-de-cesson-sevigne/",
+   "uuid": "290887ba-50c3-4b92-b1c9-59fc6fdf7ca6",
+   "activite": {
+    "nom": "Piscine, centre aquatique",
+    "slug": "piscine"
+   },
+   "nom": "Piscine de Cesson-Sévigné",
+   "slug": "piscine-de-cesson-sevigne",
+   "adresse": "2 Esplanade de l'Hôtel de Ville 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.602865461387639,
+     48.11983062460425
+    ]
+   },
+   "user_type": "admin",
+   "updated_at": "2026-10-22T15:24:31.584118+02:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "transport_station_presence": true,
+     "stationnement_presence": true,
+     "stationnement_pmr": true,
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": true
+    },
+    "entree": {
+     "entree_reperage": true,
+     "entree_porte_presence": true,
+     "entree_plain_pied": true,
+     "entree_largeur_mini": 80
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/boulangerie-chouet/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/boulangerie-patisserie/erp/boulangerie-chouet/",
+   "uuid": "5d863232-6810-42ae-afc9-84735770b040",
+   "activite": {
+    "nom": "Boulangerie Pâtisserie",
+    "slug": "boulangerie-patisserie"
+   },
+   "nom": "Boulangerie Chouet",
+   "slug": "boulangerie-chouet",
+   "adresse": "4 Rue de Paris 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.602578,
+     48.114445
+    ]
+   },
+   "user_type": "public",
+   "updated_at": "2026-08-28T13:39:53.004846+02:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "transport_station_presence": true,
+     "transport_information": "Bus 14 34 67 214 (Cesson Gare)",
+     "stationnement_presence": true,
+     "stationnement_pmr": true,
+     "stationnement_ext_presence": true
+    },
+    "cheminement_ext": {
+     "cheminement_ext_presence": false
+    },
+    "entree": {
+     "entree_reperage": true,
+     "entree_porte_presence": true,
+     "entree_porte_type": "automatique",
+     "entree_vitree": true,
+     "entree_vitree_vitrophanie": false,
+     "entree_plain_pied": true,
+     "entree_dispositif_appel": false,
+     "entree_aide_humaine": false,
+     "entree_largeur_mini": 80,
+     "entree_pmr": false
+    },
+    "accueil": {
+     "accueil_visibilite": false,
+     "accueil_retrecissement": false,
+     "accueil_personnels": "non-formés",
+     "accueil_audiodescription_presence": false,
+     "accueil_equipements_malentendants_presence": false,
+     "sanitaires_presence": false
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/le-fournil-de-bourgchevreuil/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/boulangerie-patisserie/erp/le-fournil-de-bourgchevreuil/",
+   "uuid": "799075d3-583b-4e5c-894d-b93ad9ef40a2",
+   "activite": {
+    "nom": "Boulangerie Pâtisserie",
+    "slug": "boulangerie-patisserie"
+   },
+   "nom": "Le fournil de Bourgchevreuil",
+   "slug": "le-fournil-de-bourgchevreuil",
+   "adresse": "Boulevard des Métairies 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.599719,
+     48.121881
+    ]
+   },
+   "user_type": "public",
+   "updated_at": "2026-08-31T14:09:25.625313+02:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "transport_station_presence": true,
+     "transport_information": "Bus 34, 216, C6 et E4 (Bourgchevreuil)",
+     "stationnement_presence": true,
+     "stationnement_pmr": true,
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": true
+    },
+    "cheminement_ext": {
+     "cheminement_ext_presence": false
+    },
+    "entree": {
+     "entree_reperage": true,
+     "entree_porte_presence": true,
+     "entree_porte_manoeuvre": "coulissante",
+     "entree_porte_type": "automatique",
+     "entree_vitree": true,
+     "entree_plain_pied": true,
+     "entree_dispositif_appel": false,
+     "entree_balise_sonore": false,
+     "entree_aide_humaine": false,
+     "entree_largeur_mini": 80
+    },
+    "accueil": {
+     "accueil_personnels": "non-formés",
+     "accueil_audiodescription_presence": false,
+     "accueil_equipements_malentendants_presence": false,
+     "sanitaires_presence": false
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/pharmacie-wellpharma-pharmacie-de-carrefour-cesson/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/pharmacie/erp/pharmacie-wellpharma-pharmacie-de-carrefour-cesson/",
+   "uuid": "35b6a410-290e-4a1d-be47-d04bc1708323",
+   "activite": {
+    "nom": "Pharmacie",
+    "slug": "pharmacie"
+   },
+   "nom": "Pharmacie wellpharma | Pharmacie de Carrefour Cesson",
+   "slug": "pharmacie-wellpharma-pharmacie-de-carrefour-cesson",
+   "adresse": "Rue de la Rigourdière 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.583967,
+     48.115819
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2023-11-22T10:40:52.293146+01:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_presence": true,
+     "stationnement_pmr": true,
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": true
+    },
+    "entree": {
+     "entree_porte_presence": true,
+     "entree_plain_pied": true,
+     "entree_largeur_mini": 80
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/pharmacie-lebret-badignon/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/pharmacie/erp/pharmacie-lebret-badignon/",
+   "uuid": "1d7c7bc1-d8b0-4cac-b531-d901cb41dba6",
+   "activite": {
+    "nom": "Pharmacie",
+    "slug": "pharmacie"
+   },
+   "nom": "Pharmacie Lebret-Badignon",
+   "slug": "pharmacie-lebret-badignon",
+   "adresse": "Rue de Belle Epine 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.598522,
+     48.123402
+    ]
+   },
+   "user_type": "public",
+   "updated_at": "2023-08-28T15:31:32.267770+02:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "transport_station_presence": true,
+     "transport_information": "Arrêt de bus Bourg chevreuil / Bus 34 - 216 - C6",
+     "stationnement_presence": true,
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": true
+    },
+    "cheminement_ext": {
+     "cheminement_ext_presence": true,
+     "cheminement_ext_terrain_stable": true,
+     "cheminement_ext_plain_pied": true,
+     "cheminement_ext_pente_presence": false,
+     "cheminement_ext_devers": "aucun",
+     "cheminement_ext_bande_guidage": false
+    },
+    "entree": {
+     "entree_reperage": true,
+     "entree_porte_presence": true,
+     "entree_porte_manoeuvre": "coulissante",
+     "entree_porte_type": "automatique",
+     "entree_vitree": true,
+     "entree_plain_pied": true,
+     "entree_largeur_mini": 90,
+     "entree_pmr": false
+    },
+    "accueil": {
+     "accueil_cheminement_plain_pied": true,
+     "accueil_retrecissement": false,
+     "sanitaires_presence": false
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/pharmacie-de-la-monniais/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/pharmacie/erp/pharmacie-de-la-monniais/",
+   "uuid": "57d77f39-35be-47e4-9beb-c01a91fb8942",
+   "activite": {
+    "nom": "Pharmacie",
+    "slug": "pharmacie"
+   },
+   "nom": "Pharmacie de la Monniais",
+   "slug": "pharmacie-de-la-monniais",
+   "adresse": "48 Rue de Bray 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.610641,
+     48.108235
+    ]
+   },
+   "user_type": "public",
+   "updated_at": "2023-07-31T14:37:59.261884+02:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "transport_station_presence": true,
+     "transport_information": "Monniais\r\nArrêt de bus : 67-  34 -  14 \r\n\r\n Rond Point de Bray\r\nArrêt de bus : 34  -67",
+     "stationnement_presence": true,
+     "stationnement_pmr": true,
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": true
+    },
+    "cheminement_ext": {
+     "cheminement_ext_presence": true,
+     "cheminement_ext_terrain_stable": true,
+     "cheminement_ext_plain_pied": true,
+     "cheminement_ext_pente_presence": false,
+     "cheminement_ext_devers": "aucun",
+     "cheminement_ext_bande_guidage": false,
+     "cheminement_ext_retrecissement": false
+    },
+    "entree": {
+     "entree_porte_presence": true,
+     "entree_porte_manoeuvre": "coulissante",
+     "entree_porte_type": "automatique",
+     "entree_vitree": true,
+     "entree_vitree_vitrophanie": true,
+     "entree_plain_pied": true,
+     "entree_aide_humaine": false,
+     "entree_largeur_mini": 180
+    },
+    "accueil": {
+     "accueil_visibilite": false,
+     "accueil_retrecissement": false,
+     "accueil_personnels": "non-formés",
+     "sanitaires_presence": false
+    },
+    "commentaire": {
+     "commentaire": "L'établissement est installé juste à côté des arrêts de bus Monniais (11 et E2) et Rond Point de Bray (11 et 34)."
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/office-francais-de-la-biodiversite-ofb-direction-regionale-bretagne/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/administration-publique/erp/office-francais-de-la-biodiversite-ofb-direction-regionale-bretagne/",
+   "uuid": "1accfadd-4e43-4cba-924a-927afcc16d9b",
+   "activite": {
+    "nom": "Administration publique",
+    "slug": "administration-publique"
+   },
+   "nom": "Office français de la biodiversité (OFB) - Direction régionale Bretagne",
+   "slug": "office-francais-de-la-biodiversite-ofb-direction-regionale-bretagne",
+   "adresse": "84 Rue de Rennes 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.631006,
+     48.114185
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2026-05-04T20:42:03.805067+02:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_presence": true,
+     "stationnement_pmr": false,
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": false
+    },
+    "entree": {
+     "entree_plain_pied": false,
+     "entree_marches": 5,
+     "entree_marches_sens": "montant",
+     "entree_marches_rampe": "aucune"
+    },
+    "accueil": {
+     "sanitaires_presence": true,
+     "sanitaires_adaptes": true
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/pharmacie-lebret-cesson-sevigne-orthopedie-materiel-medical/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/pharmacie/erp/pharmacie-lebret-cesson-sevigne-orthopedie-materiel-medical/",
+   "uuid": "dea9a0e3-6613-484d-bca1-db4473758842",
+   "activite": {
+    "nom": "Pharmacie",
+    "slug": "pharmacie"
+   },
+   "nom": "Pharmacie Lebret Cesson-Sévigné | Orthopédie - Matériel médical",
+   "slug": "pharmacie-lebret-cesson-sevigne-orthopedie-materiel-medical",
+   "adresse": "50 Rue de Belle Epine 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.599532663822174,
+     48.12222994376156
+    ]
+   },
+   "user_type": "public",
+   "updated_at": "2023-07-26T11:18:36.655054+02:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "transport_station_presence": true,
+     "transport_information": "bus 34, C6 (Bourgchevreuil)",
+     "stationnement_presence": true,
+     "stationnement_pmr": true,
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": false
+    },
+    "cheminement_ext": {
+     "cheminement_ext_presence": false
+    },
+    "entree": {
+     "entree_reperage": true,
+     "entree_porte_presence": true,
+     "entree_porte_manoeuvre": "coulissante",
+     "entree_porte_type": "automatique",
+     "entree_vitree": true,
+     "entree_vitree_vitrophanie": true,
+     "entree_plain_pied": true,
+     "entree_dispositif_appel": false,
+     "entree_balise_sonore": false,
+     "entree_aide_humaine": false,
+     "entree_largeur_mini": 90
+    },
+    "accueil": {
+     "accueil_cheminement_plain_pied": true,
+     "accueil_retrecissement": false,
+     "accueil_personnels": "non-formés",
+     "accueil_audiodescription_presence": false,
+     "sanitaires_presence": false
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/pharmacie-le-brun/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/pharmacie/erp/pharmacie-le-brun/",
+   "uuid": "860f15c7-682c-4021-804b-eea079565df5",
+   "activite": {
+    "nom": "Pharmacie",
+    "slug": "pharmacie"
+   },
+   "nom": "Pharmacie Le Brun",
+   "slug": "pharmacie-le-brun",
+   "adresse": "49a Rue de Rennes 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.619273722171784,
+     48.11400734745369
+    ]
+   },
+   "user_type": "public",
+   "updated_at": "2023-07-25T15:28:31.979374+02:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "transport_station_presence": true,
+     "transport_information": "Bus 14, 67, C6 - arrêt Taillis.\r\nBus 14, C6 - arrêt Hublais.",
+     "stationnement_presence": false,
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": true
+    },
+    "cheminement_ext": {
+     "cheminement_ext_presence": false
+    },
+    "entree": {
+     "entree_reperage": true,
+     "entree_porte_presence": true,
+     "entree_porte_manoeuvre": "coulissante",
+     "entree_porte_type": "automatique",
+     "entree_vitree": true,
+     "entree_vitree_vitrophanie": true,
+     "entree_plain_pied": false,
+     "entree_ascenseur": false,
+     "entree_marches": 1,
+     "entree_marches_sens": "montant",
+     "entree_marches_reperage": false,
+     "entree_marches_main_courante": false,
+     "entree_marches_rampe": "fixe",
+     "entree_aide_humaine": false,
+     "entree_largeur_mini": 100
+    },
+    "accueil": {
+     "accueil_visibilite": true,
+     "accueil_cheminement_plain_pied": true,
+     "accueil_retrecissement": false,
+     "accueil_personnels": "non-formés",
+     "accueil_audiodescription_presence": false,
+     "accueil_equipements_malentendants_presence": false,
+     "sanitaires_presence": false
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/umih-35-2/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/organisation-patronale-professionnelle-syndicale/erp/umih-35-2/",
+   "uuid": "b86ba540-96ff-4c09-86a9-9d8e71fa225e",
+   "activite": {
+    "nom": "Organisation patronale, professionnelle, syndicale",
+    "slug": "organisation-patronale-professionnelle-syndicale"
+   },
+   "nom": "UMIH 35",
+   "slug": "umih-35-2",
+   "adresse": "40 Rue du Bignon 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.616838276386261,
+     48.099478499739675
+    ]
+   },
+   "user_type": "public",
+   "updated_at": "2023-07-11T13:20:43.151246+02:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "transport_station_presence": false,
+     "stationnement_presence": true,
+     "stationnement_pmr": true,
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": true
+    },
+    "cheminement_ext": {
+     "cheminement_ext_presence": true,
+     "cheminement_ext_terrain_stable": true,
+     "cheminement_ext_plain_pied": true,
+     "cheminement_ext_pente_presence": false,
+     "cheminement_ext_devers": "aucun",
+     "cheminement_ext_bande_guidage": false,
+     "cheminement_ext_retrecissement": false
+    },
+    "entree": {
+     "entree_reperage": true,
+     "entree_porte_presence": true,
+     "entree_porte_manoeuvre": "battante",
+     "entree_porte_type": "manuelle",
+     "entree_vitree": true,
+     "entree_vitree_vitrophanie": true,
+     "entree_plain_pied": true,
+     "entree_dispositif_appel": false,
+     "entree_balise_sonore": false,
+     "entree_aide_humaine": true,
+     "entree_largeur_mini": 90,
+     "entree_pmr": false
+    },
+    "accueil": {
+     "accueil_visibilite": true,
+     "accueil_cheminement_plain_pied": true,
+     "accueil_retrecissement": false,
+     "accueil_personnels": "formés",
+     "accueil_audiodescription_presence": false,
+     "accueil_equipements_malentendants_presence": false,
+     "sanitaires_presence": false
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/boulangerie-marie-blachere-20/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/boulangerie-patisserie/erp/boulangerie-marie-blachere-20/",
+   "uuid": "58531116-5c96-4542-bb65-fc02f05ab819",
+   "activite": {
+    "nom": "Boulangerie Pâtisserie",
+    "slug": "boulangerie-patisserie"
+   },
+   "nom": "Boulangerie Marie Blachere",
+   "slug": "boulangerie-marie-blachere-20",
+   "adresse": "15bis Rue de la Rigourdière 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.583025,
+     48.116115
+    ]
+   },
+   "user_type": "public",
+   "updated_at": "2023-07-19T14:27:10.490839+02:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_presence": true,
+     "stationnement_pmr": true,
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": true
+    },
+    "entree": {
+     "entree_reperage": true,
+     "entree_porte_presence": true,
+     "entree_plain_pied": true,
+     "entree_largeur_mini": 90
+    },
+    "accueil": {
+     "accueil_visibilite": true,
+     "accueil_cheminement_plain_pied": true,
+     "accueil_personnels": "non-formés",
+     "sanitaires_presence": false
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/boulangerie-patisserie-antoine-pelhate/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/boulangerie-patisserie/erp/boulangerie-patisserie-antoine-pelhate/",
+   "uuid": "46a4a62a-b516-43ba-bb8c-2613f05fa7fa",
+   "activite": {
+    "nom": "Boulangerie Pâtisserie",
+    "slug": "boulangerie-patisserie"
+   },
+   "nom": "Boulangerie Pâtisserie Antoine Pelhâte",
+   "slug": "boulangerie-patisserie-antoine-pelhate",
+   "adresse": "8 Cours de la Vilaine 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.605267226696014,
+     48.11638186471625
+    ]
+   },
+   "user_type": "public",
+   "updated_at": "2023-04-28T15:50:21.790923+02:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "transport_station_presence": true,
+     "transport_information": "bus 206, C6 (vilaine)",
+     "stationnement_presence": false,
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": true
+    },
+    "cheminement_ext": {
+     "cheminement_ext_presence": false
+    },
+    "entree": {
+     "entree_reperage": true,
+     "entree_porte_presence": true,
+     "entree_porte_manoeuvre": "coulissante",
+     "entree_porte_type": "automatique",
+     "entree_vitree": true,
+     "entree_vitree_vitrophanie": true,
+     "entree_plain_pied": true,
+     "entree_dispositif_appel": false,
+     "entree_balise_sonore": false,
+     "entree_aide_humaine": false,
+     "entree_largeur_mini": 90
+    },
+    "accueil": {
+     "accueil_personnels": "non-formés",
+     "accueil_audiodescription_presence": false,
+     "sanitaires_presence": false
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/bon-ap/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/boulangerie-patisserie/erp/bon-ap/",
+   "uuid": "4eec0fc2-7a77-4ddd-9378-7e839e630b90",
+   "activite": {
+    "nom": "Boulangerie Pâtisserie",
+    "slug": "boulangerie-patisserie"
+   },
+   "nom": "Bon AP",
+   "slug": "bon-ap",
+   "adresse": "49a Rue de Rennes 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.619228,
+     48.114
+    ]
+   },
+   "user_type": "public",
+   "updated_at": "2026-09-01T13:42:28.637060+02:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "transport_station_presence": true,
+     "transport_information": "Arrêt de Bus  Taillis  14,67,167ex,206",
+     "stationnement_presence": true,
+     "stationnement_pmr": false,
+     "stationnement_ext_presence": true
+    },
+    "cheminement_ext": {
+     "cheminement_ext_presence": false
+    },
+    "entree": {
+     "entree_reperage": false,
+     "entree_porte_presence": true,
+     "entree_porte_manoeuvre": "battante",
+     "entree_porte_type": "manuelle",
+     "entree_vitree": true,
+     "entree_vitree_vitrophanie": true,
+     "entree_plain_pied": false,
+     "entree_ascenseur": false,
+     "entree_marches": 1,
+     "entree_marches_sens": "montant",
+     "entree_marches_reperage": false,
+     "entree_marches_main_courante": false,
+     "entree_marches_rampe": "aucune",
+     "entree_dispositif_appel": false,
+     "entree_balise_sonore": false,
+     "entree_aide_humaine": false,
+     "entree_largeur_mini": 90,
+     "entree_pmr": false
+    },
+    "accueil": {
+     "accueil_visibilite": false,
+     "accueil_retrecissement": false,
+     "accueil_personnels": "formés",
+     "accueil_audiodescription_presence": false,
+     "accueil_equipements_malentendants_presence": false,
+     "sanitaires_presence": false
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/les-delices-dalexis/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/boulangerie-patisserie/erp/les-delices-dalexis/",
+   "uuid": "0e028a65-cc45-4af9-bbfb-8daa39f66f23",
+   "activite": {
+    "nom": "Boulangerie Pâtisserie",
+    "slug": "boulangerie-patisserie"
+   },
+   "nom": "LES DELICES D'ALEXIS",
+   "slug": "les-delices-dalexis",
+   "adresse": "38 Rue du Muguet 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.609189,
+     48.117612
+    ]
+   },
+   "user_type": "public",
+   "updated_at": "2023-04-28T09:51:16.043513+02:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "transport_station_presence": true,
+     "transport_information": "Arrêt de bus Muguet : Bus C6",
+     "stationnement_presence": true,
+     "stationnement_ext_presence": true
+    },
+    "cheminement_ext": {
+     "cheminement_ext_presence": false
+    },
+    "entree": {
+     "entree_porte_presence": true,
+     "entree_vitree": true,
+     "entree_largeur_mini": 90
+    },
+    "accueil": {
+     "accueil_personnels": "non-formés",
+     "sanitaires_presence": false
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/des-gourmandises-sur-letagere-sarl/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/librairie/erp/des-gourmandises-sur-letagere-sarl/",
+   "uuid": "9e50f587-e8d9-4e21-b4f9-0eea02f81349",
+   "activite": {
+    "nom": "Librairie",
+    "slug": "librairie"
+   },
+   "nom": "DES GOURMANDISES SUR L'ETAGERE SARL",
+   "slug": "des-gourmandises-sur-letagere-sarl",
+   "adresse": "7 Mail de Bourgchevreuil 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.607204010005765,
+     48.117728450177424
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2024-07-10T10:33:05.583291+02:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_presence": false,
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": true
+    },
+    "entree": {
+     "entree_porte_presence": true,
+     "entree_plain_pied": true,
+     "entree_largeur_mini": 90
+    },
+    "accueil": {
+     "sanitaires_presence": false
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/le-sevigne/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/cinema/erp/le-sevigne/",
+   "uuid": "ed8c27e9-db99-41bb-aa6b-03d1544c7e96",
+   "activite": {
+    "nom": "Cinéma",
+    "slug": "cinema"
+   },
+   "nom": "LE SEVIGNE",
+   "slug": "le-sevigne",
+   "adresse": "43 Rue du Muguet 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.610607,
+     48.118264
+    ]
+   },
+   "user_type": "public",
+   "updated_at": "2025-06-28T00:06:45.704155+02:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "transport_station_presence": true,
+     "transport_information": "bus : 207; C6 : Muguet",
+     "stationnement_presence": true,
+     "stationnement_ext_presence": true
+    },
+    "entree": {
+     "entree_reperage": true,
+     "entree_porte_presence": true,
+     "entree_porte_manoeuvre": "battante",
+     "entree_porte_type": "manuelle",
+     "entree_vitree": true,
+     "entree_vitree_vitrophanie": true,
+     "entree_plain_pied": true,
+     "entree_largeur_mini": 90
+    },
+    "accueil": {
+     "accueil_visibilite": true,
+     "sanitaires_presence": true,
+     "sanitaires_adaptes": true
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/thomas-pf-et-marbrerie/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/pompes-funebres/erp/thomas-pf-et-marbrerie/",
+   "uuid": "a5057ec8-e5ac-415d-b561-8f91d78cf490",
+   "activite": {
+    "nom": "Pompes funèbres",
+    "slug": "pompes-funebres"
+   },
+   "nom": "THOMAS PF ET MARBRERIE",
+   "slug": "thomas-pf-et-marbrerie",
+   "adresse": "30 Rue de la Chalotais 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.5976,
+     48.127942
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2024-05-07T10:24:16.605146+02:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_presence": true,
+     "stationnement_pmr": true,
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": true
+    },
+    "entree": {
+     "entree_porte_presence": true,
+     "entree_plain_pied": true,
+     "entree_largeur_mini": 90
+    },
+    "accueil": {
+     "accueil_equipements_malentendants_presence": true,
+     "accueil_equipements_malentendants": [
+      "lsf",
+      "lpc",
+      "sts"
+     ]
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/cesson-sevigne-3/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/optique/erp/cesson-sevigne-3/",
+   "uuid": "aa10285d-4007-44a5-a21d-25c0d60cbeb6",
+   "activite": {
+    "nom": "Opticien",
+    "slug": "optique"
+   },
+   "nom": "CESSON SEVIGNE",
+   "slug": "cesson-sevigne-3",
+   "adresse": "7 Rue du Rocher 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.589202,
+     48.111511
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2024-05-07T10:23:36.535550+02:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_presence": true,
+     "stationnement_pmr": true
+    },
+    "entree": {
+     "entree_porte_presence": true,
+     "entree_plain_pied": true,
+     "entree_largeur_mini": 90
+    },
+    "accueil": {
+     "accueil_equipements_malentendants_presence": true,
+     "accueil_equipements_malentendants": [
+      "lsf",
+      "lpc",
+      "sts"
+     ]
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/mairie-cesson-sevigne/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/mairie/erp/mairie-cesson-sevigne/",
+   "uuid": "61558cb4-ebd1-4c6a-9f3f-f8abb709cfb0",
+   "activite": {
+    "nom": "Mairie",
+    "slug": "mairie"
+   },
+   "nom": "Mairie - Cesson-Sévigné",
+   "slug": "mairie-cesson-sevigne",
+   "adresse": "1 esplanade de l'Hôtel-de-Ville Espace citoyen 35517 Cesson-Sévigné Cedex",
+   "commune": "Cesson-Sévigné Cedex",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.602911,
+     48.119506
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2026-08-09T13:31:30.090282+02:00",
+   "published": true,
+   "accessibilite": {
+    "entree": {
+     "entree_porte_presence": true
+    },
+    "commentaire": {
+     "commentaire": "Établissement accessible en fauteuil roulant"
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/speed-park-et-fort-boyard/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/jeux-jouets/erp/speed-park-et-fort-boyard/",
+   "uuid": "f69620cd-82b2-4d57-acbf-52c588560a97",
+   "activite": {
+    "nom": "Jeux jouets",
+    "slug": "jeux-jouets"
+   },
+   "nom": "Speed Park et Fort Boyard",
+   "slug": "speed-park-et-fort-boyard",
+   "adresse": "Rue de la Rigourdière 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.590678691864014,
+     48.11197298294459
+    ]
+   },
+   "user_type": "admin",
+   "updated_at": "2026-10-22T15:17:26.853028+02:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "transport_station_presence": true,
+     "stationnement_presence": true,
+     "stationnement_pmr": true
+    },
+    "entree": {
+     "entree_reperage": true,
+     "entree_porte_presence": true,
+     "entree_porte_manoeuvre": "coulissante",
+     "entree_vitree": true,
+     "entree_vitree_vitrophanie": true,
+     "entree_plain_pied": true,
+     "entree_largeur_mini": 120
+    },
+    "accueil": {
+     "sanitaires_presence": true,
+     "sanitaires_adaptes": true
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/polyclinique-3/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/cabinet-medical/erp/polyclinique-3/",
+   "uuid": "3bae5c47-252e-4bd4-9c2a-aba42e009368",
+   "activite": {
+    "nom": "Centre médical",
+    "slug": "cabinet-medical"
+   },
+   "nom": "polyclinique",
+   "slug": "polyclinique-3",
+   "adresse": "3 Rue du Chêne Germain 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.627381,
+     48.130109
+    ]
+   },
+   "user_type": "public",
+   "updated_at": "2026-10-21T15:16:43.628610+02:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "transport_station_presence": true,
+     "stationnement_presence": true,
+     "stationnement_pmr": true
+    },
+    "cheminement_ext": {
+     "cheminement_ext_presence": true,
+     "cheminement_ext_terrain_stable": true,
+     "cheminement_ext_plain_pied": true,
+     "cheminement_ext_pente_presence": true,
+     "cheminement_ext_pente_degre_difficulte": "légère",
+     "cheminement_ext_pente_longueur": "longue",
+     "cheminement_ext_devers": "léger",
+     "cheminement_ext_retrecissement": false
+    },
+    "entree": {
+     "entree_reperage": true,
+     "entree_porte_presence": true,
+     "entree_porte_manoeuvre": "coulissante",
+     "entree_porte_type": "automatique",
+     "entree_vitree": true,
+     "entree_vitree_vitrophanie": true,
+     "entree_plain_pied": true,
+     "entree_largeur_mini": 120
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/direction-interregionale-de-la-protection-judiciaire-de-la-jeunesse-dirpjj-grand-ouest/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/administration-publique/erp/direction-interregionale-de-la-protection-judiciaire-de-la-jeunesse-dirpjj-grand-ouest/",
+   "uuid": "77ddc832-2eac-48d2-852a-b6d585e2ff05",
+   "activite": {
+    "nom": "Administration publique",
+    "slug": "administration-publique"
+   },
+   "nom": "Direction interrégionale de la protection judiciaire de la jeunesse (DIRPJJ) - Grand Ouest",
+   "slug": "direction-interregionale-de-la-protection-judiciaire-de-la-jeunesse-dirpjj-grand-ouest",
+   "adresse": "3 Avenue de Belle Fontaine 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.623906,
+     48.127406
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2026-08-09T16:06:50.136636+02:00",
+   "published": true,
+   "accessibilite": {
+    "entree": {
+     "entree_porte_presence": true
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/temporis-cesson-sevigne/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/agence-de-travail-temporaire/erp/temporis-cesson-sevigne/",
+   "uuid": "8222045d-bac4-4266-a65a-86356d582d89",
+   "activite": {
+    "nom": "Agence de travail temporaire",
+    "slug": "agence-de-travail-temporaire"
+   },
+   "nom": "Temporis Cesson Sévigné",
+   "slug": "temporis-cesson-sevigne",
+   "adresse": "67 Rue de Rennes 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.626653,
+     48.113992
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2026-06-17T10:45:57.560391+02:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_presence": false,
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": false
+    },
+    "entree": {
+     "entree_plain_pied": true
+    },
+    "accueil": {
+     "sanitaires_presence": true,
+     "sanitaires_adaptes": false
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/sushi-club-4/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/restauration-rapide/erp/sushi-club-4/",
+   "uuid": "ce6949c3-ac2f-4376-a89f-08fb8404899f",
+   "activite": {
+    "nom": "Restauration rapide",
+    "slug": "restauration-rapide"
+   },
+   "nom": "Sushi club",
+   "slug": "sushi-club-4",
+   "adresse": "1 Rue de la Carrière 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.612321,
+     48.108591
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2025-11-14T23:57:17.528807+01:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": true
+    },
+    "entree": {
+     "entree_porte_presence": true,
+     "entree_plain_pied": true,
+     "entree_largeur_mini": 80
+    },
+    "accueil": {
+     "accueil_cheminement_plain_pied": true,
+     "accueil_retrecissement": false,
+     "sanitaires_presence": true,
+     "sanitaires_adaptes": true
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/esccot-groupe-rennes/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/college/erp/esccot-groupe-rennes/",
+   "uuid": "9acc62d9-7bf6-4321-ad00-6a7b099d3b4f",
+   "activite": {
+    "nom": "Collège",
+    "slug": "college"
+   },
+   "nom": "ESCCOT Groupe Rennes",
+   "slug": "esccot-groupe-rennes",
+   "adresse": "11 Rue des Charmilles 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.622175,
+     48.102396
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2025-11-13T10:38:07.860754+01:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": true
+    },
+    "entree": {
+     "entree_porte_presence": true,
+     "entree_plain_pied": true,
+     "entree_largeur_mini": 80
+    },
+    "accueil": {
+     "accueil_cheminement_plain_pied": true,
+     "accueil_retrecissement": false,
+     "sanitaires_presence": true,
+     "sanitaires_adaptes": true
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/espace-bureaux-ses/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/coworking/erp/espace-bureaux-ses/",
+   "uuid": "d1433b27-0dc6-4bf4-94d7-99cb28467069",
+   "activite": {
+    "nom": "Coworking",
+    "slug": "coworking"
+   },
+   "nom": "Espace bureaux SES",
+   "slug": "espace-bureaux-ses",
+   "adresse": "Avenue des Peupliers 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.608127,
+     48.112629
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2025-11-09T11:48:16.239011+01:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": true
+    },
+    "entree": {
+     "entree_porte_presence": true,
+     "entree_plain_pied": true,
+     "entree_largeur_mini": 80
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/antony-dapra-coiffure/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/coiffure/erp/antony-dapra-coiffure/",
+   "uuid": "d1a8f7d5-3dac-4046-ae6e-2ab23847dc9e",
+   "activite": {
+    "nom": "Coiffure",
+    "slug": "coiffure"
+   },
+   "nom": "Antony Dapra Coiffure",
+   "slug": "antony-dapra-coiffure",
+   "adresse": "50 Rue de Belle Epine 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.599578,
+     48.122266
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2025-11-08T07:33:20.909466+01:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": true
+    },
+    "entree": {
+     "entree_porte_presence": true,
+     "entree_plain_pied": true,
+     "entree_largeur_mini": 80
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/direction-regionale-de-leconomie-de-lemploi-du-travail-et-des-solidarites-dreets-bretagne/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/administration-publique/erp/direction-regionale-de-leconomie-de-lemploi-du-travail-et-des-solidarites-dreets-bretagne/",
+   "uuid": "dd5ed83e-146e-4d93-800a-75a856563020",
+   "activite": {
+    "nom": "Administration publique",
+    "slug": "administration-publique"
+   },
+   "nom": "Direction régionale de l'économie, de l'emploi, du travail et des solidarités (DREETS) - Bretagne",
+   "slug": "direction-regionale-de-leconomie-de-lemploi-du-travail-et-des-solidarites-dreets-bretagne",
+   "adresse": "Rue de l'Etournel 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.605804,
+     48.108274
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2026-08-09T15:47:11.082153+02:00",
+   "published": true,
+   "accessibilite": {
+    "entree": {
+     "entree_porte_presence": true
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/le-futoir/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/cafeteria/erp/le-futoir/",
+   "uuid": "453dd24d-9bce-425a-b960-54eb9b41565f",
+   "activite": {
+    "nom": "Café, bar, brasserie",
+    "slug": "cafeteria"
+   },
+   "nom": "Le Fûtoir",
+   "slug": "le-futoir",
+   "adresse": "74 Rue de Rennes 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.62841,
+     48.114213
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2025-10-16T15:17:14.546386+02:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_presence": true,
+     "stationnement_pmr": false,
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": false
+    },
+    "cheminement_ext": {
+     "cheminement_ext_presence": true
+    },
+    "entree": {
+     "entree_plain_pied": true
+    },
+    "accueil": {
+     "sanitaires_presence": true,
+     "sanitaires_adaptes": true
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/cueillette-restaurant/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/restauration-rapide/erp/cueillette-restaurant/",
+   "uuid": "0dcbcc9b-2eec-4b1b-a5d2-80d2a49b5759",
+   "activite": {
+    "nom": "Restauration rapide",
+    "slug": "restauration-rapide"
+   },
+   "nom": "CUEILLETTE RESTAURANT",
+   "slug": "cueillette-restaurant",
+   "adresse": "54 Route de Fougères 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.609937,
+     48.143984
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2025-10-16T06:11:56.225631+02:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": true
+    },
+    "entree": {
+     "entree_porte_presence": true,
+     "entree_plain_pied": true,
+     "entree_largeur_mini": 80
+    },
+    "accueil": {
+     "accueil_cheminement_plain_pied": true,
+     "accueil_retrecissement": false,
+     "sanitaires_presence": true,
+     "sanitaires_adaptes": true
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/fais-toi-belle-institut-de-beaute-a-cesson-sevigne/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/soins-de-beaute/erp/fais-toi-belle-institut-de-beaute-a-cesson-sevigne/",
+   "uuid": "741af331-43cd-4485-bd77-6636d3c40f28",
+   "activite": {
+    "nom": "Soins de beauté, esthétique",
+    "slug": "soins-de-beaute"
+   },
+   "nom": "Fais-toi belle – Institut de beauté à Cesson-Sévigné",
+   "slug": "fais-toi-belle-institut-de-beaute-a-cesson-sevigne",
+   "adresse": "2 Cours de la Vilaine 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.604928,
+     48.116489
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2025-10-11T12:14:15.295713+02:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": true
+    },
+    "entree": {
+     "entree_porte_presence": true
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/beauty-officine-cesson-sevigne/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/soins-de-beaute/erp/beauty-officine-cesson-sevigne/",
+   "uuid": "7ed18925-b142-472a-bdc7-fcdd5a70c85b",
+   "activite": {
+    "nom": "Soins de beauté, esthétique",
+    "slug": "soins-de-beaute"
+   },
+   "nom": "Beauty Officine Cesson-Sévigné",
+   "slug": "beauty-officine-cesson-sevigne",
+   "adresse": "11 Rue du Chêne Germain 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.624586,
+     48.130624
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2025-10-11T12:13:16.443974+02:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": true
+    },
+    "entree": {
+     "entree_porte_presence": true,
+     "entree_plain_pied": true,
+     "entree_largeur_mini": 80
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/les-delices-dalexis-2/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/chocolatier/erp/les-delices-dalexis-2/",
+   "uuid": "67d82b66-f449-4fb1-af47-c79be73a8c3e",
+   "activite": {
+    "nom": "Chocolatier",
+    "slug": "chocolatier"
+   },
+   "nom": "Les Délices d'Alexis",
+   "slug": "les-delices-dalexis-2",
+   "adresse": "38 Rue du Muguet 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.609189,
+     48.117612
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2025-10-09T03:44:08.234303+02:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": true
+    },
+    "entree": {
+     "entree_porte_presence": true,
+     "entree_plain_pied": true,
+     "entree_largeur_mini": 80
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/yas-cakes/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/chocolatier/erp/yas-cakes/",
+   "uuid": "6fb6e75d-e657-4b7d-ad8f-1b5e8b6888c1",
+   "activite": {
+    "nom": "Chocolatier",
+    "slug": "chocolatier"
+   },
+   "nom": "Yas Cakes",
+   "slug": "yas-cakes",
+   "adresse": "1C Allée de la Croix Noblet 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.625333,
+     48.113757
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2025-10-09T03:43:54.361291+02:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": true
+    },
+    "entree": {
+     "entree_porte_presence": true
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/brasserie-skumenn-2/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/cafeteria/erp/brasserie-skumenn-2/",
+   "uuid": "0e9367a1-8dfb-4725-b8bd-d9b7ae76696e",
+   "activite": {
+    "nom": "Café, bar, brasserie",
+    "slug": "cafeteria"
+   },
+   "nom": "Brasserie Skumenn",
+   "slug": "brasserie-skumenn-2",
+   "adresse": "Rue des Charmilles 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.621158,
+     48.103173
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2025-09-15T20:06:58.623496+02:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": true
+    },
+    "entree": {
+     "entree_porte_presence": true,
+     "entree_plain_pied": true,
+     "entree_largeur_mini": 80
+    },
+    "accueil": {
+     "sanitaires_presence": true,
+     "sanitaires_adaptes": true
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/alain-afflelou-66/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/optique/erp/alain-afflelou-66/",
+   "uuid": "ac919aa8-3123-4459-9286-481055943821",
+   "activite": {
+    "nom": "Opticien",
+    "slug": "optique"
+   },
+   "nom": "Alain Afflelou",
+   "slug": "alain-afflelou-66",
+   "adresse": "2 Rue du Calvaire 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.605686,
+     48.11736
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2025-11-19T10:44:00.031118+01:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": true
+    },
+    "entree": {
+     "entree_porte_presence": true,
+     "entree_plain_pied": true,
+     "entree_largeur_mini": 80
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/chris-eyes/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/optique/erp/chris-eyes/",
+   "uuid": "628cbd76-cc3a-4fcc-a24a-cf421d22adb8",
+   "activite": {
+    "nom": "Opticien",
+    "slug": "optique"
+   },
+   "nom": "Chris Eyes",
+   "slug": "chris-eyes",
+   "adresse": "48 Rue de la Monniais 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.607011,
+     48.106079
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2025-11-19T10:45:31.290489+01:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": true
+    },
+    "entree": {
+     "entree_porte_presence": true,
+     "entree_plain_pied": true,
+     "entree_largeur_mini": 80
+    },
+    "accueil": {
+     "sanitaires_presence": true,
+     "sanitaires_adaptes": true
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/opticien-cesson-sevigne-krys/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/optique/erp/opticien-cesson-sevigne-krys/",
+   "uuid": "5ddfc7a5-a36d-4836-8b81-242634fd8dad",
+   "activite": {
+    "nom": "Opticien",
+    "slug": "optique"
+   },
+   "nom": "Opticien Cesson-Sévigné - Krys",
+   "slug": "opticien-cesson-sevigne-krys",
+   "adresse": "11 Rue de Paris 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.590784,
+     48.113274
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2025-09-14T15:51:46.957661+02:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": true
+    },
+    "entree": {
+     "entree_porte_presence": true,
+     "entree_plain_pied": true,
+     "entree_largeur_mini": 80
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/lycee-frederic-ozanam-cesson-sevigne/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/college/erp/lycee-frederic-ozanam-cesson-sevigne/",
+   "uuid": "da441578-c824-4161-8e60-7e6ea32e9226",
+   "activite": {
+    "nom": "Collège",
+    "slug": "college"
+   },
+   "nom": "Lycée Frédéric OZANAM (Cesson-Sévigné)",
+   "slug": "lycee-frederic-ozanam-cesson-sevigne",
+   "adresse": "99 Rue de la Chalotais 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.597561,
+     48.129673
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2025-09-13T11:37:25.468366+02:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": true
+    },
+    "entree": {
+     "entree_porte_presence": true,
+     "entree_plain_pied": true,
+     "entree_largeur_mini": 80
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/glaz-arena/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/salle-des-fetes/erp/glaz-arena/",
+   "uuid": "c999bc65-54ad-4ae0-a7fe-ad9e4c7a8123",
+   "activite": {
+    "nom": "Salle des fêtes",
+    "slug": "salle-des-fetes"
+   },
+   "nom": "Glaz Arena",
+   "slug": "glaz-arena",
+   "adresse": "Chemin du Bois de la Justice 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.59566,
+     48.11362
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2025-10-01T09:43:02.696842+02:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": true
+    },
+    "entree": {
+     "entree_porte_presence": true,
+     "entree_plain_pied": true,
+     "entree_largeur_mini": 80
+    },
+    "accueil": {
+     "accueil_cheminement_plain_pied": true,
+     "accueil_retrecissement": false,
+     "sanitaires_presence": true,
+     "sanitaires_adaptes": true
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/marie-blachere-boulangerie-sandwicherie-tarterie-329/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/restauration-rapide/erp/marie-blachere-boulangerie-sandwicherie-tarterie-329/",
+   "uuid": "fcc182b7-2ddb-4f1e-99ae-b6239c7b7d8b",
+   "activite": {
+    "nom": "Restauration rapide",
+    "slug": "restauration-rapide"
+   },
+   "nom": "Marie Blachère Boulangerie Sandwicherie Tarterie",
+   "slug": "marie-blachere-boulangerie-sandwicherie-tarterie-329",
+   "adresse": "15bis Rue de la Rigourdière 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.583025,
+     48.116115
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2025-09-07T13:25:38.388880+02:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": true
+    },
+    "entree": {
+     "entree_porte_presence": true,
+     "entree_plain_pied": true,
+     "entree_largeur_mini": 80
+    },
+    "accueil": {
+     "accueil_cheminement_plain_pied": true,
+     "accueil_retrecissement": false,
+     "sanitaires_presence": true,
+     "sanitaires_adaptes": true
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/pique-prune-cesson-sevigne/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/restauration-rapide/erp/pique-prune-cesson-sevigne/",
+   "uuid": "8e0535fc-bf5e-4275-850c-2ed8764f9b30",
+   "activite": {
+    "nom": "Restauration rapide",
+    "slug": "restauration-rapide"
+   },
+   "nom": "Pique-Prune Cesson-Sévigné",
+   "slug": "pique-prune-cesson-sevigne",
+   "adresse": "8 Avenue des Peupliers 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.607045,
+     48.113345
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2025-09-07T13:25:21.003654+02:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": true
+    },
+    "entree": {
+     "entree_porte_presence": true,
+     "entree_plain_pied": true,
+     "entree_largeur_mini": 80
+    },
+    "accueil": {
+     "accueil_cheminement_plain_pied": true,
+     "accueil_retrecissement": false,
+     "sanitaires_presence": true,
+     "sanitaires_adaptes": true
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/le-cosy-7/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/restauration-rapide/erp/le-cosy-7/",
+   "uuid": "298c5b5a-8e47-4fa0-b66e-983e7354758d",
+   "activite": {
+    "nom": "Restauration rapide",
+    "slug": "restauration-rapide"
+   },
+   "nom": "Le Cosy",
+   "slug": "le-cosy-7",
+   "adresse": "9B Rue de Paris 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.599762,
+     48.114245
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2025-09-07T13:23:56.788311+02:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": true
+    },
+    "entree": {
+     "entree_porte_presence": true,
+     "entree_plain_pied": true,
+     "entree_largeur_mini": 80
+    },
+    "accueil": {
+     "accueil_cheminement_plain_pied": true,
+     "accueil_retrecissement": false,
+     "sanitaires_presence": true,
+     "sanitaires_adaptes": true
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/credit-agricole-cesson-viasilva-et-pole-sante/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/agence-immobiliere/erp/credit-agricole-cesson-viasilva-et-pole-sante/",
+   "uuid": "f13b8e57-efe7-4c1f-b23b-3da854116681",
+   "activite": {
+    "nom": "Agence immobilière",
+    "slug": "agence-immobiliere"
+   },
+   "nom": "Crédit Agricole Cesson ViaSilva et Pôle Santé",
+   "slug": "credit-agricole-cesson-viasilva-et-pole-sante",
+   "adresse": "19 Rue du Chêne Germain 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.622228,
+     48.128803
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2025-12-11T10:29:25.516867+01:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": true
+    },
+    "entree": {
+     "entree_porte_presence": true,
+     "entree_plain_pied": true,
+     "entree_largeur_mini": 80
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/tattoo-shop-2/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/bijouterie-joaillerie/erp/tattoo-shop-2/",
+   "uuid": "c892ef11-7665-4b60-b43f-68531c86aba5",
+   "activite": {
+    "nom": "Bijouterie joaillerie",
+    "slug": "bijouterie-joaillerie"
+   },
+   "nom": "Tattoo Shop",
+   "slug": "tattoo-shop-2",
+   "adresse": "3 Cours de la Vilaine 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.604798,
+     48.116387
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2025-09-05T04:53:29.450984+02:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": true
+    },
+    "entree": {
+     "entree_porte_presence": true,
+     "entree_plain_pied": true,
+     "entree_largeur_mini": 80
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/fromagerie-koaven-2/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/cremerie-fromagerie/erp/fromagerie-koaven-2/",
+   "uuid": "829f6d0f-9c54-43c0-b8f7-69ec6bdcc071",
+   "activite": {
+    "nom": "Fromagerie",
+    "slug": "cremerie-fromagerie"
+   },
+   "nom": "Fromagerie Koaven",
+   "slug": "fromagerie-koaven-2",
+   "adresse": "2 Rue de la Villa Romaine 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.613038,
+     48.131098
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2025-07-23T16:04:07.034704+02:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_presence": true,
+     "stationnement_pmr": true
+    },
+    "cheminement_ext": {
+     "cheminement_ext_presence": true,
+     "cheminement_ext_terrain_stable": true,
+     "cheminement_ext_plain_pied": true,
+     "cheminement_ext_retrecissement": false
+    },
+    "entree": {
+     "entree_plain_pied": true
+    },
+    "accueil": {
+     "sanitaires_presence": true,
+     "sanitaires_adaptes": false
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/les-baguettes-de-piment-rouge/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/restaurant/erp/les-baguettes-de-piment-rouge/",
+   "uuid": "b45625a9-6f1e-4473-97fe-f863299bcffb",
+   "activite": {
+    "nom": "Restaurant",
+    "slug": "restaurant"
+   },
+   "nom": "Les Baguettes de Piment Rouge",
+   "slug": "les-baguettes-de-piment-rouge",
+   "adresse": "18 Rue de la Rigourdière 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.588354,
+     48.114106
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2025-06-04T10:41:24.167038+02:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_presence": true,
+     "stationnement_pmr": true
+    },
+    "cheminement_ext": {
+     "cheminement_ext_presence": true,
+     "cheminement_ext_terrain_stable": true,
+     "cheminement_ext_plain_pied": true,
+     "cheminement_ext_retrecissement": false
+    },
+    "entree": {
+     "entree_plain_pied": true
+    },
+    "accueil": {
+     "sanitaires_presence": true,
+     "sanitaires_adaptes": true
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/jmembalmer-formation-rennes/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/emploi-formation/erp/jmembalmer-formation-rennes/",
+   "uuid": "ebbf2ad6-4fda-4229-a133-6999c93bf389",
+   "activite": {
+    "nom": "Emploi, formation",
+    "slug": "emploi-formation"
+   },
+   "nom": "Jmembalmer Formation Rennes",
+   "slug": "jmembalmer-formation-rennes",
+   "adresse": "4 Avenue des Peupliers 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.604869,
+     48.113197
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2025-05-28T12:04:22.295770+02:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_presence": true,
+     "stationnement_pmr": true
+    },
+    "cheminement_ext": {
+     "cheminement_ext_presence": true,
+     "cheminement_ext_terrain_stable": true,
+     "cheminement_ext_plain_pied": true,
+     "cheminement_ext_retrecissement": false
+    },
+    "entree": {
+     "entree_plain_pied": true
+    },
+    "accueil": {
+     "sanitaires_presence": true,
+     "sanitaires_adaptes": true
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/firm-board-center-training-bilan-de-competences-coaching-consultante-rh-rennes-cesson-janze-fabienne-howson/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/emploi-formation/erp/firm-board-center-training-bilan-de-competences-coaching-consultante-rh-rennes-cesson-janze-fabienne-howson/",
+   "uuid": "4643a5de-9b88-46db-a247-f211d31f3079",
+   "activite": {
+    "nom": "Emploi, formation",
+    "slug": "emploi-formation"
+   },
+   "nom": "Firm Board, Center Training Bilan De Compétences, Coaching, Consultante Rh, Rennes Cesson Janzé Fabienne Howson",
+   "slug": "firm-board-center-training-bilan-de-competences-coaching-consultante-rh-rennes-cesson-janze-fabienne-howson",
+   "adresse": "20 Rue des Landelles 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.624507,
+     48.100067
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2025-05-28T11:57:01.430364+02:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_presence": true,
+     "stationnement_pmr": true
+    },
+    "cheminement_ext": {
+     "cheminement_ext_presence": true,
+     "cheminement_ext_terrain_stable": true,
+     "cheminement_ext_plain_pied": true,
+     "cheminement_ext_retrecissement": false
+    },
+    "entree": {
+     "entree_plain_pied": true
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/human-11/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/emploi-formation/erp/human-11/",
+   "uuid": "2bf93f01-fb0d-4ca5-9692-8627a61e3ec0",
+   "activite": {
+    "nom": "Emploi, formation",
+    "slug": "emploi-formation"
+   },
+   "nom": "Human",
+   "slug": "human-11",
+   "adresse": "801 Avenue des Champs Blancs 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.618264,
+     48.133435
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2025-05-28T11:46:01.931648+02:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_presence": true,
+     "stationnement_pmr": true
+    },
+    "cheminement_ext": {
+     "cheminement_ext_presence": true
+    },
+    "entree": {
+     "entree_plain_pied": true
+    },
+    "accueil": {
+     "sanitaires_presence": true,
+     "sanitaires_adaptes": true
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/imscof/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/instituts-de-formation/erp/imscof/",
+   "uuid": "e7894ec2-9624-4b4b-8e86-6fd13ba4361a",
+   "activite": {
+    "nom": "Institut de formation, de recherche",
+    "slug": "instituts-de-formation"
+   },
+   "nom": "Imscof",
+   "slug": "imscof",
+   "adresse": "3d Rue de Paris 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.601911,
+     48.113542
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2025-05-28T11:45:50.820593+02:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_presence": true,
+     "stationnement_pmr": false,
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": true
+    },
+    "cheminement_ext": {
+     "cheminement_ext_presence": true
+    },
+    "entree": {
+     "entree_plain_pied": true
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/formacils/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/soins-de-beaute/erp/formacils/",
+   "uuid": "847264ef-7ba8-4526-a533-5ca4edcaaeac",
+   "activite": {
+    "nom": "Soins de beauté, esthétique",
+    "slug": "soins-de-beaute"
+   },
+   "nom": "FormaCils",
+   "slug": "formacils",
+   "adresse": "2 Rue d'Irlande 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.610483,
+     48.110342
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2025-05-11T12:13:44.130277+02:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": true
+    },
+    "entree": {
+     "entree_porte_presence": true
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/kap-nails/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/soins-de-beaute/erp/kap-nails/",
+   "uuid": "7e98c128-a944-4bdc-b367-b06d7bfa858e",
+   "activite": {
+    "nom": "Soins de beauté, esthétique",
+    "slug": "soins-de-beaute"
+   },
+   "nom": "KAP NAILS",
+   "slug": "kap-nails",
+   "adresse": "3a Rue de Paris 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.602577,
+     48.113857
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2025-05-11T12:13:13.088744+02:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": true
+    },
+    "entree": {
+     "entree_porte_presence": true
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/beauty-bar-institut-de-beaute/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/soins-de-beaute/erp/beauty-bar-institut-de-beaute/",
+   "uuid": "2887d7ad-a9d5-4c26-a58d-82f67bd44a13",
+   "activite": {
+    "nom": "Soins de beauté, esthétique",
+    "slug": "soins-de-beaute"
+   },
+   "nom": "Beauty Bar - Institut de Beauté",
+   "slug": "beauty-bar-institut-de-beaute",
+   "adresse": "15 Rue de Bray 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.626554,
+     48.10614
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2025-05-11T12:11:48.009120+02:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": true
+    },
+    "entree": {
+     "entree_porte_presence": true
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/carglass-pare-brise-cesson-sevigne/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/carrosserie/erp/carglass-pare-brise-cesson-sevigne/",
+   "uuid": "75c4f9d0-ecbf-4f94-86e5-bd4780081d0e",
+   "activite": {
+    "nom": "Carrosserie",
+    "slug": "carrosserie"
+   },
+   "nom": "CARGLASS Pare-Brise Cesson Sevigne",
+   "slug": "carglass-pare-brise-cesson-sevigne",
+   "adresse": "27 Rue de Rennes 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.613769,
+     48.114097
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2025-11-19T10:59:41.197517+01:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": true
+    },
+    "entree": {
+     "entree_porte_presence": true,
+     "entree_plain_pied": true,
+     "entree_largeur_mini": 80
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/mg-motor-rennes/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/carrosserie/erp/mg-motor-rennes/",
+   "uuid": "5a89b4fb-5791-49ba-8552-23f4c7ba8c55",
+   "activite": {
+    "nom": "Carrosserie",
+    "slug": "carrosserie"
+   },
+   "nom": "MG Motor Rennes",
+   "slug": "mg-motor-rennes",
+   "adresse": "23 Rue de Bray 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.615119,
+     48.107841
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2025-05-09T21:52:45.743026+02:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": true
+    },
+    "entree": {
+     "entree_porte_presence": true,
+     "entree_plain_pied": true,
+     "entree_largeur_mini": 80
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/societe-nouvelle-jean-letournel/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/carrosserie/erp/societe-nouvelle-jean-letournel/",
+   "uuid": "6a757549-542c-4e64-b9de-27f49c5545ea",
+   "activite": {
+    "nom": "Carrosserie",
+    "slug": "carrosserie"
+   },
+   "nom": "Société nouvelle Jean Letournel",
+   "slug": "societe-nouvelle-jean-letournel",
+   "adresse": "42 Route de Fougères 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.615164,
+     48.1411
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2025-05-09T21:52:32.540377+02:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": true
+    },
+    "entree": {
+     "entree_porte_presence": true,
+     "entree_plain_pied": true,
+     "entree_largeur_mini": 80
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/euromaster-cesson-sevigne-2/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/carrosserie/erp/euromaster-cesson-sevigne-2/",
+   "uuid": "e8f578fe-6770-4f88-8d7e-7cca85ccd1e0",
+   "activite": {
+    "nom": "Carrosserie",
+    "slug": "carrosserie"
+   },
+   "nom": "Euromaster Cesson Sevigne",
+   "slug": "euromaster-cesson-sevigne-2",
+   "adresse": "Route de Chantepie 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.605025,
+     48.101044
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2025-05-09T21:51:55.863133+02:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": true
+    },
+    "entree": {
+     "entree_porte_presence": true,
+     "entree_plain_pied": true,
+     "entree_largeur_mini": 80
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/les-imparfaites-fleuriste-cesson-sevigne/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/fleuriste/erp/les-imparfaites-fleuriste-cesson-sevigne/",
+   "uuid": "88a73b52-ae75-4db1-887b-cfea7815c182",
+   "activite": {
+    "nom": "Fleuriste",
+    "slug": "fleuriste"
+   },
+   "nom": "Les Imparfaites | Fleuriste Cesson-Sévigné",
+   "slug": "les-imparfaites-fleuriste-cesson-sevigne",
+   "adresse": "10b Rue de la Croix Connue 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.607318,
+     48.116555
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2025-05-08T17:37:03.686263+02:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": true
+    },
+    "entree": {
+     "entree_porte_presence": true,
+     "entree_plain_pied": true,
+     "entree_largeur_mini": 80
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/despi-le-boucher-16/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/boucherie/erp/despi-le-boucher-16/",
+   "uuid": "78577f29-312f-413a-a7de-a4db015694f1",
+   "activite": {
+    "nom": "Boucherie / commerce de viande",
+    "slug": "boucherie"
+   },
+   "nom": "DESPI LE BOUCHER",
+   "slug": "despi-le-boucher-16",
+   "adresse": "15bis Rue de la Rigourdière 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.583025,
+     48.116115
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2025-05-04T09:43:22.070956+02:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": true
+    },
+    "entree": {
+     "entree_porte_presence": true,
+     "entree_plain_pied": true,
+     "entree_largeur_mini": 80
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/carrefour-rennes-cesson/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/supermarche/erp/carrefour-rennes-cesson/",
+   "uuid": "960bb2c8-2236-4c3d-8a75-7c80beb3f1d5",
+   "activite": {
+    "nom": "Supermarché",
+    "slug": "supermarche"
+   },
+   "nom": "Carrefour Rennes Cesson",
+   "slug": "carrefour-rennes-cesson",
+   "adresse": "Route de Domloup 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.57952,
+     48.107752
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2025-04-24T15:53:24.730171+02:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": true
+    },
+    "entree": {
+     "entree_porte_presence": true,
+     "entree_plain_pied": true,
+     "entree_largeur_mini": 80
+    },
+    "accueil": {
+     "sanitaires_presence": true,
+     "sanitaires_adaptes": true
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/centre-commercial-carrefour-rennes-cesson/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/supermarche/erp/centre-commercial-carrefour-rennes-cesson/",
+   "uuid": "4d1ac33f-0b45-40a9-b001-e37aa474a5ea",
+   "activite": {
+    "nom": "Supermarché",
+    "slug": "supermarche"
+   },
+   "nom": "Centre Commercial Carrefour Rennes-Cesson",
+   "slug": "centre-commercial-carrefour-rennes-cesson",
+   "adresse": "la Rigourdière 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.588429,
+     48.112937
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2025-04-24T15:53:04.425358+02:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": true
+    },
+    "entree": {
+     "entree_porte_presence": true,
+     "entree_plain_pied": true,
+     "entree_largeur_mini": 80
+    },
+    "accueil": {
+     "accueil_cheminement_plain_pied": true,
+     "accueil_retrecissement": false,
+     "sanitaires_presence": true,
+     "sanitaires_adaptes": true
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/lorange-bleue-my-fitness-coach/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/salles-de-remise-en-forme/erp/lorange-bleue-my-fitness-coach/",
+   "uuid": "f00e1011-99f9-4a84-9a3e-9d7a8c6bfa9b",
+   "activite": {
+    "nom": "Salle de remise en forme",
+    "slug": "salles-de-remise-en-forme"
+   },
+   "nom": "L'Orange Bleue My Fitness Coach",
+   "slug": "lorange-bleue-my-fitness-coach",
+   "adresse": "38 Rue de la Rigourdière 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.587439,
+     48.114746
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2025-04-17T14:01:52.858763+02:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_presence": true,
+     "stationnement_pmr": true
+    },
+    "cheminement_ext": {
+     "cheminement_ext_presence": true,
+     "cheminement_ext_terrain_stable": true,
+     "cheminement_ext_plain_pied": true,
+     "cheminement_ext_retrecissement": false
+    },
+    "entree": {
+     "entree_plain_pied": true
+    },
+    "accueil": {
+     "sanitaires_presence": true,
+     "sanitaires_adaptes": true
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/training-academy/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/sports-et-loisirs/erp/training-academy/",
+   "uuid": "d1a97a62-87a4-4968-96ec-1ce6d2d9d4dd",
+   "activite": {
+    "nom": "Sports et loisirs",
+    "slug": "sports-et-loisirs"
+   },
+   "nom": "Training Academy",
+   "slug": "training-academy",
+   "adresse": "24 Rue du Bas Village 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.626407,
+     48.102805
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2025-04-17T14:01:47.907189+02:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_presence": true,
+     "stationnement_pmr": true
+    },
+    "cheminement_ext": {
+     "cheminement_ext_presence": true,
+     "cheminement_ext_terrain_stable": true,
+     "cheminement_ext_plain_pied": true,
+     "cheminement_ext_retrecissement": false
+    },
+    "entree": {
+     "entree_plain_pied": true
+    },
+    "accueil": {
+     "sanitaires_presence": true,
+     "sanitaires_adaptes": true
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/asso-fastoche/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/association/erp/asso-fastoche/",
+   "uuid": "aac97f4e-e45a-486d-97be-19639b6858af",
+   "activite": {
+    "nom": "Association",
+    "slug": "association"
+   },
+   "nom": "asso fastoche",
+   "slug": "asso-fastoche",
+   "adresse": "43 Boulevard de Dézerseul 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.589863,
+     48.12396
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2025-04-17T09:52:30.450735+02:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_presence": true,
+     "stationnement_pmr": true
+    },
+    "cheminement_ext": {
+     "cheminement_ext_presence": true,
+     "cheminement_ext_terrain_stable": true,
+     "cheminement_ext_plain_pied": true,
+     "cheminement_ext_retrecissement": false
+    },
+    "entree": {
+     "entree_plain_pied": true
+    },
+    "accueil": {
+     "sanitaires_presence": true,
+     "sanitaires_adaptes": true
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/olympique-club-cessonnais-football/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/stade/erp/olympique-club-cessonnais-football/",
+   "uuid": "0eaf89fc-82d7-4a8a-ab9e-183fbb89605a",
+   "activite": {
+    "nom": "Stade",
+    "slug": "stade"
+   },
+   "nom": "Olympique Club Cessonnais Football",
+   "slug": "olympique-club-cessonnais-football",
+   "adresse": "43 Boulevard de Dézerseul 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.589863,
+     48.12396
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2025-04-11T21:16:41.125890+02:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": true
+    },
+    "entree": {
+     "entree_porte_presence": true,
+     "entree_plain_pied": true,
+     "entree_largeur_mini": 80
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/palais-des-sports-la-valette/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/stade/erp/palais-des-sports-la-valette/",
+   "uuid": "ff04b5c7-8a51-4948-ba8a-9bbdc6cb34c5",
+   "activite": {
+    "nom": "Stade",
+    "slug": "stade"
+   },
+   "nom": "Palais des Sports - La Valette",
+   "slug": "palais-des-sports-la-valette",
+   "adresse": "3 Allée de Champagné 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.596387,
+     48.115005
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2025-04-11T21:16:21.456984+02:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": true
+    },
+    "entree": {
+     "entree_porte_presence": true,
+     "entree_plain_pied": true,
+     "entree_largeur_mini": 80
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/u-express-128/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/supermarche/erp/u-express-128/",
+   "uuid": "91e43718-536e-4f95-8302-15a8cb83641e",
+   "activite": {
+    "nom": "Supermarché",
+    "slug": "supermarche"
+   },
+   "nom": "U Express",
+   "slug": "u-express-128",
+   "adresse": "38 Rue de Beausoleil 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.613381,
+     48.121377
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2025-04-09T10:04:53.105331+02:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": true
+    },
+    "entree": {
+     "entree_porte_presence": true,
+     "entree_plain_pied": true,
+     "entree_largeur_mini": 80
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/carrefour-city-476/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/supermarche/erp/carrefour-city-476/",
+   "uuid": "a068f4fc-4850-4420-a6b7-3a22a5da71da",
+   "activite": {
+    "nom": "Supermarché",
+    "slug": "supermarche"
+   },
+   "nom": "Carrefour City",
+   "slug": "carrefour-city-476",
+   "adresse": "47B Rue de Rennes 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.618138,
+     48.11401
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2026-04-09T09:50:42.707010+02:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": true
+    },
+    "entree": {
+     "entree_porte_presence": true,
+     "entree_plain_pied": true,
+     "entree_largeur_mini": 80
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/rapine-tiphanie/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/infirmier/erp/rapine-tiphanie/",
+   "uuid": "7b55cf28-b7f8-40e0-917e-12a2860a00a7",
+   "activite": {
+    "nom": "Infirmier",
+    "slug": "infirmier"
+   },
+   "nom": "Rapine Tiphanie",
+   "slug": "rapine-tiphanie",
+   "adresse": "11 Rue du Chêne Germain 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.624586,
+     48.130624
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2025-03-27T11:42:34.788731+01:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "transport_station_presence": true,
+     "transport_information": "Bus, métro ligne B",
+     "stationnement_presence": true,
+     "stationnement_pmr": true,
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": true
+    },
+    "cheminement_ext": {
+     "cheminement_ext_presence": true,
+     "cheminement_ext_terrain_stable": true,
+     "cheminement_ext_devers": "aucun"
+    },
+    "entree": {
+     "entree_porte_presence": true,
+     "entree_porte_manoeuvre": "coulissante",
+     "entree_porte_type": "automatique",
+     "entree_vitree": true,
+     "entree_plain_pied": true,
+     "entree_dispositif_appel": true,
+     "entree_largeur_mini": 100
+    },
+    "accueil": {
+     "accueil_visibilite": true,
+     "accueil_personnels": "non-formés",
+     "sanitaires_presence": true
+    },
+    "commentaire": {
+     "commentaire": "anglais"
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/le-magadoux-francoise/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/medecin-generaliste/erp/le-magadoux-francoise/",
+   "uuid": "17dd3a17-09ed-4a0f-9cc2-ad2325499174",
+   "activite": {
+    "nom": "Médecin généraliste",
+    "slug": "medecin-generaliste"
+   },
+   "nom": "Le Magadoux Francoise",
+   "slug": "le-magadoux-francoise",
+   "adresse": "15 Mail de Bourgchevreuil 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.608191,
+     48.117688
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2025-03-27T11:19:48.471604+01:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "transport_station_presence": true,
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": true
+    },
+    "cheminement_ext": {
+     "cheminement_ext_presence": true,
+     "cheminement_ext_terrain_stable": true,
+     "cheminement_ext_plain_pied": false,
+     "cheminement_ext_ascenseur": false,
+     "cheminement_ext_nombre_marches": 3,
+     "cheminement_ext_sens_marches": "montant",
+     "cheminement_ext_reperage_marches": true,
+     "cheminement_ext_main_courante": true,
+     "cheminement_ext_rampe": "aucune",
+     "cheminement_ext_bande_guidage": true
+    },
+    "entree": {
+     "entree_reperage": false,
+     "entree_porte_presence": true,
+     "entree_porte_manoeuvre": "battante",
+     "entree_porte_type": "manuelle",
+     "entree_vitree": true,
+     "entree_plain_pied": true,
+     "entree_dispositif_appel": true,
+     "entree_aide_humaine": false,
+     "entree_largeur_mini": 150,
+     "entree_pmr": false
+    },
+    "accueil": {
+     "accueil_visibilite": true,
+     "accueil_personnels": "aucun",
+     "accueil_equipements_malentendants_presence": false,
+     "sanitaires_presence": true,
+     "sanitaires_adaptes": true
+    },
+    "commentaire": {
+     "commentaire": "3 marches pour accéder au cabinet"
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/carrefour-contact-158/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/supermarche/erp/carrefour-contact-158/",
+   "uuid": "378a3db7-ca25-4306-84f4-02acf3cd7d3d",
+   "activite": {
+    "nom": "Supermarché",
+    "slug": "supermarche"
+   },
+   "nom": "Carrefour Contact",
+   "slug": "carrefour-contact-158",
+   "adresse": "Boulevard des Métairies 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.600024,
+     48.122948
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2025-03-27T09:23:38.614150+01:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": true
+    },
+    "entree": {
+     "entree_porte_presence": true,
+     "entree_plain_pied": true,
+     "entree_largeur_mini": 80
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/cave-a-flo/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/cafeteria/erp/cave-a-flo/",
+   "uuid": "3d46e09d-76b6-4c98-acb1-a5a5869e6373",
+   "activite": {
+    "nom": "Café, bar, brasserie",
+    "slug": "cafeteria"
+   },
+   "nom": "Cave à Flo",
+   "slug": "cave-a-flo",
+   "adresse": "Allée de Bray 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.614294,
+     48.109069
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2025-03-26T16:46:18.072011+01:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": true
+    },
+    "entree": {
+     "entree_porte_presence": true,
+     "entree_plain_pied": true,
+     "entree_largeur_mini": 80
+    },
+    "accueil": {
+     "accueil_cheminement_plain_pied": true,
+     "accueil_retrecissement": false,
+     "sanitaires_presence": true,
+     "sanitaires_adaptes": true
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/biocoop-scarabee-cesson-sevigne/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/superette/erp/biocoop-scarabee-cesson-sevigne/",
+   "uuid": "2fc1838e-52b0-42b3-88b0-d16607771e44",
+   "activite": {
+    "nom": "Supérette",
+    "slug": "superette"
+   },
+   "nom": "Biocoop Scarabée Cesson-Sévigné",
+   "slug": "biocoop-scarabee-cesson-sevigne",
+   "adresse": "8 Avenue des Peupliers 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.607045,
+     48.113345
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2025-03-20T17:37:17.654565+01:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": true
+    },
+    "entree": {
+     "entree_porte_presence": true,
+     "entree_plain_pied": true,
+     "entree_largeur_mini": 80
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/burger-king-315/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/restauration-rapide/erp/burger-king-315/",
+   "uuid": "8f4f6c9d-8fe5-480d-818e-4a0927954a98",
+   "activite": {
+    "nom": "Restauration rapide",
+    "slug": "restauration-rapide"
+   },
+   "nom": "Burger King",
+   "slug": "burger-king-315",
+   "adresse": "Route de Domloup 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.57952,
+     48.107752
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2025-03-13T11:46:21.101334+01:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": true
+    },
+    "entree": {
+     "entree_porte_presence": true,
+     "entree_plain_pied": true,
+     "entree_largeur_mini": 80
+    },
+    "accueil": {
+     "sanitaires_presence": true,
+     "sanitaires_adaptes": true
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/kfc-rennes-cesson/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/restauration-rapide/erp/kfc-rennes-cesson/",
+   "uuid": "78f6968f-5928-480b-b106-a4c2ee4c3d22",
+   "activite": {
+    "nom": "Restauration rapide",
+    "slug": "restauration-rapide"
+   },
+   "nom": "KFC Rennes Cesson",
+   "slug": "kfc-rennes-cesson",
+   "adresse": "Rue du Taillis 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.623507,
+     48.116954
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2025-03-13T11:19:15.584372+01:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": true
+    },
+    "entree": {
+     "entree_porte_presence": true,
+     "entree_plain_pied": true,
+     "entree_largeur_mini": 80
+    },
+    "accueil": {
+     "accueil_cheminement_plain_pied": true,
+     "accueil_retrecissement": false,
+     "sanitaires_presence": true,
+     "sanitaires_adaptes": true
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/toilette-publique-203/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/toilettes-publiques/erp/toilette-publique-203/",
+   "uuid": "916a4819-1e10-46f0-b68a-e7d661ce125b",
+   "activite": {
+    "nom": "Toilettes publiques",
+    "slug": "toilettes-publiques"
+   },
+   "nom": "Toilette publique",
+   "slug": "toilette-publique-203",
+   "adresse": "Etangs de Dézerseul 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.59085,
+     48.122563
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2025-03-03T04:26:49.570827+01:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": true
+    },
+    "entree": {
+     "entree_porte_presence": true,
+     "entree_plain_pied": true,
+     "entree_largeur_mini": 80
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/boulangerie-feuillette-57/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/boulangerie-patisserie/erp/boulangerie-feuillette-57/",
+   "uuid": "3c4816e5-7e8b-469d-8c65-a5c9a3ea2e5b",
+   "activite": {
+    "nom": "Boulangerie Pâtisserie",
+    "slug": "boulangerie-patisserie"
+   },
+   "nom": "Boulangerie Feuillette",
+   "slug": "boulangerie-feuillette-57",
+   "adresse": "35 Rue de Bray 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.612659,
+     48.108302
+    ]
+   },
+   "user_type": "public",
+   "updated_at": "2026-08-28T15:51:53.923153+02:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "transport_station_presence": false,
+     "stationnement_presence": true,
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": false
+    },
+    "cheminement_ext": {
+     "cheminement_ext_presence": false
+    },
+    "entree": {
+     "entree_reperage": true,
+     "entree_porte_presence": true,
+     "entree_porte_manoeuvre": "coulissante",
+     "entree_porte_type": "automatique",
+     "entree_vitree": true,
+     "entree_vitree_vitrophanie": true,
+     "entree_plain_pied": true,
+     "entree_aide_humaine": false,
+     "entree_largeur_mini": 80
+    },
+    "accueil": {
+     "accueil_visibilite": false,
+     "accueil_retrecissement": false,
+     "accueil_personnels": "aucun",
+     "accueil_audiodescription_presence": false
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/roazhon-familh-blockout/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/restauration-rapide/erp/roazhon-familh-blockout/",
+   "uuid": "b9a52f7d-9a0e-4d55-8793-f8d002230934",
+   "activite": {
+    "nom": "Restauration rapide",
+    "slug": "restauration-rapide"
+   },
+   "nom": "Roazhon Familh - Block'Out",
+   "slug": "roazhon-familh-blockout",
+   "adresse": "1 Rue de Bray 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.631685,
+     48.104167
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2025-02-07T12:22:11.931658+01:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": true
+    },
+    "entree": {
+     "entree_porte_presence": true,
+     "entree_plain_pied": true,
+     "entree_largeur_mini": 80
+    },
+    "accueil": {
+     "accueil_cheminement_plain_pied": true,
+     "accueil_retrecissement": false,
+     "sanitaires_presence": true,
+     "sanitaires_adaptes": true
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/cellule-grise-escape-game/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/centre-de-loisirs/erp/cellule-grise-escape-game/",
+   "uuid": "93d2fa6a-915f-4599-99bf-e9b7d6b505c6",
+   "activite": {
+    "nom": "Centre de loisirs",
+    "slug": "centre-de-loisirs"
+   },
+   "nom": "Cellule Grise - Escape Game",
+   "slug": "cellule-grise-escape-game",
+   "adresse": "1 Rue de la Carrière 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.612321,
+     48.108591
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2025-01-15T11:09:12.740154+01:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_presence": true,
+     "stationnement_pmr": true
+    },
+    "cheminement_ext": {
+     "cheminement_ext_presence": true,
+     "cheminement_ext_terrain_stable": true,
+     "cheminement_ext_plain_pied": true,
+     "cheminement_ext_retrecissement": false
+    },
+    "entree": {
+     "entree_plain_pied": true
+    },
+    "accueil": {
+     "sanitaires_presence": true,
+     "sanitaires_adaptes": true
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/stouphys-bijoux/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/bijouterie-joaillerie/erp/stouphys-bijoux/",
+   "uuid": "9a7e557b-e254-44f8-8b80-86d6bff8196e",
+   "activite": {
+    "nom": "Bijouterie joaillerie",
+    "slug": "bijouterie-joaillerie"
+   },
+   "nom": "Stouphy's bijoux",
+   "slug": "stouphys-bijoux",
+   "adresse": "Rue de la Rabine 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.625491,
+     48.115993
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2025-01-05T03:52:41.131305+01:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": true
+    },
+    "entree": {
+     "entree_porte_presence": true
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/nous-epicerie-anti-gaspi-cesson-sevigne/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/boucherie/erp/nous-epicerie-anti-gaspi-cesson-sevigne/",
+   "uuid": "9e66f626-ee17-4c5f-8f85-fb09a039b261",
+   "activite": {
+    "nom": "Boucherie / commerce de viande",
+    "slug": "boucherie"
+   },
+   "nom": "NOUS épicerie anti-gaspi Cesson-Sévigné",
+   "slug": "nous-epicerie-anti-gaspi-cesson-sevigne",
+   "adresse": "12 Rue de la Rigourdière 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.589884,
+     48.114186
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2025-01-04T17:47:42.878550+01:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": true
+    },
+    "entree": {
+     "entree_porte_presence": true,
+     "entree_plain_pied": true,
+     "entree_largeur_mini": 80
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/boucherie-maurice-cesson/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/boucherie/erp/boucherie-maurice-cesson/",
+   "uuid": "8e10c585-4b14-4b22-9965-c946b333749f",
+   "activite": {
+    "nom": "Boucherie / commerce de viande",
+    "slug": "boucherie"
+   },
+   "nom": "Boucherie Maurice Cesson",
+   "slug": "boucherie-maurice-cesson",
+   "adresse": "26 Route de Fougères 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.625861,
+     48.135524
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2026-02-27T14:50:38.192250+01:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "transport_station_presence": true,
+     "transport_information": "Bus 50 et 78 (Touche Lambert)\r\nBus 50, 78 et E4 (Touche Lambert)",
+     "stationnement_presence": false,
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": true
+    },
+    "cheminement_ext": {
+     "cheminement_ext_presence": false
+    },
+    "entree": {
+     "entree_reperage": true,
+     "entree_porte_presence": true,
+     "entree_porte_manoeuvre": "battante",
+     "entree_porte_type": "manuelle",
+     "entree_vitree": true,
+     "entree_vitree_vitrophanie": true,
+     "entree_plain_pied": true,
+     "entree_dispositif_appel": false,
+     "entree_balise_sonore": false,
+     "entree_aide_humaine": false,
+     "entree_largeur_mini": 90
+    },
+    "accueil": {
+     "accueil_cheminement_plain_pied": false,
+     "accueil_cheminement_ascenseur": false,
+     "accueil_cheminement_sens_marches": "montant",
+     "accueil_cheminement_reperage_marches": false,
+     "accueil_cheminement_main_courante": false,
+     "accueil_cheminement_rampe": "aucune",
+     "accueil_retrecissement": false,
+     "accueil_personnels": "non-formés"
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/baptiste-beaune-osteopathe/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/osteopathie/erp/baptiste-beaune-osteopathe/",
+   "uuid": "55aa439c-5531-4a98-b552-2ff8067cce53",
+   "activite": {
+    "nom": "Ostéopathie",
+    "slug": "osteopathie"
+   },
+   "nom": "Baptiste Beaune Ostéopathe",
+   "slug": "baptiste-beaune-osteopathe",
+   "adresse": "8 Rue du Chêne Germain 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.627311,
+     48.130369
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2024-12-18T15:33:47.891496+01:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_presence": true,
+     "stationnement_pmr": true
+    },
+    "cheminement_ext": {
+     "cheminement_ext_presence": true,
+     "cheminement_ext_terrain_stable": true,
+     "cheminement_ext_plain_pied": true,
+     "cheminement_ext_retrecissement": false
+    },
+    "entree": {
+     "entree_plain_pied": true
+    },
+    "accueil": {
+     "sanitaires_presence": true,
+     "sanitaires_adaptes": true
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/anne-masson-naturopathe-iridologue-rennes/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/herboristerie-naturopathie/erp/anne-masson-naturopathe-iridologue-rennes/",
+   "uuid": "538d597c-5d82-499a-b22e-4b3ce3e7ea07",
+   "activite": {
+    "nom": "Naturopathie, herboristerie",
+    "slug": "herboristerie-naturopathie"
+   },
+   "nom": "Anne Masson - Naturopathe / Iridologue - Rennes",
+   "slug": "anne-masson-naturopathe-iridologue-rennes",
+   "adresse": "1 Square du Chêne Germain 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.624242,
+     48.131668
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2024-12-18T14:56:45.049896+01:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_presence": false
+    },
+    "entree": {
+     "entree_plain_pied": true
+    },
+    "accueil": {
+     "sanitaires_presence": true,
+     "sanitaires_adaptes": false
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/sandrine-carou-naturopathe-sophrologue/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/bien-etre/erp/sandrine-carou-naturopathe-sophrologue/",
+   "uuid": "44eeb942-e66c-4e5f-8e04-3fc1e84db2a3",
+   "activite": {
+    "nom": "Bien-être",
+    "slug": "bien-etre"
+   },
+   "nom": "Sandrine CAROU - Naturopathe Sophrologue",
+   "slug": "sandrine-carou-naturopathe-sophrologue",
+   "adresse": "4 Rue de Rennes 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.611309,
+     48.114377
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2024-12-30T09:03:24.107011+01:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_presence": true,
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": true
+    },
+    "cheminement_ext": {
+     "cheminement_ext_presence": true
+    },
+    "entree": {
+     "entree_plain_pied": true
+    },
+    "accueil": {
+     "sanitaires_presence": true,
+     "sanitaires_adaptes": true
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/nursery-calais-association-parenbouge/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/creche/erp/nursery-calais-association-parenbouge/",
+   "uuid": "ee3e7bce-3b6b-4b8f-bde9-487093029299",
+   "activite": {
+    "nom": "Crèche",
+    "slug": "creche"
+   },
+   "nom": "Nursery Calais - Association Parenbouge",
+   "slug": "nursery-calais-association-parenbouge",
+   "adresse": "10 Rue du Chêne Germain 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.626134,
+     48.130705
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2024-12-04T16:58:31.174515+01:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_presence": false,
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": true
+    },
+    "entree": {
+     "entree_plain_pied": true
+    },
+    "accueil": {
+     "sanitaires_presence": true,
+     "sanitaires_adaptes": false
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/peugeot-garage-des-noyers-reparateur-agree/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/carrosserie/erp/peugeot-garage-des-noyers-reparateur-agree/",
+   "uuid": "ba075b7a-00e5-4c00-ba1d-1f36398d0240",
+   "activite": {
+    "nom": "Carrosserie",
+    "slug": "carrosserie"
+   },
+   "nom": "Peugeot Garage des Noyers réparateur agrée",
+   "slug": "peugeot-garage-des-noyers-reparateur-agree",
+   "adresse": "6 Rue de Bray 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.630122,
+     48.104716
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2025-12-11T10:32:40.451554+01:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": true
+    },
+    "entree": {
+     "entree_porte_presence": true,
+     "entree_plain_pied": true,
+     "entree_largeur_mini": 80
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/audi-rennes-olympe-automobiles/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/carrosserie/erp/audi-rennes-olympe-automobiles/",
+   "uuid": "bc4f2c34-d650-48d4-8b9d-c80f31596f1e",
+   "activite": {
+    "nom": "Carrosserie",
+    "slug": "carrosserie"
+   },
+   "nom": "Audi Rennes Olympe Automobiles",
+   "slug": "audi-rennes-olympe-automobiles",
+   "adresse": "Rue des Mesliers 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.617251,
+     48.105513
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2024-11-09T20:53:30.937720+01:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": true
+    },
+    "entree": {
+     "entree_porte_presence": true,
+     "entree_plain_pied": true,
+     "entree_largeur_mini": 80
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/spoticar-stellantis-you-cesson/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/carrosserie/erp/spoticar-stellantis-you-cesson/",
+   "uuid": "c5b92b4a-b4eb-45e6-b52e-25eaae020752",
+   "activite": {
+    "nom": "Carrosserie",
+    "slug": "carrosserie"
+   },
+   "nom": "SPOTICAR STELLANTIS &YOU CESSON",
+   "slug": "spoticar-stellantis-you-cesson",
+   "adresse": "51 Rue de Rennes 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.623478,
+     48.113992
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2024-11-09T20:53:21.869782+01:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": true
+    },
+    "entree": {
+     "entree_porte_presence": true,
+     "entree_plain_pied": true,
+     "entree_largeur_mini": 80
+    },
+    "accueil": {
+     "accueil_cheminement_plain_pied": true,
+     "accueil_retrecissement": false
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/jd-carrosserie-colas/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/carrosserie/erp/jd-carrosserie-colas/",
+   "uuid": "65c23abe-e25f-47ec-ab13-5b5767a3dfe3",
+   "activite": {
+    "nom": "Carrosserie",
+    "slug": "carrosserie"
+   },
+   "nom": "JD Carrosserie Colas",
+   "slug": "jd-carrosserie-colas",
+   "adresse": "15 Avenue des Peupliers 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.607011,
+     48.112516
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2024-11-09T20:51:31.944840+01:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": true
+    },
+    "entree": {
+     "entree_porte_presence": true,
+     "entree_plain_pied": true,
+     "entree_largeur_mini": 80
+    },
+    "accueil": {
+     "sanitaires_presence": true,
+     "sanitaires_adaptes": true
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/cot-boeuf/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/restauration-rapide/erp/cot-boeuf/",
+   "uuid": "f65622bc-cf97-4826-9303-30b5e1f145b2",
+   "activite": {
+    "nom": "Restauration rapide",
+    "slug": "restauration-rapide"
+   },
+   "nom": "Cot & Boeuf",
+   "slug": "cot-boeuf",
+   "adresse": "1ter Route de Fougères 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.634188,
+     48.132532
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2024-11-07T12:22:54.310025+01:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": true
+    },
+    "entree": {
+     "entree_porte_presence": true,
+     "entree_plain_pied": true,
+     "entree_largeur_mini": 80
+    },
+    "accueil": {
+     "accueil_cheminement_plain_pied": true,
+     "accueil_retrecissement": false,
+     "sanitaires_presence": true,
+     "sanitaires_adaptes": true
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/koko-food/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/restauration-rapide/erp/koko-food/",
+   "uuid": "ee51ed6d-95c5-44eb-82da-40cc2b7ed784",
+   "activite": {
+    "nom": "Restauration rapide",
+    "slug": "restauration-rapide"
+   },
+   "nom": "KOKO FOOD",
+   "slug": "koko-food",
+   "adresse": "4 Place de l'Eglise 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.604994,
+     48.116734
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2024-11-07T03:16:38.836853+01:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": true
+    },
+    "entree": {
+     "entree_porte_presence": true
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/toilettes-publiques-2342/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/toilettes-publiques/erp/toilettes-publiques-2342/",
+   "uuid": "b08373e7-61d8-48d1-bbdf-cb6c54763760",
+   "activite": {
+    "nom": "Toilettes publiques",
+    "slug": "toilettes-publiques"
+   },
+   "nom": "Toilettes publiques",
+   "slug": "toilettes-publiques-2342",
+   "adresse": "11 Place de l'Eglise 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.60426,
+     48.116678
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2024-11-03T04:26:57.623867+01:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": true
+    },
+    "entree": {
+     "entree_porte_presence": true,
+     "entree_plain_pied": true,
+     "entree_largeur_mini": 80
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/centre-de-la-hublais/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/salle-des-fetes/erp/centre-de-la-hublais/",
+   "uuid": "03863595-e007-4673-a73f-140e59f1615e",
+   "activite": {
+    "nom": "Salle des fêtes",
+    "slug": "salle-des-fetes"
+   },
+   "nom": "Centre de la Hublais",
+   "slug": "centre-de-la-hublais",
+   "adresse": "Avenue de la Hublais 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.615804,
+     48.116518
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2024-10-12T07:22:10.806637+02:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": true
+    },
+    "entree": {
+     "entree_porte_presence": true,
+     "entree_plain_pied": true,
+     "entree_largeur_mini": 80
+    },
+    "accueil": {
+     "sanitaires_presence": true,
+     "sanitaires_adaptes": true
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/ongle-cesson-sevigne-tonia-nails-35/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/soins-de-beaute/erp/ongle-cesson-sevigne-tonia-nails-35/",
+   "uuid": "27cbd09b-5ea2-476d-a352-f6ec425123ab",
+   "activite": {
+    "nom": "Soins de beauté, esthétique",
+    "slug": "soins-de-beaute"
+   },
+   "nom": "Ongle Cesson Sévigné Tonia nails 35",
+   "slug": "ongle-cesson-sevigne-tonia-nails-35",
+   "adresse": "3d Rue de Paris 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.601911,
+     48.113542
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2024-10-11T12:13:41.836833+02:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": true
+    },
+    "entree": {
+     "entree_porte_presence": true
+    },
+    "accueil": {
+     "accueil_cheminement_plain_pied": true,
+     "accueil_retrecissement": false,
+     "sanitaires_presence": true,
+     "sanitaires_adaptes": true
+    }
+   }
+  },
+  {
+   "url": "https://acceslibre.beta.gouv.fr/api/erps/keratines/",
+   "web_url": "https://acceslibre.beta.gouv.fr/app/35-cesson-sevigne/a/soins-de-beaute/erp/keratines/",
+   "uuid": "9ef50923-8bd1-4416-a78f-7fe72e4dc9a8",
+   "activite": {
+    "nom": "Soins de beauté, esthétique",
+    "slug": "soins-de-beaute"
+   },
+   "nom": "Keratines",
+   "slug": "keratines",
+   "adresse": "3 Avenue des Peupliers 35510 Cesson-Sévigné",
+   "commune": "Cesson-Sévigné",
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     -1.60368,
+     48.113171
+    ]
+   },
+   "user_type": "system",
+   "updated_at": "2024-10-11T12:13:23.925993+02:00",
+   "published": true,
+   "accessibilite": {
+    "transport": {
+     "stationnement_ext_presence": true,
+     "stationnement_ext_pmr": true
+    },
+    "entree": {
+     "entree_porte_presence": true
+    },
+    "accueil": {
+     "accueil_cheminement_plain_pied": true,
+     "accueil_retrecissement": false,
+     "sanitaires_presence": true,
+     "sanitaires_adaptes": true
+    }
+   }
+  }
+ ]
+}

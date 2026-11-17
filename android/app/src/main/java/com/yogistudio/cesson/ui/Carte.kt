@@ -57,6 +57,9 @@ import com.yogistudio.cesson.equipements.ouverture
 import com.yogistudio.cesson.position.Position
 import com.yogistudio.cesson.position.rememberDemandePosition
 import com.yogistudio.cesson.pratique.bornes
+import com.yogistudio.cesson.pratique.accessibilite
+import com.yogistudio.cesson.pratique.entreeAccessible
+import com.yogistudio.cesson.pratique.pastilles
 import com.yogistudio.cesson.pratique.carburants
 import com.yogistudio.cesson.pratique.defibrillateurs
 import com.yogistudio.cesson.pratique.formaterPuissance
@@ -90,10 +93,11 @@ enum class Categorie(val libelle: String, val couleur: Color) {
     CARBURANTS("Carburants", Color(0xFFE08A00)),
     BORNES("Bornes de recharge", Color(0xFF1565C0)),
     PARC_RELAIS("Parc relais", Color(0xFF6A3FA0)),
+    ACCESSIBLES("Lieux accessibles", Color(0xFF00838F)),
 }
 
 /** Une épingle : ce que la fiche affiche quand on la touche. */
-data class Epingle(val categorie: Categorie, val nom: String, val detail: String?, val coord: Coord)
+data class Epingle(val categorie: Categorie, val nom: String, val detail: String?, val coord: Coord, val fiche: String? = null)
 
 /**
  * Carte de Cesson-Sévigné : tuiles OpenStreetMap relayées par le serveur de l'app (OpenStreetMap ne voit pas
@@ -109,11 +113,12 @@ fun EcranCarte(app: CessonApp) {
     val defibs by remember(app) { app.depot.defibrillateurs() }.collectAsStateWithLifecycle(EtatModule.Absent)
     val bornes by remember(app) { app.depot.bornes() }.collectAsStateWithLifecycle(EtatModule.Absent)
     val carburants by remember(app) { app.depot.carburants() }.collectAsStateWithLifecycle(EtatModule.Absent)
+    val accessibilite by remember(app) { app.depot.accessibilite() }.collectAsStateWithLifecycle(EtatModule.Absent)
     var parcs by remember { mutableStateOf<List<ParcRelais>>(emptyList()) }
     LaunchedEffect(Unit) { parcs = try { app.star.parcsRelais() } catch (_: ErreurStar) { emptyList() } }
     val position by Position.actuelle.collectAsStateWithLifecycle()
     val demande = rememberDemandePosition()
-    var actives by rememberSaveable { mutableStateOf(Categorie.entries.map { it.name }.toSet() - Categorie.BORNES.name) }
+    var actives by rememberSaveable { mutableStateOf(Categorie.entries.map { it.name }.toSet() - Categorie.BORNES.name - Categorie.ACCESSIBLES.name) }
     var choisie by remember { mutableStateOf<Epingle?>(null) }
     var horsCesson by remember { mutableStateOf(false) }
     var suivre by remember { mutableStateOf(false) }
@@ -136,6 +141,14 @@ fun EcranCarte(app: CessonApp) {
         (bornes as? EtatModule.Disponible)?.fichier?.donnees?.stations?.forEach { s ->
             val c = s.lieu.coord ?: return@forEach
             add(Epingle(Categorie.BORNES, s.lieu.nom, "${formaterPuissance(s.puissanceMax)} · ${s.points} point${if (s.points > 1) "s" else ""}", c))
+        }
+        // Lieux dont l'entrée est sans marche d'après acceslibre : de plain-pied, ou avec rampe ou ascenseur. Masqués par
+        // défaut : près de 300 épingles couvriraient les autres.
+        (accessibilite as? EtatModule.Disponible)?.fichier?.donnees?.etablissements?.forEach { e ->
+            val c = e.lieu.coord ?: return@forEach
+            if (!e.acces.entreeAccessible) return@forEach
+            add(Epingle(Categorie.ACCESSIBLES, e.lieu.nom,
+                listOfNotNull(e.activite, e.acces.pastilles().joinToString(" · ") { it.first }).joinToString("\n"), c, e.lieu.url))
         }
         parcs.filter { it.idparc == "CVI" }.forEach { p ->
             val c = p.coordonnees ?: return@forEach
@@ -222,6 +235,9 @@ fun EcranCarte(app: CessonApp) {
                                     uri.openUri("geo:${e.coord.lat},${e.coord.lon}?q=${e.coord.lat},${e.coord.lon}(${URLEncoder.encode(e.nom, "UTF-8")})")
                                 } catch (_: ActivityNotFoundException) { } catch (_: IllegalArgumentException) { }
                             }) { Text("Itinéraire") }
+                            e.fiche?.let { url ->
+                                TextButton(onClick = { runCatching { uri.openUri(url) } }) { Text("Fiche acceslibre") }
+                            }
                         }
                         IconButton(onClick = { choisie = null }) { Icon(Icons.Rounded.Close, contentDescription = "Fermer la fiche") }
                     }
