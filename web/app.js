@@ -71,12 +71,27 @@ function attente(iso) {
 // --- Données ---------------------------------------------------------------------------------------
 
 const cache = new Map();
-/** Fichier d'un module du serveur ; null s'il n'est pas (encore) publié. */
+/** Un fichier du serveur, avec une nouvelle tentative après une seconde si le réseau échoue. */
+async function telecharger(nom) {
+  for (let essai = 0; essai < 2; essai++) {
+    try {
+      const r = await fetch(`${DONNEES}${nom}.json`, { cache: "no-cache" });
+      if (r.ok) return await r.json();
+      if (r.status === 404) return null;
+    } catch { /* réseau ou serveur injoignable : on réessaie */ }
+    await new Promise((ok) => setTimeout(ok, 1000));
+  }
+  return null;
+}
+/**
+ * Fichier d'un module du serveur ; null s'il n'est pas (encore) publié ou injoignable. Un échec n'est pas gardé
+ * en mémoire : le prochain affichage d'un onglet réessaie.
+ */
 function module(nom) {
   if (!cache.has(nom)) {
-    cache.set(nom, fetch(`${DONNEES}${nom}.json`, { cache: "no-cache" })
-      .then((r) => (r.ok ? r.json() : null))
-      .catch(() => null));
+    const p = telecharger(nom);
+    cache.set(nom, p);
+    p.then((f) => { if (f == null && cache.get(nom) === p) cache.delete(nom); });
   }
   return cache.get(nom);
 }
