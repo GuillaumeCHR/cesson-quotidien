@@ -136,6 +136,7 @@ private val CANAUX_OFFICIELS = listOf(
 )
 
 const val URL_CODE_SOURCE = "https://github.com/GuillaumeCHR/cesson-quotidien"
+const val URL_VERSION_WEB = "https://guillaumechr.github.io/cesson-quotidien/"
 const val URL_CONFIDENTIALITE = "https://guillaumechr.github.io/cesson-quotidien-site/confidentialite.html"
 
 @Composable
@@ -171,6 +172,13 @@ fun EcranAPropos(onVosIdees: () -> Unit) {
                 Text(nom, Modifier.weight(1f))
                 Icon(Icons.AutoMirrored.Rounded.OpenInNew, contentDescription = null)
             }
+        }
+        Titre("Version web")
+        Text("Les mêmes informations dans un navigateur, pour un iPhone ou un ordinateur, sans les rappels ni les alertes. " +
+            "Le lien se partage avec les proches.", style = MaterialTheme.typography.bodyMedium)
+        OutlinedButton(onClick = { runCatching { uri.openUri(URL_VERSION_WEB) } }, modifier = Modifier.fillMaxWidth()) {
+            Text("Ouvrir la version web", Modifier.weight(1f))
+            Icon(Icons.AutoMirrored.Rounded.OpenInNew, contentDescription = null)
         }
         Titre("Code source")
         Text("L'app et son serveur sont des logiciels libres, sous licence GNU GPL v3 : le code est public, chacun peut " +
