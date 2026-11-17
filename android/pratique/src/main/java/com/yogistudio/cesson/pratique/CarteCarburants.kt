@@ -122,7 +122,8 @@ private fun LigneStation(ligne: LigneCarburant, libelle: String, maintenant: Ins
     ) {
         Column(Modifier.weight(1f)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(lieu.nom, style = MaterialTheme.typography.bodyLarge)
+                // Plus petit que le prix, et sur deux lignes au besoin : un nom long ne déborde plus sur le prix.
+                Text(lieu.nom, style = MaterialTheme.typography.bodyMedium, modifier = Modifier.weight(1f, fill = false))
                 if (ligne is LigneCarburant.Prix && ligne.moinsCher) {
                     Spacer(Modifier.width(8.dp))
                     Pastille("Le moins cher", Ton.OUVERT)
@@ -134,6 +135,7 @@ private fun LigneStation(ligne: LigneCarburant, libelle: String, maintenant: Ins
                     else MaterialTheme.colorScheme.onSurfaceVariant)
             }
         }
+        Spacer(Modifier.width(12.dp))
         if (ligne is LigneCarburant.Rupture) {
             Pastille("Rupture", Ton.FERME)
         } else {
