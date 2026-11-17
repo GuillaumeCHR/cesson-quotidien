@@ -1,7 +1,7 @@
-"""Déchets acceptés à la déchèterie de Cesson-Sévigné (jeu de données de Rennes Métropole).
+"""Déchets acceptés à la déchetterie de Cesson-Sévigné (jeu de données de Rennes Métropole).
 
 Les horaires restent dans `saisie/equipements.yaml` (module « equipements ») : le jeu de données n'en publie pas.
-Il dit en revanche, champ par champ (1 = oui, 0 = non), quels déchets la déchèterie accepte, et s'il y a un
+Il dit en revanche, champ par champ (1 = oui, 0 = non), quels déchets la déchetterie accepte, et s'il y a un
 espace réemploi. On publie la liste lisible des déchets acceptés, et les refus qui méritent d'être connus avant
 de charger la voiture. Données qui bougent peu : collecte quotidienne, pour suivre une fermeture exceptionnelle.
 """
@@ -65,7 +65,7 @@ def _oui(v: Any) -> bool:
 
 class CollecteurDecheterie(Collecteur[DonneesDecheterie]):
     module = "decheterie"
-    source = "Rennes Métropole (déchèteries et plateformes végétaux)"
+    source = "Rennes Métropole (déchetteries et plateformes végétaux)"
     licence = "ODbL"
     url_source = "https://metropole.rennes.fr/pratique/infos-demarches/dechets-proprete/les-decheteries-de-rennes-metropole/"
     fraicheur = timedelta(days=1)
@@ -80,9 +80,10 @@ class CollecteurDecheterie(Collecteur[DonneesDecheterie]):
 
     @staticmethod
     def _fiche(brut: Any) -> dict:
+        # « Déchèterie » : orthographe du jeu de données de Rennes Métropole, à reprendre telle quelle.
         fiches = [r for r in (brut.get("results") or []) if r.get("type") == "Déchèterie" and r.get("etat") == "actif"]
         if len(fiches) != 1:
-            raise ErreurValidation(f"{len(fiches)} déchèterie(s) active(s) à Cesson au lieu d'une")
+            raise ErreurValidation(f"{len(fiches)} déchetterie(s) active(s) à Cesson au lieu d'une")
         return fiches[0]
 
     def valider(self, brut: Any) -> None:
@@ -102,7 +103,7 @@ class CollecteurDecheterie(Collecteur[DonneesDecheterie]):
             raise ErreurValidation(f"seulement {len(oui)} type(s) de déchets acceptés")
         fermeture = (f.get("fermeture_except") or "").strip()
         return DonneesDecheterie(
-            nom=f"Déchèterie de {f.get('nom_court') or 'Cesson-Sévigné'}",
+            nom=f"Déchetterie de {f.get('nom_court') or 'Cesson-Sévigné'}",
             acceptes=[lib for c, lib in ACCEPTES.items() if c in oui],
             refuses=[lib for c, lib in REFUS_SIGNALES.items() if c not in oui],
             reemploi=_oui(f.get("reemploi")),

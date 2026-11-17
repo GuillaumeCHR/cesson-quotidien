@@ -34,7 +34,7 @@ def heures(jour) -> list[str]:
 def test_saisie_versionnee_valide():
     d = donnees()
     assert {e.lieu.nom for e in d.equipements} == {"Piscine municipale", "Médiathèque", "Golf municipal",
-                                                     "Base Sports Nature", "Déchèterie", "Service urbanisme",
+                                                     "Base Sports Nature", "Déchetterie", "Service urbanisme",
                                                      "Police municipale"}
     assert all(len(s.jours) == 14 for e in d.equipements for s in e.espaces)
 

@@ -25,7 +25,7 @@ import kotlinx.serialization.Serializable
 /** Miroir de DonneesDecheterie (backend/cesson/collecteurs/decheterie.py). */
 @Serializable
 data class DonneesDecheterie(
-    val nom: String = "Déchèterie",
+    val nom: String = "Déchetterie",
     val acceptes: List<String> = emptyList(),
     val refuses: List<String> = emptyList(),
     val reemploi: Boolean = false,
@@ -36,7 +36,7 @@ const val MODULE_DECHETERIE = "decheterie"
 
 fun DepotModules.decheterie(): Flow<EtatModule<DonneesDecheterie>> = suivre(MODULE_DECHETERIE, DonneesDecheterie.serializer())
 
-/** Sous les horaires de la déchèterie : ce qu'on peut y apporter, et ce qui va ailleurs. */
+/** Sous les horaires de la déchetterie : ce qu'on peut y apporter, et ce qui va ailleurs. */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun InfosDecheterie(d: DonneesDecheterie) {

@@ -16,7 +16,7 @@ def test_dechets_acceptes_et_refus():
     c = CollecteurDecheterie()
     c.valider(BRUT)
     d = c.convertir(BRUT, MAINTENANT)
-    assert d.nom == "Déchèterie de Cesson-Sévigné"
+    assert d.nom == "Déchetterie de Cesson-Sévigné"
     assert d.acceptes[0] == "Végétaux" and "Gravats" in d.acceptes and "Déchets dangereux ou toxiques" in d.acceptes
     assert "Verre" not in d.acceptes and "Tout-venant" not in d.acceptes
     assert d.refuses == ["Verre (colonnes à verre)", "Plastiques rigides"]

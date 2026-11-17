@@ -181,9 +181,9 @@ private val EPISODES = Tuile("episodes_pollution", "Épisodes de pollution", Ico
 private val EQUIPEMENTS_LOISIRS = Tuile("equipements", "Équipements", Icons.Rounded.Pool) { app ->
     EquipementsCesson(app, titre = "Équipements", garder = { it.lieu.id !in SERVICES_A_PART })
 }
-private val DECHETERIE_TUILE = Tuile("decheterie", "Déchèterie", Icons.Rounded.Recycling) { app ->
+private val DECHETERIE_TUILE = Tuile("decheterie", "Déchetterie", Icons.Rounded.Recycling) { app ->
     val dechets by remember(app) { app.depot.decheterie() }.collectAsStateWithLifecycle(EtatModule.Absent)
-    EquipementsCesson(app, titre = "Déchèterie", icone = Icons.Rounded.Recycling, garder = { it.lieu.id == DECHETERIE },
+    EquipementsCesson(app, titre = "Déchetterie", icone = Icons.Rounded.Recycling, garder = { it.lieu.id == DECHETERIE },
         pied = (dechets as? EtatModule.Disponible)?.let { d -> { InfosDecheterie(d.fichier.donnees) } })
 }
 

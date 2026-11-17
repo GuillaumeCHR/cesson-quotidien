@@ -1457,7 +1457,7 @@
       {
         "lieu": {
           "id": "equipement:decheterie",
-          "nom": "Déchèterie",
+          "nom": "Déchetterie",
           "type": "equipement",
           "adresse": "Route de Chantepie, Cesson-Sévigné",
           "source": "Ville de Cesson-Sévigné",
@@ -1469,7 +1469,7 @@
         "espaces": [
           {
             "id": "decheterie",
-            "nom": "Déchèterie",
+            "nom": "Déchetterie",
             "jours": [
               {
                 "date": "2026-11-15",

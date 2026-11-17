@@ -9,7 +9,7 @@ Nov 14, 2026 · @Guillaume Chéreau
 Périmètre fonctionnel, en 6 domaines :
 
 - **Se déplacer** : bus et métro STAR, trains à la halte de Cesson-Sévigné, vélos en libre-service, parcs-relais, carburants, bornes de recharge.
-- **Équipements** : piscine, médiathèque, Pont des Arts, golf municipal, Base Sports Nature, déchèterie.
+- **Équipements** : piscine, médiathèque, Pont des Arts, golf municipal, Base Sports Nature, déchetterie.
 - **Sortir** : spectacles du Carré Sévigné, cinéma Le Sévigné, agenda de la ville.
 - **Environnement et risques** : météo, niveau de la Vilaine, vigilance crues, vigilance météo, qualité de l'air.
 - **Pratique** : collecte des déchets, défibrillateurs, accessibilité des lieux publics.
@@ -53,7 +53,7 @@ Toutes les données passent par des fichiers JSON statiques avant d'atteindre l'
 | Bornes de recharge | Fichier national IRVE (data.gouv) | CSV | Hebdomadaire | Non |
 | Défibrillateurs | Base nationale Géo'DAE (data.gouv) | CSV | Hebdomadaire | Non |
 | Accessibilité | API acceslibre | REST | Hebdomadaire | Oui (clé d'essai de 3 mois reçue le 17/11/2026, clé pérenne à demander mi-février 2027) |
-| Déchèterie | [Jeu de données Rennes Métropole](https://www.data.gouv.fr/datasets/decheteries-et-plateformes-vegetaux-sur-rennes-metropole-1) + page des horaires | CSV + extraction de page | Quotidien | Non |
+| Déchetterie | [Jeu de données Rennes Métropole](https://www.data.gouv.fr/datasets/decheteries-et-plateformes-vegetaux-sur-rennes-metropole-1) + page des horaires | CSV + extraction de page | Quotidien | Non |
 | Collecte des déchets | Calendrier papier de Rennes Métropole | Saisie YAML par secteur | Annuel + jours fériés | — |
 | Piscine, médiathèque, Pont des Arts | Site et magazine de la ville | Saisie YAML + exceptions | À chaque changement | — |
 | Golf municipal | [Plaquette des horaires](https://ville-cesson-sevigne.fr/wp-content/uploads/2024/12/golftarifs2025.pdf) | Saisie YAML, saisons hiver et été | Saisonnier | — |
@@ -97,7 +97,7 @@ Chaque source a un collecteur Python dédié, lancé à la cadence que sa donné
 | 10 à 15 min | Vigicrues, carburants, alertes STAR et SNCF | Serveur avec cron fiable |
 | Horaire | Météo, actualités | Serveur |
 | 15 min | Vigilance crues, vigilance météo | Serveur |
-| Quotidien | Hauteur de la Vilaine (6h05), GTFS STAR (0h30), GTFS SNCF, qualité de l'air et pollens (16h20, rattrapage à 18h20), épisodes de pollution (7h20, 11h20, 16h20, 18h20), spectacles, cinéma, déchèterie | Serveur |
+| Quotidien | Hauteur de la Vilaine (6h05), GTFS STAR (0h30), GTFS SNCF, qualité de l'air et pollens (16h20, rattrapage à 18h20), épisodes de pollution (7h20, 11h20, 16h20, 18h20), spectacles, cinéma, déchetterie | Serveur |
 | Hebdomadaire ou mensuel | Défibrillateurs, bornes, acceslibre, contrôle des YAML | Serveur |
 
 Les crons de GitHub Actions peuvent prendre des dizaines de minutes de retard. Ils ne conviennent donc pas aux cadences de 2 à 15 min, en particulier pour Vigicrues. Ces tâches tournent sur un petit VPS : le décodage du GTFS-RT SNCF national dépasserait les limites de calcul de Cloudflare Workers.
@@ -121,7 +121,7 @@ Six entités et un bloc `Meta` couvrent l'ensemble des 19 modules.
 | Entité | Champs | Utilisée par |
 | --- | --- | --- |
 | `Lieu` | id, nom, type, coord, adresse, source, url | Tous les modules géolocalisés |
-| `Horaire` | lieu\_id, sous\_espace, periode, opening\_hours (format OSM), exceptions \[du, au, motif\] | Équipements, déchèterie, golf, base nautique |
+| `Horaire` | lieu\_id, sous\_espace, periode, opening\_hours (format OSM), exceptions \[du, au, motif\] | Équipements, déchetterie, golf, base nautique |
 | `Depart` | arret, ligne, mode (bus, metro, train), destination, heure\_theorique, heure\_reelle, statut | STAR, trains |
 | `Evenement` | id, titre, lieu\_id, debut, fin, categorie, prix, url\_billet | Spectacles, cinéma, agenda |
 | `Mesure` | station, grandeur (H, Q, ATMO, prix), valeur, unite, horodatage, tendance | Vilaine, air, carburants |
@@ -222,7 +222,7 @@ L'app compte 5 onglets et un widget d'accueil. L'onglet Aujourd'hui répond seul
 | Aujourd'hui | Bandeau d'alertes ; tuiles que l'utilisateur ordonne et masque (écran Personnaliser) ; météo (actuelle, prochaines heures, aujourd'hui et demain) ; équipements suivis ouverts ou fermés ; prochaine collecte ; prochains départs à Cesson-ViaSilva et à la halte ; Vilaine ; qualité de l'air | Tous modules, version résumée |
 | Bouger | Pôle Cesson-ViaSilva ; halte ferroviaire ; lignes passant par Cesson ; vélos ; parcs-relais ; carburants ; bornes de recharge | STAR, SNCF, carburants, IRVE |
 | Sortir | Carré Sévigné ; cinéma Le Sévigné ; Pont des Arts et médiathèque ; golf ; Base Sports Nature ; piscine | Agenda, équipements, Vilaine (sur le golf et la base nautique) |
-| Pratique | Collecte par secteur ; déchèterie ; défibrillateurs ; accessibilité des lieux | YAML collecte, Rennes Métropole, Géo'DAE, acceslibre |
+| Pratique | Collecte par secteur ; déchetterie ; défibrillateurs ; accessibilité des lieux | YAML collecte, Rennes Métropole, Géo'DAE, acceslibre |
 | Actus | Fil de la ville ; liens vers la chaîne WhatsApp et le groupe Cesson Entraide | RSS de la ville |
 | Widget | Prochaine collecte, niveau de la Vilaine, prochain métro b ou train | Cache local |
 
@@ -251,7 +251,7 @@ Le projet avance en 7 étapes, des données les plus sûres vers celles qui dema
 
 1. **Socle.** Modèle commun, gabarit de collecteur, publication JSON et manifest, squelette Compose avec les 5 onglets, accueil personnalisable, cache disque, écrans Sources, À propos et Vos idées, tableau de santé. Premier module bout en bout : la Vilaine.
 2. **Données sûres.** STAR (métro b et lignes passant par Cesson), trains à la halte, Vilaine et Vigicrues, carburants, qualité de l'air.
-3. **Saisie.** YAML des équipements (piscine, médiathèque, Pont des Arts, golf, Base Sports Nature) et des secteurs de collecte ; extraction des horaires de la déchèterie.
+3. **Saisie.** YAML des équipements (piscine, médiathèque, Pont des Arts, golf, Base Sports Nature) et des secteurs de collecte ; extraction des horaires de la déchetterie.
 4. **Notifications.** Rappels locaux de collecte, puis alertes FCM : crue d'abord, puis fermetures, trains et bus.
 5. **Guide de démarrage et personnalisation.** Au premier lancement, un guide court fait choisir les cartes de l'accueil et les réglages qui vont avec (mon arrêt, mon carburant, mes équipements, plus tard mon secteur de collecte). Chaque onglet (Bouger, Sortir, Pratique, Actus) devient personnalisable comme l'accueil : cartes affichées et ordre. Le guide reste accessible depuis le menu pour tout revoir. Tous les choix restent sur le téléphone.
 6. **Widget Glance** « Aujourd'hui à Cesson ».
@@ -302,7 +302,7 @@ Le risque principal est une information fausse sur une crue ou une fermeture. El
 - [Indice ATMO par commune](https://www.data.gouv.fr/datasets/6149925a2ff0ab6cebdd6fe8)
 - [FAQ de l'API Atmo Data](https://atmo-France.org/sites/federation/files/medias/documents/2023-10/FAQ_API_Atmo_Data_20231010_0.pdf)
 - [Prix des carburants — flux instantané v2](https://data.economie.gouv.fr/explore/dataset/prix-des-carburants-en-france-flux-instantane-v2/table/?flg=fr-fr)
-- [Déchèteries de Rennes Métropole](https://www.data.gouv.fr/datasets/decheteries-et-plateformes-vegetaux-sur-rennes-metropole-1)
+- [Déchetteries de Rennes Métropole](https://www.data.gouv.fr/datasets/decheteries-et-plateformes-vegetaux-sur-rennes-metropole-1)
 - [Golf municipal — horaires 2025](https://ville-cesson-sevigne.fr/wp-content/uploads/2024/12/golftarifs2025.pdf)
 - [Golf municipal — règlement intérieur](https://www.ville-cesson-sevigne.fr/wp-content/uploads/2020/12/reglementinterieur2021.pdf)
 - [Base Sports Nature — bulletin 2024-2025](https://ville-cesson-sevigne.fr/wp-content/uploads/2024/06/bulletinadulte20242025.pdf)
