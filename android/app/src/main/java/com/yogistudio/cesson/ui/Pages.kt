@@ -136,6 +136,7 @@ private val CANAUX_OFFICIELS = listOf(
 )
 
 const val URL_CODE_SOURCE = "https://github.com/GuillaumeCHR/cesson-quotidien"
+const val URL_CONFIDENTIALITE = "https://guillaumechr.github.io/cesson-quotidien-site/confidentialite.html"
 
 @Composable
 fun EcranAPropos(onVosIdees: () -> Unit) {
@@ -153,6 +154,10 @@ fun EcranAPropos(onVosIdees: () -> Unit) {
                 "uniquement des fichiers de données publiques, sans identifiant ni statistique d'usage.",
             style = MaterialTheme.typography.bodyMedium,
         )
+        OutlinedButton(onClick = { runCatching { uri.openUri(URL_CONFIDENTIALITE) } }, modifier = Modifier.fillMaxWidth()) {
+            Text("Politique de confidentialité", Modifier.weight(1f))
+            Icon(Icons.AutoMirrored.Rounded.OpenInNew, contentDescription = null)
+        }
         Titre("Application non officielle")
         Text(
             "Cette application n'est éditée ni par la Ville de Cesson-Sévigné ni par Rennes Métropole. Elle ne " +
