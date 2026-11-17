@@ -1,0 +1,42 @@
+[
+  {
+    "capture": "1-aujourdhui.png",
+    "titre": "Votre journée à Cesson",
+    "texte": "Météo, prochains métros et bus, circulation routière : l'essentiel d'un coup d'œil"
+  },
+  {
+    "capture": "2-bouger.png",
+    "titre": "Bouger sans attendre",
+    "texte": "Métro, bus et trains en temps réel, places libres au parc relais"
+  },
+  {
+    "capture": "3-sortir.png",
+    "titre": "Sortir à Cesson",
+    "texte": "Les prochains spectacles du Carré Sévigné"
+  },
+  {
+    "capture": "4-cinema.png",
+    "titre": "Au cinéma Le Sévigné",
+    "texte": "Les séances des prochains jours, film par film"
+  },
+  {
+    "capture": "5-familles.png",
+    "titre": "Les repas de la cantine",
+    "texte": "Les menus de la semaine, et les vacances scolaires pour les familles"
+  },
+  {
+    "capture": "6-pratique.png",
+    "titre": "Le quotidien, simplement",
+    "texte": "Collecte des déchets avec rappel, usage de l'eau, démarches en mairie"
+  },
+  {
+    "capture": "7-accessibilite.png",
+    "titre": "Des lieux accessibles",
+    "texte": "Entrée, stationnement, sanitaires : plus de 300 lieux décrits"
+  },
+  {
+    "capture": "8-carte.png",
+    "titre": "Cesson sur une carte",
+    "texte": "Équipements, défibrillateurs, carburants et bornes de recharge"
+  }
+]
