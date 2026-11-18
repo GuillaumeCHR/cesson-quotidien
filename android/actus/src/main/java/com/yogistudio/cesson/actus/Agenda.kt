@@ -4,6 +4,7 @@ import com.yogistudio.cesson.core.donnees.DepotModules
 import com.yogistudio.cesson.core.donnees.EtatModule
 import com.yogistudio.cesson.core.modele.JourCalendaire
 import kotlinx.coroutines.flow.Flow
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import java.time.LocalDate
 import java.time.format.TextStyle
@@ -28,6 +29,8 @@ data class Evenement(
     val theme: String? = null,
     val saison: Boolean = false,
     val famille: String = "autre",
+    val vignette: String? = null,
+    @SerialName("credit_photo") val creditPhoto: String? = null,
 )
 
 const val MODULE_AGENDA = "agenda"

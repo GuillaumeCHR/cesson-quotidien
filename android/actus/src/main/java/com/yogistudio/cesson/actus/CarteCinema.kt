@@ -1,17 +1,6 @@
 package com.yogistudio.cesson.actus
 
-import android.graphics.BitmapFactory
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.horizontalScroll
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.ImageBitmap
-import androidx.compose.ui.graphics.asImageBitmap
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.runtime.produceState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -143,17 +132,10 @@ fun CarteCinema(etat: EtatModule<DonneesCinema>, modifier: Modifier = Modifier, 
 private val LARGEUR_AFFICHE = 56.dp
 private val LARGEUR_AFFICHE_COMPACTE = 40.dp
 
-/** Affiche du film, lue sur le serveur de l'app (jamais chez TMDB) ; un aplat le temps qu'elle arrive. */
 @Composable
 private fun AfficheFilm(chemin: String, compact: Boolean, charger: suspend (String) -> ByteArray?) {
-    val image by produceState<ImageBitmap?>(null, chemin) {
-        value = charger(chemin)?.let { o -> runCatching { BitmapFactory.decodeByteArray(o, 0, o.size)?.asImageBitmap() }.getOrNull() }
-    }
     val largeur = if (compact) LARGEUR_AFFICHE_COMPACTE else LARGEUR_AFFICHE
-    val forme = RoundedCornerShape(6.dp)
-    Box(Modifier.size(largeur, largeur * 1.5f).clip(forme).background(MaterialTheme.colorScheme.surfaceVariant)) {
-        image?.let { Image(it, contentDescription = null, contentScale = ContentScale.Crop, modifier = Modifier.size(largeur, largeur * 1.5f)) }
-    }
+    ImageServeur(chemin, largeur, largeur * 1.5f, charger)
 }
 
 /** Dépliant « À propos du film » : synopsis, réalisation, distribution, classification, liens. */

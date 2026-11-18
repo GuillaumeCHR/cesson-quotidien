@@ -12,7 +12,9 @@ Deux sources, fusionnées sans doublon :
   l'alerte de santé prévient.
 
 On ne reprend que le titre, la catégorie, les dates, les horaires, le lieu, les conditions, une phrase de
-présentation et le lien : l'événement se lit chez son éditeur. Pas d'image.
+présentation et le lien : l'événement se lit chez son éditeur. Seuls les spectacles de la saison culturelle ont une
+image : la vignette carrée (200 px) d'OpenAgenda, téléchargée par le serveur dans public/vignettes/ (les téléphones
+ne contactent jamais OpenAgenda) et toujours accompagnée de son crédit photo quand OpenAgenda le donne.
 """
 
 from __future__ import annotations
@@ -23,6 +25,7 @@ import re
 import time
 import unicodedata
 from datetime import date, datetime, timedelta
+from pathlib import Path
 from typing import Any
 
 import httpx
@@ -30,6 +33,8 @@ import httpx
 from ..commun.collecteur import Collecteur, ErreurSource, ErreurValidation, obtenir
 from ..commun.horaires import PARIS
 from ..commun.modele import Modele
+from ..commun.publication import Publieur
+from ..commun.sante import Sante
 
 URL_OPENAGENDA = "https://openagenda.com/agendas/31553419/events.v2.json"
 URL_VILLE = "https://www.ville-cesson-sevigne.fr/wp-json/creasit/postsQuery"
@@ -37,6 +42,7 @@ PAGES_MAX = 8
 MIN_EVENEMENTS = 3
 PAUSE = 0.4  # entre deux pages du site de la ville, pour rester discret
 LONGUEUR_RESUME = 200
+DOSSIER_VIGNETTES = "vignettes"
 
 MOIS = {m: i for i, m in enumerate(["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août",
                                     "septembre", "octobre", "novembre", "décembre"], start=1)}
@@ -57,6 +63,8 @@ class Evenement(Modele):
     theme: str | None = None  # carre_sevigne, mediatheque (lieu) ; gardé pour les versions précédentes de l'app
     saison: bool = False  # spectacle de la saison culturelle : Carré Sévigné ou Pont des Arts, payant ou sur réservation
     famille: str = "autre"  # filtres de l'agenda : associations, culture, sport, mediatheque, autre
+    vignette: str | None = None  # saison culturelle : chemin relatif aux données, « vignettes/12345.jpg »
+    credit_photo: str | None = None  # « ©Romain Garcin », tel que publié par OpenAgenda
 
 
 class DonneesAgenda(Modele):
@@ -147,7 +155,7 @@ def _heure(iso: str) -> str:
     return f"{d.hour}h{d.minute:02d}"
 
 
-def depuis_openagenda(e: dict, aujourdhui: date) -> Evenement | None:
+def depuis_openagenda(e: dict, aujourdhui: date, vignettes: dict[str, str] | None = None) -> Evenement | None:
     seances = sorted((datetime.fromisoformat(t["begin"]).astimezone(PARIS), datetime.fromisoformat(t["end"]).astimezone(PARIS))
                      for t in e.get("timings") or [] if t.get("begin") and t.get("end"))
     a_venir = [s for s in seances if s[1].date() >= aujourdhui]
@@ -170,7 +178,23 @@ def depuis_openagenda(e: dict, aujourdhui: date) -> Evenement | None:
         resume=court(_fr(e.get("description"))),
         lien=e.get("canonicalUrl") or f"https://openagenda.com/agendas/31553419/events/{e['uid']}",
         theme=th, saison=est_saison(lieu, conditions), famille=famille(titre, categorie, lieu, th),
+        vignette=(vignette := (vignettes or {}).get(str(e["uid"]))),
+        credit_photo=(_fr(e.get("imageCredits")) or "").strip() or None if vignette else None,
     )
+
+
+def url_vignette(e: dict) -> str | None:
+    """Vignette carrée d'un événement OpenAgenda (« thumbnail », 200 × 200)."""
+    im = e.get("image") or {}
+    base = im.get("base") or ""
+    v = next((x for x in im.get("variants") or [] if x.get("type") == "thumbnail"), None)
+    if not v or not base.startswith("https://img.openagenda.com/") or not re.fullmatch(r"[\w.-]+\.jpe?g", v.get("filename", "")):
+        return None
+    return base + v["filename"]
+
+
+def est_saison_openagenda(e: dict) -> bool:
+    return est_saison((e.get("location") or {}).get("name"), court(_fr(e.get("conditions"))))
 
 
 SALLES_SAISON = ("carré sévigné", "carre sevigne", "pont des arts")
@@ -219,6 +243,42 @@ class CollecteurAgenda(Collecteur[DonneesAgenda]):
 
     def __init__(self, pause: float = PAUSE) -> None:
         self.pause = pause
+        self._public: Path | None = None
+
+    def executer(self, publieur: Publieur, sante: Sante, client: httpx.Client | None = None,
+                 maintenant: datetime | None = None):
+        self._public = publieur.dossier  # vignettes publiées à côté des JSON
+        return super().executer(publieur, sante, client, maintenant)
+
+    def _vignettes(self, client: httpx.Client, oa: list[dict]) -> dict[str, str]:
+        """Télécharge (une fois) la vignette de chaque spectacle de la saison ; efface celles qui ne servent plus."""
+        if self._public is None:
+            return {}
+        dossier = self._public / DOSSIER_VIGNETTES
+        res = {}
+        for e in oa:
+            uid = str(e.get("uid", ""))
+            if not uid.isdigit() or not est_saison_openagenda(e) or not (url := url_vignette(e)):
+                continue
+            cible = dossier / f"{uid}.jpg"
+            if not cible.exists():
+                try:
+                    r = obtenir(client, url)
+                except ErreurSource:
+                    continue  # pas de vignette, l'événement reste
+                if not r.content.startswith(b"\xff\xd8"):
+                    continue
+                dossier.mkdir(parents=True, exist_ok=True)
+                tmp = dossier / f".{uid}.jpg.tmp"
+                tmp.write_bytes(r.content)
+                tmp.chmod(0o644)
+                tmp.replace(cible)
+            res[uid] = f"{DOSSIER_VIGNETTES}/{uid}.jpg"
+        if oa and dossier.is_dir():
+            for f in dossier.glob("*.jpg"):
+                if f.stem not in res:
+                    f.unlink(missing_ok=True)
+        return res
 
     def telecharger(self, client: httpx.Client) -> Any:
         try:
@@ -248,7 +308,7 @@ class CollecteurAgenda(Collecteur[DonneesAgenda]):
             except (ErreurValidation, ErreurSource):
                 continue  # un événement illisible n'empêche pas les autres
             time.sleep(self.pause)
-        return {"openagenda": oa, "cartes": cartes, "details": details}
+        return {"openagenda": oa, "cartes": cartes, "details": details, "vignettes": self._vignettes(client, oa)}
 
     def valider(self, brut: Any) -> None:
         total = len(brut["openagenda"]) + len(brut["details"])
@@ -257,7 +317,7 @@ class CollecteurAgenda(Collecteur[DonneesAgenda]):
 
     def convertir(self, brut: Any, maintenant: datetime) -> DonneesAgenda:
         aujourdhui = maintenant.astimezone(PARIS).date()
-        evenements = [e for e in (depuis_openagenda(x, aujourdhui) for x in brut["openagenda"]) if e]
+        evenements = [e for e in (depuis_openagenda(x, aujourdhui, brut.get("vignettes")) for x in brut["openagenda"]) if e]
         # Même spectacle publié aussi par le site de la ville (titre un peu différent) : même jour, même salle.
         saison_le = {(e.du, s) for e in evenements if e.saison for s in SALLES_SAISON if s in (e.lieu or "").lower()}
         for c in brut["cartes"]:

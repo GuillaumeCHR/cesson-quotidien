@@ -40,14 +40,16 @@ const val URL_BILLETTERIE = "https://billetterie.ville-cesson-sevigne.fr/"
 const val URL_SAISON = "https://www.ville-cesson-sevigne.fr/saison-culturelle/"
 private const val SPECTACLES_COMPACT = 3
 private const val SPECTACLES_DETAILLE = 6
+private val TAILLE_VIGNETTE = 56.dp
 private val JOUR_SPECTACLE = DateTimeFormatter.ofPattern("EEE d MMM", Locale.FRENCH)
 
 /**
  * Saison culturelle (Carré Sévigné, Pont des Arts) : les spectacles payants ou sur réservation, avec leur genre et
  * leur salle, et l'accès à la billetterie en ligne de la ville. Le reste des événements est dans l'Agenda.
+ * Détaillée : la vignette de chaque spectacle (OpenAgenda, via le serveur de l'app) et son crédit photo.
  */
 @Composable
-fun CarteSaison(etat: EtatModule<DonneesAgenda>, modifier: Modifier = Modifier) {
+fun CarteSaison(etat: EtatModule<DonneesAgenda>, modifier: Modifier = Modifier, image: suspend (String) -> ByteArray? = { null }) {
     val maintenant = rememberMaintenant()
     val uri = LocalUriHandler.current
     fun ouvrir(lien: String) { runCatching { uri.openUri(lien) } }
@@ -76,6 +78,10 @@ fun CarteSaison(etat: EtatModule<DonneesAgenda>, modifier: Modifier = Modifier) 
                         Text(JOUR_SPECTACLE.format(jour).replaceFirstChar { it.uppercase() },
                             style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.primary,
                             modifier = Modifier.width(84.dp).padding(top = 2.dp))
+                        if (!compact) e.vignette?.let {
+                            ImageServeur(it, TAILLE_VIGNETTE, TAILLE_VIGNETTE, image)
+                            Spacer(Modifier.width(12.dp))
+                        }
                         Column(Modifier.weight(1f)) {
                             if (compact) {
                                 // Compact : une ligne, le titre puis le genre à sa droite.
@@ -90,6 +96,10 @@ fun CarteSaison(etat: EtatModule<DonneesAgenda>, modifier: Modifier = Modifier) 
                             }
                             if (!compact) listOfNotNull(e.horaires, e.lieu).takeIf { it.isNotEmpty() }?.let {
                                 Text(it.joinToString(" · "), style = MaterialTheme.typography.bodySmall,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant)
+                            }
+                            if (!compact && e.vignette != null) e.creditPhoto?.let {
+                                Text("Photo $it", style = MaterialTheme.typography.labelSmall,
                                     color = MaterialTheme.colorScheme.onSurfaceVariant)
                             }
                         }

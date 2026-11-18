@@ -215,7 +215,7 @@ private val CINEMA = Tuile("cinema", "Cinéma Le Sévigné", Icons.Rounded.Movie
 }
 private val SAISON = Tuile("saison", "Saison culturelle", Icons.Rounded.TheaterComedy) { app ->
     val etat by remember(app) { app.depot.agenda() }.collectAsStateWithLifecycle(EtatModule.Absent)
-    CarteSaison(etat)
+    CarteSaison(etat, image = { app.depot.image(it) })
 }
 val ONGLET_SORTIR = OngletTuiles("sortir", "l'onglet Sortir", listOf(SAISON, AGENDA, CINEMA, EQUIPEMENTS_LOISIRS))
 private val USAGES_EAU = Tuile("usages_eau", "Usage de l'eau", Icons.Rounded.WaterDrop) { app ->

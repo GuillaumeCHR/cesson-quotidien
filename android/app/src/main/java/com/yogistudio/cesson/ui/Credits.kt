@@ -94,6 +94,9 @@ private val CREDITS = listOf(
         "Affiches, synopsis, réalisation et distribution des films du Sévigné viennent de TMDB ; les liens Wikipédia " +
             "et Allociné, de Wikidata (CC0). This product uses the TMDB API but is not endorsed or certified by TMDB. " +
             "Le serveur de l'app les récupère : votre téléphone ne contacte jamais TMDB."),
+    Bloc("Photos des spectacles", "Pont des Arts et Carré Sévigné, via OpenAgenda",
+        "Les vignettes de la saison culturelle sont celles que la Ville publie sur OpenAgenda, chacune avec le crédit " +
+            "de son photographe. Le serveur de l'app les récupère : votre téléphone ne contacte jamais OpenAgenda."),
     Bloc("Cartographie", "Les contributrices et contributeurs d'OpenStreetMap",
         "La carte de l'intro et la carte de Cesson, c'est leur travail bénévole, sous ODbL. Les tuiles viennent des " +
             "serveurs de la Fondation OpenStreetMap, relayées par le serveur de l'app ; affichées avec osmdroid (Apache 2.0)."),

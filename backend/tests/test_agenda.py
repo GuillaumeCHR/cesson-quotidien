@@ -73,10 +73,23 @@ def test_collecte(tmp_path):
                                                                          else {"pagination_infos": PQ["pagination_infos"], "posts": []}))
         for url, page in EVENEMENTS.items():
             mock.get(url).mock(return_value=httpx.Response(200, text=page))
+        vignettes = mock.get(url__startswith="https://img.openagenda.com/").mock(
+            return_value=httpx.Response(200, content=b"\xff\xd8\xff vignette"))
+        (tmp_path / "public" / "vignettes").mkdir(parents=True)
+        (tmp_path / "public" / "vignettes" / "999.jpg").write_bytes(b"ancienne")
         with httpx.Client() as client:
             r = CollecteurAgenda(pause=0).executer(publieur, sante, client, MAINTENANT)
+            appels = vignettes.call_count
+            CollecteurAgenda(pause=0).executer(publieur, sante, client, MAINTENANT)
+            assert vignettes.call_count == appels  # déjà téléchargées
     assert r.etat == Etat.OK, r.erreur
     e = FichierModule[DonneesAgenda].model_validate_json(publieur.chemin("agenda").read_text()).donnees.evenements
+    # Vignettes : seulement pour la saison culturelle, avec le crédit photo ; l'ancienne est effacée.
+    suzane = next(x for x in e if x.titre == "Suzane")
+    assert suzane.vignette == f"vignettes/{suzane.id.split(':')[1]}.jpg" and suzane.credit_photo == "©Romain Garcin"
+    assert (tmp_path / "public" / suzane.vignette).read_bytes().startswith(b"\xff\xd8")
+    assert all(x.vignette is None for x in e if not x.saison)
+    assert not (tmp_path / "public" / "vignettes" / "999.jpg").exists()
     titres = [x.titre for x in e]
     # Suzane et l'exposition sont sur OpenAgenda et sur le site : une seule fois, la version OpenAgenda.
     assert titres.count("Suzane") == 1 and next(x for x in e if x.titre == "Suzane").id.startswith("openagenda:")

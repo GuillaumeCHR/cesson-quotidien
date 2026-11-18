@@ -399,10 +399,14 @@ async function carteSaison() {
   return carte("Saison culturelle", el("div", {},
     el("p", {}, "Les spectacles du Carré Sévigné et du Pont des Arts."),
     lien("https://billetterie.ville-cesson-sevigne.fr/", "Réserver des places", "bouton plein"),
-    el("ul", { classe: "liste" }, ev.map((e) => el("li", {},
-      el("div", { classe: "doux" }, majuscule(FMT_JOUR_COURT.format(jourCalendaire(e.du)))),
-      el("strong", {}, lien(e.lien, e.titre)), " ", e.categorie && pastille(e.categorie, "info"),
-      el("div", { classe: "doux petit" }, [e.horaires, e.lieu].filter(Boolean).join(" · ")))))), f);
+    el("ul", { classe: "liste" }, ev.map((e) => el("li", { classe: "ligne film" },
+      e.vignette && /^vignettes\/\d+\.jpg$/.test(e.vignette)
+        ? el("img", { classe: "vignette", src: DONNEES + e.vignette, alt: "", loading: "lazy", width: 56, height: 56 }) : null,
+      el("div", { classe: "etire" },
+        el("div", { classe: "doux" }, majuscule(FMT_JOUR_COURT.format(jourCalendaire(e.du)))),
+        el("strong", {}, lien(e.lien, e.titre)), " ", e.categorie && pastille(e.categorie, "info"),
+        el("div", { classe: "doux petit" }, [e.horaires, e.lieu].filter(Boolean).join(" · ")),
+        e.vignette && e.credit_photo && el("div", { classe: "doux petit" }, `Photo ${e.credit_photo}`)))))), f);
 }
 
 async function carteAgenda() {
@@ -707,7 +711,8 @@ async function carteSources() {
       "Qualité de l'air et pollens : source Atmo France / AASQA."),
     el("p", { classe: "doux petit" }, "Fiches des films : The Movie Database (TMDB), liens Wikipédia et Allociné par Wikidata (CC0). " +
       "This product uses the TMDB API but is not endorsed or certified by TMDB. Votre navigateur ne contacte jamais TMDB : " +
-      "le serveur de l'app récupère fiches et affiches.")), null, { classe: "large" });
+      "le serveur de l'app récupère fiches et affiches. Vignettes des spectacles : OpenAgenda (Ville de Cesson-Sévigné), " +
+      "avec le crédit de chaque photo, récupérées de la même façon.")), null, { classe: "large" });
 }
 
 function carteAPropos() {
