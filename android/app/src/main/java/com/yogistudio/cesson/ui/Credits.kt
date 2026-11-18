@@ -1,5 +1,6 @@
 package com.yogistudio.cesson.ui
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -17,6 +18,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.heading
@@ -27,6 +29,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.yogistudio.cesson.BuildConfig
+import com.yogistudio.cesson.R
 import com.yogistudio.cesson.ui.intro.NOM_APP
 import java.util.Locale
 
@@ -63,7 +66,7 @@ fun Credits() {
     }
 }
 
-private class Bloc(val role: String, val nom: String, val note: String?)
+private class Bloc(val role: String, val nom: String, val note: String?, val logo: Int? = null, val logoDescription: String? = null)
 
 private val CREDITS = listOf(
     Bloc("Production", "Yogi Studio",
@@ -93,7 +96,8 @@ private val CREDITS = listOf(
     Bloc("Fiches des films", "The Movie Database (TMDB) et Wikidata",
         "Affiches, synopsis, réalisation et distribution des films du Sévigné viennent de TMDB ; les liens Wikipédia " +
             "et Allociné, de Wikidata (CC0). This product uses the TMDB API but is not endorsed or certified by TMDB. " +
-            "Le serveur de l'app les récupère : votre téléphone ne contacte jamais TMDB."),
+            "Le serveur de l'app les récupère : votre téléphone ne contacte jamais TMDB.",
+        logo = R.drawable.logo_tmdb, logoDescription = "Logo de The Movie Database (TMDB)"),
     Bloc("Photos des spectacles", "Pont des Arts et Carré Sévigné, via OpenAgenda",
         "Les vignettes de la saison culturelle sont celles que la Ville publie sur OpenAgenda, chacune avec le crédit " +
             "de son photographe. Le serveur de l'app les récupère : votre téléphone ne contacte jamais OpenAgenda."),
@@ -123,6 +127,10 @@ private fun Credit(b: Bloc) {
     Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
         Rubrique(b.role)
         Text(b.nom, style = MaterialTheme.typography.titleLarge, textAlign = TextAlign.Center)
+        b.logo?.let {
+            Spacer(Modifier.height(8.dp))
+            Image(painterResource(it), contentDescription = b.logoDescription, modifier = Modifier.height(14.dp))
+        }
         b.note?.let { Note(it) }
     }
 }

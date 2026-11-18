@@ -57,6 +57,7 @@ ul.liste > li:first-child { border-top: 0; }
 .ligne.film { align-items: flex-start; }
 .affiche { width: 48px; height: 72px; flex: none; object-fit: cover; border-radius: 6px; background: var(--neutre); }
 .film details { margin-top: 4px; }
+.logo-tmdb { display: block; height: 14px; width: auto; margin-top: 12px; }
 .vignette { width: 56px; height: 56px; flex: none; object-fit: cover; border-radius: 6px; background: var(--neutre); }
 .film .resume { margin-top: 2px; }
 .film details p { margin: 6px 0; }

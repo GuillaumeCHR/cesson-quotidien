@@ -1,7 +1,7 @@
 // Service worker de Cesson'App (web) : l'appli s'ouvre hors connexion, avec les dernières données reçues.
 // Fichiers de l'appli : cache d'abord. Données du serveur : réseau d'abord, cache en secours. STAR (temps réel) : jamais en cache.
-const VERSION = "cessonapp-web-5";
-const APPLI = ["./", "index.html", "app.css", "app.js", "config.js", "manifest.webmanifest", "icones/icone.svg", "icones/icone-192.png", "icones/icone-512.png"];
+const VERSION = "cessonapp-web-6";
+const APPLI = ["./", "index.html", "app.css", "app.js", "config.js", "manifest.webmanifest", "icones/icone.svg", "icones/icone-192.png", "icones/icone-512.png", "icones/tmdb.svg"];
 
 self.addEventListener("install", (e) => {
   e.waitUntil(caches.open(VERSION).then((c) => c.addAll(APPLI)).then(() => self.skipWaiting()));

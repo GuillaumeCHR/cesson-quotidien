@@ -709,6 +709,7 @@ async function carteSources() {
       el("div", { classe: "doux petit" }, `Licence : ${s.licence} · mis à jour ${depuis(s.recupere_le)}`)))),
     el("p", { classe: "doux petit" }, "Prochains passages du métro et des bus, parc relais : STAR (Rennes Métropole, Keolis Rennes), temps réel, ODbL. " +
       "Qualité de l'air et pollens : source Atmo France / AASQA."),
+    el("img", { classe: "logo-tmdb", src: "icones/tmdb.svg", alt: "Logo de The Movie Database (TMDB)", width: 96, height: 12 }),
     el("p", { classe: "doux petit" }, "Fiches des films : The Movie Database (TMDB), liens Wikipédia et Allociné par Wikidata (CC0). " +
       "This product uses the TMDB API but is not endorsed or certified by TMDB. Votre navigateur ne contacte jamais TMDB : " +
       "le serveur de l'app récupère fiches et affiches. Vignettes des spectacles : OpenAgenda (Ville de Cesson-Sévigné), " +
