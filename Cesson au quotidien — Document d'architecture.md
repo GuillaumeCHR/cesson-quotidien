@@ -259,6 +259,14 @@ Le projet avance en 7 étapes, des données les plus sûres vers celles qui dema
 
 **Version web** (17/11/2026) : https://guillaumechr.github.io/cesson-quotidien/ (dossier `web/`, GitHub Pages, déployée à chaque envoi). Pour l'iPhone et les ordinateurs : mêmes JSON (le Pi les sert avec `Access-Control-Allow-Origin: *`), prochains passages demandés à STAR depuis le navigateur. HTML, CSS et JavaScript sans framework ni compilation, installable (PWA) et lisible hors connexion. Sans rappels, alertes ni widget : ils supposeraient un serveur de notifications.
 
+**Fiches des films du cinéma** (prévu le 18/11/2026, au soir). Chaque film de la grille du Sévigné reçoit une fiche : affiche, synopsis en français, réalisateur, distribution, durée, genres, année, classification française, liens Wikipédia et Allociné.
+
+- **Sources.** TMDB d'abord (affiches, synopsis, fiches complètes même pour les sorties de la semaine) : API gratuite pour un usage non commercial, clé du mainteneur rangée dans `/srv/cesson/secrets/tmdb.env` (jamais dans l'app ni dans git), crédit obligatoire dans « À propos » (logo et « This product uses the TMDB API but is not endorsed or certified by TMDB »). Wikidata (CC0) ensuite, retrouvé par l'identifiant TMDB (P4947), pour les liens Wikipédia et Allociné.
+- **Reconnaissance du film.** Recherche du titre en français, sans limite de date : la salle passe aussi des classiques (Taxi Driver). « Sortie nationale » sur la grille : le film le plus récent. Sinon : titre exact, puis le plus connu. En cas de doute entre candidats proches, pas de fiche plutôt qu'une fausse ; correction à la main possible dans `saisie/cinema.yaml`. Correspondances gardées en cache sur le Pi.
+- **Vie privée.** Le Pi télécharge les vignettes (185 px) et les publie avec les JSON : les téléphones et la version web ne contactent jamais TMDB.
+- **Robustesse.** La fiche est facultative : si TMDB ou Wikidata ne répondent pas, les séances s'affichent quand même.
+- **Affichage.** App et version web : sous le titre, une ligne « réalisateur · durée · genre », l'affiche, et un dépliant pour le synopsis, la distribution et les liens. Variante compacte : affiche et ligne seulement.
+
 ## Risques et points ouverts
 
 Le risque principal est une information fausse sur une crue ou une fermeture. Elle se retournerait contre l'app et contre son auteur.
