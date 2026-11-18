@@ -211,7 +211,7 @@ private val AGENDA = Tuile("agenda", "Agenda", Icons.Rounded.Event) { app ->
 }
 private val CINEMA = Tuile("cinema", "Cinéma Le Sévigné", Icons.Rounded.Movie) { app ->
     val etat by remember(app) { app.depot.cinema() }.collectAsStateWithLifecycle(EtatModule.Absent)
-    CarteCinema(etat)
+    CarteCinema(etat, affiche = { app.depot.image(it) })
 }
 private val SAISON = Tuile("saison", "Saison culturelle", Icons.Rounded.TheaterComedy) { app ->
     val etat by remember(app) { app.depot.agenda() }.collectAsStateWithLifecycle(EtatModule.Absent)

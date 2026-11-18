@@ -416,6 +416,24 @@ async function carteAgenda() {
     el("div", { classe: "doux petit" }, [e.horaires, e.lieu].filter(Boolean).join(" · "))))), f);
 }
 
+const duree = (m) => m < 60 ? `${m} min` : `${Math.floor(m / 60)}h${String(m % 60).padStart(2, "0")}`;
+/** « Martin Scorsese · 1h54 · Crime » (fiche TMDB publiée par le serveur). */
+const ligneFiche = (f) => [f.realisateurs?.[0], f.duree_min && duree(f.duree_min), f.genres?.[0]].filter(Boolean).join(" · ");
+
+function detailFiche(f) {
+  const lignes = [
+    f.realisateurs?.length && `Réalisation : ${f.realisateurs.join(", ")}`,
+    f.distribution?.length && `Avec ${f.distribution.join(", ")}`,
+    [f.annee, f.titre_original && `titre original : ${f.titre_original}`, f.genres?.length > 1 && f.genres.join(", ")].filter(Boolean).join(" · "),
+    f.classification && `Interdit aux moins de ${f.classification} ans`,
+  ].filter(Boolean);
+  return el("details", { classe: "petit" }, el("summary", {}, "À propos du film"),
+    f.synopsis && el("p", {}, f.synopsis),
+    lignes.map((l) => el("div", { classe: "doux" }, l)),
+    el("div", { classe: "pastilles" }, f.wikipedia && lien(f.wikipedia, "Wikipédia", "bouton"),
+      f.allocine && lien(f.allocine, "Allociné", "bouton"), lien(f.page_tmdb, "TMDB", "bouton")));
+}
+
 async function carteCinema() {
   const f = await module("cinema");
   if (!f) return absent("Cinéma Le Sévigné");
@@ -432,8 +450,13 @@ async function carteCinema() {
   const libelle = (j) => j === isoJour() ? "Aujourd'hui" : j === isoJour(1) ? "Demain" : majuscule(fmt({ weekday: "long", day: "numeric" }).format(jourCalendaire(j)));
   return carte("Cinéma Le Sévigné", el("div", {},
     puces(jours.map((j) => [j, libelle(j)]), jours[0], (j) => el("ul", { classe: "liste" },
-      parJour.get(j).sort((a, b) => new Date(a.s.debut) - new Date(b.s.debut)).map(({ film, s }) => el("li", { classe: "ligne" },
-        el("span", { classe: "chiffre" }, heure(s.debut)), el("strong", { classe: "etire" }, film.titre),
+      parJour.get(j).sort((a, b) => new Date(a.s.debut) - new Date(b.s.debut)).map(({ film, s }) => el("li", { classe: "ligne film" },
+        el("span", { classe: "chiffre" }, heure(s.debut)),
+        film.fiche?.affiche && /^affiches\/\d+\.jpg$/.test(film.fiche.affiche)
+          ? el("img", { classe: "affiche", src: DONNEES + film.fiche.affiche, alt: "", loading: "lazy", width: 48, height: 72 }) : null,
+        el("div", { classe: "etire" }, el("strong", {}, film.titre),
+          film.fiche && ligneFiche(film.fiche) && el("div", { classe: "doux petit" }, ligneFiche(film.fiche)),
+          film.fiche && detailFiche(film.fiche)),
         film.vo && pastille("VO", "neutre"), s.tarif && el("span", { classe: "doux petit" }, s.tarif))))),
     d.tarifs && el("p", { classe: "doux petit" }, majuscule(d.tarifs)),
     d.grille && lien(d.grille, "Grille du mois", "bouton")), f);
@@ -680,7 +703,10 @@ async function carteSources() {
     el("ul", { classe: "liste" }, sources.map((s) => el("li", {}, s.url_source ? lien(s.url_source, s.source) : s.source,
       el("div", { classe: "doux petit" }, `Licence : ${s.licence} · mis à jour ${depuis(s.recupere_le)}`)))),
     el("p", { classe: "doux petit" }, "Prochains passages du métro et des bus, parc relais : STAR (Rennes Métropole, Keolis Rennes), temps réel, ODbL. " +
-      "Qualité de l'air et pollens : source Atmo France / AASQA.")), null, { classe: "large" });
+      "Qualité de l'air et pollens : source Atmo France / AASQA."),
+    el("p", { classe: "doux petit" }, "Fiches des films : The Movie Database (TMDB), liens Wikipédia et Allociné par Wikidata (CC0). " +
+      "This product uses the TMDB API but is not endorsed or certified by TMDB. Votre navigateur ne contacte jamais TMDB : " +
+      "le serveur de l'app récupère fiches et affiches.")), null, { classe: "large" });
 }
 
 function carteAPropos() {

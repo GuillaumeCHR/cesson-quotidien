@@ -1,6 +1,18 @@
 package com.yogistudio.cesson.actus
 
+import android.graphics.BitmapFactory
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.runtime.produceState
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
@@ -43,10 +55,12 @@ private fun heure(s: Seance) = s.debut.atZone(FuseauCesson).let { "${it.hour}h%0
 /**
  * Cinéma Le Sévigné : séances jour par jour (aujourd'hui d'abord), d'après la grille mensuelle de la salle.
  * Étiquettes VO et Sortie nationale ; tarif particulier et note de séance quand la grille en donne.
+ * Fiche du film quand le serveur l'a reconnu (TMDB) : affiche, « réalisateur · durée · genre », et un dépliant pour
+ * le synopsis, la distribution et les liens. Compact : affiche et ligne seulement.
  */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun CarteCinema(etat: EtatModule<DonneesCinema>, modifier: Modifier = Modifier) {
+fun CarteCinema(etat: EtatModule<DonneesCinema>, modifier: Modifier = Modifier, affiche: suspend (String) -> ByteArray? = { null }) {
     val maintenant = rememberMaintenant()
     val uri = LocalUriHandler.current
     var choix by rememberSaveable { mutableIntStateOf(0) }
@@ -77,7 +91,8 @@ fun CarteCinema(etat: EtatModule<DonneesCinema>, modifier: Modifier = Modifier) 
                                 Column(
                                     Modifier.fillMaxWidth().padding(vertical = 4.dp).semantics(mergeDescendants = true) {
                                         contentDescription = listOfNotNull(
-                                            film.titre, "version originale".takeIf { film.vo }, "sortie nationale".takeIf { film.sortieNationale },
+                                            film.titre, film.fiche?.let(::ligneFiche),
+                                            "version originale".takeIf { film.vo }, "sortie nationale".takeIf { film.sortieNationale },
                                             "séances à " + seances.joinToString(", ") { heure(it) },
                                             seances.mapNotNull { it.tarif }.firstOrNull()?.let { "tarif $it" },
                                             seances.mapNotNull { it.note }.firstOrNull(),
@@ -85,7 +100,13 @@ fun CarteCinema(etat: EtatModule<DonneesCinema>, modifier: Modifier = Modifier) 
                                     },
                                     verticalArrangement = Arrangement.spacedBy(3.dp),
                                 ) {
+                                  Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                                    film.fiche?.affiche?.let { AfficheFilm(it, compact, affiche) }
+                                    Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
                                     Text(film.titre, style = MaterialTheme.typography.titleSmall)
+                                    film.fiche?.let(::ligneFiche)?.takeIf { it.isNotEmpty() }?.let {
+                                        Text(it, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                                    }
                                     FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
                                         seances.forEach { s ->
                                             Pastille(heure(s) + (s.tarif?.takeIf { !compact }?.let { " · $it" } ?: ""), Ton.INFO)
@@ -96,6 +117,9 @@ fun CarteCinema(etat: EtatModule<DonneesCinema>, modifier: Modifier = Modifier) 
                                     if (!compact) seances.mapNotNull { it.note }.firstOrNull()?.let {
                                         Text(it, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                                     }
+                                    }
+                                  }
+                                  if (!compact) film.fiche?.let { DetailFiche(it) }
                                 }
                             }
                         }
@@ -111,6 +135,49 @@ fun CarteCinema(etat: EtatModule<DonneesCinema>, modifier: Modifier = Modifier) 
                     }
                 }
             }
+        }
+    }
+}
+
+private val LARGEUR_AFFICHE = 56.dp
+private val LARGEUR_AFFICHE_COMPACTE = 40.dp
+
+/** Affiche du film, lue sur le serveur de l'app (jamais chez TMDB) ; un aplat le temps qu'elle arrive. */
+@Composable
+private fun AfficheFilm(chemin: String, compact: Boolean, charger: suspend (String) -> ByteArray?) {
+    val image by produceState<ImageBitmap?>(null, chemin) {
+        value = charger(chemin)?.let { o -> runCatching { BitmapFactory.decodeByteArray(o, 0, o.size)?.asImageBitmap() }.getOrNull() }
+    }
+    val largeur = if (compact) LARGEUR_AFFICHE_COMPACTE else LARGEUR_AFFICHE
+    val forme = RoundedCornerShape(6.dp)
+    Box(Modifier.size(largeur, largeur * 1.5f).clip(forme).background(MaterialTheme.colorScheme.surfaceVariant)) {
+        image?.let { Image(it, contentDescription = null, contentScale = ContentScale.Crop, modifier = Modifier.size(largeur, largeur * 1.5f)) }
+    }
+}
+
+/** Dépliant « À propos du film » : synopsis, réalisation, distribution, classification, liens. */
+@Composable
+private fun DetailFiche(f: Fiche) {
+    val uri = LocalUriHandler.current
+    var deplie by rememberSaveable(f.tmdb) { mutableStateOf(false) }
+    TextButton(onClick = { deplie = !deplie }, contentPadding = androidx.compose.foundation.layout.PaddingValues(horizontal = 0.dp)) {
+        Text(if (deplie) "Masquer la fiche" else "À propos du film")
+    }
+    if (!deplie) return
+    val discret = MaterialTheme.colorScheme.onSurfaceVariant
+    Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+        f.synopsis?.let { Text(it, style = MaterialTheme.typography.bodyMedium) }
+        listOfNotNull(
+            f.realisateurs.takeIf { it.isNotEmpty() }?.let { "Réalisation : " + it.joinToString(", ") },
+            f.distribution.takeIf { it.isNotEmpty() }?.let { "Avec " + it.joinToString(", ") },
+            listOfNotNull(f.annee?.toString(), f.titreOriginal?.let { "titre original : $it" },
+                f.genres.takeIf { it.size > 1 }?.joinToString(", ")).joinToString(" · ").takeIf { it.isNotEmpty() },
+            f.classification?.let { "Interdit aux moins de $it ans" },
+        ).forEach { Text(it, style = MaterialTheme.typography.bodySmall, color = discret) }
+        FlowRow(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+            f.wikipedia?.let { l -> TextButton(onClick = { runCatching { uri.openUri(l) } }) { Text("Wikipédia") } }
+            f.allocine?.let { l -> TextButton(onClick = { runCatching { uri.openUri(l) } }) { Text("Allociné") } }
+            TextButton(onClick = { runCatching { uri.openUri(f.pageTmdb) } }) { Text("TMDB") }
         }
     }
 }

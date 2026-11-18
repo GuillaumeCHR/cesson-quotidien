@@ -90,6 +90,10 @@ private val CREDITS = listOf(
             "sous Licence Ouverte. Une fiche incomplète se complète chez eux, en deux minutes."),
     Bloc("Prix à la pompe", "Ministère de l'Économie (data.economie.gouv.fr)",
         "Chaque prix garde sa date : un prix d'il y a dix jours n'est jamais « le moins cher »."),
+    Bloc("Fiches des films", "The Movie Database (TMDB) et Wikidata",
+        "Affiches, synopsis, réalisation et distribution des films du Sévigné viennent de TMDB ; les liens Wikipédia " +
+            "et Allociné, de Wikidata (CC0). This product uses the TMDB API but is not endorsed or certified by TMDB. " +
+            "Le serveur de l'app les récupère : votre téléphone ne contacte jamais TMDB."),
     Bloc("Cartographie", "Les contributrices et contributeurs d'OpenStreetMap",
         "La carte de l'intro et la carte de Cesson, c'est leur travail bénévole, sous ODbL. Les tuiles viennent des " +
             "serveurs de la Fondation OpenStreetMap, relayées par le serveur de l'app ; affichées avec osmdroid (Apache 2.0)."),
@@ -106,7 +110,7 @@ private val CREDITS = listOf(
 private val REMERCIEMENTS = listOf(
     "Aux bénévoles d'OpenStreetMap, qui ont dessiné Cesson-Sévigné bien avant nous.",
     "Aux services de la Ville et de Rennes Métropole, qui publient horaires, calendriers et données ouvertes.",
-    "À STAR, à la SNCF, à Hub'Eau, à Vigicrues, à Météo-France, à Open-Meteo, à Air Breizh et à acceslibre, dont les " +
+    "À STAR, à la SNCF, à Hub'Eau, à Vigicrues, à Météo-France, à Open-Meteo, à Air Breizh, à acceslibre, à TMDB et à Wikidata, dont les " +
         "données ouvertes font tout le travail.",
     "À celles et ceux qui sortent leur bac la veille au soir.",
 )

@@ -13,6 +13,8 @@ page (pdfminer) :
 
 Si la mise en page change au point qu'aucune séance ne se lit, la collecte échoue : la version précédente
 reste publiée et l'alerte de santé prévient.
+
+Chaque film reçoit ensuite, s'il est reconnu, sa fiche (affiche, synopsis, réalisateur… : voir fiches_films.py).
 """
 
 from __future__ import annotations
@@ -32,6 +34,9 @@ from pdfminer.layout import LTTextContainer, LTTextLine
 from ..commun.collecteur import Collecteur, ErreurSource, ErreurValidation, obtenir
 from ..commun.horaires import PARIS
 from ..commun.modele import Modele
+from ..commun.publication import Publieur
+from ..commun.sante import Sante
+from .fiches_films import Fiche, FichesFilms
 
 SAISIE = Path(__file__).resolve().parents[2] / "saisie" / "cinema.yaml"
 # Le site de la salle publie chaque mois un nouveau fichier Drive, titré « grille novembre 26 » : on y lit le lien
@@ -61,6 +66,7 @@ class Film(Modele):
     vo: bool = False
     sortie_nationale: bool = False
     seances: list[Seance]
+    fiche: Fiche | None = None  # facultative : film non reconnu, ou TMDB injoignable
 
 
 class DonneesCinema(Modele):
@@ -257,6 +263,13 @@ class CollecteurCinema(Collecteur[DonneesCinema]):
 
     def __init__(self, chemin: Path = SAISIE) -> None:
         self.config = (yaml.safe_load(chemin.read_text(encoding="utf-8")) or {}).get("cinema") or {}
+        self._dossiers: tuple[Path, Path] | None = None
+
+    def executer(self, publieur: Publieur, sante: Sante, client: httpx.Client | None = None,
+                 maintenant: datetime | None = None):
+        self._dossiers = (publieur.dossier, sante.chemin.parent)  # affiches publiées, cache des fiches
+        self._maintenant = maintenant
+        return super().executer(publieur, sante, client, maintenant)
 
     def telecharger(self, client: httpx.Client) -> Any:
         lien = self.config.get("grille", "")
@@ -270,14 +283,26 @@ class CollecteurCinema(Collecteur[DonneesCinema]):
         pdf = obtenir(client, "https://drive.google.com/uc", params={"export": "download", "id": ident}).content
         if not pdf.startswith(b"%PDF"):
             raise ErreurValidation("la grille téléchargée n'est pas un PDF (lien privé ou déplacé ?)")
-        return {"pdf": pdf, "lien": lien}
+        # Lecture dès maintenant, pour chercher les fiches des films avec le même client.
+        maintenant = self._maintenant or datetime.now(PARIS)
+        grille = lire_grille(pdf, maintenant.astimezone(PARIS).date())
+        fiches: dict[str, Fiche] = {}
+        if self._dossiers:
+            debut_journee = datetime.combine(maintenant.astimezone(PARIS).date(), datetime.min.time(), PARIS)
+            a_venir = []
+            for f in grille["films"]:
+                if any(s.debut >= debut_journee for s in f["seances"]):
+                    titre, _, sortie = nettoyer_titre(f["titre"])
+                    a_venir.append({"titre": titre, "sortie_nationale": sortie})
+            fiches = FichesFilms(*self._dossiers, self.config.get("fiches")).completer(client, a_venir, maintenant)
+        return {"pdf": pdf, "lien": lien, "grille": grille, "fiches": fiches}
 
     def valider(self, brut: Any) -> None:
         pass  # la lecture elle-même valide : voir convertir()
 
     def convertir(self, brut: Any, maintenant: datetime) -> DonneesCinema:
         aujourdhui = maintenant.astimezone(PARIS).date()
-        g = lire_grille(brut["pdf"], aujourdhui)
+        g = brut.get("grille") or lire_grille(brut["pdf"], aujourdhui)
         if not any(f["seances"] for f in g["films"]):
             raise ErreurValidation("aucune séance lue dans la grille")
         debut_journee = datetime.combine(aujourdhui, datetime.min.time(), PARIS)
@@ -287,7 +312,8 @@ class CollecteurCinema(Collecteur[DonneesCinema]):
             if not seances:
                 continue
             titre, vo, sortie = nettoyer_titre(f["titre"])
-            films.append(Film(titre=titre, vo=vo, sortie_nationale=sortie, seances=seances))
+            films.append(Film(titre=titre, vo=vo, sortie_nationale=sortie, seances=seances,
+                              fiche=brut.get("fiches", {}).get(titre)))
         films.sort(key=lambda f: f.seances[0].debut)
         return DonneesCinema(salle=self.config.get("nom", "Cinéma Le Sévigné"), adresse=self.config.get("adresse"),
                              films=films, annonces=g["annonces"], tarifs=g["tarifs"], grille=brut["lien"])

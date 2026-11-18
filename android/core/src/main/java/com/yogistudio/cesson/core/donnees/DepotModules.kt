@@ -162,6 +162,35 @@ class DepotModules(
         }
     }
 
+    /**
+     * Image publiée avec les données (affiche d'un film : « affiches/103.jpg »), gardée sur le disque : une affiche
+     * ne change pas, elle n'est téléchargée qu'une fois. Null sans réseau ni copie locale. Les images qu'on n'a pas
+     * affichées depuis 90 jours sont effacées.
+     */
+    suspend fun image(chemin: String): ByteArray? = withContext(Dispatchers.IO) {
+        if (!Regex("[a-z0-9_]+/[0-9]+\\.jpg").matches(chemin)) return@withContext null
+        val dossierImages = File(dossier, "images").apply { mkdirs() }
+        val fichier = File(dossierImages, chemin.replace('/', '_'))
+        if (fichier.isFile) {
+            fichier.setLastModified(System.currentTimeMillis())
+            return@withContext fichier.readBytes()
+        }
+        val octets = try {
+            val url = base.resolve(chemin) ?: return@withContext null
+            client.newCall(Request.Builder().url(url).build()).execute().use { r ->
+                if (!r.isSuccessful) return@withContext null
+                r.body.bytes()
+            }
+        } catch (_: IOException) {
+            return@withContext null
+        }
+        val limite = System.currentTimeMillis() - 90L * 24 * 3600 * 1000
+        dossierImages.listFiles()?.filter { it.lastModified() < limite }?.forEach { it.delete() }
+        val tmp = File(dossierImages, ".${fichier.name}.tmp")
+        runCatching { tmp.writeBytes(octets); tmp.renameTo(fichier) }
+        octets
+    }
+
     private fun echec(cause: String): ResultatRafraichissement {
         _derniereErreur.value = cause
         return ResultatRafraichissement.Echec(cause)

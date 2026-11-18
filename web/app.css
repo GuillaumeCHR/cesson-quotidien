@@ -54,6 +54,10 @@ ul.liste > li { padding: 9px 0; border-top: 1px solid var(--trait); }
 ul.liste > li:first-child { border-top: 0; }
 .ligne { display: flex; align-items: baseline; gap: 10px; }
 .ligne > .etire { flex: 1; min-width: 0; }
+.ligne.film { align-items: flex-start; }
+.affiche { width: 48px; height: 72px; flex: none; object-fit: cover; border-radius: 6px; background: var(--neutre); }
+.film details { margin-top: 4px; }
+.film details p { margin: 6px 0; }
 .chiffre { font-variant-numeric: tabular-nums; font-weight: 700; white-space: nowrap; }
 .grand { font-size: 44px; font-weight: 700; line-height: 1.1; color: var(--bleu); font-variant-numeric: tabular-nums; }
 

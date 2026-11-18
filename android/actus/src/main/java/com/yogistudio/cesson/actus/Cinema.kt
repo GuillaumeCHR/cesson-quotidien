@@ -27,7 +27,35 @@ data class Film(
     val vo: Boolean = false,
     @SerialName("sortie_nationale") val sortieNationale: Boolean = false,
     val seances: List<Seance> = emptyList(),
+    val fiche: Fiche? = null,
 )
+
+/** Miroir de Fiche (backend/cesson/collecteurs/fiches_films.py) : TMDB et Wikidata, facultative. */
+@Serializable
+data class Fiche(
+    val tmdb: Int,
+    val titre: String,
+    @SerialName("titre_original") val titreOriginal: String? = null,
+    val annee: Int? = null,
+    val realisateurs: List<String> = emptyList(),
+    val distribution: List<String> = emptyList(),
+    @SerialName("duree_min") val dureeMin: Int? = null,
+    val genres: List<String> = emptyList(),
+    val synopsis: String? = null,
+    val classification: String? = null,
+    val affiche: String? = null,
+    val wikipedia: String? = null,
+    val allocine: String? = null,
+    @SerialName("page_tmdb") val pageTmdb: String,
+)
+
+/** « 1h54 », « 52 min ». */
+fun duree(minutes: Int): String = if (minutes < 60) "$minutes min" else "${minutes / 60}h%02d".format(minutes % 60)
+
+/** Ligne sous le titre : « Martin Scorsese · 1h54 · Crime ». */
+fun ligneFiche(f: Fiche): String = listOfNotNull(
+    f.realisateurs.firstOrNull(), f.dureeMin?.let(::duree), f.genres.firstOrNull(),
+).joinToString(" · ")
 
 @Serializable
 data class Seance(val debut: Horodatage, val tarif: String? = null, val note: String? = null)
