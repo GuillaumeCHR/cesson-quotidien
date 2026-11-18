@@ -14,6 +14,8 @@ Le Pi télécharge les affiches (185 px) dans public/affiches/ : les téléphone
 Correspondances et fiches restent en cache dans etat/ (fiches revues chaque semaine, titres sans film chaque jour).
 La fiche est facultative : sans jeton, ou si TMDB ne répond pas, les séances sont publiées sans elle.
 
+Résumé d'une ligne : la première phrase du synopsis officiel, coupée sur un mot au-delà de 120 caractères.
+
 Jeton d'accès en lecture TMDB (« jeton=eyJ… ») dans /srv/cesson/secrets/tmdb.env, ou le fichier que désigne
 CESSON_TMDB_IDENTIFIANTS.
 """
@@ -62,6 +64,7 @@ class Fiche(Modele):
     duree_min: int | None = None
     genres: list[str] = []
     synopsis: str | None = None
+    resume: str | None = None  # première phrase du synopsis, raccourcie
     classification: str | None = None  # visa français : « 12 », « 16 »… (rien = tous publics ou inconnu)
     affiche: str | None = None  # chemin relatif à la racine des données : affiches/103.jpg
     wikipedia: str | None = None
@@ -138,6 +141,7 @@ def fiche_de(detail: dict, liens: dict[str, str], affiche: str | None = None) ->
         duree_min=detail.get("runtime") or None,
         genres=[g["name"] for g in detail.get("genres", [])][:3],
         synopsis=(detail.get("overview") or "").strip() or None,
+        resume=premiere_phrase(detail.get("overview")),
         classification=classification,
         affiche=affiche,
         wikipedia=liens.get("wikipedia"),
@@ -155,6 +159,23 @@ def liens_wikidata(entite: dict) -> dict[str, str]:
             liens["allocine"] = f"https://www.allocine.fr/film/fichefilm_gen_cfilm={v}.html"
             break
     return liens
+
+
+RESUME_MAX = 120  # caractères
+
+
+def premiere_phrase(synopsis: str | None) -> str | None:
+    """Première phrase du synopsis ; au-delà de RESUME_MAX caractères, coupée sur un mot et suivie de « … »."""
+    if not synopsis:
+        return None
+    t = " ".join(synopsis.split())
+    phrase = re.split(r"(?<=[.!?…])\s+(?=[A-ZÀ-Ý«])", t, maxsplit=1)[0]
+    if len(phrase) <= RESUME_MAX:
+        return phrase
+    coupe = phrase[:RESUME_MAX - 1].rsplit(" ", 1)[0]
+    coupe = re.sub(r"[\s,;:–-]+$", "", coupe)
+    coupe = re.sub(r"\s+(et|ou|de|du|des|la|le|les|un|une|à|au|aux|en|par|pour|sur|qui|que|dont|d’|l’)$", "", coupe, flags=re.I)
+    return coupe + "…"
 
 
 class FichesFilms:
@@ -217,7 +238,8 @@ class FichesFilms:
         connue = self.cache["fiches"].get(str(ident))
         if connue and (entetes is None or maintenant - datetime.fromisoformat(connue["le"]) < REVOIR_FICHE):
             connue["vue"] = maintenant.isoformat()
-            return Fiche.model_validate(connue["fiche"])
+            fiche = Fiche.model_validate(connue["fiche"])
+            return fiche if fiche.resume or not fiche.synopsis else fiche.model_copy(update={"resume": premiere_phrase(fiche.synopsis)})
         if entetes is None:
             return None
         detail = obtenir(client, f"{API}/movie/{ident}", headers=entetes, params={

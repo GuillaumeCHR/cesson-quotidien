@@ -55,8 +55,8 @@ private fun heure(s: Seance) = s.debut.atZone(FuseauCesson).let { "${it.hour}h%0
 /**
  * Cinéma Le Sévigné : séances jour par jour (aujourd'hui d'abord), d'après la grille mensuelle de la salle.
  * Étiquettes VO et Sortie nationale ; tarif particulier et note de séance quand la grille en donne.
- * Fiche du film quand le serveur l'a reconnu (TMDB) : affiche, « réalisateur · durée · genre », et un dépliant pour
- * le synopsis, la distribution et les liens. Compact : affiche et ligne seulement.
+ * Fiche du film quand le serveur l'a reconnu (TMDB) : affiche, « réalisateur · durée · genre », résumé d'une ligne,
+ * et un dépliant pour le synopsis, la distribution et les liens. Compact : affiche et ligne seulement.
  */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -91,7 +91,7 @@ fun CarteCinema(etat: EtatModule<DonneesCinema>, modifier: Modifier = Modifier, 
                                 Column(
                                     Modifier.fillMaxWidth().padding(vertical = 4.dp).semantics(mergeDescendants = true) {
                                         contentDescription = listOfNotNull(
-                                            film.titre, film.fiche?.let(::ligneFiche),
+                                            film.titre, film.fiche?.let(::ligneFiche), film.fiche?.resume.takeIf { !compact },
                                             "version originale".takeIf { film.vo }, "sortie nationale".takeIf { film.sortieNationale },
                                             "séances à " + seances.joinToString(", ") { heure(it) },
                                             seances.mapNotNull { it.tarif }.firstOrNull()?.let { "tarif $it" },
@@ -107,6 +107,7 @@ fun CarteCinema(etat: EtatModule<DonneesCinema>, modifier: Modifier = Modifier, 
                                     film.fiche?.let(::ligneFiche)?.takeIf { it.isNotEmpty() }?.let {
                                         Text(it, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                                     }
+                                    if (!compact) film.fiche?.resume?.let { Text(it, style = MaterialTheme.typography.bodyMedium) }
                                     FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
                                         seances.forEach { s ->
                                             Pastille(heure(s) + (s.tarif?.takeIf { !compact }?.let { " · $it" } ?: ""), Ton.INFO)

@@ -456,6 +456,7 @@ async function carteCinema() {
           ? el("img", { classe: "affiche", src: DONNEES + film.fiche.affiche, alt: "", loading: "lazy", width: 48, height: 72 }) : null,
         el("div", { classe: "etire" }, el("strong", {}, film.titre),
           film.fiche && ligneFiche(film.fiche) && el("div", { classe: "doux petit" }, ligneFiche(film.fiche)),
+          film.fiche?.resume && el("div", { classe: "resume" }, film.fiche.resume),
           film.fiche && detailFiche(film.fiche)),
         film.vo && pastille("VO", "neutre"), s.tarif && el("span", { classe: "doux petit" }, s.tarif))))),
     d.tarifs && el("p", { classe: "doux petit" }, majuscule(d.tarifs)),

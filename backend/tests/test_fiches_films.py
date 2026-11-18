@@ -97,6 +97,7 @@ def test_fiche_complete_puis_cache(tmp_path, monkeypatch):
     assert (f.realisateurs, f.duree_min, f.genres, f.classification, f.annee) == (["Martin Scorsese"], 114, ["Crime", "Drame"], "12", 1976)
     assert f.distribution == ["Robert De Niro", "Jodie Foster", "Cybill Shepherd", "Harvey Keitel"]
     assert f.titre_original is None and f.affiche == "affiches/103.jpg"
+    assert f.resume == "Vétéran du Vietnam, Travis Bickle est chauffeur de taxi la nuit à New York."
     assert (public / "affiches" / "103.jpg").read_bytes().startswith(b"\xff\xd8")
     assert f.allocine.endswith("cfilm=1405.html") and f.wikipedia.endswith("/Taxi_Driver")
     assert json.loads((etat / "fiches_films.json").read_text())["titres"]["inconnu"]["tmdb"] is None
@@ -121,3 +122,15 @@ def test_fiche_forcee_ou_refusee(tmp_path, monkeypatch):
     f = FichesFilms(tmp_path / "public", tmp_path / "etat", {"Hope": 0, "La gradiva": 42})
     assert f._identifiant(None, None, {"titre": "Hope"}, AUJOURDHUI, MAINTENANT) is None
     assert f._identifiant(None, None, {"titre": "La Gradiva"}, AUJOURDHUI, MAINTENANT) == 42
+
+
+
+def test_resume_premiere_phrase():
+    from cesson.collecteurs.fiches_films import premiere_phrase
+    assert premiere_phrase("Dans une famille de croque-morts, deux sœurs et un frère se retrouvent pour les funérailles de "
+                           "leur mère. Mais rien ne se passe comme prévu.") == \
+        "Dans une famille de croque-morts, deux sœurs et un frère se retrouvent pour les funérailles de leur mère."
+    longue = premiere_phrase("Nouvellement embauchée dans le département des Ressources Humaines d’une grande compagnie "
+                             "d’assurances, Carla Moretti doit travailler à réconcilier le bien-être des salariés.")
+    assert len(longue) <= 120 and longue.endswith("…") and not longue.endswith(" d’…")
+    assert premiere_phrase(None) is None and premiere_phrase("") is None

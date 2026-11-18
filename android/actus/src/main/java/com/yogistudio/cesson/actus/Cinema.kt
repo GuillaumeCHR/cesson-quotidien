@@ -42,6 +42,7 @@ data class Fiche(
     @SerialName("duree_min") val dureeMin: Int? = null,
     val genres: List<String> = emptyList(),
     val synopsis: String? = null,
+    val resume: String? = null,
     val classification: String? = null,
     val affiche: String? = null,
     val wikipedia: String? = null,
