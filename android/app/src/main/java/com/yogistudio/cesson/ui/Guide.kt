@@ -21,6 +21,22 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
+import androidx.compose.material3.Checkbox
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.DirectionsBus
+import androidx.compose.material.icons.rounded.DirectionsCar
+import androidx.compose.material.icons.rounded.Train
+import androidx.compose.ui.graphics.vector.ImageVector
+import com.yogistudio.cesson.core.preferences.MODE_STAR
+import com.yogistudio.cesson.core.preferences.MODE_TRAIN
+import com.yogistudio.cesson.core.preferences.MODE_VOITURE
+import com.yogistudio.cesson.core.preferences.MOTORISATION_ELECTRIQUE
+import com.yogistudio.cesson.core.preferences.MOTORISATION_HYBRIDE
+import com.yogistudio.cesson.core.preferences.MOTORISATION_THERMIQUE
+import com.yogistudio.cesson.core.preferences.configSelonDeplacements
+import com.yogistudio.cesson.core.preferences.tuilesUtiles
+import com.yogistudio.cesson.rappels.ReglageTrainsFavoris
+import kotlinx.coroutines.flow.first
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -60,11 +76,11 @@ import com.yogistudio.cesson.transport.ChoixArret
 import com.yogistudio.cesson.transport.lignesStar
 import kotlinx.coroutines.launch
 
-private const val NB_ETAPES = 5
+private const val NB_ETAPES = 6
 
 /**
- * Guide de démarrage, au premier lancement puis depuis le menu : bienvenue, cartes de l'accueil,
- * réglages personnels. Chaque choix est enregistré aussitôt (sur le téléphone) : « Passer » à
+ * Guide de démarrage, au premier lancement puis depuis le menu : bienvenue, déplacements (voiture, bus et métro,
+ * train, avec leurs réglages), cartes compactes ou détaillées, cartes de l'accueil, réglages personnels. Chaque choix est enregistré aussitôt (sur le téléphone) : « Passer » à
  * n'importe quelle étape garde ce qui a déjà été choisi.
  */
 @Composable
@@ -83,9 +99,10 @@ fun EcranGuide(app: CessonApp, onTerminer: () -> Unit) {
                 color = MaterialTheme.colorScheme.onSurfaceVariant)
             when (etape) {
                 0 -> EtapeBienvenue()
-                1 -> EtapeCartes(app)
-                2 -> EtapeAccueil(app)
-                3 -> EtapeReglages(app)
+                1 -> EtapeDeplacements(app)
+                2 -> EtapeCartes(app)
+                3 -> EtapeAccueil(app)
+                4 -> EtapeReglages(app)
                 else -> EtapeFin()
             }
         }
@@ -97,7 +114,11 @@ fun EcranGuide(app: CessonApp, onTerminer: () -> Unit) {
                 OutlinedButton(onClick = { etape-- }) { Text("Retour") }
                 Spacer(Modifier.width(8.dp))
             }
-            if (etape < NB_ETAPES - 1) Button(onClick = { etape++ }) { Text("Suivant") }
+            if (etape < NB_ETAPES - 1) Button(onClick = {
+                // En quittant « Vos déplacements » : l'accueil et l'onglet Bouger s'adaptent aux choix.
+                if (etape == 1) portee.launch { appliquerDeplacements(app) }
+                etape++
+            }) { Text("Suivant") }
             else Button(onClick = { terminer() }) { Text("C'est parti") }
         }
     }
@@ -117,6 +138,120 @@ private fun EtapeBienvenue() {
     Text(PROMESSE, style = MaterialTheme.typography.titleMedium)
     Text("En deux minutes, choisissez ce que vous voulez voir. Tout se change ensuite à tout moment.",
         style = MaterialTheme.typography.bodyLarge)
+}
+
+/**
+ * Vos déplacements : voiture, bus et métro, train (plusieurs choix), et pour chacun ses réglages (motorisation et
+ * carburant, mon arrêt, mes trains). En quittant l'étape, l'accueil et l'onglet Bouger s'adaptent (appliquerDeplacements).
+ */
+@Composable
+private fun EtapeDeplacements(app: CessonApp) {
+    val portee = rememberCoroutineScope()
+    val modes by app.preferences.deplacements.collectAsStateWithLifecycle(emptySet())
+    val motorisation by app.preferences.motorisation.collectAsStateWithLifecycle(null)
+    fun basculer(mode: String) = portee.launch {
+        app.preferences.enregistrerDeplacements(if (mode in modes) modes - mode else modes + mode)
+    }
+    TitreEtape("Vos déplacements")
+    Text("Comment vous déplacez-vous ? Plusieurs choix possibles : l'accueil et l'onglet Bouger s'adaptent.",
+        style = MaterialTheme.typography.bodyLarge)
+
+    ChoixDeplacement("En voiture", "Circulation, prix des carburants ou bornes de recharge, parc relais.",
+        Icons.Rounded.DirectionsCar, MODE_VOITURE in modes) { basculer(MODE_VOITURE) }
+    if (MODE_VOITURE in modes) Column(Modifier.padding(start = 12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        SousTitre("Votre voiture")
+        Row(Modifier.horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            listOf(MOTORISATION_THERMIQUE to "Essence ou diesel", MOTORISATION_HYBRIDE to "Hybride", MOTORISATION_ELECTRIQUE to "Électrique")
+                .forEach { (code, nom) ->
+                    FilterChip(selected = motorisation == code,
+                        onClick = { portee.launch { app.preferences.enregistrerMotorisation(code) } }, label = { Text(nom) })
+                }
+        }
+        if (motorisation != MOTORISATION_ELECTRIQUE) MonCarburant(app)
+    }
+
+    ChoixDeplacement("En bus ou en métro", "Métro b et bus à ViaSilva, prochains passages à votre arrêt.",
+        Icons.Rounded.DirectionsBus, MODE_STAR in modes) { basculer(MODE_STAR) }
+    if (MODE_STAR in modes) Column(Modifier.padding(start = 12.dp)) { MonArretGuide(app) }
+
+    ChoixDeplacement("En train", "Trains à la halte de Cesson, retards et suppressions en temps réel.",
+        Icons.Rounded.Train, MODE_TRAIN in modes) { basculer(MODE_TRAIN) }
+    if (MODE_TRAIN in modes) Column(Modifier.padding(start = 12.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+        SousTitre("Mon train habituel")
+        ReglageTrainsFavoris(app)
+    }
+}
+
+/** Accueil : cartes de transport utiles affichées, les autres masquées ; Bouger : cartes utiles en tête. */
+private suspend fun appliquerDeplacements(app: CessonApp) {
+    val modes = app.preferences.deplacements.first()
+    if (modes.isEmpty()) return // rien de choisi : on ne touche à rien
+    val utiles = tuilesUtiles(modes, app.preferences.motorisation.first())
+    listOf(ONGLET_ACCUEIL to true, ONGLET_BOUGER to false).forEach { (onglet, masquer) ->
+        val actuelle = app.preferences.configOnglet(onglet.id).first()
+        app.preferences.enregistrerOnglet(onglet.id, configSelonDeplacements(onglet.tuiles.map { it.id }, actuelle, utiles, masquer))
+    }
+}
+
+@Composable
+private fun ChoixDeplacement(titre: String, explication: String, icone: ImageVector, choisi: Boolean, onBasculer: () -> Unit) {
+    OutlinedCard(
+        modifier = Modifier.fillMaxWidth().toggleable(value = choisi, role = Role.Checkbox, onValueChange = { onBasculer() }),
+        border = BorderStroke(if (choisi) 2.dp else 1.dp,
+            if (choisi) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outlineVariant),
+    ) {
+        Row(Modifier.padding(14.dp), verticalAlignment = Alignment.CenterVertically) {
+            Checkbox(checked = choisi, onCheckedChange = null)
+            Spacer(Modifier.width(8.dp))
+            Icon(icone, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
+            Spacer(Modifier.width(12.dp))
+            Column(Modifier.weight(1f)) {
+                Text(titre, style = MaterialTheme.typography.titleMedium)
+                Text(explication, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            }
+        }
+    }
+}
+
+@Composable
+private fun MonArretGuide(app: CessonApp) {
+    val portee = rememberCoroutineScope()
+    val lignes by remember { app.depot.lignesStar() }.collectAsStateWithLifecycle(EtatModule.Absent)
+    val donneesLignes = (lignes as? EtatModule.Disponible)?.fichier?.donnees
+    val arret by app.preferences.arretSuivi.collectAsStateWithLifecycle(null)
+    var choixArret by rememberSaveable { mutableStateOf(false) }
+    SousTitre("Mon arrêt de bus")
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        Text(arret ?: "Aucun arrêt choisi", style = MaterialTheme.typography.bodyLarge, modifier = Modifier.weight(1f))
+        OutlinedButton(onClick = { choixArret = true }, enabled = !donneesLignes?.arrets.isNullOrEmpty()) {
+            Text(if (arret == null) "Choisir" else "Changer")
+        }
+    }
+    if (choixArret && donneesLignes != null) {
+        ChoixArret(donneesLignes.arrets, donneesLignes, actuel = arret, onFermer = { choixArret = false }) {
+            portee.launch { app.preferences.enregistrerArret(it) }
+            choixArret = false
+        }
+    }
+
+}
+
+@Composable
+private fun MonCarburant(app: CessonApp) {
+    val portee = rememberCoroutineScope()
+    val carburants by remember { app.depot.carburants() }.collectAsStateWithLifecycle(EtatModule.Absent)
+    val proposes = (carburants as? EtatModule.Disponible)?.fichier?.donnees?.let(::carburantsProposes).orEmpty()
+    val suivi by app.preferences.carburantSuivi.collectAsStateWithLifecycle(null)
+    if (proposes.isNotEmpty()) {
+        SousTitre("Mon carburant")
+        Row(Modifier.horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            proposes.forEach { (code, nom) ->
+                FilterChip(selected = code == (suivi ?: CARBURANT_PAR_DEFAUT),
+                    onClick = { portee.launch { app.preferences.enregistrerCarburant(code) } }, label = { Text(nom) })
+            }
+        }
+    }
+
 }
 
 /** Cartes compactes ou détaillées : deux choix illustrés par ce qu'affichent la météo et les trains. */
@@ -203,39 +338,6 @@ private fun EtapeReglages(app: CessonApp) {
     Text("Facultatif : ils personnalisent les cartes. Ils restent sur votre téléphone.",
         style = MaterialTheme.typography.bodyLarge)
 
-    // Mon arrêt
-    val lignes by remember { app.depot.lignesStar() }.collectAsStateWithLifecycle(EtatModule.Absent)
-    val donneesLignes = (lignes as? EtatModule.Disponible)?.fichier?.donnees
-    val arret by app.preferences.arretSuivi.collectAsStateWithLifecycle(null)
-    var choixArret by rememberSaveable { mutableStateOf(false) }
-    SousTitre("Mon arrêt de bus")
-    Row(verticalAlignment = Alignment.CenterVertically) {
-        Text(arret ?: "Aucun arrêt choisi", style = MaterialTheme.typography.bodyLarge, modifier = Modifier.weight(1f))
-        OutlinedButton(onClick = { choixArret = true }, enabled = !donneesLignes?.arrets.isNullOrEmpty()) {
-            Text(if (arret == null) "Choisir" else "Changer")
-        }
-    }
-    if (choixArret && donneesLignes != null) {
-        ChoixArret(donneesLignes.arrets, donneesLignes, actuel = arret, onFermer = { choixArret = false }) {
-            portee.launch { app.preferences.enregistrerArret(it) }
-            choixArret = false
-        }
-    }
-
-    // Mon carburant
-    val carburants by remember { app.depot.carburants() }.collectAsStateWithLifecycle(EtatModule.Absent)
-    val proposes = (carburants as? EtatModule.Disponible)?.fichier?.donnees?.let(::carburantsProposes).orEmpty()
-    val suivi by app.preferences.carburantSuivi.collectAsStateWithLifecycle(null)
-    if (proposes.isNotEmpty()) {
-        SousTitre("Mon carburant")
-        Row(Modifier.horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            proposes.forEach { (code, nom) ->
-                FilterChip(selected = code == (suivi ?: CARBURANT_PAR_DEFAUT),
-                    onClick = { portee.launch { app.preferences.enregistrerCarburant(code) } }, label = { Text(nom) })
-            }
-        }
-    }
-
     // Mes équipements
     val equipements by remember { app.depot.equipements() }.collectAsStateWithLifecycle(EtatModule.Absent)
     val liste = (equipements as? EtatModule.Disponible)?.fichier?.donnees?.equipements.orEmpty()
@@ -263,6 +365,7 @@ private fun EtapeFin() {
     Text("• le bouton de réglage en haut de chaque onglet ordonne et masque ses cartes ;", style = MaterialTheme.typography.bodyLarge)
     Text("• un appui long sur une carte la masque ;", style = MaterialTheme.typography.bodyLarge)
     Text("• cartes compactes ou détaillées : Réglages → Cartes ;", style = MaterialTheme.typography.bodyLarge)
+    Text("• vos trains habituels et les notifications : Réglages ;", style = MaterialTheme.typography.bodyLarge)
     Text("• ce guide reste dans le menu, en haut à droite.", style = MaterialTheme.typography.bodyLarge)
     Text("Une erreur, une idée ? « Vos idées / signaler une erreur », dans le même menu.",
         style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)

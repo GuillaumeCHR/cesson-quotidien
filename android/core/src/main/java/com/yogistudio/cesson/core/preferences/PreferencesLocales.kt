@@ -46,6 +46,8 @@ class PreferencesLocales(private val context: Context) {
     private val cleAlertesTrainsEnvoyees = stringSetPreferencesKey("alertes_trains_envoyees")
     private val cleSpectaclesFavoris = stringSetPreferencesKey("spectacles_favoris")
     private val cleRappelsSpectaclesEnvoyes = stringSetPreferencesKey("rappels_spectacles_envoyes")
+    private val cleDeplacements = stringSetPreferencesKey("deplacements")
+    private val cleMotorisation = stringPreferencesKey("motorisation")
 
     // L'accueil garde ses clés d'origine ; chaque onglet a les siennes (« onglet_bouger_ordre »…).
     private fun cleOrdre(onglet: String) = stringPreferencesKey(if (onglet == ACCUEIL) "accueil_ordre" else "onglet_${onglet}_ordre")
@@ -221,6 +223,20 @@ class PreferencesLocales(private val context: Context) {
     /** Rappels de spectacle déjà envoyés (« openagenda:70693599|veille|2026-11-19 », « …|Annulé ») : jamais deux fois. */
     val rappelsSpectaclesEnvoyes: Flow<Set<String>> = context.preferencesCesson.data.map { it[cleRappelsSpectaclesEnvoyes] ?: emptySet() }
 
+    /** Modes de déplacement choisis dans le guide (« voiture », « star », « train ») : vide tant que rien n'est choisi. */
+    val deplacements: Flow<Set<String>> = context.preferencesCesson.data.map { it[cleDeplacements] ?: emptySet() }
+
+    suspend fun enregistrerDeplacements(modes: Set<String>) {
+        context.preferencesCesson.edit { it[cleDeplacements] = modes }
+    }
+
+    /** Motorisation de la voiture : « thermique », « hybride » ou « electrique » ; null si non précisée. */
+    val motorisation: Flow<String?> = context.preferencesCesson.data.map { it[cleMotorisation] }
+
+    suspend fun enregistrerMotorisation(m: String) {
+        context.preferencesCesson.edit { it[cleMotorisation] = m }
+    }
+
     suspend fun enregistrerRappelsSpectaclesEnvoyes(cles: Set<String>) {
         context.preferencesCesson.edit { it[cleRappelsSpectaclesEnvoyes] = cles }
     }
@@ -250,4 +266,52 @@ fun deplacer(ordre: List<String>, id: String, sens: Int): List<String> {
     val j = i + sens
     if (i < 0 || j !in ordre.indices) return ordre
     return ordre.toMutableList().apply { add(j, removeAt(i)) }
+}
+
+
+// --- Déplacements (guide de démarrage) -------------------------------------------------------------
+
+const val MODE_VOITURE = "voiture"
+const val MODE_STAR = "star"
+const val MODE_TRAIN = "train"
+const val MOTORISATION_THERMIQUE = "thermique"
+const val MOTORISATION_HYBRIDE = "hybride"
+const val MOTORISATION_ELECTRIQUE = "electrique"
+
+/** Cartes de transport, par identifiant de tuile, et ce qui les rend utiles. */
+val TUILES_TRANSPORT = setOf("arrets", "mon_arret", "parc_relais", "trains", "circulation", "carburants", "bornes")
+
+/**
+ * Cartes de transport utiles selon les déplacements : bus et métro → ViaSilva et mon arrêt ; train → la halte ;
+ * voiture → circulation, parc relais, et carburants (thermique, hybride) ou bornes (électrique, hybride).
+ */
+fun tuilesUtiles(modes: Set<String>, motorisation: String?): Set<String> = buildSet {
+    if (MODE_STAR in modes) addAll(listOf("arrets", "mon_arret"))
+    if (MODE_TRAIN in modes) add("trains")
+    if (MODE_VOITURE in modes) {
+        addAll(listOf("circulation", "parc_relais"))
+        if (motorisation != MOTORISATION_ELECTRIQUE) add("carburants")
+        if (motorisation == MOTORISATION_ELECTRIQUE || motorisation == MOTORISATION_HYBRIDE) add("bornes")
+    }
+}
+
+/**
+ * Onglet réglé d'après les déplacements : les cartes de transport utiles d'abord, dans leur ordre ; à l'accueil
+ * ([masquerInutiles]), les cartes de transport inutiles sont masquées, les autres cartes ne changent pas.
+ */
+fun configSelonDeplacements(
+    tuiles: List<String>,
+    actuelle: ConfigAccueil,
+    utiles: Set<String>,
+    masquerInutiles: Boolean,
+): ConfigAccueil {
+    val ordre = ordonnerTuiles(tuiles, actuelle.ordre)
+    val transport = ordre.filter { it in TUILES_TRANSPORT }
+    val premiere = ordre.indexOfFirst { it in TUILES_TRANSPORT }.coerceAtLeast(0)
+    val reste = ordre.filter { it !in TUILES_TRANSPORT }
+    val transportOrdonne = transport.filter { it in utiles } + transport.filter { it !in utiles }
+    val nouvelOrdre = reste.take(premiere) + transportOrdonne + reste.drop(premiere)
+    val masquees = if (!masquerInutiles) actuelle.masquees - utiles
+    else actuelle.masquees - utiles + transport.filter { it !in utiles }
+    return ConfigAccueil(nouvelOrdre, masquees)
 }
