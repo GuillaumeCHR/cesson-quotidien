@@ -41,12 +41,13 @@ const val URL_SAISON = "https://www.ville-cesson-sevigne.fr/saison-culturelle/"
 private const val SPECTACLES_COMPACT = 3
 private const val SPECTACLES_DETAILLE = 6
 private val TAILLE_VIGNETTE = 56.dp
+private val TAILLE_VIGNETTE_COMPACTE = 40.dp
 private val JOUR_SPECTACLE = DateTimeFormatter.ofPattern("EEE d MMM", Locale.FRENCH)
 
 /**
  * Saison culturelle (Carré Sévigné, Pont des Arts) : les spectacles payants ou sur réservation, avec leur genre et
  * leur salle, et l'accès à la billetterie en ligne de la ville. Le reste des événements est dans l'Agenda.
- * Détaillée : la vignette de chaque spectacle (OpenAgenda, via le serveur de l'app) et son crédit photo.
+ * Vignette de chaque spectacle (OpenAgenda, via le serveur de l'app) avec son crédit photo, plus petite en compact.
  */
 @Composable
 fun CarteSaison(etat: EtatModule<DonneesAgenda>, modifier: Modifier = Modifier, image: suspend (String) -> ByteArray? = { null }) {
@@ -78,8 +79,9 @@ fun CarteSaison(etat: EtatModule<DonneesAgenda>, modifier: Modifier = Modifier, 
                         Text(JOUR_SPECTACLE.format(jour).replaceFirstChar { it.uppercase() },
                             style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.primary,
                             modifier = Modifier.width(84.dp).padding(top = 2.dp))
-                        if (!compact) e.vignette?.let {
-                            ImageServeur(it, TAILLE_VIGNETTE, TAILLE_VIGNETTE, image)
+                        e.vignette?.let {
+                            val taille = if (compact) TAILLE_VIGNETTE_COMPACTE else TAILLE_VIGNETTE
+                            ImageServeur(it, taille, taille, image)
                             Spacer(Modifier.width(12.dp))
                         }
                         Column(Modifier.weight(1f)) {
@@ -98,7 +100,8 @@ fun CarteSaison(etat: EtatModule<DonneesAgenda>, modifier: Modifier = Modifier, 
                                 Text(it.joinToString(" · "), style = MaterialTheme.typography.bodySmall,
                                     color = MaterialTheme.colorScheme.onSurfaceVariant)
                             }
-                            if (!compact && e.vignette != null) e.creditPhoto?.let {
+                            // Le crédit accompagne toujours la photo, en compact aussi (la vignette fait deux lignes de haut).
+                            if (e.vignette != null) e.creditPhoto?.let {
                                 Text("Photo $it", style = MaterialTheme.typography.labelSmall,
                                     color = MaterialTheme.colorScheme.onSurfaceVariant)
                             }
