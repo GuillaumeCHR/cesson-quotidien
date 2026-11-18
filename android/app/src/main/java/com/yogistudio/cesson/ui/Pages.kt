@@ -1,5 +1,8 @@
 package com.yogistudio.cesson.ui
 
+import androidx.compose.foundation.Image
+import androidx.compose.ui.res.painterResource
+import com.yogistudio.cesson.R
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -99,6 +102,21 @@ fun EcranSources(app: CessonApp) {
                     { IconButtonLien(url) { uri.openUri(url) } }
                 },
             )
+            HorizontalDivider()
+        }
+        item {
+            // Fiches des films : logo et mention exigés par les conditions de l'API TMDB.
+            Column(Modifier.padding(horizontal = 16.dp, vertical = 12.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                Text("Fiches des films", style = MaterialTheme.typography.titleSmall)
+                Image(painterResource(R.drawable.logo_tmdb), contentDescription = "Logo de The Movie Database (TMDB)",
+                    modifier = Modifier.height(14.dp))
+                Text("Affiches, synopsis, réalisation et distribution : The Movie Database (TMDB). This product uses the " +
+                    "TMDB API but is not endorsed or certified by TMDB. Liens Wikipédia et Allociné : Wikidata (CC0). " +
+                    "Le serveur de l'app récupère fiches et affiches : votre téléphone ne contacte jamais TMDB.\n\n" +
+                    "Vignettes des spectacles : OpenAgenda (Ville de Cesson-Sévigné), avec le crédit de chaque photo, " +
+                    "récupérées de la même façon.",
+                    style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            }
             HorizontalDivider()
         }
         item {
