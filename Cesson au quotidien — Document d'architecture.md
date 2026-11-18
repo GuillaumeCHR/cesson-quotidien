@@ -168,7 +168,7 @@ Les rappels prévisibles sont calculés sur le téléphone. Seuls les événemen
 
 | Règle | Déclencheur | Mécanisme |
 | --- | --- | --- |
-| Crue | Tronçon de la Vilaine en vigilance jaune ou plus, ou montée rapide à Pont Briand | Serveur, sujet FCM `crue` |
+| Crue | Abandonnée le 18/11/2026 : la vigilance météo de Météo-France couvre déjà le phénomène « crues » (à l'échelle du département) ; Vigicrues reste affiché en bandeau et sur la carte Vilaine | — |
 | Fermeture | Exception ajoutée sur un équipement suivi | Serveur, sujet `fermeture-<equipement>` |
 | Pollution | Indice ATMO prévu « mauvais » ou pire pour le lendemain | Serveur, sujet `air`, vers 14h30 |
 | Bus | Alerte STAR sur une ligne suivie | Serveur, sujet `star-<ligne>` |
