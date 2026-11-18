@@ -42,6 +42,10 @@ class PreferencesLocales(private val context: Context) {
     private val cleAlertesAirEnvoyees = stringSetPreferencesKey("alertes_air_envoyees")
     private val cleAlerteVigilance = booleanPreferencesKey("alerte_vigilance")
     private val cleSeuilVigilance = stringPreferencesKey("alerte_vigilance_seuil")
+    private val cleTrainsFavoris = stringPreferencesKey("trains_favoris")
+    private val cleAlertesTrainsEnvoyees = stringSetPreferencesKey("alertes_trains_envoyees")
+    private val cleSpectaclesFavoris = stringSetPreferencesKey("spectacles_favoris")
+    private val cleRappelsSpectaclesEnvoyes = stringSetPreferencesKey("rappels_spectacles_envoyes")
 
     // L'accueil garde ses clés d'origine ; chaque onglet a les siennes (« onglet_bouger_ordre »…).
     private fun cleOrdre(onglet: String) = stringPreferencesKey(if (onglet == ACCUEIL) "accueil_ordre" else "onglet_${onglet}_ordre")
@@ -184,6 +188,41 @@ class PreferencesLocales(private val context: Context) {
 
     suspend fun enregistrerSeuilVigilance(seuil: String) {
         context.preferencesCesson.edit { it[cleSeuilVigilance] = seuil }
+    }
+
+    /** Trains favoris (liste JSON de TrainFavori, module transport) : prévenir d'un retard ou d'une suppression. */
+    val trainsFavoris: Flow<String?> = context.preferencesCesson.data.map { it[cleTrainsFavoris] }
+
+    suspend fun enregistrerTrainsFavoris(json: String) {
+        context.preferencesCesson.edit { it[cleTrainsFavoris] = json }
+    }
+
+    /** Alertes de train déjà envoyées (« 2026-11-19|07:08|rennes|retard:8 ») : jamais deux fois la même. */
+    val alertesTrainsEnvoyees: Flow<Set<String>> = context.preferencesCesson.data.map { it[cleAlertesTrainsEnvoyees] ?: emptySet() }
+
+    suspend fun enregistrerAlertesTrainsEnvoyees(cles: Set<String>) {
+        context.preferencesCesson.edit { it[cleAlertesTrainsEnvoyees] = cles }
+    }
+
+    /** Spectacles favoris (identifiants de l'agenda, « openagenda:70693599 ») : rappel la veille à 18h. */
+    val spectaclesFavoris: Flow<Set<String>> = context.preferencesCesson.data.map { it[cleSpectaclesFavoris] ?: emptySet() }
+
+    suspend fun basculerSpectacleFavori(id: String) {
+        context.preferencesCesson.edit {
+            val actuels = it[cleSpectaclesFavoris] ?: emptySet()
+            it[cleSpectaclesFavoris] = if (id in actuels) actuels - id else actuels + id
+        }
+    }
+
+    suspend fun enregistrerSpectaclesFavoris(ids: Set<String>) {
+        context.preferencesCesson.edit { it[cleSpectaclesFavoris] = ids }
+    }
+
+    /** Rappels de spectacle déjà envoyés (« openagenda:70693599|veille|2026-11-19 », « …|Annulé ») : jamais deux fois. */
+    val rappelsSpectaclesEnvoyes: Flow<Set<String>> = context.preferencesCesson.data.map { it[cleRappelsSpectaclesEnvoyes] ?: emptySet() }
+
+    suspend fun enregistrerRappelsSpectaclesEnvoyes(cles: Set<String>) {
+        context.preferencesCesson.edit { it[cleRappelsSpectaclesEnvoyes] = cles }
     }
 
 }

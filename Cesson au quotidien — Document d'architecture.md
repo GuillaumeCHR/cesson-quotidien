@@ -172,9 +172,9 @@ Les rappels prévisibles sont calculés sur le téléphone. Seuls les événemen
 | Fermeture | Exception ajoutée sur un équipement suivi | Serveur, sujet `fermeture-<equipement>` |
 | Pollution | Indice ATMO prévu « mauvais » ou pire pour le lendemain | Serveur, sujet `air`, vers 14h30 |
 | Bus | Alerte STAR sur une ligne suivie | Serveur, sujet `star-<ligne>` |
-| Train | Suppression ou retard d'un train à la halte de Cesson | Serveur, sujet `train-cesson` |
 | Collecte | Veille au soir du jour de collecte, reports fériés compris | Local, WorkManager |
-| Spectacle | Rappel la veille d'un spectacle mis en favori | Local, WorkManager |
+| Spectacle | Spectacle mis en favori (étoile de la carte Saison) : rappel la veille à 18h, et alerte s'il passe « Annulé », « Reporté » ou « Nouvelle date » (contrôle à 9h, 13h, 18h) | Local, WorkManager |
+| Train favori | Train pris régulièrement (« le 7h08 vers Rennes », jours choisis, fériés exclus) : alerte seulement s'il est supprimé ou en retard de 5 min et plus, contrôle toutes les 5 min dans l'heure qui précède | Local, WorkManager, d'après trains.json (8 départs par direction et horaires de la semaine) |
 
 **Sujets FCM.** Le serveur publie sur un sujet sans connaître les abonnés. Il n'existe donc aucune base d'utilisateurs à protéger.
 

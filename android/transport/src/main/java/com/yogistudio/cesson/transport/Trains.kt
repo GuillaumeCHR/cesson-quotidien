@@ -3,6 +3,7 @@ package com.yogistudio.cesson.transport
 import com.yogistudio.cesson.core.donnees.DepotModules
 import com.yogistudio.cesson.core.donnees.EtatModule
 import com.yogistudio.cesson.core.modele.Horodatage
+import com.yogistudio.cesson.core.modele.JourCalendaire
 import com.yogistudio.cesson.core.modele.Lieu
 import com.yogistudio.cesson.core.ui.FuseauCesson
 import kotlinx.coroutines.flow.Flow
@@ -17,7 +18,12 @@ data class DonneesTrains(
     val directions: List<DirectionTrain> = emptyList(),
     val departs: List<DepartTrain> = emptyList(),
     @SerialName("temps_reel_disponible") val tempsReelDisponible: Boolean = false,
+    val horaires: List<HoraireTrain> = emptyList(),
 )
+
+/** Départ régulier de la halte (« 07:08 » vers Rennes) et ses jours de circulation de la semaine à venir. */
+@Serializable
+data class HoraireTrain(val heure: String, val direction: String, val destination: String, val dates: List<JourCalendaire> = emptyList())
 
 @Serializable
 data class DirectionTrain(val id: String, val libelle: String)

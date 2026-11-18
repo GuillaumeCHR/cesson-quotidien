@@ -153,8 +153,8 @@ fun appliquerAffichageSysteme(context: Context, mode: String) {
 }
 
 /**
- * Les notifications de l'app, calculées sur le téléphone : rappel de collecte la veille, vigilance météo, pollens et
- * épisodes de pollution. L'alerte de passage du bus n'est pas ici : elle s'arme ligne par ligne sur la carte « Mon arrêt de bus ».
+ * Les notifications de l'app, calculées sur le téléphone : rappel de collecte la veille, vigilance météo, trains
+ * favoris, pollens et épisodes de pollution. Les spectacles favoris se choisissent sur la carte Saison culturelle. L'alerte de passage du bus n'est pas ici : elle s'arme ligne par ligne sur la carte « Mon arrêt de bus ».
  */
 @Composable
 private fun CarteNotifications(app: CessonApp) {
@@ -165,6 +165,9 @@ private fun CarteNotifications(app: CessonApp) {
             HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
             Text("Vigilance météo", style = MaterialTheme.typography.titleSmall, modifier = Modifier.semantics { heading() })
             ReglageAlerteVigilance(app)
+            HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
+            Text("Mes trains", style = MaterialTheme.typography.titleSmall, modifier = Modifier.semantics { heading() })
+            com.yogistudio.cesson.rappels.ReglageTrainsFavoris(app)
             HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
             Text("Pollens", style = MaterialTheme.typography.titleSmall, modifier = Modifier.semantics { heading() })
             ReglageAlertePollens(app)

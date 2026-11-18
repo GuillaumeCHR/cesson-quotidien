@@ -215,7 +215,11 @@ private val CINEMA = Tuile("cinema", "Cinéma Le Sévigné", Icons.Rounded.Movie
 }
 private val SAISON = Tuile("saison", "Saison culturelle", Icons.Rounded.TheaterComedy) { app ->
     val etat by remember(app) { app.depot.agenda() }.collectAsStateWithLifecycle(EtatModule.Absent)
-    CarteSaison(etat, image = { app.depot.image(it) })
+    val favoris by app.preferences.spectaclesFavoris.collectAsStateWithLifecycle(emptySet())
+    val context = androidx.compose.ui.platform.LocalContext.current
+    val portee = androidx.compose.runtime.rememberCoroutineScope()
+    CarteSaison(etat, image = { app.depot.image(it) }, favoris = favoris,
+        basculerFavori = { id -> portee.launch { com.yogistudio.cesson.rappels.RappelsSpectacles.basculer(context, id) } })
 }
 val ONGLET_SORTIR = OngletTuiles("sortir", "l'onglet Sortir", listOf(SAISON, AGENDA, CINEMA, EQUIPEMENTS_LOISIRS))
 private val USAGES_EAU = Tuile("usages_eau", "Usage de l'eau", Icons.Rounded.WaterDrop) { app ->
@@ -314,7 +318,9 @@ fun CarburantsCesson(app: CessonApp) {
 @Composable
 fun TrainsHalte(app: CessonApp) {
     val etat by remember(app) { app.depot.trains() }.collectAsStateWithLifecycle(EtatModule.Absent)
-    CarteTrains(etat, rafraichir = { app.depot.rafraichir() })
+    val favoris by app.preferences.trainsFavoris.collectAsStateWithLifecycle(null)
+    CarteTrains(etat, rafraichir = { app.depot.rafraichir() }, favoris = com.yogistudio.cesson.transport.lireTrainsFavoris(favoris),
+        reglageFavoris = { com.yogistudio.cesson.rappels.ReglageTrainsFavoris(app) })
 }
 
 /**

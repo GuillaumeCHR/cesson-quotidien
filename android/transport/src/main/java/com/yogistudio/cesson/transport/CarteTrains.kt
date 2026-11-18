@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Info
+import androidx.compose.material.icons.rounded.Star
 import androidx.compose.material.icons.rounded.Train
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -55,7 +56,13 @@ private const val PAR_DIRECTION = 3
  * suppression quand la SNCF les publie. [rafraichir] relit les données tant que la carte est visible.
  */
 @Composable
-fun CarteTrains(etat: EtatModule<DonneesTrains>, rafraichir: suspend () -> Unit, modifier: Modifier = Modifier) {
+fun CarteTrains(
+    etat: EtatModule<DonneesTrains>,
+    rafraichir: suspend () -> Unit,
+    modifier: Modifier = Modifier,
+    favoris: List<TrainFavori> = emptyList(),
+    reglageFavoris: @Composable () -> Unit = {},
+) {
     val maintenant = rememberMaintenant(intervalleMs = 15_000)
     val cycle = LocalLifecycleOwner.current.lifecycle
     val relire by rememberUpdatedState(rafraichir)
@@ -92,8 +99,12 @@ fun CarteTrains(etat: EtatModule<DonneesTrains>, rafraichir: suspend () -> Unit,
                             Text(dir.libelle, style = MaterialTheme.typography.titleSmall,
                                 modifier = Modifier.semantics { heading() })
                             if (trains.isEmpty()) TexteBientot("Plus de train aujourd'hui.")
-                            trains.forEach { LigneTrain(it, maintenant, numero = !compact) }
+                            trains.forEach { t -> LigneTrain(t, maintenant, numero = !compact, favori = favoris.any { it.estLe(t) }) }
                         }
+                    }
+                    if (!compact) {
+                        Text("Mes trains", style = MaterialTheme.typography.titleSmall, modifier = Modifier.semantics { heading() })
+                        reglageFavoris()
                     }
                 }
             }
@@ -102,7 +113,7 @@ fun CarteTrains(etat: EtatModule<DonneesTrains>, rafraichir: suspend () -> Unit,
 }
 
 @Composable
-private fun LigneTrain(t: DepartTrain, maintenant: Instant, numero: Boolean = true) {
+private fun LigneTrain(t: DepartTrain, maintenant: Instant, numero: Boolean = true, favori: Boolean = false) {
     val prevue = formaterHeure(t.heureTheorique, maintenant)
     val reelle = t.heureReelle?.takeIf { t.statut == StatutTrain.RETARD }?.let { formaterHeure(it, maintenant) }
     val statut = libelleStatut(t)
@@ -117,6 +128,7 @@ private fun LigneTrain(t: DepartTrain, maintenant: Instant, numero: Boolean = tr
                     else -> statut
                 })
                 append(". TER ${t.ligne} numéro ${t.numero}")
+                if (favori) append(". Train favori")
             }
         },
     ) {
@@ -140,6 +152,11 @@ private fun LigneTrain(t: DepartTrain, maintenant: Instant, numero: Boolean = tr
                 }
                 Spacer(Modifier.width(10.dp))
                 Text(t.destination, style = MaterialTheme.typography.bodyMedium)
+                if (favori) {
+                    Spacer(Modifier.width(6.dp))
+                    Icon(Icons.Rounded.Star, contentDescription = null, modifier = Modifier.size(16.dp),
+                        tint = MaterialTheme.colorScheme.primary)
+                }
             }
             if (numero) Text("TER ${t.ligne} · n° ${t.numero}", style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant)

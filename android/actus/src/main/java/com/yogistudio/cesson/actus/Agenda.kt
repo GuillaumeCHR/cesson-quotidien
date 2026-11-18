@@ -68,3 +68,23 @@ fun libelleJour(j: LocalDate, aujourdhui: LocalDate): String = when (j) {
 /** Pour un événement sur plusieurs jours : « jusqu'au 18 déc. ». */
 fun libelleJusquau(e: Evenement): String? =
     if (e.au == e.du) null else "jusqu'au ${e.au.dayOfMonth} ${e.au.month.getDisplayName(TextStyle.SHORT, Locale.FRANCE)}"
+
+/** Rappel d'un spectacle favori : la veille à partir de 18h, ou dès que la Ville l'annonce annulé, reporté ou déplacé. */
+data class RappelSpectacle(val cle: String, val titre: String, val texte: String)
+
+const val HEURE_RAPPEL_VEILLE = 18
+
+fun rappelsSpectacles(d: DonneesAgenda, favoris: Set<String>, maintenant: java.time.ZonedDateTime, deja: Set<String>): List<RappelSpectacle> {
+    val demain = maintenant.toLocalDate().plusDays(1)
+    return d.evenements.filter { it.id in favoris && !it.au.isBefore(maintenant.toLocalDate()) }.mapNotNull { e ->
+        val titre = titreSpectacle(e.titre)
+        val ou = e.lieu?.let { " au $it" }.orEmpty().replace(" au Auditorium", " à l'Auditorium").replace(" au Médiathèque", " à la Médiathèque")
+        when {
+            e.statut != null -> RappelSpectacle("${e.id}|${e.statut}", "$titre : ${e.statut.lowercase()}",
+                "La Ville indique « ${e.statut} » pour ce spectacle. Plus d'informations sur sa page.")
+            e.du == demain && maintenant.hour >= HEURE_RAPPEL_VEILLE -> RappelSpectacle("${e.id}|veille|${e.du}",
+                "Demain${e.horaires?.substringBefore(" ")?.let { " $it" }.orEmpty()} : $titre", "Spectacle$ou. Bon spectacle !")
+            else -> null
+        }
+    }.filter { it.cle !in deja }
+}

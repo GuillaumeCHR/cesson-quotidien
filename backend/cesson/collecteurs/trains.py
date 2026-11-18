@@ -41,7 +41,7 @@ PARIS = ZoneInfo("Europe/Paris")
 FICHIER_HORAIRES = "trains_horaires.json"
 JOURS_GARDES = 8  # le fichier d'état couvre une semaine : une panne du GTFS ne prive pas de trains
 AGE_MAX_HORAIRES = timedelta(hours=20)
-PAR_DIRECTION = 4
+PAR_DIRECTION = 8  # la carte en montre 3 ; les autres servent aux alertes des trains favoris (dans l'heure qui précède)
 HORIZON = timedelta(hours=24)
 # Un départ affiché jusqu'à 2 min après son heure : le train peut être encore à quai.
 TOLERANCE_PASSE = timedelta(minutes=2)
@@ -72,10 +72,19 @@ class DepartTrain(Depart):
     retard_min: int | None = None
 
 
+class HoraireTrain(Modele):
+    """Départ régulier de la halte, pour choisir un train favori (« le 7h08 vers Rennes »)."""
+    heure: str  # « 07:08 », heure de Paris
+    direction: str
+    destination: str
+    dates: list[date]  # jours où il circule, sur la semaine à venir
+
+
 class DonneesTrains(Modele):
     halte: Lieu
     directions: list[Direction]
     departs: list[DepartTrain]
+    horaires: list[HoraireTrain] = []
     # Faux si le flux temps réel est injoignable, ou si aucun train de l'heure à venir n'y figure :
     # l'app prévient alors que les horaires affichés sont ceux prévus.
     temps_reel_disponible: bool
@@ -154,6 +163,21 @@ def heure_gtfs(jour: str, hms: str) -> datetime:
     d = datetime.strptime(jour, "%Y%m%d")
     midi = datetime(d.year, d.month, d.day, 12, tzinfo=PARIS)
     return (midi - timedelta(hours=12) + timedelta(hours=h, minutes=m, seconds=s)).astimezone(timezone.utc)
+
+
+def horaires_reguliers(trains: list[dict], maintenant: datetime) -> list[HoraireTrain]:
+    """Départs de la semaine à venir regroupés par heure et direction, avec leurs dates de circulation."""
+    aujourdhui = maintenant.astimezone(PARIS).date()
+    groupes: dict[tuple[str, str], dict] = {}
+    for t in trains:
+        for jour in t["dates"]:
+            local = heure_gtfs(jour, t["depart"]).astimezone(PARIS)
+            if not aujourdhui <= local.date() < aujourdhui + timedelta(days=7):
+                continue
+            g = groupes.setdefault((local.strftime("%H:%M"), t["direction"]), {"destination": t["destination"], "dates": set()})
+            g["dates"].add(local.date())
+    return [HoraireTrain(heure=h, direction=d, destination=g["destination"], dates=sorted(g["dates"]))
+            for (h, d), g in sorted(groupes.items())]
 
 
 # --- Temps réel ---------------------------------------------------------------------------------
@@ -289,6 +313,7 @@ class CollecteurTrains(Collecteur[DonneesTrains]):
                 gardes.append(d)
                 vus[d.direction] = vus.get(d.direction, 0) + 1
         return DonneesTrains(halte=HALTE, directions=list(DIRECTIONS.values()), departs=gardes,
+                             horaires=horaires_reguliers(brut["horaires"]["trains"], maintenant),
                              temps_reel_disponible=brut["flux"] is not None and (dans_l_heure == 0 or trouves > 0))
 
     def valide_jusqu_a(self, donnees: DonneesTrains, maintenant: datetime) -> datetime:

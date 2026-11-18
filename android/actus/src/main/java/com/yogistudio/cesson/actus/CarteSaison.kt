@@ -13,7 +13,10 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.OpenInNew
+import androidx.compose.material.icons.rounded.Star
+import androidx.compose.material.icons.rounded.StarOutline
 import androidx.compose.material.icons.rounded.TheaterComedy
+import androidx.compose.material3.IconToggleButton
 import androidx.compose.material3.Button
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -48,9 +51,16 @@ private val JOUR_SPECTACLE = DateTimeFormatter.ofPattern("EEE d MMM", Locale.FRE
  * Saison culturelle (Carré Sévigné, Pont des Arts) : les spectacles payants ou sur réservation, avec leur genre et
  * leur salle, et l'accès à la billetterie en ligne de la ville. Le reste des événements est dans l'Agenda.
  * Vignette de chaque spectacle (OpenAgenda, via le serveur de l'app) avec son crédit photo, plus petite en compact.
+ * Étoile : spectacle favori, rappelé la veille à 18h (voir RappelsSpectacles), et signalé s'il est annulé ou reporté.
  */
 @Composable
-fun CarteSaison(etat: EtatModule<DonneesAgenda>, modifier: Modifier = Modifier, image: suspend (String) -> ByteArray? = { null }) {
+fun CarteSaison(
+    etat: EtatModule<DonneesAgenda>,
+    modifier: Modifier = Modifier,
+    image: suspend (String) -> ByteArray? = { null },
+    favoris: Set<String> = emptySet(),
+    basculerFavori: (String) -> Unit = {},
+) {
     val maintenant = rememberMaintenant()
     val uri = LocalUriHandler.current
     fun ouvrir(lien: String) { runCatching { uri.openUri(lien) } }
@@ -109,6 +119,12 @@ fun CarteSaison(etat: EtatModule<DonneesAgenda>, modifier: Modifier = Modifier, 
                                 Text("Photo $it", style = MaterialTheme.typography.labelSmall,
                                     color = MaterialTheme.colorScheme.onSurfaceVariant)
                             }
+                        }
+                        val favori = e.id in favoris
+                        IconToggleButton(checked = favori, onCheckedChange = { basculerFavori(e.id) }) {
+                            Icon(if (favori) Icons.Rounded.Star else Icons.Rounded.StarOutline,
+                                contentDescription = if (favori) "Retirer des favoris" else "Me le rappeler la veille",
+                                tint = if (favori) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant)
                         }
                     }
                 }

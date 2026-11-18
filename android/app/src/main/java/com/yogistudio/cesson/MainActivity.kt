@@ -44,6 +44,11 @@ class MainActivity : ComponentActivity() {
             // Alertes pollens et pollution : prochain contrôle recalé, et vérification avec les données fraîches.
             com.yogistudio.cesson.rappels.AlertesAir.planifier(app)
             com.yogistudio.cesson.rappels.AlertesAir.verifier(app)
+            // Trains et spectacles favoris : horaires et agenda peut-être neufs.
+            com.yogistudio.cesson.rappels.AlertesTrains.planifier(app)
+            com.yogistudio.cesson.rappels.AlertesTrains.verifier(app)
+            com.yogistudio.cesson.rappels.RappelsSpectacles.planifier(app)
+            com.yogistudio.cesson.rappels.RappelsSpectacles.verifier(app)
             // Données fraîches : le widget d'écran d'accueil en profite aussitôt.
             runCatching { WidgetCesson().updateAll(app) }
         }

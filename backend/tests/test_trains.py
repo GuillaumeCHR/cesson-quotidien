@@ -79,9 +79,26 @@ def test_sans_temps_reel_tout_est_theorique():
     assert d.departs and all(x.statut == StatutDepart.THEORIQUE for x in d.departs)
     assert not d.temps_reel_disponible
     for direction in ("rennes", "est"):
-        assert 1 <= sum(x.direction == direction for x in d.departs) <= 4
+        assert 1 <= sum(x.direction == direction for x in d.departs) <= 8
     heures = [x.heure_theorique for x in d.departs]
     assert heures == sorted(heures) and heures[0] >= MAINTENANT
+
+
+def test_horaires_reguliers_pour_les_favoris():
+    from cesson.commun.horaires import PARIS
+    d = CollecteurTrains().convertir({"horaires": HORAIRES, "flux": None}, MAINTENANT)
+    assert d.horaires and {h.direction for h in d.horaires} == {"rennes", "est"}
+    cles = [(h.heure, h.direction) for h in d.horaires]
+    assert cles == sorted(cles) and len(cles) == len(set(cles))
+    jour = MAINTENANT.astimezone(PARIS).date()
+    for h in d.horaires:
+        assert len(h.heure) == 5 and h.dates == sorted(h.dates)
+        assert all(jour <= x < jour + timedelta(days=7) for x in h.dates)
+    # Chaque départ publié correspond à un horaire régulier, à la même heure de Paris.
+    for x in d.departs:
+        local = x.heure_theorique.astimezone(PARIS)
+        assert any(h.heure == local.strftime("%H:%M") and h.direction == x.direction and local.date() in h.dates
+                   for h in d.horaires)
 
 
 def test_retard_suppression_et_arret_saute():
