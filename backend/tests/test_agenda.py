@@ -54,12 +54,20 @@ OA = json.loads((D / "openagenda.json").read_text())
 PQ = json.loads((D / "postsquery_page1.json").read_text())
 
 
+def _titre(v):
+    t = v.get("title")
+    return t.get("fr") if isinstance(t, dict) else t
+
+
 def test_openagenda():
     e = [x for x in (depuis_openagenda(v, date(2026, 11, 15)) for v in OA["events"]) if x]
     suzane = next(x for x in e if x.titre == "Suzane")
     assert suzane.du == date(2026, 11, 19) and suzane.horaires.startswith("20h00")
     assert suzane.lieu == "Carré Sévigné" and suzane.theme == "carre_sevigne"
     assert suzane.conditions == "Payant, sur réservation"
+    assert suzane.statut is None  # « programmé » : aucune étiquette
+    complet = depuis_openagenda({**next(v for v in OA["events"] if _titre(v) == "Suzane"), "status": 5}, date(2026, 11, 15))
+    assert complet.statut == "Complet"
     expo = next(x for x in e if x.titre == "Exposition Clémentine Carsberg")
     assert expo.du == date(2026, 11, 17) and expo.au == date(2026, 12, 16)  # prochaine séance, dernière séance
 

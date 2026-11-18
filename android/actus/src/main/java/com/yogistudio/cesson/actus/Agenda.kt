@@ -31,6 +31,7 @@ data class Evenement(
     val famille: String = "autre",
     val vignette: String? = null,
     @SerialName("credit_photo") val creditPhoto: String? = null,
+    val statut: String? = null,
 )
 
 const val MODULE_AGENDA = "agenda"

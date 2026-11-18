@@ -65,6 +65,7 @@ class Evenement(Modele):
     famille: str = "autre"  # filtres de l'agenda : associations, culture, sport, mediatheque, autre
     vignette: str | None = None  # saison culturelle : chemin relatif aux données, « vignettes/12345.jpg »
     credit_photo: str | None = None  # « ©Romain Garcin », tel que publié par OpenAgenda
+    statut: str | None = None  # « Complet », « Reporté », « Annulé », « Nouvelle date » ; rien si la Ville n'a rien indiqué
 
 
 class DonneesAgenda(Modele):
@@ -178,9 +179,15 @@ def depuis_openagenda(e: dict, aujourdhui: date, vignettes: dict[str, str] | Non
         resume=court(_fr(e.get("description"))),
         lien=e.get("canonicalUrl") or f"https://openagenda.com/agendas/31553419/events/{e['uid']}",
         theme=th, saison=est_saison(lieu, conditions), famille=famille(titre, categorie, lieu, th),
+        statut=STATUTS.get(e.get("status")),
         vignette=(vignette := (vignettes or {}).get(str(e["uid"]))),
         credit_photo=(_fr(e.get("imageCredits")) or "").strip() or None if vignette else None,
     )
+
+
+# Statut OpenAgenda d'un événement (1 programmé, 2 reprogrammé, 3 en ligne, 4 reporté, 5 complet, 6 annulé) : seul ce
+# que la Ville a explicitement indiqué devient une étiquette. « Programmé » ne dit rien des places restantes.
+STATUTS = {2: "Nouvelle date", 4: "Reporté", 5: "Complet", 6: "Annulé"}
 
 
 def url_vignette(e: dict) -> str | None:

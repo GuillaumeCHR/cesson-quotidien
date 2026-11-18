@@ -404,7 +404,8 @@ async function carteSaison() {
         ? el("img", { classe: "vignette", src: DONNEES + e.vignette, alt: "", loading: "lazy", width: 56, height: 56 }) : null,
       el("div", { classe: "etire" },
         el("div", { classe: "doux" }, majuscule(FMT_JOUR_COURT.format(jourCalendaire(e.du)))),
-        el("strong", {}, lien(e.lien, e.titre)), " ", e.categorie && pastille(e.categorie, "info"),
+        el("strong", {}, lien(e.lien, e.titre)), " ", e.statut && pastille(e.statut, e.statut === "Nouvelle date" ? "neutre" : "ferme"),
+        " ", e.categorie && pastille(e.categorie, "info"),
         el("div", { classe: "doux petit" }, [e.horaires, e.lieu].filter(Boolean).join(" · ")),
         e.vignette && e.credit_photo && el("div", { classe: "doux petit" }, `Photo ${e.credit_photo}`)))))), f);
 }

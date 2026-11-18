@@ -90,11 +90,15 @@ fun CarteSaison(etat: EtatModule<DonneesAgenda>, modifier: Modifier = Modifier, 
                                 Row(verticalAlignment = Alignment.CenterVertically) {
                                     Text(titreSpectacle(e.titre), style = MaterialTheme.typography.titleSmall, maxLines = 1,
                                         overflow = TextOverflow.Ellipsis, modifier = Modifier.weight(1f, fill = false))
-                                    e.categorie?.let { Spacer(Modifier.width(8.dp)); Pastille(it, Ton.INFO) }
+                                    e.statut?.let { Spacer(Modifier.width(8.dp)); Pastille(it, tonStatut(it)) }
+                                        ?: e.categorie?.let { Spacer(Modifier.width(8.dp)); Pastille(it, Ton.INFO) }
                                 }
                             } else {
                                 Text(titreSpectacle(e.titre), style = MaterialTheme.typography.titleSmall)
-                                e.categorie?.let { Pastille(it, Ton.INFO) }
+                                if (e.categorie != null || e.statut != null) Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                                    e.statut?.let { Pastille(it, tonStatut(it)) }
+                                    e.categorie?.let { Pastille(it, Ton.INFO) }
+                                }
                             }
                             if (!compact) listOfNotNull(e.horaires, e.lieu).takeIf { it.isNotEmpty() }?.let {
                                 Text(it.joinToString(" · "), style = MaterialTheme.typography.bodySmall,
@@ -113,6 +117,9 @@ fun CarteSaison(etat: EtatModule<DonneesAgenda>, modifier: Modifier = Modifier, 
         }
     }
 }
+
+/** Complet, reporté, annulé : en rouge ; nouvelle date : en neutre. */
+private fun tonStatut(s: String) = if (s == "Nouvelle date") Ton.NEUTRE else Ton.FERME
 
 /** Les titres d'OpenAgenda sont parfois en capitales (« LA FOLLE JOURNÉE… ») : remis en casse de phrase. */
 fun titreSpectacle(t: String): String {
