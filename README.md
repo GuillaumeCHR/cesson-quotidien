@@ -80,12 +80,13 @@ Dossier `web/` : HTML, CSS et JavaScript sans framework ni compilation, publiés
 `main`. Elle lit les mêmes JSON que l'app (le Pi les sert avec `Access-Control-Allow-Origin: *`). Changer `VERSION`
 dans `web/sw.js` à chaque modification, pour que les navigateurs reprennent les nouveaux fichiers.
 
-## Carte de l'intro
+## Carte vectorielle de Cesson
 
-La carte vectorielle de Cesson-Sévigné animée au lancement vient d'OpenStreetMap (ODbL). Pour la régénérer :
+La carte de Cesson-Sévigné animée au lancement, qui sert aussi de fond au plan de la circulation (app et version web),
+vient d'OpenStreetMap (ODbL). Pour la régénérer :
 
-    curl -s --data-urlencode data@tools/carte/requete.overpassql https://overpass-api.de/api/interpreter > osm.json
-    python3 tools/carte/generer_carte.py osm.json android/app/src/main/java/com/yogistudio/cesson/ui/intro/CarteCesson.kt
+    curl -s -A "CessonApp-carte/1.0" --data-urlencode data@tools/carte/requete.overpassql https://overpass-api.de/api/interpreter > osm.json
+    python3 tools/carte/generer_carte.py osm.json android/core/src/main/java/com/yogistudio/cesson/core/carte/CarteCesson.kt web/carte-cesson.js
 
 ## Licence
 

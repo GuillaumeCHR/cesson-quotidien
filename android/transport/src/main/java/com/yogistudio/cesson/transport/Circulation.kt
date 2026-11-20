@@ -13,6 +13,16 @@ data class DonneesCirculation(
     @SerialName("mesure_le") val mesureLe: Horodatage,
     @SerialName("rocade_est") val rocadeEst: List<SensRocade> = emptyList(),
     @SerialName("axes_cesson") val axesCesson: List<AxeCesson> = emptyList(),
+    /** Tracés de la rocade est et des axes de Cesson, du moins au plus chargé (le plus grave se dessine par-dessus). */
+    val troncons: List<TronconTrace> = emptyList(),
+)
+
+/** Un tronçon et son tracé : points [lon, lat]. La rocade est dessinée plus épaisse que les rues de Cesson. */
+@Serializable
+data class TronconTrace(
+    val etat: EtatTrafic = EtatTrafic.INCONNU,
+    val rocade: Boolean = false,
+    val points: List<List<Double>> = emptyList(),
 )
 
 @Serializable

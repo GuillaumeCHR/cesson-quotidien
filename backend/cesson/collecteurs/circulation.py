@@ -6,6 +6,8 @@ chaque minute, un enregistrement par tronçon et par sens : vitesse moyenne et �
 Le jeu ne nomme pas les échangeurs de la rocade : chaque tronçon est situé entre les deux portes les plus
 proches (positions relevées dans OpenStreetMap). Le sens est déduit de la géométrie : en circulation à droite,
 la rocade intérieure tourne dans le sens des aiguilles d'une montre.
+
+Pour le plan de la carte, chaque tronçon garde aussi son tracé, simplifié (à quelques mètres près) et arrondi.
 """
 
 from __future__ import annotations
@@ -71,10 +73,45 @@ class Axe(Modele):
     vitesse: int | None = None
 
 
+class Troncon(Modele):
+    etat: str
+    rocade: bool = False  # tracé plus épais sur le plan
+    points: list[list[float]]  # [lon, lat], 5 décimales
+
+
 class DonneesCirculation(Modele):
     mesure_le: datetime
     rocade_est: list[Sens]
     axes_cesson: list[Axe]  # du plus chargé au plus fluide
+    # Tracés de la rocade est et des axes de Cesson, du moins au plus chargé : le plus grave se dessine par-dessus.
+    troncons: list[Troncon] = []
+
+
+TOLERANCE_TRACE = 0.00008  # degrés, de 6 à 9 m : invisible à l'échelle de la commune
+
+
+def simplifier(coords: list[list[float]], tol: float = TOLERANCE_TRACE) -> list[list[float]]:
+    """Douglas-Peucker sur les degrés (longitude corrigée de la latitude), puis arrondi à 5 décimales (~1 m)."""
+    k = math.cos(math.radians(coords[0][1]))
+
+    def garder(debut: int, fin: int, gardes: set[int]) -> None:
+        (xa, ya), (xb, yb) = coords[debut], coords[fin]
+        dx, dy = (xb - xa) * k, yb - ya
+        n = math.hypot(dx, dy)
+        pire, ip = 0.0, -1
+        for i in range(debut + 1, fin):
+            px, py = (coords[i][0] - xa) * k, coords[i][1] - ya
+            d = abs(dx * py - dy * px) / n if n else math.hypot(px, py)
+            if d > pire:
+                pire, ip = d, i
+        if pire > tol:
+            gardes.add(ip)
+            garder(debut, ip, gardes)
+            garder(ip, fin, gardes)
+
+    gardes = {0, len(coords) - 1}
+    garder(0, len(coords) - 1, gardes)
+    return [[round(coords[i][0], 5), round(coords[i][1], 5)] for i in sorted(gardes)]
 
 
 def _longueur(coords: list[list[float]]) -> float:
@@ -190,16 +227,19 @@ class CollecteurCirculation(Collecteur[DonneesCirculation]):
                     key=lambda r: -GRAVITE.index(r.etat)),
             ))
 
+        traces = [Troncon(etat=etat(t), rocade=True, points=simplifier(c)) for sid in sens for t, c, _, _ in sens[sid]]
         axes: dict[str, list] = {}
         for t in brut:
             if t.get("insee") == INSEE_CESSON and t["denomination"] != ROCADE:
                 c = t["geo_shape"]["geometry"]["coordinates"]
+                traces.append(Troncon(etat=etat(t), points=simplifier(c)))
                 axes.setdefault(t["denomination"], []).append((etat(t),
                                                                t.get("averagevehiclespeed"), _longueur(c)))
         liste = [Axe(nom=nom, etat=etat_global([(e, l) for e, _, l in v]), vitesse=vitesse_moyenne([(s, l) for _, s, l in v]))
                  for nom, v in axes.items() if not nom.startswith("Rond-point")]
         liste.sort(key=lambda a: (-GRAVITE.index(a.etat), a.nom))
-        return DonneesCirculation(mesure_le=mesure, rocade_est=rocade, axes_cesson=liste)
+        traces.sort(key=lambda t: GRAVITE.index(t.etat))
+        return DonneesCirculation(mesure_le=mesure, rocade_est=rocade, axes_cesson=liste, troncons=traces)
 
     def valide_jusqu_a(self, donnees: DonneesCirculation, maintenant: datetime) -> datetime:
         # Le trafic change vite : la carte passe en « données anciennes » après deux collectes manquées.

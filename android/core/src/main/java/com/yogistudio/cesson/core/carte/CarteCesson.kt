@@ -1,17 +1,27 @@
-package com.yogistudio.cesson.ui.intro
+package com.yogistudio.cesson.core.carte
 
 // Fichier généré par tools/carte/generer_carte.py : ne pas modifier à la main.
 // Données © contributeurs OpenStreetMap (ODbL). 2443 points.
 
 /**
- * Carte de Cesson-Sévigné pour l'intro : coordonnées x, y à plat dans des FloatArray, normalisées sur la
+ * Carte de Cesson-Sévigné (intro, plan de la circulation) : coordonnées x, y à plat dans des FloatArray, normalisées sur la
  * plus grande dimension de la commune (y vers le bas). [LARGEUR] × [HAUTEUR] est le cadre de la commune.
+ * Un point (lon, lat) se place par [projeter] : équirectangulaire locale, comme les tracés ci-dessous.
  */
-internal object CarteCesson {
+object CarteCesson {
     const val LARGEUR = 0.7803f
     const val HAUTEUR = 1.0000f
     const val CENTRE_X = 0.3029f
     const val CENTRE_Y = 0.5500f
+
+    private const val COS_LAT0 = 0.66752719
+    private const val X0 = -1.09252814
+    private const val Y0 = 48.16041910
+    private const val ETENDUE = 0.07383460
+
+    /** Coordonnées x, y sur la carte d'un point en degrés. */
+    fun projeter(lon: Double, lat: Double): Pair<Float, Float> =
+        ((lon * COS_LAT0 - X0) / ETENDUE).toFloat() to ((Y0 - lat) / ETENDUE).toFloat()
 
     val contour = floatArrayOf(0.2197f, 0.0000f, 0.2168f, 0.0086f, 0.2006f, 0.0124f, 0.1795f, 0.0284f, 0.1697f, 0.0392f, 0.1604f, 0.0623f, 0.1225f, 0.0670f, 0.1081f, 0.0738f, 0.1109f, 0.1694f, 0.1054f, 0.1997f, 0.0846f, 0.1976f, 0.0667f, 0.2010f, 0.0439f, 0.2674f, 0.0000f, 0.3363f, 0.0171f, 0.3824f, 0.0275f, 0.3771f, 0.0334f, 0.3910f, 0.0392f, 0.3885f, 0.0523f, 0.4129f, 0.0641f, 0.4246f, 0.0799f, 0.4760f, 0.0800f, 0.4927f, 0.0751f, 0.4971f, 0.0729f, 0.5077f, 0.0749f, 0.5169f, 0.0466f, 0.5366f, 0.0447f, 0.5675f, 0.0221f, 0.6286f, 0.0034f, 0.6291f, 0.0141f, 0.6572f, 0.0302f, 0.6745f, 0.0243f, 0.6878f, 0.0241f, 0.7287f, 0.0159f, 0.7315f, 0.0183f, 0.7445f, 0.0354f, 0.7808f, 0.0547f, 0.7960f, 0.0748f, 0.8006f, 0.1102f, 0.8215f, 0.1207f, 0.8197f, 0.1314f, 0.8236f, 0.1359f, 0.8190f, 0.1356f, 0.8267f, 0.1446f, 0.8264f, 0.1446f, 0.8296f, 0.2062f, 0.8294f, 0.2063f, 0.8520f, 0.2188f, 0.8534f, 0.2067f, 0.8787f, 0.2438f, 0.8838f, 0.2680f, 0.9020f, 0.2764f, 0.9453f, 0.2778f, 0.9818f, 0.2818f, 0.9830f, 0.3604f, 1.0000f, 0.3625f, 0.9459f, 0.4015f, 0.9448f, 0.4025f, 0.9544f, 0.4072f, 0.9540f, 0.4082f, 0.9621f, 0.4138f, 0.9638f, 0.4308f, 0.9608f, 0.4459f, 0.9529f, 0.4789f, 0.9524f, 0.4782f, 0.9484f, 0.4862f, 0.9508f, 0.4914f, 0.9355f, 0.4889f, 0.9237f, 0.5391f, 0.9273f, 0.5429f, 0.9202f, 0.5494f, 0.9218f, 0.5494f, 0.9180f, 0.5564f, 0.9150f, 0.5775f, 0.9172f, 0.5768f, 0.9198f, 0.5982f, 0.9253f, 0.6238f, 0.9160f, 0.6670f, 0.9232f, 0.6774f, 0.8925f, 0.6843f, 0.8911f, 0.7100f, 0.8714f, 0.7241f, 0.8457f, 0.7285f, 0.8238f, 0.7228f, 0.7999f, 0.7297f, 0.7265f, 0.7651f, 0.7249f, 0.7582f, 0.7053f, 0.7469f, 0.6917f, 0.7502f, 0.6830f, 0.7598f, 0.6853f, 0.7618f, 0.6779f, 0.7767f, 0.6771f, 0.7785f, 0.6701f, 0.7803f, 0.6541f, 0.7727f, 0.6498f, 0.7794f, 0.6106f, 0.7641f, 0.6066f, 0.7632f, 0.5917f, 0.7701f, 0.5697f, 0.7775f, 0.5628f, 0.7790f, 0.5499f, 0.7694f, 0.5413f, 0.7528f, 0.5494f, 0.7452f, 0.5641f, 0.7340f, 0.5624f, 0.7227f, 0.5542f, 0.7183f, 0.5429f, 0.7295f, 0.5115f, 0.7217f, 0.4992f, 0.7067f, 0.4986f, 0.6731f, 0.5099f, 0.6580f, 0.4934f, 0.6273f, 0.4834f, 0.6084f, 0.4681f, 0.6009f, 0.4551f, 0.6003f, 0.4092f, 0.5902f, 0.3830f, 0.6054f, 0.3543f, 0.5946f, 0.3215f, 0.5852f, 0.3065f, 0.5737f, 0.2958f, 0.5521f, 0.2852f, 0.5415f, 0.2883f, 0.5358f, 0.2986f, 0.5213f, 0.3016f, 0.5125f, 0.2917f, 0.5041f, 0.2901f, 0.4712f, 0.3042f, 0.4620f, 0.3137f, 0.4505f, 0.3302f, 0.4527f, 0.3648f, 0.4439f, 0.3847f, 0.4413f, 0.4057f, 0.4333f, 0.4203f, 0.4302f, 0.4432f, 0.4032f, 0.4421f, 0.4005f, 0.4525f, 0.3882f, 0.4543f, 0.3597f, 0.4317f, 0.3572f, 0.4152f, 0.3601f, 0.3890f, 0.3658f, 0.3775f, 0.4070f, 0.3336f, 0.4226f, 0.3233f, 0.4138f, 0.2877f, 0.4110f, 0.2899f, 0.4068f, 0.2781f, 0.4550f, 0.2537f, 0.4588f, 0.2590f, 0.4613f, 0.2568f, 0.4514f, 0.2374f, 0.4330f, 0.2380f, 0.4147f, 0.2310f, 0.4082f, 0.2129f, 0.3880f, 0.1903f, 0.4404f, 0.1507f, 0.4205f, 0.1205f, 0.4161f, 0.1231f, 0.4053f, 0.1056f, 0.3960f, 0.1032f, 0.4064f, 0.0945f, 0.4112f, 0.0960f, 0.4165f, 0.0863f, 0.3971f, 0.0745f, 0.3886f, 0.0592f, 0.3778f, 0.0512f, 0.3405f, 0.0334f, 0.3074f, 0.0307f, 0.2951f, 0.0259f, 0.2473f, 0.0374f, 0.2313f, 0.0037f, 0.2197f, 0.0000f)
 

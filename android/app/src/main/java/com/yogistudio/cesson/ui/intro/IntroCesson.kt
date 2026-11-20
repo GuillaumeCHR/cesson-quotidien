@@ -2,6 +2,7 @@ package com.yogistudio.cesson.ui.intro
 
 import android.provider.Settings
 import androidx.compose.foundation.Canvas
+import com.yogistudio.cesson.core.carte.CarteCesson
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Box

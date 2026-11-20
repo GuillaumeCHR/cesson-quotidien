@@ -36,7 +36,9 @@ private fun ton(e: EtatTrafic) = when (e) {
 
 /**
  * Circulation : rocade est de Rennes (le long de Cesson), dans les deux sens, avec les ralentissements situés entre
- * deux portes ; puis les axes de Cesson qui ne sont pas fluides. Données de Rennes Métropole, relues toutes les 3 min.
+ * deux portes ; puis les axes de Cesson : en compact, ceux qui ne sont pas fluides ; en détaillé, tous, du plus chargé
+ * au plus fluide (les non mesurés en dernier). Un plan de Cesson (plus petit en compact) les montre en
+ * couleur au-dessus du texte. Données de Rennes Métropole, relues toutes les 3 min.
  */
 @Composable
 fun CarteCirculation(etat: EtatModule<DonneesCirculation>, modifier: Modifier = Modifier) {
@@ -51,6 +53,8 @@ fun CarteCirculation(etat: EtatModule<DonneesCirculation>, modifier: Modifier = 
                 // Compact : la rocade (deux sens, sans le détail des portes), puis « Dans Cesson » : 3 axes au plus, sans vitesses.
                 val compact = LocalCompact.current
                 Column(verticalArrangement = Arrangement.spacedBy(if (compact) 6.dp else 10.dp)) {
+                    // Le plan de Cesson, chaque tronçon dans la couleur de son état ; en compact, plus petit.
+                    if (d.troncons.isNotEmpty()) PlanCirculation(d, compact = compact)
                     if (!compact) Text("Rocade est de Rennes", style = MaterialTheme.typography.titleSmall, modifier = Modifier.semantics { heading() })
                     d.rocadeEst.forEach { s -> LigneSens(if (compact) s.copy(ralentissements = emptyList()) else s) }
                     val axes = axesASignaler(d)
@@ -67,10 +71,10 @@ fun CarteCirculation(etat: EtatModule<DonneesCirculation>, modifier: Modifier = 
                     }
                     HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
                     Text("Dans Cesson", style = MaterialTheme.typography.titleSmall, modifier = Modifier.semantics { heading() })
-                    if (axes.isEmpty()) {
-                        Text("Pas de ralentissement mesuré sur les grands axes.", style = MaterialTheme.typography.bodyMedium)
+                    if (d.axesCesson.isEmpty()) {
+                        Text("Pas d'axe mesuré pour l'instant.", style = MaterialTheme.typography.bodyMedium)
                     } else {
-                        axes.take(5).forEach { a ->
+                        d.axesCesson.forEach { a ->
                             Row(
                                 verticalAlignment = Alignment.CenterVertically,
                                 modifier = Modifier.fillMaxWidth().semantics(mergeDescendants = true) {

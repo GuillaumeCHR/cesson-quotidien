@@ -7,7 +7,7 @@ import pytest
 import respx
 
 from cesson.collecteurs.circulation import (
-    URL, CollecteurCirculation, DonneesCirculation, entre_portes, etat_global, sens_horaire,
+    GRAVITE, URL, CollecteurCirculation, DonneesCirculation, entre_portes, etat_global, sens_horaire, simplifier,
 )
 from cesson.commun.collecteur import ErreurValidation
 from cesson.commun.modele import Etat, FichierModule
@@ -92,3 +92,24 @@ def test_cadence_selon_l_heure():
     assert pas_de_collecte(datetime(2026, 11, 16, 12, 0, tzinfo=timezone.utc)).seconds == 600   # lundi 13h
     assert pas_de_collecte(datetime(2026, 11, 16, 22, 0, tzinfo=timezone.utc)).seconds == 1800  # lundi 23h
     assert pas_de_collecte(datetime(2026, 11, 15, 7, 30, tzinfo=timezone.utc)).seconds == 600   # dimanche 8h30
+
+
+def test_traces_pour_le_plan():
+    d = CollecteurCirculation().convertir(FIXTURE, MAINTENANT)
+    assert len(d.troncons) == 316  # rocade est (deux sens) et axes de Cesson
+    assert 0 < sum(t.rocade for t in d.troncons) < 316
+    # Du moins au plus chargé : le plus grave se dessine par-dessus.
+    gravites = [GRAVITE.index(t.etat) for t in d.troncons]
+    assert gravites == sorted(gravites)
+    for t in d.troncons:
+        assert len(t.points) >= 2
+        assert all(-1.64 < lon < -1.56 and 48.08 < lat < 48.16 for lon, lat in t.points)
+    # Simplifié mais fidèle : moins d'un tiers des points d'origine.
+    assert sum(len(t.points) for t in d.troncons) < 2343 / 3
+
+
+def test_simplifier_garde_les_extremites_et_les_virages():
+    droite = [[-1.6, 48.1], [-1.59995, 48.1], [-1.5999, 48.1]]
+    assert simplifier(droite) == [[-1.6, 48.1], [-1.5999, 48.1]]
+    coude = [[-1.6, 48.1], [-1.599, 48.1], [-1.599, 48.101]]
+    assert simplifier(coude) == coude

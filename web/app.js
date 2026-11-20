@@ -3,6 +3,7 @@
 // rien n'est enregistré dans le navigateur, sauf le cache hors connexion du service worker.
 
 import { STAR_CLE } from "./config.js";
+import CARTE from "./carte-cesson.js";
 
 const DONNEES = "https://cesson-pi.tail7e6f0d.ts.net/";
 const STAR = "https://data.explore.star.fr/api/explore/v2.1/catalog/datasets/";
@@ -285,6 +286,39 @@ async function colorerLignes(racine) {
   }
 }
 
+const SVG = "http://www.w3.org/2000/svg";
+function svg(balise, attributs = {}, ...enfants) {
+  const e = document.createElementNS(SVG, balise);
+  for (const [k, v] of Object.entries(attributs)) e.setAttribute(k, v);
+  for (const c of enfants.flat()) if (c) e.append(c);
+  return e;
+}
+
+/** Plan de la circulation : limite de Cesson, Vilaine, et chaque tronçon dans la couleur de son état (comme l'app). */
+function planCirculation(troncons, compact = false) {
+  // Compact (accueil) : plus petit, et seulement les tronçons mesurés.
+  if (compact) troncons = troncons.filter((t) => t.etat !== "inconnu");
+  const { cos_lat0: k, x0, y0, etendue } = CARTE.projection;
+  const E = 1000; // coordonnées de la carte (0 à 1) mises à l'échelle du viewBox
+  const ligne = (pts) => pts.map(([x, y]) => `${(x * E).toFixed(1)},${(y * E).toFixed(1)}`).join(" ");
+  const projete = (pts) => pts.map(([lon, lat]) => [(lon * k - x0) / etendue, (y0 - lat) / etendue]);
+  const n = {};
+  for (const t of troncons) n[t.etat] = (n[t.etat] || 0) + 1;
+  const resume = [["bloque", "bloqués"], ["sature", "saturés"], ["dense", "denses"], ["fluide", "fluides"]]
+    .filter(([e]) => n[e]).map(([e, mot]) => `${n[e]} ${mot}`).join(", ") || "aucun tronçon mesuré";
+  const marge = 10;
+  const plan = svg("svg", {
+    class: `plan-circulation${compact ? " compact" : ""}`, role: "img", "aria-label": `Plan de la circulation à Cesson-Sévigné : ${resume}. Le détail suit en texte.`,
+    viewBox: `${-marge} ${-marge} ${CARTE.largeur * E + 2 * marge} ${CARTE.hauteur * E + 2 * marge}`,
+  },
+    svg("polygon", { class: "plan-commune", points: ligne(CARTE.contour) }),
+    CARTE.vilaine.map((m) => svg("polyline", { class: "plan-vilaine", points: ligne(m) })),
+    troncons.filter((t) => t.points?.length > 1)
+      .map((t) => svg("polyline", { class: `plan-trafic ${t.etat}${t.rocade ? " rocade" : ""}`, points: ligne(projete(t.points)) })),
+  );
+  return el("figure", { classe: "plan" }, plan);
+}
+
 /** [complet] : tous les axes de Cesson ; sinon, seulement ceux qui ne sont pas fluides (accueil). */
 async function carteCirculation(complet = true) {
   const f = await module("circulation");
@@ -294,6 +328,7 @@ async function carteCirculation(complet = true) {
   const ton = (e) => ({ fluide: "ouvert", dense: "jaune", sature: "orange", bloque: "rouge" }[e] || "neutre");
   const nom = (e) => ({ fluide: "Fluide", dense: "Dense", sature: "Saturé", bloque: "Bloqué", inconnu: "Inconnu" }[e] || majuscule(e));
   return carte("Circulation", el("div", {},
+    d.troncons?.length > 0 && planCirculation(d.troncons, !complet),
     el("h3", {}, "Rocade est"),
     el("ul", { classe: "liste" }, d.rocade_est.map((r) => el("li", { classe: "ligne" },
       el("span", { classe: "etire" }, r.libelle, ...(r.ralentissements || []).map((x) => el("div", { classe: "doux petit" }, `${nom(x.etat)} entre ${x.entre}`))),

@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
-"""Génère la carte vectorielle de Cesson-Sévigné de l'intro (CarteCesson.kt) depuis OpenStreetMap.
+"""Génère la carte vectorielle de Cesson-Sévigné (CarteCesson.kt) depuis OpenStreetMap : fond de l'intro et du plan
+de la circulation. Avec un troisième argument, écrit aussi le contour et la Vilaine pour la version web (module JS).
 
-    curl -s --data-urlencode data@tools/carte/requete.overpassql https://overpass-api.de/api/interpreter > osm.json
-    python3 tools/carte/generer_carte.py osm.json android/app/src/main/java/com/yogistudio/cesson/ui/intro/CarteCesson.kt
+    curl -s -A "CessonApp-carte/1.0" --data-urlencode data@tools/carte/requete.overpassql https://overpass-api.de/api/interpreter > osm.json
+    python3 tools/carte/generer_carte.py osm.json android/core/src/main/java/com/yogistudio/cesson/core/carte/CarteCesson.kt web/carte-cesson.js
 
  Données © contributeurs OpenStreetMap, ODbL.
 Coordonnées projetées (équirectangulaire locale), normalisées dans [0, 1] sur la plus grande dimension
@@ -83,7 +84,7 @@ def aire(p):
     return abs(sum(p[i][0] * p[i - 1][1] - p[i - 1][0] * p[i][1] for i in range(len(p)))) / 2
 
 
-def main(entree: str, sortie: str) -> None:
+def main(entree: str, sortie: str, sortie_web: str | None = None) -> None:
     elements = json.load(open(entree, encoding="utf-8"))["elements"]
     commune = next(e for e in elements if e["type"] == "relation" and e.get("tags", {}).get("boundary") == "administrative")
     contour_geo = max(assembler([[(p["lon"], p["lat"]) for p in m["geometry"]]
@@ -165,20 +166,30 @@ def main(entree: str, sortie: str) -> None:
         return "listOf(\n" + "".join(f"        {tableau(p)},\n" for p in polys) + "    )"
 
     nb = len(contour) + sum(map(len, vert + urbain + eau + vilaine))
-    kt = f'''package com.yogistudio.cesson.ui.intro
+    kt = f'''package com.yogistudio.cesson.core.carte
 
 // Fichier généré par tools/carte/generer_carte.py : ne pas modifier à la main.
 // Données © contributeurs OpenStreetMap (ODbL). {nb} points.
 
 /**
- * Carte de Cesson-Sévigné pour l'intro : coordonnées x, y à plat dans des FloatArray, normalisées sur la
+ * Carte de Cesson-Sévigné (intro, plan de la circulation) : coordonnées x, y à plat dans des FloatArray, normalisées sur la
  * plus grande dimension de la commune (y vers le bas). [LARGEUR] × [HAUTEUR] est le cadre de la commune.
+ * Un point (lon, lat) se place par [projeter] : équirectangulaire locale, comme les tracés ci-dessous.
  */
-internal object CarteCesson {{
+object CarteCesson {{
     const val LARGEUR = {largeur:.4f}f
     const val HAUTEUR = {hauteur:.4f}f
     const val CENTRE_X = {centre[0]:.4f}f
     const val CENTRE_Y = {centre[1]:.4f}f
+
+    private const val COS_LAT0 = {k:.8f}
+    private const val X0 = {x0:.8f}
+    private const val Y0 = {y0:.8f}
+    private const val ETENDUE = {etendue:.8f}
+
+    /** Coordonnées x, y sur la carte d'un point en degrés. */
+    fun projeter(lon: Double, lat: Double): Pair<Float, Float> =
+        ((lon * COS_LAT0 - X0) / ETENDUE).toFloat() to ((Y0 - lat) / ETENDUE).toFloat()
 
     val contour = {tableau(contour)}
 
@@ -196,9 +207,20 @@ internal object CarteCesson {{
 }}
 '''
     open(sortie, "w", encoding="utf-8").write(kt)
+    if sortie_web:
+        r = lambda pts: [[round(x, 4), round(y, 4)] for x, y in pts]  # noqa: E731
+        donnees = json.dumps({
+            "source": "© contributeurs OpenStreetMap (ODbL)",
+            "largeur": round(largeur, 4), "hauteur": round(hauteur, 4),
+            "projection": {"cos_lat0": round(k, 8), "x0": round(x0, 8), "y0": round(y0, 8), "etendue": round(etendue, 8)},
+            "contour": r(contour), "vilaine": [r(m) for m in vilaine],
+        }, ensure_ascii=False, separators=(",", ":"))
+        open(sortie_web, "w", encoding="utf-8").write(
+            "// Fichier généré par tools/carte/generer_carte.py : ne pas modifier à la main.\n"
+            f"export default {donnees};\n")
     print(f"{nb} points : contour {len(contour)}, Vilaine {len(vilaine)} tracés, eau {len(eau)}, vert {len(vert)}, urbain {len(urbain)}"
           f" ; cadre {largeur:.3f} × {hauteur:.3f}, mairie {centre[0]:.3f}, {centre[1]:.3f}")
 
 
 if __name__ == "__main__":
-    main(sys.argv[1], sys.argv[2])
+    main(*sys.argv[1:4])
