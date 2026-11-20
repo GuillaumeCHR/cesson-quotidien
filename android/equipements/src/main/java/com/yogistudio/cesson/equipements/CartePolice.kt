@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Call
-import androidx.compose.material.icons.rounded.LocalPolice
 import androidx.compose.material.icons.rounded.Mail
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -27,7 +26,6 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.yogistudio.cesson.core.donnees.EtatModule
-import com.yogistudio.cesson.core.ui.CarteDonnee
 import com.yogistudio.cesson.core.ui.LocalCompact
 import com.yogistudio.cesson.core.ui.Pastille
 import com.yogistudio.cesson.core.ui.Ton
@@ -47,12 +45,12 @@ val SERVICES_A_PART = setOf(SERVICE_URBANISME, POLICE_MUNICIPALE, DECHETERIE)
  */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun CartePolice(etat: EtatModule<DonneesEquipements>, modifier: Modifier = Modifier) {
+fun ContenuPolice(etat: EtatModule<DonneesEquipements>, modifier: Modifier = Modifier) {
     val maintenant = rememberMaintenant()
     val uri = LocalUriHandler.current
     fun ouvrir(lien: String) { runCatching { uri.openUri(lien) } }
     val police = (etat as? EtatModule.Disponible)?.fichier?.donnees?.equipements?.firstOrNull { it.lieu.id == POLICE_MUNICIPALE }
-    CarteDonnee("Police municipale", Icons.Rounded.LocalPolice, modifier, maintenant = maintenant) {
+    Column(modifier) {
         Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
             Text("En cas d'urgence, appelez le 17 (police) ou le 112.",
                 style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.SemiBold)

@@ -1,13 +1,18 @@
 package com.yogistudio.cesson.ui
 
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.Alignment
+import androidx.compose.material3.Switch
+import androidx.compose.foundation.selection.toggleable
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.Row
 import com.yogistudio.cesson.actus.cinema
 import com.yogistudio.cesson.actus.CarteCinema
-import com.yogistudio.cesson.actus.CarteCanaux
 import com.yogistudio.cesson.transport.CarteParcRelais
 import androidx.compose.material.icons.rounded.LocalParking
 import com.yogistudio.cesson.actus.CarteSaison
-import com.yogistudio.cesson.pratique.CarteIdentite
-import com.yogistudio.cesson.pratique.CarteSignalement
 import com.yogistudio.cesson.pratique.CartePharmacieGarde
 import com.yogistudio.cesson.pratique.pharmacies
 import com.yogistudio.cesson.pratique.CarteUrgences
@@ -19,8 +24,6 @@ import androidx.compose.material.icons.rounded.Accessible
 import androidx.compose.material.icons.rounded.LocalPharmacy
 import androidx.compose.material.icons.rounded.LocalHospital
 import androidx.compose.material.icons.rounded.TheaterComedy
-import androidx.compose.material.icons.rounded.Badge
-import androidx.compose.material.icons.rounded.ReportProblem
 import com.yogistudio.cesson.familles.CarteVacances
 import com.yogistudio.cesson.familles.CartePortailFamilles
 import com.yogistudio.cesson.familles.vacancesScolaires
@@ -31,13 +34,8 @@ import androidx.compose.material.icons.rounded.Restaurant
 import androidx.compose.material.icons.rounded.Campaign
 import androidx.compose.material.icons.rounded.BeachAccess
 import androidx.compose.material.icons.rounded.FamilyRestroom
-import androidx.compose.material.icons.rounded.Forum
 import androidx.compose.material.icons.rounded.Movie
 import com.yogistudio.cesson.equipements.SERVICES_A_PART
-import com.yogistudio.cesson.equipements.CartePolice
-import androidx.compose.material.icons.rounded.LocalPolice
-import com.yogistudio.cesson.equipements.CarteUrbanisme
-import androidx.compose.material.icons.rounded.HomeWork
 import com.yogistudio.cesson.actus.agenda
 import com.yogistudio.cesson.actus.CarteAgenda
 import androidx.compose.material.icons.rounded.Event
@@ -78,6 +76,7 @@ import android.Manifest
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.AccountBalance
 import androidx.compose.material.icons.rounded.Air
 import androidx.compose.material.icons.rounded.Celebration
 import androidx.compose.material.icons.rounded.DeleteOutline
@@ -160,7 +159,6 @@ private val PARC_RELAIS = Tuile("parc_relais", "Parc relais ViaSilva", Icons.Rou
 private val MON_ARRET = Tuile("mon_arret", "Mon arrêt de bus", Icons.Rounded.DirectionsBus) { MonArret(it) }
 private val TRAINS = Tuile("trains", "Trains à Halte-Cesson", Icons.Rounded.Train) { TrainsHalte(it) }
 private val COLLECTE = Tuile("collecte", "Ma collecte de déchets", Icons.Rounded.DeleteOutline) { CollecteCesson(it) }
-private val MES_EQUIPEMENTS = Tuile("equipements", "Mes équipements", Icons.Rounded.Pool) { MesEquipements(it) }
 private val CARBURANTS = Tuile("carburants", "Prix des carburants", Icons.Rounded.LocalGasStation) { CarburantsCesson(it) }
 private val CIRCULATION = Tuile("circulation", "Circulation", Icons.Rounded.DirectionsCar) { app ->
     val etat by remember(app) { app.depot.circulation() }.collectAsStateWithLifecycle(EtatModule.Absent)
@@ -178,9 +176,7 @@ private val EPISODES = Tuile("episodes_pollution", "Épisodes de pollution", Ico
     val etat by remember(app) { app.depot.episodesPollution() }.collectAsStateWithLifecycle(EtatModule.Absent)
     CarteEpisodes(etat, reglageAlerte = { ReglageAlerteEpisodes(app) })
 }
-private val EQUIPEMENTS_LOISIRS = Tuile("equipements", "Équipements", Icons.Rounded.Pool) { app ->
-    EquipementsCesson(app, titre = "Équipements", garder = { it.lieu.id !in SERVICES_A_PART })
-}
+private val EQUIPEMENTS_LOISIRS = Tuile("equipements", "Équipements", Icons.Rounded.Pool) { MesEquipements(it) }
 private val DECHETERIE_TUILE = Tuile("decheterie", "Déchetterie", Icons.Rounded.Recycling) { app ->
     val dechets by remember(app) { app.depot.decheterie() }.collectAsStateWithLifecycle(EtatModule.Absent)
     EquipementsCesson(app, titre = "Déchetterie", icone = Icons.Rounded.Recycling, garder = { it.lieu.id == DECHETERIE },
@@ -200,10 +196,10 @@ private val BORNES = Tuile("bornes", "Bornes de recharge", Icons.Rounded.Electri
     CarteBornes(etat, position, demande.enCours, demande.demander)
 }
 private val ACTUS_VILLE = Tuile("actus_ville", "Actualités de la ville", Icons.Rounded.Newspaper) { ActusCesson(it, FLUX_VILLE) }
-private val CANAUX_TUILE = Tuile("canaux", "WhatsApp et Facebook", Icons.Rounded.Forum) { CarteCanaux() }
-// Les actualités de la ville sont à l'accueil : c'est ce qui se passe aujourd'hui à Cesson.
+// Les actualités de la ville sont à l'accueil : c'est ce qui se passe aujourd'hui à Cesson. Les épisodes de pollution
+// et la vigilance crues y restent par leurs bandeaux ; leurs cartes sont dans l'onglet Environnement.
 val ONGLET_ACCUEIL = OngletTuiles(ACCUEIL, "l'accueil",
-    listOf(METEO, VILAINE, VIASILVA, MON_ARRET, TRAINS, CIRCULATION, COLLECTE, MES_EQUIPEMENTS, CARBURANTS, AIR, POLLENS, EPISODES, ACTUS_VILLE, CANAUX_TUILE))
+    listOf(METEO, MON_ARRET, TRAINS, CIRCULATION, AIR, ACTUS_VILLE))
 val ONGLET_BOUGER = OngletTuiles("bouger", "l'onglet Bouger", listOf(VIASILVA, PARC_RELAIS, TRAINS, MON_ARRET, CIRCULATION, CARBURANTS, BORNES))
 private val AGENDA = Tuile("agenda", "Agenda", Icons.Rounded.Event) { app ->
     val etat by remember(app) { app.depot.agenda() }.collectAsStateWithLifecycle(EtatModule.Absent)
@@ -226,16 +222,7 @@ private val USAGES_EAU = Tuile("usages_eau", "Usage de l'eau", Icons.Rounded.Wat
     val etat by remember(app) { app.depot.usagesEau() }.collectAsStateWithLifecycle(EtatModule.Absent)
     CarteUsagesEau(etat)
 }
-private val URBANISME = Tuile("urbanisme", "Urbanisme", Icons.Rounded.HomeWork) { app ->
-    val etat by remember(app) { app.depot.equipements() }.collectAsStateWithLifecycle(EtatModule.Absent)
-    CarteUrbanisme(etat)
-}
-private val POLICE = Tuile("police", "Police municipale", Icons.Rounded.LocalPolice) { app ->
-    val etat by remember(app) { app.depot.equipements() }.collectAsStateWithLifecycle(EtatModule.Absent)
-    CartePolice(etat)
-}
-private val IDENTITE = Tuile("identite", "Carte d'identité et passeport", Icons.Rounded.Badge) { CarteIdentite() }
-private val SIGNALEMENT = Tuile("signalement", "Faire un signalement", Icons.Rounded.ReportProblem) { CarteSignalement() }
+private val DEMARCHES = Tuile("demarches", "Démarches", Icons.Rounded.AccountBalance) { CarteDemarches(it) }
 private val PHARMACIE_GARDE = Tuile("pharmacie_garde", "Pharmacies", Icons.Rounded.LocalPharmacy) { app ->
     val etat by remember(app) { app.depot.pharmacies() }.collectAsStateWithLifecycle(EtatModule.Absent)
     CartePharmacieGarde(etat)
@@ -248,7 +235,10 @@ private val ACCESSIBILITE = Tuile("accessibilite", "Accessibilité des lieux", I
     CarteAccessibilite(etat, position, demande.enCours, demande.demander)
 }
 val ONGLET_PRATIQUE = OngletTuiles("pratique", "l'onglet Pratique",
-    listOf(COLLECTE, USAGES_EAU, IDENTITE, SIGNALEMENT, DECHETERIE_TUILE, DEFIBRILLATEURS, PHARMACIE_GARDE, URGENCES, ACCESSIBILITE, URBANISME, POLICE))
+    listOf(DEMARCHES, PHARMACIE_GARDE, URGENCES, DEFIBRILLATEURS, ACCESSIBILITE))
+// Le cadre de vie : air, pollens, pollution, Vilaine, eau et déchets. Après les cartes qu'il réunit (ordre d'initialisation).
+val ONGLET_ENVIRONNEMENT = OngletTuiles("environnement", "l'onglet Environnement",
+    listOf(AIR, POLLENS, EPISODES, VILAINE, USAGES_EAU, COLLECTE, DECHETERIE_TUILE))
 private val VACANCES = Tuile("vacances", "Vacances scolaires", Icons.Rounded.BeachAccess) { app ->
     val etat by remember(app) { app.depot.vacancesScolaires() }.collectAsStateWithLifecycle(EtatModule.Absent)
     CarteVacances(etat)
@@ -264,7 +254,7 @@ private val ACTUS_FAMILLES = Tuile("actus_familles", "Infos familles", Icons.Rou
 }
 val ONGLET_FAMILLES = OngletTuiles("familles", "l'onglet Familles", listOf(MENUS, VACANCES, ACTUS_FAMILLES, PORTAIL_FAMILLES))
 
-val ONGLETS_PERSONNALISABLES = listOf(ONGLET_ACCUEIL, ONGLET_BOUGER, ONGLET_SORTIR, ONGLET_FAMILLES, ONGLET_PRATIQUE)
+val ONGLETS_PERSONNALISABLES = listOf(ONGLET_ACCUEIL, ONGLET_BOUGER, ONGLET_SORTIR, ONGLET_FAMILLES, ONGLET_ENVIRONNEMENT, ONGLET_PRATIQUE)
 
 @Composable
 fun ActusCesson(app: CessonApp, flux: String) {
@@ -293,11 +283,42 @@ fun EquipementsCesson(
     CarteEquipements(etat, titre = titre, icone = icone, garder = garder, pied = pied)
 }
 
-/** « Mes équipements » de l'accueil : sans ceux que l'utilisateur a retirés (guide de démarrage). */
+/**
+ * Équipements de loisirs (onglet Sortir) : sans ceux que l'utilisateur a retirés, dans le guide de démarrage ou dans
+ * Réglages → Mes équipements.
+ */
 @Composable
-fun MesEquipements(app: CessonApp) {
+fun MesEquipements(app: CessonApp, titre: String = "Équipements") {
     val masques by app.preferences.equipementsMasques.collectAsStateWithLifecycle(emptySet())
-    EquipementsCesson(app, garder = { it.lieu.id !in masques && it.lieu.id !in SERVICES_A_PART })
+    EquipementsCesson(app, titre = titre, garder = { it.lieu.id !in masques && it.lieu.id !in SERVICES_A_PART })
+}
+
+/** Choix des équipements affichés (guide de démarrage et Réglages) : un interrupteur par équipement. */
+@Composable
+fun ReglageEquipements(app: CessonApp) {
+    val portee = rememberCoroutineScope()
+    val equipements by remember(app) { app.depot.equipements() }.collectAsStateWithLifecycle(EtatModule.Absent)
+    val liste = (equipements as? EtatModule.Disponible)?.fichier?.donnees?.equipements.orEmpty()
+        .filter { it.lieu.id !in SERVICES_A_PART }
+    val masques by app.preferences.equipementsMasques.collectAsStateWithLifecycle(emptySet())
+    if (liste.isEmpty()) {
+        Text("Liste des équipements pas encore reçue.", style = MaterialTheme.typography.bodyMedium)
+        return
+    }
+    Column {
+        liste.forEach { e ->
+            val affiche = e.lieu.id !in masques
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.fillMaxWidth().toggleable(value = affiche, role = Role.Switch) { garder ->
+                    portee.launch { app.preferences.enregistrerEquipementsMasques(if (garder) masques - e.lieu.id else masques + e.lieu.id) }
+                }.padding(vertical = 4.dp),
+            ) {
+                Text(e.lieu.nom, style = MaterialTheme.typography.bodyLarge, modifier = Modifier.weight(1f))
+                Switch(checked = affiche, onCheckedChange = null)
+            }
+        }
+    }
 }
 
 @Composable
@@ -429,6 +450,10 @@ fun EcranSortir(app: CessonApp, onPersonnaliser: () -> Unit) =
     EcranTuiles(app, ONGLET_SORTIR, onPersonnaliser, pied = {
         CarteAVenir(Icons.Rounded.Celebration, listOf("Programme de la médiathèque"))
     })
+
+@Composable
+fun EcranEnvironnement(app: CessonApp, onPersonnaliser: () -> Unit) =
+    EcranTuiles(app, ONGLET_ENVIRONNEMENT, onPersonnaliser)
 
 @Composable
 fun EcranPratique(app: CessonApp, onPersonnaliser: () -> Unit) =

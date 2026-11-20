@@ -78,6 +78,9 @@ fun CarteEquipements(
             val d = etat.fichier.donnees.copy(equipements = etat.fichier.donnees.equipements.filter(garder))
             CarteDonnee(titre, icone, modifier, etat.fraicheur, maintenant) {
                 Column {
+                    if (d.equipements.isEmpty()) {
+                        Text("Aucun équipement choisi : Réglages → Mes équipements.", style = MaterialTheme.typography.bodyMedium)
+                    }
                     d.equipements.forEachIndexed { i, e ->
                         if (i > 0) HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
                         if (LocalCompact.current) LigneEquipementCompacte(e, maintenant) { detail = e.lieu.id }

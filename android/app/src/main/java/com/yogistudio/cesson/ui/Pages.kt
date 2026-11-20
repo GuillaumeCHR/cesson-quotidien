@@ -39,6 +39,14 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.yogistudio.cesson.BuildConfig
+import androidx.compose.material.icons.rounded.Train
+import androidx.compose.material.icons.rounded.Campaign
+import androidx.compose.material.icons.rounded.Water
+import androidx.compose.material.icons.rounded.AccountBalance
+import com.yogistudio.cesson.actus.CANAL_CESSON_ENTRAIDE
+import com.yogistudio.cesson.actus.CANAL_WHATSAPP_VILLE
+import com.yogistudio.cesson.actus.Canal
+import com.yogistudio.cesson.actus.LiensCanaux
 import com.yogistudio.cesson.CessonApp
 import com.yogistudio.cesson.ui.intro.CessonAppLogotype
 import com.yogistudio.cesson.ui.intro.YogiStudioLogo
@@ -146,11 +154,13 @@ private fun IconButtonLien(url: String, onClick: () -> Unit) {
 // --- À propos --------------------------------------------------------------------------------
 
 private val CANAUX_OFFICIELS = listOf(
-    "Ville de Cesson-Sévigné" to "https://www.ville-cesson-sevigne.fr/",
-    "Vigicrues" to "https://www.vigicrues.gouv.fr/",
-    "FR-Alert" to "https://fr-alert.gouv.fr/",
-    "STAR" to "https://www.star.fr/",
-    "SNCF / TER BreizhGo" to "https://www.ter.sncf.com/bretagne",
+    Canal("Ville de Cesson-Sévigné", "Le site officiel de la mairie.", "https://www.ville-cesson-sevigne.fr/",
+        icone = Icons.Rounded.AccountBalance),
+    Canal("Vigicrues", "La vigilance crues officielle de l'État.", "https://www.vigicrues.gouv.fr/", icone = Icons.Rounded.Water),
+    Canal("FR-Alert", "Le système d'alerte des populations sur le téléphone.", "https://fr-alert.gouv.fr/",
+        icone = Icons.Rounded.Campaign),
+    Canal("STAR", "Le réseau de bus et de métro de Rennes Métropole.", "https://www.star.fr/", icone = Icons.Rounded.DirectionsBus),
+    Canal("SNCF / TER BreizhGo", "Les trains régionaux de Bretagne.", "https://www.ter.sncf.com/bretagne", icone = Icons.Rounded.Train),
 )
 
 const val URL_CODE_SOURCE = "https://github.com/GuillaumeCHR/cesson-quotidien"
@@ -185,12 +195,9 @@ fun EcranAPropos(onVosIdees: () -> Unit) {
             style = MaterialTheme.typography.bodyMedium,
         )
         Titre("Canaux officiels")
-        CANAUX_OFFICIELS.forEach { (nom, url) ->
-            OutlinedButton(onClick = { uri.openUri(url) }, modifier = Modifier.fillMaxWidth()) {
-                Text(nom, Modifier.weight(1f))
-                Icon(Icons.AutoMirrored.Rounded.OpenInNew, contentDescription = null)
-            }
-        }
+        LiensCanaux(CANAUX_OFFICIELS + CANAL_WHATSAPP_VILLE)
+        Titre("Entre habitants")
+        LiensCanaux(listOf(CANAL_CESSON_ENTRAIDE))
         Titre("Version web")
         Text("Les mêmes informations dans un navigateur, pour un iPhone ou un ordinateur, sans les rappels ni les alertes. " +
             "Le lien se partage avec les proches.", style = MaterialTheme.typography.bodyMedium)

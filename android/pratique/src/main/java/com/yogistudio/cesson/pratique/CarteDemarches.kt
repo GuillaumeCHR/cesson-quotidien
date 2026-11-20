@@ -9,9 +9,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.OpenInNew
-import androidx.compose.material.icons.rounded.Badge
 import androidx.compose.material.icons.rounded.Call
-import androidx.compose.material.icons.rounded.ReportProblem
 import androidx.compose.material3.Button
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -25,7 +23,6 @@ import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
-import com.yogistudio.cesson.core.ui.CarteDonnee
 import com.yogistudio.cesson.core.ui.LocalCompact
 
 // La prise de rendez-vous se fait dans un module intégré à cette page de la ville (Synbird).
@@ -47,9 +44,9 @@ private fun Lien(texte: String, principal: Boolean, onClick: () -> Unit) {
 
 /** Carte d'identité et passeport : pré-demande sur le site de l'État, puis rendez-vous en mairie. */
 @Composable
-fun CarteIdentite(modifier: Modifier = Modifier) {
+fun ContenuIdentite(modifier: Modifier = Modifier) {
     val uri = LocalUriHandler.current
-    CarteDonnee("Carte d'identité et passeport", Icons.Rounded.Badge, modifier) {
+    Column(modifier) {
         Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
             val compact = LocalCompact.current  // compact : les deux boutons seulement
             if (!compact) Text("1. Faites la pré-demande en ligne, gratuite, sur le seul site officiel (ANTS).\n" +
@@ -67,10 +64,10 @@ fun CarteIdentite(modifier: Modifier = Modifier) {
 /** Signaler un problème sur l'espace public : à la ville ou à Rennes Métropole selon le sujet. */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun CarteSignalement(modifier: Modifier = Modifier) {
+fun ContenuSignalement(modifier: Modifier = Modifier) {
     val uri = LocalUriHandler.current
     fun ouvrir(lien: String) { runCatching { uri.openUri(lien) } }
-    CarteDonnee("Faire un signalement", Icons.Rounded.ReportProblem, modifier) {
+    Column(modifier) {
         Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
             // Compact : qui fait quoi en une ligne chacun, et les deux formulaires.
             val compact = LocalCompact.current

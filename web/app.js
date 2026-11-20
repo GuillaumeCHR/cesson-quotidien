@@ -766,11 +766,12 @@ function carteAPropos() {
 // --- Onglets --------------------------------------------------------------------------------------
 
 const ONGLETS = {
-  aujourdhui: { titre: "Aujourd'hui", cartes: [carteMeteo, carteDeparts, () => carteCirculation(false), carteVilaine, carteAir, () => carteActus()] },
+  aujourdhui: { titre: "Aujourd'hui", cartes: [carteMeteo, carteDeparts, () => carteCirculation(false), carteAir, () => carteActus()] },
   bouger: { titre: "Bouger", cartes: [carteDeparts, carteTrains, carteParcRelais, carteCirculation, carteCarburants, carteBornes] },
   sortir: { titre: "Sortir", cartes: [carteSaison, carteCinema, carteAgenda, () => carteEquipements()] },
   familles: { titre: "Familles", cartes: [carteMenus, carteVacances, carteInfosFamilles] },
-  pratique: { titre: "Pratique", cartes: [carteCollecte, carteDechetterie, carteEau, cartePharmacies, carteUrgences, carteAccessibilite, carteDefibrillateurs] },
+  environnement: { titre: "Environnement", cartes: [carteAir, carteVilaine, carteEau, carteCollecte, carteDechetterie] },
+  pratique: { titre: "Pratique", cartes: [cartePharmacies, carteUrgences, carteAccessibilite, carteDefibrillateurs] },
   apropos: { titre: "À propos", cartes: [carteAPropos, carteSources] },
 };
 

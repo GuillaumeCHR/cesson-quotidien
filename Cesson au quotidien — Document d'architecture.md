@@ -13,7 +13,7 @@ Périmètre fonctionnel, en 6 domaines :
 - **Sortir** : spectacles du Carré Sévigné, cinéma Le Sévigné, agenda de la ville.
 - **Environnement et risques** : météo, niveau de la Vilaine, vigilance crues, vigilance météo, qualité de l'air.
 - **Pratique** : collecte des déchets, défibrillateurs, accessibilité des lieux publics.
-- **Actualités** : fil de la ville, liens vers la chaîne WhatsApp municipale et le groupe Facebook Cesson Entraide (non officiel).
+- **Actualités** : fil de la ville. Les liens vers la chaîne WhatsApp municipale et le groupe Facebook Cesson Entraide (non officiel) sont dans l'écran À propos.
 
 Hors périmètre : offres d'emploi, comptes utilisateurs, contenus politiques.
 
@@ -215,15 +215,16 @@ Le jaune, l'orange et le rouge sont réservés aux niveaux de vigilance, pour qu
 
 ## Écrans
 
-L'app compte 5 onglets et un widget d'accueil. L'onglet Aujourd'hui répond seul à l'essentiel.
+L'app compte 6 onglets et un widget d'accueil. L'onglet Aujourd'hui répond seul à l'essentiel.
 
 | Écran | Contenu | Données |
 | --- | --- | --- |
-| Aujourd'hui | Bandeau d'alertes ; tuiles que l'utilisateur ordonne et masque (écran Personnaliser) ; météo (actuelle, prochaines heures, aujourd'hui et demain) ; équipements suivis ouverts ou fermés ; prochaine collecte ; prochains départs à Cesson-ViaSilva et à la halte ; Vilaine ; qualité de l'air | Tous modules, version résumée |
+| Aujourd'hui | Bandeau d'alertes (crues, vigilance météo, pollution) ; tuiles que l'utilisateur ordonne et masque (écran Personnaliser) ; météo ; mon arrêt ; trains à la halte ; circulation ; qualité de l'air ; actualités de la ville | Tous modules, version résumée |
 | Bouger | Pôle Cesson-ViaSilva ; halte ferroviaire ; lignes passant par Cesson ; vélos ; parcs-relais ; carburants ; bornes de recharge | STAR, SNCF, carburants, IRVE |
 | Sortir | Carré Sévigné ; cinéma Le Sévigné ; Pont des Arts et médiathèque ; golf ; Base Sports Nature ; piscine | Agenda, équipements, Vilaine (sur le golf et la base nautique) |
-| Pratique | Collecte par secteur ; déchetterie ; défibrillateurs ; accessibilité des lieux | YAML collecte, Rennes Métropole, Géo'DAE, acceslibre |
-| Actus | Fil de la ville ; liens vers la chaîne WhatsApp et le groupe Cesson Entraide | RSS de la ville |
+| Environnement | Qualité de l'air ; indice pollen ; épisodes de pollution ; Vilaine et vigilance crues ; usage de l'eau ; collecte par secteur ; déchetterie | Atmo, Hub'Eau, Vigicrues, VigiEau, YAML collecte, Rennes Métropole |
+| Pratique | Démarches (identité, signalement, urbanisme, police municipale) ; pharmacies ; urgences ; défibrillateurs ; accessibilité des lieux | Ville, Géo'DAE, acceslibre |
+| Actus | Fil de la ville (WhatsApp et Cesson Entraide : écran À propos) | RSS de la ville |
 | Widget | Prochaine collecte, niveau de la Vilaine, prochain métro b ou train | Cache local |
 
 **Accueil personnalisable.** Comme l'app de Nantes, l'utilisateur ordonne et masque ses tuiles, ce qui répond à la diversité des usages. Le réordonnancement passe par des boutons « monter / descendre » compatibles TalkBack. Un appui long sur une carte propose « Masquer cette carte » (avec Annuler) ou « Personnaliser l'accueil » ; ces actions sont aussi offertes à TalkBack. Une tuile ajoutée par une mise à jour apparaît en fin d'accueil sans effacer l'ordre choisi.

@@ -36,7 +36,7 @@ jour si tout concorde.
 Vérifier qu'ils répondent et mènent toujours au bon service ; sinon, trouver le nouveau lien sur le site de la ville :
 billetterie (`actus/CarteSaison.kt`), carte d'identité et passeport, signalements ville et métropole
 (`pratique/CarteDemarches.kt`), portail familles (`familles/CartesFamilles.kt`), urbanisme, police municipale,
-canaux WhatsApp et Facebook (`actus/CarteCanaux.kt`).
+canaux WhatsApp et Facebook de l'écran À propos (`actus/Canaux.kt`).
 
 ## 4. Sources automatiques à surveiller
 

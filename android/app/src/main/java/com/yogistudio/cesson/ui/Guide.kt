@@ -1,6 +1,5 @@
 package com.yogistudio.cesson.ui
 
-import com.yogistudio.cesson.equipements.SERVICES_A_PART
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.selection.selectable
@@ -67,7 +66,6 @@ import com.yogistudio.cesson.core.donnees.EtatModule
 import com.yogistudio.cesson.core.preferences.ACCUEIL
 import com.yogistudio.cesson.core.preferences.ConfigAccueil
 import com.yogistudio.cesson.core.preferences.ordonnerTuiles
-import com.yogistudio.cesson.equipements.equipements
 import com.yogistudio.cesson.pratique.CARBURANT_PAR_DEFAUT
 import com.yogistudio.cesson.pratique.carburants
 import com.yogistudio.cesson.pratique.carburantsProposes
@@ -339,19 +337,10 @@ private fun EtapeReglages(app: CessonApp) {
         style = MaterialTheme.typography.bodyLarge)
 
     // Mes équipements
-    val equipements by remember { app.depot.equipements() }.collectAsStateWithLifecycle(EtatModule.Absent)
-    val liste = (equipements as? EtatModule.Disponible)?.fichier?.donnees?.equipements.orEmpty()
-    val masques by app.preferences.equipementsMasques.collectAsStateWithLifecycle(emptySet())
-    if (liste.isNotEmpty()) {
-        SousTitre("Mes équipements")
-        liste.filter { it.lieu.id !in SERVICES_A_PART }.forEach { e ->
-            LigneInterrupteur(e.lieu.nom, e.lieu.id !in masques) { garder ->
-                portee.launch {
-                    app.preferences.enregistrerEquipementsMasques(if (garder) masques - e.lieu.id else masques + e.lieu.id)
-                }
-            }
-        }
-    }
+    SousTitre("Mes équipements")
+    Text("Ceux que vous gardez s'affichent dans la carte Équipements de l'onglet Sortir.",
+        style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+    ReglageEquipements(app)
 
     // Rappel de collecte
     SousTitre("Ma collecte de déchets")
@@ -365,7 +354,7 @@ private fun EtapeFin() {
     Text("• le bouton de réglage en haut de chaque onglet ordonne et masque ses cartes ;", style = MaterialTheme.typography.bodyLarge)
     Text("• un appui long sur une carte la masque ;", style = MaterialTheme.typography.bodyLarge)
     Text("• cartes compactes ou détaillées : Réglages → Cartes ;", style = MaterialTheme.typography.bodyLarge)
-    Text("• vos trains habituels et les notifications : Réglages ;", style = MaterialTheme.typography.bodyLarge)
+    Text("• vos trains habituels, vos équipements et les notifications : Réglages ;", style = MaterialTheme.typography.bodyLarge)
     Text("• ce guide reste dans le menu, en haut à droite.", style = MaterialTheme.typography.bodyLarge)
     Text("Une erreur, une idée ? « Vos idées / signaler une erreur », dans le même menu.",
         style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)

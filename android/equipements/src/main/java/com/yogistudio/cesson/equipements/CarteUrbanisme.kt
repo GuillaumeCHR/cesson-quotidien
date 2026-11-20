@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.OpenInNew
 import androidx.compose.material.icons.rounded.Call
-import androidx.compose.material.icons.rounded.HomeWork
 import androidx.compose.material3.Button
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -28,7 +27,6 @@ import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import com.yogistudio.cesson.core.donnees.EtatModule
-import com.yogistudio.cesson.core.ui.CarteDonnee
 import com.yogistudio.cesson.core.ui.LocalCompact
 import com.yogistudio.cesson.core.ui.Pastille
 import com.yogistudio.cesson.core.ui.Ton
@@ -57,12 +55,12 @@ private val A_SAVOIR = listOf(
  * (ouvert ou fermé maintenant, d'après ses horaires saisis). Informations de la ville ; sa page fait foi.
  */
 @Composable
-fun CarteUrbanisme(etat: EtatModule<DonneesEquipements>, modifier: Modifier = Modifier) {
+fun ContenuUrbanisme(etat: EtatModule<DonneesEquipements>, modifier: Modifier = Modifier) {
     val maintenant = rememberMaintenant()
     val uri = LocalUriHandler.current
     var details by rememberSaveable { mutableStateOf(false) }
     val service = (etat as? EtatModule.Disponible)?.fichier?.donnees?.equipements?.firstOrNull { it.lieu.id == SERVICE_URBANISME }
-    CarteDonnee("Urbanisme", Icons.Rounded.HomeWork, modifier, maintenant = maintenant) {
+    Column(modifier) {
         Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
             if (!LocalCompact.current) Text("Permis de construire, déclaration préalable : les demandes se déposent en ligne, sur le service de la ville.",
                 style = MaterialTheme.typography.bodyMedium)

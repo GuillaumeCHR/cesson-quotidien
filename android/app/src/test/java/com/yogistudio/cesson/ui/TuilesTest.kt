@@ -19,7 +19,7 @@ class TuilesTest {
             assertTrue(o.id, o.tuiles.isNotEmpty())
             assertEquals(o.id, o.tuiles.size, o.tuiles.map { it.id }.toSet().size)
         }
-        assertEquals(listOf("accueil", "bouger", "sortir", "familles", "pratique"), ONGLETS_PERSONNALISABLES.map { it.id })
+        assertEquals(listOf("accueil", "bouger", "sortir", "familles", "environnement", "pratique"), ONGLETS_PERSONNALISABLES.map { it.id })
     }
 
     @Test

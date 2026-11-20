@@ -1,5 +1,6 @@
 package com.yogistudio.cesson.ui
 
+import androidx.compose.material.icons.rounded.Pool
 import com.yogistudio.cesson.transport.ChoixArret
 import com.yogistudio.cesson.transport.lignesStar
 import androidx.compose.material.icons.rounded.DirectionsBus
@@ -133,6 +134,13 @@ fun EcranReglages(app: CessonApp) {
         CarteNotifications(app)
         CarteMonArretReglage(app)
         CarteMonCarburant(app)
+        CarteDonnee("Mes équipements", Icons.Rounded.Pool) {
+            Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                Text("Équipements affichés dans la carte Équipements de l'onglet Sortir.",
+                    style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                ReglageEquipements(app)
+            }
+        }
     }
 }
 

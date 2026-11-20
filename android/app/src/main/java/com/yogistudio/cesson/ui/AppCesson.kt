@@ -19,6 +19,14 @@ import androidx.compose.material.icons.rounded.Newspaper
 import androidx.compose.material.icons.rounded.Settings
 import androidx.compose.material.icons.rounded.Source
 import androidx.compose.material.icons.rounded.Today
+import androidx.compose.material.icons.rounded.Eco
+import androidx.compose.foundation.layout.BoxWithConstraints
+import androidx.compose.ui.text.rememberTextMeasurer
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.unit.sp
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.semantics.clearAndSetSemantics
+import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.material.icons.rounded.Tune
 import androidx.compose.material.icons.rounded.VolunteerActivism
 import androidx.compose.material3.DropdownMenu
@@ -61,6 +69,7 @@ import kotlin.reflect.KClass
 @Serializable object RouteBouger
 @Serializable object RouteSortir
 @Serializable object RoutePratique
+@Serializable object RouteEnvironnement
 @Serializable object RouteFamilles
 @Serializable data class RoutePersonnaliser(val onglet: String)
 @Serializable object RouteGuide
@@ -73,6 +82,8 @@ import kotlin.reflect.KClass
 private data class Onglet(
     val route: Any, val classe: KClass<*>, val libelle: String, val icone: ImageVector,
     val tuiles: OngletTuiles? = null,
+    /** Libellé de la barre du bas, quand le titre complet n'y tient pas à six onglets. */
+    val court: String = libelle,
 )
 
 private val ONGLETS = listOf(
@@ -80,6 +91,7 @@ private val ONGLETS = listOf(
     Onglet(RouteBouger, RouteBouger::class, "Bouger", Icons.Rounded.DirectionsBus, ONGLET_BOUGER),
     Onglet(RouteSortir, RouteSortir::class, "Sortir", Icons.Rounded.Celebration, ONGLET_SORTIR),
     Onglet(RouteFamilles, RouteFamilles::class, "Familles", Icons.Rounded.FamilyRestroom, ONGLET_FAMILLES),
+    Onglet(RouteEnvironnement, RouteEnvironnement::class, "Environnement", Icons.Rounded.Eco, ONGLET_ENVIRONNEMENT, court = "Env."),
     Onglet(RoutePratique, RoutePratique::class, "Pratique", Icons.Rounded.VolunteerActivism, ONGLET_PRATIQUE),
 )
 
@@ -143,7 +155,17 @@ fun AppCesson(app: CessonApp) {
             )
         },
         bottomBar = {
-            if (onglet != null) {
+            if (onglet != null) BoxWithConstraints {
+                // Une seule taille de libellé pour les six onglets : la plus grande (12 sp au plus) qui fait tenir
+                // le plus long (« Aujourd'hui ») sur une ligne, selon la largeur de l'écran et la taille du texte.
+                val style = MaterialTheme.typography.labelMedium
+                val mesure = rememberTextMeasurer()
+                val place = with(LocalDensity.current) { (maxWidth / ONGLETS.size - 4.dp).roundToPx() }
+                val taille = remember(place, style) {
+                    generateSequence(12f) { it - 0.5f }.takeWhile { it >= 8f }.firstOrNull { t ->
+                        ONGLETS.all { o -> mesure.measure(o.court, style.copy(fontSize = t.sp), maxLines = 1).size.width <= place }
+                    } ?: 8f
+                }
                 NavigationBar {
                     ONGLETS.forEach { o ->
                         NavigationBarItem(
@@ -156,7 +178,9 @@ fun AppCesson(app: CessonApp) {
                                 }
                             },
                             icon = { Icon(o.icone, contentDescription = null) },
-                            label = { Text(o.libelle) },
+                            // TalkBack lit le nom complet, pas « Env. ».
+                            label = { Text(o.court, maxLines = 1, softWrap = false, style = style.copy(fontSize = taille.sp),
+                                modifier = Modifier.clearAndSetSemantics { contentDescription = o.libelle }) },
                         )
                     }
                 }
@@ -168,6 +192,7 @@ fun AppCesson(app: CessonApp) {
             composable<RouteBouger> { EcranBouger(app) { nav.navigate(RoutePersonnaliser(ONGLET_BOUGER.id)) } }
             composable<RouteSortir> { EcranSortir(app) { nav.navigate(RoutePersonnaliser(ONGLET_SORTIR.id)) } }
             composable<RoutePratique> { EcranPratique(app) { nav.navigate(RoutePersonnaliser(ONGLET_PRATIQUE.id)) } }
+            composable<RouteEnvironnement> { EcranEnvironnement(app) { nav.navigate(RoutePersonnaliser(ONGLET_ENVIRONNEMENT.id)) } }
             composable<RouteFamilles> { EcranFamilles(app) { nav.navigate(RoutePersonnaliser(ONGLET_FAMILLES.id)) } }
             composable<RoutePersonnaliser> { e ->
                 val id = e.toRoute<RoutePersonnaliser>().onglet
