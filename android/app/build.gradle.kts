@@ -29,8 +29,8 @@ android {
         applicationId = "com.yogistudio.cesson"
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
-        versionCode = 8
-        versionName = "0.6.0"
+        versionCode = 9
+        versionName = "0.6.1"
         buildConfigField("String", "CONTACT", "\"$contact\"")
         buildConfigField("String", "STAR_CLE", "\"${starCle.filter { it.isLetterOrDigit() }}\"")
     }
