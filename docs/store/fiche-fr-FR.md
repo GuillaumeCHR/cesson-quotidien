@@ -14,48 +14,68 @@ Cesson-Sévigné au quotidien : bus, métro, Vilaine, collecte, horaires et sort
 
 ## Description complète (4 000 max)
 
-Cesson'App rassemble en un seul endroit l'information pratique de Cesson-Sévigné : les prochains passages du métro et des bus, le niveau de la Vilaine, la météo et les vigilances, la collecte des déchets, les horaires des équipements, les sorties et les actualités de la ville. Tout vient de sources publiques, cité avec sa date : une information ancienne est signalée comme telle, jamais présentée comme actuelle.
+⚠ Application non officielle. Cesson'App est publiée par Yogi Studio, développeur indépendant. Elle ne représente aucune entité gouvernementale ou publique : elle n'est éditée ni par la Ville de Cesson-Sévigné, ni par Rennes Métropole, ni par l'État, et ne remplace ni leurs canaux officiels, ni Vigicrues, ni FR-Alert. Chaque information renvoie à sa source officielle, listée en bas de cette description.
+
+Cesson'App rassemble l'information pratique de Cesson-Sévigné : métro et bus, niveau de la Vilaine, météo et vigilances, collecte des déchets, horaires des équipements, sorties et actualités de la ville. Tout vient de sources publiques, citées avec leur date : une information ancienne est signalée comme telle.
 
 Aujourd'hui à Cesson
-• Météo de la commune, avec les rafales quand elles dépassent 50 km/h.
-• Niveau de la Vilaine à Pont Briand et vigilance crues de Vigicrues ; vigilance météo de Météo-France ; un bandeau en tête de l'accueil dès qu'une vigilance est jaune ou plus.
-• Qualité de l'air, indice pollen et épisodes de pollution d'Air Breizh, avec des alertes réglables.
-• Les actualités de la ville, et des liens vers la chaîne WhatsApp municipale et le groupe Cesson Entraide.
+• Météo de la commune, avec les rafales au-delà de 50 km/h.
+• Niveau de la Vilaine à Pont Briand, vigilance crues et vigilance météo ; un bandeau dès qu'une vigilance est jaune ou plus.
+• Qualité de l'air, pollens et épisodes de pollution, avec des alertes réglables.
+• Actualités de la ville.
 
 Bouger
-• Métro b et bus à Cesson-ViaSilva en temps réel, et votre arrêt habituel, avec votre ligne préférée en tête et une alerte avant le passage.
+• Métro b et bus en temps réel, votre arrêt habituel et une alerte avant le passage.
 • Trains à Halte-Cesson, circulation sur la rocade est et dans Cesson.
 • Places libres au parc relais ViaSilva.
-• Prix des carburants des stations de Cesson, avec la date de chaque prix, et bornes de recharge.
+• Prix des carburants à Cesson, avec leur date, et bornes de recharge.
 
 Sortir
-• La saison culturelle du Carré Sévigné et du Pont des Arts, l'agenda de la ville et les séances du cinéma Le Sévigné.
-• Horaires de la piscine, de la médiathèque, du golf et de la Base Sports Nature : ouvert ou fermé maintenant, et jusqu'à quand.
+• Saison culturelle du Carré Sévigné et du Pont des Arts, agenda de la ville, séances du cinéma Le Sévigné et fiches des films.
+• Horaires de la piscine, de la médiathèque, du golf et de la Base Sports Nature.
 
 Familles
-• Menus de la cantine, vacances scolaires et informations du portail familles.
+• Menus de la cantine, vacances scolaires, actualités du portail familles.
 
 Pratique
-• Collecte des déchets, avec un rappel la veille ; déchetterie : horaires et déchets acceptés.
-• Usage de l'eau en cas de sécheresse, pharmacies et leurs horaires, numéros d'urgence.
-• Accessibilité des lieux publics, d'après acceslibre : entrée de plain-pied ou marches, places réservées, sanitaires adaptés, avec une recherche parmi plus de 300 lieux.
-• Défibrillateurs, du plus proche au plus loin de vous.
-• Carte d'identité et passeport, urbanisme, police municipale, signalements.
+• Collecte des déchets, avec un rappel la veille ; déchetteries.
+• Restrictions d'eau en cas de sécheresse, pharmacies, numéros d'urgence.
+• Accessibilité de plus de 300 lieux publics.
+• Défibrillateurs, du plus proche au plus loin.
+• Liens vers les démarches de la mairie (carte d'identité, passeport, urbanisme, police municipale).
 
 Une carte de Cesson
-• Équipements, défibrillateurs, stations-service, bornes, parc relais et lieux accessibles sur une carte OpenStreetMap, filtrables.
+• Équipements, défibrillateurs, stations-service, bornes, parc relais et lieux accessibles, filtrables.
 
 À votre façon
-• Chaque écran se personnalise : cartes affichées, ordre, compactes pour l'essentiel d'un coup d'œil ou détaillées.
-• Textes agrandissables, contrastes renforcés et libellés pensés pour TalkBack.
+• Cartes affichées, ordre, vue compacte ou détaillée.
+• Textes agrandissables, contrastes renforcés, libellés pour TalkBack.
 
 Aucun compte, aucune publicité, aucune donnée collectée
-• L'app télécharge des fichiers de données publiques, les mêmes pour tout le monde, sans identifiant ni statistique d'usage.
-• Votre position n'est demandée que pour trier les lieux par distance, et reste sur votre téléphone.
-• Les rappels et alertes sont calculés sur le téléphone.
-• Logiciel libre sous licence GNU GPL v3 : le code est public.
+• L'app télécharge des fichiers de données publiques, les mêmes pour tous, sans identifiant ni statistique.
+• Votre position ne sert qu'à trier les lieux par distance et reste sur le téléphone.
+• Logiciel libre (GNU GPL v3).
 
-Application non officielle
-Cesson'App est publiée par Yogi Studio. Elle n'est éditée ni par la Ville de Cesson-Sévigné ni par Rennes Métropole, et ne remplace ni les canaux officiels de la ville, ni Vigicrues, ni FR-Alert. Une idée, une erreur ? Le menu « Vos idées » ouvre un message pré-rempli.
+Une idée, une erreur ? Le menu « Vos idées » ouvre un message pré-rempli.
 
-Sources : STAR (Rennes Métropole, Keolis Rennes), SNCF, Hub'Eau et Vigicrues, Météo-France, Open-Meteo, Air Breizh (Atmo France / AASQA), Rennes Métropole, Ville de Cesson-Sévigné, acceslibre, Géo'DAE, data.gouv.fr, ministère de l'Économie, OpenStreetMap.
+Sources officielles (détail et date de chaque donnée dans l'app, menu « Sources et licences ») :
+• Métro, bus, parc relais : STAR, Rennes Métropole – data.explore.star.fr
+• Trains : SNCF – transport.data.gouv.fr/datasets/horaires-sncf
+• Circulation : Rennes Métropole – data.rennesmetropole.fr
+• Niveau de la Vilaine : Hub'Eau – hubeau.eaufrance.fr
+• Vigilance crues : Vigicrues – vigicrues.gouv.fr
+• Vigilance météo : Météo-France – vigilance.meteofrance.fr
+• Météo : Open-Meteo (modèles Météo-France) – open-meteo.com
+• Air, pollens, pollution : Air Breizh – airbreizh.asso.fr
+• Restrictions d'eau : VigiEau – vigieau.gouv.fr
+• Carburants : ministère de l'Économie – prix-carburants.gouv.fr
+• Bornes de recharge : base nationale IRVE – transport.data.gouv.fr
+• Défibrillateurs : Géo'DAE, ministère de la Santé – geodae.atlasante.fr
+• Accessibilité : acceslibre – acceslibre.beta.gouv.fr
+• Vacances scolaires : ministère de l'Éducation nationale – data.education.gouv.fr
+• Collecte, déchetteries : Rennes Métropole – metropole.rennes.fr
+• Actualités, équipements, démarches : Ville de Cesson-Sévigné – ville-cesson-sevigne.fr
+• Cantine, familles : portail-familles.ville-cesson-sevigne.fr
+• Agenda, saison culturelle : OpenAgenda – openagenda.com
+• Cinéma : Le Sévigné – cinesevigne.fr ; fiches des films : TMDB – themoviedb.org, Wikidata
+• Carte, pharmacies : OpenStreetMap – openstreetmap.org

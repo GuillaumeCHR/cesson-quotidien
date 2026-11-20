@@ -257,7 +257,7 @@ class CollecteurCinema(Collecteur[DonneesCinema]):
     module = "cinema"
     source = "Cinéma Le Sévigné (grille mensuelle des séances)"
     licence = "Informations publiques du cinéma Le Sévigné"
-    url_source = None
+    url_source = URL_SITE
     fraicheur = timedelta(hours=12)
     modele_donnees = DonneesCinema
 
