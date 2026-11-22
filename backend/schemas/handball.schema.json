@@ -1,0 +1,207 @@
+{
+  "$defs": {
+    "DonneesHandball": {
+      "additionalProperties": false,
+      "properties": {
+        "saison": {
+          "title": "Saison",
+          "type": "string"
+        },
+        "a_venir": {
+          "items": {
+            "$ref": "#/$defs/Match"
+          },
+          "title": "A Venir",
+          "type": "array"
+        },
+        "dernier": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Match"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "required": [
+        "saison",
+        "a_venir"
+      ],
+      "title": "DonneesHandball",
+      "type": "object"
+    },
+    "Etat": {
+      "enum": [
+        "ok",
+        "perime",
+        "erreur"
+      ],
+      "title": "Etat",
+      "type": "string"
+    },
+    "Match": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "debut": {
+          "format": "date-time",
+          "title": "Debut",
+          "type": "string"
+        },
+        "horaire_a_confirmer": {
+          "default": false,
+          "title": "Horaire A Confirmer",
+          "type": "boolean"
+        },
+        "adversaire": {
+          "title": "Adversaire",
+          "type": "string"
+        },
+        "competition": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Competition"
+        },
+        "tour": {
+          "title": "Tour",
+          "type": "string"
+        },
+        "salle": {
+          "title": "Salle",
+          "type": "string"
+        },
+        "score_cesson": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Score Cesson"
+        },
+        "score_adversaire": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Score Adversaire"
+        },
+        "billetterie": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Billetterie"
+        }
+      },
+      "required": [
+        "id",
+        "debut",
+        "adversaire",
+        "tour",
+        "salle"
+      ],
+      "title": "Match",
+      "type": "object"
+    },
+    "Meta": {
+      "additionalProperties": false,
+      "description": "Accompagne chaque fichier publié : source, licence et fraîcheur.",
+      "properties": {
+        "source": {
+          "title": "Source",
+          "type": "string"
+        },
+        "licence": {
+          "title": "Licence",
+          "type": "string"
+        },
+        "url_source": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Url Source"
+        },
+        "recupere_le": {
+          "format": "date-time",
+          "title": "Recupere Le",
+          "type": "string"
+        },
+        "valide_jusqu_a": {
+          "format": "date-time",
+          "title": "Valide Jusqu A",
+          "type": "string"
+        },
+        "etat": {
+          "$ref": "#/$defs/Etat",
+          "default": "ok"
+        }
+      },
+      "required": [
+        "source",
+        "licence",
+        "recupere_le",
+        "valide_jusqu_a"
+      ],
+      "title": "Meta",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "module": {
+      "title": "Module",
+      "type": "string"
+    },
+    "version_schema": {
+      "default": 1,
+      "title": "Version Schema",
+      "type": "integer"
+    },
+    "meta": {
+      "$ref": "#/$defs/Meta"
+    },
+    "donnees": {
+      "$ref": "#/$defs/DonneesHandball"
+    }
+  },
+  "required": [
+    "module",
+    "meta",
+    "donnees"
+  ],
+  "title": "FichierModule[DonneesHandball]",
+  "type": "object"
+}

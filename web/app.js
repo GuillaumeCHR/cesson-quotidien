@@ -644,12 +644,40 @@ async function carteSaison() {
 async function carteAgenda() {
   const f = await module("agenda");
   if (!f) return absent("Agenda");
-  const ev = f.donnees.evenements.filter((e) => !e.saison && e.au >= isoJour()).slice(0, 10);
+  // Les matchs du club de handball ont leur carte.
+  const ev = f.donnees.evenements.filter((e) => !e.saison && !/^Cesson Rennes Métropole Handball/i.test(e.titre) && e.au >= isoJour()).slice(0, 10);
   return carte("Agenda", el("ul", { classe: "liste" }, ev.map((e) => el("li", {},
     el("div", { classe: "doux petit" }, e.du === e.au ? majuscule(FMT_JOUR_COURT.format(jourCalendaire(e.du)))
       : `Du ${FMT_JOUR_COURT.format(jourCalendaire(e.du))} au ${FMT_JOUR_COURT.format(jourCalendaire(e.au))}`),
     el("strong", {}, lien(e.lien, e.titre)),
     el("div", { classe: "doux petit" }, [e.horaires, e.lieu].filter(Boolean).join(" · "))))), f);
+}
+
+async function carteHandball() {
+  const f = await module("handball");
+  if (!f) return absent("Handball à la Glaz Arena");
+  const d = f.donnees;
+  const matchs = d.a_venir.filter((m) => new Date(m.debut) > Date.now() - 2 * 3600000).slice(0, 6);
+  const quand = (m) => m.horaire_a_confirmer ? "horaire à confirmer" : heure(m.debut);
+  const jour = (m) => majuscule(FMT_JOUR.format(new Date(m.debut)));
+  const [prochain, ...suivants] = matchs;
+  const der = d.dernier;
+  const issue = der && (der.score_cesson > der.score_adversaire ? "victoire" : der.score_cesson < der.score_adversaire ? "défaite" : "match nul");
+  return carte("Handball à la Glaz Arena", el("div", {},
+    el("p", {}, "Les matchs à domicile du Cesson Rennes Métropole Handball."),
+    !prochain && el("p", { classe: "vide" }, "Pas de match à domicile annoncé pour l'instant."),
+    prochain && el("div", {},
+      el("div", { classe: "doux" }, `${jour(prochain)} · ${quand(prochain)}`),
+      el("strong", {}, `Cesson – ${prochain.adversaire}`), " ", pastille(prochain.tour, "info"),
+      prochain.competition?.startsWith("Coupe") && pastille(prochain.competition, "neutre"),
+      el("p", {}, prochain.billetterie && /^https:\/\/billetterie\.cesson-handball\.com\//.test(prochain.billetterie)
+        ? lien(prochain.billetterie, "Réserver des places", "bouton plein")
+        : el("span", { classe: "doux petit" }, "Places pas encore en vente."))),
+    suivants.length > 0 && el("ul", { classe: "liste" }, suivants.map((m) => el("li", { classe: "ligne" },
+      el("span", { classe: "etire" }, el("strong", {}, `Cesson – ${m.adversaire}`), el("br"),
+        el("span", { classe: "doux petit" }, [majuscule(FMT_JOUR_COURT.format(new Date(m.debut))), quand(m), m.tour].join(" · ")))))),
+    issue && el("p", { classe: "doux petit" }, `Dernier match à domicile : ${issue} ${der.score_cesson}-${der.score_adversaire} contre ${der.adversaire}.`),
+    lien("https://www.cesson-handball.com/pro/saison", "Toute la saison du club", "bouton")), f);
 }
 
 const duree = (m) => m < 60 ? `${m} min` : `${Math.floor(m / 60)}h${String(m % 60).padStart(2, "0")}`;
@@ -1046,7 +1074,7 @@ const ONGLETS = {
   // Mêmes cartes, dans le même ordre, que les onglets de l'app (android/app/…/ui/Accueil.kt).
   aujourdhui: { titre: "Aujourd'hui", cartes: [carteMeteo, carteMonTrajet, () => carteTrains(false), () => carteCirculation(false), carteAir, () => carteActus()] },
   bouger: { titre: "Bouger", cartes: [carteDeparts, carteParcRelais, carteTrains, carteMonTrajet, carteCirculation, carteCarburants, carteBornes] },
-  sortir: { titre: "Sortir", cartes: [carteSaison, carteAgenda, carteCinema, () => carteEquipements()] },
+  sortir: { titre: "Sortir", cartes: [carteSaison, carteAgenda, carteHandball, carteCinema, () => carteEquipements()] },
   familles: { titre: "Familles", cartes: [carteMenus, carteVacances, carteInfosFamilles, cartePortailFamilles] },
   environnement: { titre: "Environnement", cartes: [carteAir, cartePollens, carteEpisodes, carteVilaine, carteEau, carteCollecte, carteDechetterie] },
   pratique: { titre: "Pratique", cartes: [carteDemarches, cartePharmacies, carteUrgences, carteDefibrillateurs, carteAccessibilite] },

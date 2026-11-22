@@ -10,7 +10,7 @@ Périmètre fonctionnel, en 6 domaines :
 
 - **Se déplacer** : bus et métro STAR, trains à la halte de Cesson-Sévigné, vélos en libre-service, parcs-relais, carburants, bornes de recharge.
 - **Équipements** : piscine, médiathèque, Pont des Arts, golf municipal, Base Sports Nature, déchetterie.
-- **Sortir** : spectacles du Carré Sévigné, cinéma Le Sévigné, agenda de la ville.
+- **Sortir** : spectacles du Carré Sévigné, cinéma Le Sévigné, agenda de la ville, matchs à domicile du Cesson Rennes Métropole Handball (Glaz Arena).
 - **Environnement et risques** : météo, niveau de la Vilaine, vigilance crues, vigilance météo, qualité de l'air.
 - **Pratique** : collecte des déchets, défibrillateurs, accessibilité des lieux publics.
 - **Actualités** : fil de la ville. Les liens vers la chaîne WhatsApp municipale et le groupe Facebook Cesson Entraide (non officiel) sont dans l'écran À propos.
@@ -173,6 +173,7 @@ Les rappels prévisibles sont calculés sur le téléphone. Seuls les événemen
 | Pollution | Indice ATMO prévu « mauvais » ou pire pour le lendemain | Serveur, sujet `air`, vers 14h30 |
 | Bus | Alerte STAR sur une ligne suivie | Serveur, sujet `star-<ligne>` |
 | Collecte | Veille au soir du jour de collecte, reports fériés compris | Local, WorkManager |
+| Match de handball | Match à domicile mis en favori (étoile de la carte Handball) : rappel la veille à 18h | Local, WorkManager |
 | Spectacle | Spectacle mis en favori (étoile de la carte Saison) : rappel la veille à 18h, et alerte s'il passe « Annulé », « Reporté » ou « Nouvelle date » (contrôle à 9h, 13h, 18h) | Local, WorkManager |
 | Train favori | Train pris régulièrement (« le 7h08 vers Rennes », jours choisis, fériés exclus) : alerte seulement s'il est supprimé ou en retard de 5 min et plus, contrôle toutes les 5 min dans l'heure qui précède | Local, WorkManager, d'après trains.json (8 départs par direction et horaires de la semaine) |
 

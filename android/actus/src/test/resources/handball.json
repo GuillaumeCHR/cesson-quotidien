@@ -1,0 +1,110 @@
+{
+  "module": "handball",
+  "version_schema": 1,
+  "meta": {
+    "source": "Site du Cesson Rennes Métropole Handball (extraction)",
+    "licence": "Informations publiques du club ; le match se réserve chez le club",
+    "url_source": "https://www.cesson-handball.com/pro/saison",
+    "recupere_le": "2026-11-22T20:13:40.088984Z",
+    "valide_jusqu_a": "2026-11-24T20:13:40.088984Z",
+    "etat": "ok"
+  },
+  "donnees": {
+    "saison": "2026-2027",
+    "a_venir": [
+      {
+        "id": "liqui-moly-starligue-13e-journee-saran",
+        "debut": "2026-12-03T20:30:00+01:00",
+        "horaire_a_confirmer": false,
+        "adversaire": "Saran",
+        "competition": "Liqui Moly Starligue",
+        "tour": "13e journée",
+        "salle": "Glaz Arena",
+        "billetterie": "https://billetterie.cesson-handball.com/content"
+      },
+      {
+        "id": "liqui-moly-starligue-16e-journee-paris",
+        "debut": "2027-02-05T20:30:00+01:00",
+        "horaire_a_confirmer": false,
+        "adversaire": "Paris",
+        "competition": "Liqui Moly Starligue",
+        "tour": "16e journée",
+        "salle": "Glaz Arena"
+      },
+      {
+        "id": "liqui-moly-starligue-18e-journee-saint-raphael",
+        "debut": "2027-02-19T20:00:00+01:00",
+        "horaire_a_confirmer": false,
+        "adversaire": "Saint-Raphaël",
+        "competition": "Liqui Moly Starligue",
+        "tour": "18e journée",
+        "salle": "Glaz Arena"
+      },
+      {
+        "id": "liqui-moly-starligue-20e-journee-dunkerque",
+        "debut": "2027-03-05T20:00:00+01:00",
+        "horaire_a_confirmer": false,
+        "adversaire": "Dunkerque",
+        "competition": "Liqui Moly Starligue",
+        "tour": "20e journée",
+        "salle": "Glaz Arena"
+      },
+      {
+        "id": "liqui-moly-starligue-22e-journee-chambery",
+        "debut": "2027-03-27T19:00:00+01:00",
+        "horaire_a_confirmer": false,
+        "adversaire": "Chambéry",
+        "competition": "Liqui Moly Starligue",
+        "tour": "22e journée",
+        "salle": "Glaz Arena"
+      },
+      {
+        "id": "liqui-moly-starligue-24e-journee-montpellier",
+        "debut": "2027-04-09T20:30:00+02:00",
+        "horaire_a_confirmer": false,
+        "adversaire": "Montpellier",
+        "competition": "Liqui Moly Starligue",
+        "tour": "24e journée",
+        "salle": "Glaz Arena"
+      },
+      {
+        "id": "liqui-moly-starligue-25e-journee-caen",
+        "debut": "2027-04-14T20:30:00+02:00",
+        "horaire_a_confirmer": false,
+        "adversaire": "Caen",
+        "competition": "Liqui Moly Starligue",
+        "tour": "25e journée",
+        "salle": "Glaz Arena"
+      },
+      {
+        "id": "liqui-moly-starligue-27e-journee-tremblay",
+        "debut": "2027-04-23T20:30:00+02:00",
+        "horaire_a_confirmer": false,
+        "adversaire": "Tremblay",
+        "competition": "Liqui Moly Starligue",
+        "tour": "27e journée",
+        "salle": "Glaz Arena"
+      },
+      {
+        "id": "liqui-moly-starligue-29e-journee-chartres",
+        "debut": "2027-05-13T20:30:00+02:00",
+        "horaire_a_confirmer": false,
+        "adversaire": "Chartres",
+        "competition": "Liqui Moly Starligue",
+        "tour": "29e journée",
+        "salle": "Glaz Arena"
+      }
+    ],
+    "dernier": {
+      "id": "liqui-moly-starligue-10e-journee-toulouse",
+      "debut": "2026-11-13T20:30:00+01:00",
+      "horaire_a_confirmer": false,
+      "adversaire": "Toulouse",
+      "competition": "Liqui Moly Starligue",
+      "tour": "10e journée",
+      "salle": "Glaz Arena",
+      "score_cesson": 29,
+      "score_adversaire": 37
+    }
+  }
+}

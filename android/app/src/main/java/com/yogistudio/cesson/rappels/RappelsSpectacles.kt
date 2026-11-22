@@ -15,8 +15,12 @@ import androidx.work.WorkerParameters
 import com.yogistudio.cesson.CessonApp
 import com.yogistudio.cesson.MainActivity
 import com.yogistudio.cesson.R
+import com.yogistudio.cesson.actus.PREFIXE_FAVORI_MATCH
 import com.yogistudio.cesson.actus.RappelSpectacle
 import com.yogistudio.cesson.actus.agenda
+import com.yogistudio.cesson.actus.cleFavori
+import com.yogistudio.cesson.actus.handball
+import com.yogistudio.cesson.actus.rappelsMatchs
 import com.yogistudio.cesson.actus.rappelsSpectacles
 import com.yogistudio.cesson.core.donnees.EtatModule
 import com.yogistudio.cesson.core.ui.FuseauCesson
@@ -27,8 +31,9 @@ import java.time.LocalTime
 import java.util.concurrent.TimeUnit
 
 /**
- * Spectacles favoris : rappel la veille à 18h, et alerte si la Ville l'annonce annulé, reporté ou déplacé. Contrôle à
- * 9h, 13h et 18h (à quelques minutes près), sur le téléphone ; les favoris ne quittent jamais le téléphone.
+ * Spectacles favoris : rappel la veille à 18h, et alerte si la Ville l'annonce annulé, reporté ou déplacé. Matchs de
+ * handball favoris (même liste, préfixe « handball: ») : rappel la veille à 18h. Contrôle à 9h, 13h et 18h (à quelques
+ * minutes près), sur le téléphone ; les favoris ne quittent jamais le téléphone.
  */
 object RappelsSpectacles {
     private const val TRAVAIL = "rappels_spectacles"
@@ -42,8 +47,8 @@ object RappelsSpectacles {
     }
 
     fun creerCanal(context: Context) {
-        val canal = NotificationChannel(CANAL, "Spectacles favoris", NotificationManager.IMPORTANCE_DEFAULT).apply {
-            description = "La veille d'un spectacle mis en favori, et s'il est annulé ou reporté."
+        val canal = NotificationChannel(CANAL, "Spectacles et matchs favoris", NotificationManager.IMPORTANCE_DEFAULT).apply {
+            description = "La veille d'un spectacle ou d'un match mis en favori, et si un spectacle est annulé ou reporté."
         }
         context.getSystemService(NotificationManager::class.java).createNotificationChannel(canal)
     }
@@ -69,16 +74,29 @@ object RappelsSpectacles {
         val p = app.preferences
         val favoris = p.spectaclesFavoris.first()
         if (favoris.isEmpty()) return
-        val etat = app.depot.agenda().first() as? EtatModule.Disponible ?: return
-        val d = etat.fichier.donnees
         val ici = maintenant.atZone(FuseauCesson)
-        // Spectacles passés ou retirés de l'agenda : plus de favori (seulement avec un agenda à jour).
-        if (!etat.fraicheur.estPerimee(maintenant)) {
-            val encore = d.evenements.filter { !it.au.isBefore(ici.toLocalDate()) }.map { it.id }.toSet()
-            if (!encore.containsAll(favoris)) p.enregistrerSpectaclesFavoris(favoris intersect encore)
-        }
         val deja = p.rappelsSpectaclesEnvoyes.first()
-        val rappels = rappelsSpectacles(d, favoris, ici, deja)
+        val rappels = mutableListOf<RappelSpectacle>()
+        val (matchs, spectacles) = favoris.partition { it.startsWith(PREFIXE_FAVORI_MATCH) }
+        var gardes = favoris
+        // Favoris passés ou retirés de leur source : on les oublie (seulement avec une source à jour).
+        (app.depot.agenda().first() as? EtatModule.Disponible)?.let { etat ->
+            val d = etat.fichier.donnees
+            if (!etat.fraicheur.estPerimee(maintenant)) {
+                val encore = d.evenements.filter { !it.au.isBefore(ici.toLocalDate()) }.map { it.id }.toSet()
+                gardes = gardes - spectacles.filter { it !in encore }.toSet()
+            }
+            rappels += rappelsSpectacles(d, spectacles.toSet(), ici, deja)
+        }
+        (app.depot.handball().first() as? EtatModule.Disponible)?.let { etat ->
+            val d = etat.fichier.donnees
+            if (!etat.fraicheur.estPerimee(maintenant)) {
+                val encore = d.aVenir.map { it.cleFavori() }.toSet()
+                gardes = gardes - matchs.filter { it !in encore }.toSet()
+            }
+            rappels += rappelsMatchs(d, matchs.toSet(), ici, deja)
+        }
+        if (gardes != favoris) p.enregistrerSpectaclesFavoris(gardes)
         if (rappels.isEmpty() || !RappelsCollecte.notificationsAutorisees(context)) return
         val envoyes = rappels.filter { envoyer(context, it) }.map { it.cle }
         val ids = p.spectaclesFavoris.first()

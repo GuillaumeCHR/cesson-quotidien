@@ -13,6 +13,9 @@ import com.yogistudio.cesson.actus.CarteCinema
 import com.yogistudio.cesson.transport.CarteParcRelais
 import androidx.compose.material.icons.rounded.LocalParking
 import com.yogistudio.cesson.actus.CarteSaison
+import com.yogistudio.cesson.actus.CarteHandball
+import com.yogistudio.cesson.actus.handball
+import androidx.compose.material.icons.rounded.SportsHandball
 import com.yogistudio.cesson.pratique.CartePharmacieGarde
 import com.yogistudio.cesson.pratique.pharmacies
 import com.yogistudio.cesson.pratique.CarteUrgences
@@ -218,7 +221,15 @@ private val SAISON = Tuile("saison", "Saison culturelle", Icons.Rounded.TheaterC
     CarteSaison(etat, image = { app.depot.image(it) }, favoris = favoris,
         basculerFavori = { id -> portee.launch { com.yogistudio.cesson.rappels.RappelsSpectacles.basculer(context, id) } })
 }
-val ONGLET_SORTIR = OngletTuiles("sortir", "l'onglet Sortir", listOf(SAISON, AGENDA, CINEMA, EQUIPEMENTS_LOISIRS))
+private val HANDBALL = Tuile("handball", "Handball à la Glaz Arena", Icons.Rounded.SportsHandball) { app ->
+    val etat by remember(app) { app.depot.handball() }.collectAsStateWithLifecycle(EtatModule.Absent)
+    val favoris by app.preferences.spectaclesFavoris.collectAsStateWithLifecycle(emptySet())
+    val context = androidx.compose.ui.platform.LocalContext.current
+    val portee = androidx.compose.runtime.rememberCoroutineScope()
+    CarteHandball(etat, favoris = favoris,
+        basculerFavori = { id -> portee.launch { com.yogistudio.cesson.rappels.RappelsSpectacles.basculer(context, id) } })
+}
+val ONGLET_SORTIR = OngletTuiles("sortir", "l'onglet Sortir", listOf(SAISON, AGENDA, HANDBALL, CINEMA, EQUIPEMENTS_LOISIRS))
 private val USAGES_EAU = Tuile("usages_eau", "Usage de l'eau", Icons.Rounded.WaterDrop) { app ->
     val etat by remember(app) { app.depot.usagesEau() }.collectAsStateWithLifecycle(EtatModule.Absent)
     CarteUsagesEau(etat)

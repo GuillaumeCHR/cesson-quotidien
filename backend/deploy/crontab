@@ -61,6 +61,9 @@ PATH=/usr/bin:/bin
 # Deux fois par jour (7h20, 19h20) : séances du cinéma Le Sévigné (grille mensuelle en PDF)
 20 7,19 * * * cd $CESSON && .venv/bin/python -m cesson collecter cinema --sortie /srv/cesson/public --etat /srv/cesson/etat >> /srv/cesson/log/collecte.log 2>&1
 
+# Deux fois par jour (8h10, 23h10 pour le score du soir) : matchs à domicile du Cesson Rennes Métropole Handball
+10 8,23 * * * cd $CESSON && .venv/bin/python -m cesson collecter handball --sortie /srv/cesson/public --etat /srv/cesson/etat >> /srv/cesson/log/collecte.log 2>&1
+
 # Quotidien, 4h35 : déchets acceptés à la déchèterie (Rennes Métropole)
 35 4 * * *    cd $CESSON && .venv/bin/python -m cesson collecter decheterie --sortie /srv/cesson/public --etat /srv/cesson/etat >> /srv/cesson/log/collecte.log 2>&1
 

@@ -42,9 +42,12 @@ fun DepotModules.agenda(): Flow<EtatModule<DonneesAgenda>> = suivre(MODULE_AGEND
 val FILTRES_AGENDA = listOf(null to "Tout", "associations" to "Associations", "culture" to "Culture libre",
     "sport" to "Sport et Glaz Arena", "mediatheque" to "Médiathèque")
 
-/** Événements de l'agenda encore en cours ou à venir, hors saison culturelle, filtrés par famille, groupés par jour. */
+/**
+ * Événements de l'agenda encore en cours ou à venir, filtrés par famille, groupés par jour. Sans la saison culturelle ni
+ * les matchs du club de handball, qui ont leur carte.
+ */
 fun agendaParJour(d: DonneesAgenda, famille: String?, aujourdhui: LocalDate): List<Pair<LocalDate, List<Evenement>>> =
-    grouper(d.evenements.filter { !it.saison && (famille == null || it.famille == famille) }, aujourdhui)
+    grouper(d.evenements.filter { !it.saison && !estMatchDuClub(it) && (famille == null || it.famille == famille) }, aujourdhui)
 
 /** Spectacles de la saison culturelle à venir, groupés par jour. */
 fun saisonParJour(d: DonneesAgenda, aujourdhui: LocalDate): List<Pair<LocalDate, List<Evenement>>> =

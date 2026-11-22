@@ -16,7 +16,7 @@ Cesson-Sévigné au quotidien : bus, métro, Vilaine, collecte, horaires et sort
 
 ⚠ Application non officielle. Cesson'App est publiée par Yogi Studio, développeur indépendant. Elle ne représente aucune entité gouvernementale ou publique : elle n'est éditée ni par la Ville de Cesson-Sévigné, ni par Rennes Métropole, ni par l'État, et ne remplace ni leurs canaux officiels, ni Vigicrues, ni FR-Alert. Chaque information renvoie à sa source officielle, listée en bas de cette description.
 
-Cesson'App rassemble l'information pratique de Cesson-Sévigné : métro et bus, niveau de la Vilaine, météo et vigilances, collecte des déchets, horaires des équipements, sorties et actualités de la ville. Tout vient de sources publiques, citées avec leur date : une information ancienne est signalée comme telle.
+Cesson'App rassemble l'information pratique de Cesson-Sévigné : métro et bus, niveau de la Vilaine, météo et vigilances, collecte des déchets, horaires des équipements, sorties et actualités de la ville. Tout vient de sources publiques, datées : une information ancienne est signalée.
 
 Aujourd'hui à Cesson
 • Météo de la commune, avec les rafales au-delà de 50 km/h.
@@ -31,7 +31,7 @@ Bouger
 • Prix des carburants à Cesson, avec leur date, et bornes de recharge.
 
 Sortir
-• Saison culturelle du Carré Sévigné et du Pont des Arts, agenda de la ville, séances du cinéma Le Sévigné et fiches des films.
+• Saison culturelle du Carré Sévigné et du Pont des Arts, agenda de la ville, handball à la Glaz Arena, cinéma Le Sévigné et fiches des films.
 • Horaires de la piscine, de la médiathèque, du golf et de la Base Sports Nature.
 
 Familles
@@ -77,5 +77,6 @@ Sources officielles (détail et date de chaque donnée dans l'app, menu « Sourc
 • Actualités, équipements, démarches : Ville de Cesson-Sévigné – ville-cesson-sevigne.fr
 • Cantine, familles : portail-familles.ville-cesson-sevigne.fr
 • Agenda, saison culturelle : OpenAgenda – openagenda.com
+• Handball : cesson-handball.com
 • Cinéma : Le Sévigné – cinesevigne.fr ; fiches des films : TMDB – themoviedb.org, Wikidata
 • Carte, pharmacies : OpenStreetMap – openstreetmap.org

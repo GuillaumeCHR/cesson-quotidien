@@ -1,0 +1,3413 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <!--
+        __/\\\________/\\\_____/\\\\\\\\\\\____/\\\\\\\\\\\\\\\__/\\\______________/\\\__/\\\\\\\\\\\\\\\__/\\\\\\\\\\\\\___
+         _\/\\\_______\/\\\___/\\\/////////\\\_\/\\\///////////__\/\\\_____________\/\\\_\/\\\///////////__\/\\\/////////\\\_
+          _\/\\\_______\/\\\__\//\\\______\///__\/\\\_____________\/\\\_____________\/\\\_\/\\\_____________\/\\\_______\/\\\_
+           _\/\\\_______\/\\\___\////\\\_________\/\\\\\\\\\\\_____\//\\\____/\\\____/\\\__\/\\\\\\\\\\\_____\/\\\\\\\\\\\\\\__
+            _\/\\\_______\/\\\______\////\\\______\/\\\///////_______\//\\\__/\\\\\__/\\\___\/\\\///////______\/\\\/////////\\\_
+             _\/\\\_______\/\\\_________\////\\\___\/\\\_______________\//\\\/\\\/\\\/\\\____\/\\\_____________\/\\\_______\/\\\_
+              _\//\\\______/\\\___/\\\______\//\\\__\/\\\________________\//\\\\\\//\\\\\_____\/\\\_____________\/\\\_______\/\\\_
+               __\///\\\\\\\\\/___\///\\\\\\\\\\\/___\/\\\\\\\\\\\\\\\_____\//\\\__\//\\\______\/\\\\\\\\\\\\\\\_\/\\\\\\\\\\\\\/__
+                ____\/////////_______\///////////_____\///////////////_______\///____\///_______\///////////////__\/////////////____
+    -->
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="yjQ8VHbVApLFwuGkqm6ZYBakTfdKOyU4SfTumxn6">
+
+            <meta property="og:title" content="Cesson Rennes Métropole Handball" />
+        <meta property="og:image" content="https://www.cesson-handball.com/img/logo.png" />
+    
+    <!-- SEO Metas -->
+    <title>Cesson Rennes Métropole Handball - Réservez vos places pour les prochains matchs</title>
+<meta name="description" content="R&eacute;servez vos places pour les prochains matchs de Cesson Rennes M&eacute;tropole Handball, club Breton de Handball &eacute;voluant en LNH championnat de France D1">
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-V89TESRJDJ"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+    gtag('config', 'G-V89TESRJDJ', {
+        'anonymize_ip': true
+    });
+</script>
+
+    <link rel="icon" type="image/png" href="https://www.cesson-handball.com/favicon.png" />
+
+    <!-- Scripts -->
+    <script src="https://www.google.com/recaptcha/api.js?onload=vueRecaptchaApiLoaded&render=explicit" async defer></script>
+    <script src="/js/app.js?id=124f974beecf3c72105b" defer></script>
+
+    <!-- Styles -->
+    <link href="/css/app.css?id=0a9195a0dad45e022817" rel="stylesheet">
+    <link href="https://www.cesson-handball.com/css/flags/flags.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css"
+        href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.css" />
+
+    <script src="https://js.stripe.com/v3/"></script>
+</head>
+
+<body
+    class="page-pro-season with-highlight"
+    data-stripe-public-key="pk_live_51Hpa89AqzhKaCCbT535oLrHplQJtjOeND9mTpdKI8zLPOrVOl0Ube5AuXOlCYbGZNK3qgpLWV5bXS4y8JuC8IObK00zgSfJ4bR">
+    <div id="app" class="d-flex flex-column">
+        <nav id="navbar-main"
+    class="navbar-main navbar navbar-expand-lg navbar-dark  ">
+    <div class="container relative">
+        <a class="navbar-brand" href="https://www.cesson-handball.com">
+            <img src="https://www.cesson-handball.com/img/logo.png" alt="Cesson Rennes Métropole Handball">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <!-- Left Side Of Navbar -->
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item dropdown active">
+                    <a class="nav-link" href="#" id="navbarPro" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        Pro >
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarPro">
+                        <a class="dropdown-item "
+                            href="https://www.cesson-handball.com/pro/effectif">Effectif</a>
+                        <a class="dropdown-item active" href="https://www.cesson-handball.com/pro/saison">Saison
+                            26/27</a>
+                        <a class="dropdown-item "
+                            href="https://www.cesson-handball.com/pro/actualites">Actualité</a>
+                        <a class="dropdown-item "
+                            href="https://www.cesson-handball.com/pro/medias">Médias</a>
+                    </div>
+                </li>
+                <li
+                    class="nav-item dropdown ">
+                    <a class="nav-link" href="#" id="navbarAmateur" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        Amateur >
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarAmateur">
+                                                    <a class="dropdown-item "
+                                href="https://www.cesson-handball.com/amateur/n1">N1</a>
+                                                    <a class="dropdown-item "
+                                href="https://www.cesson-handball.com/amateur/u18">U18</a>
+                                                    <a class="dropdown-item "
+                                href="https://www.cesson-handball.com/amateur/u15">U15</a>
+                                                    <a class="dropdown-item "
+                                href="https://www.cesson-handball.com/amateur/u13">U13</a>
+                                                    <a class="dropdown-item "
+                                href="https://www.cesson-handball.com/amateur/u11">U11</a>
+                                                    <a class="dropdown-item "
+                                href="https://www.cesson-handball.com/amateur/u9">U9</a>
+                                                    <a class="dropdown-item "
+                                href="https://www.cesson-handball.com/amateur/senior-3">Senior 3</a>
+                                                <a class="dropdown-item " href="https://www.cesson-handball.com/club">Vie
+                            du club</a>
+                        <a class="dropdown-item "
+                            href="https://www.cesson-handball.com/amateur/actualites">Actualités</a>
+                                                    <a href="https://www.cesson-handball.com/storage/settings/35c760654fac170ebcf8d57a518cb1c2.pdf" class="dropdown-item" target="_blank">
+                                Calendrier
+                            </a>
+                                                <a class="dropdown-item "
+                            href="https://www.cesson-handball.com/amateur/medias">Médias</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown ">
+                    <a class="nav-link" href="#" id="navbarCfcp" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        Formation >
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarCfcp">
+                        <a class="dropdown-item "
+                            href="https://www.cesson-handball.com/cfcp">Présentation</a>
+                        <a class="dropdown-item "
+                            href="https://www.cesson-handball.com/cfcp/effectif">Effectif</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown ">
+                    <a class="nav-link" href="#" id="navbarCorporate" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        Entreprise >
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarCorporate">
+                        <a class="dropdown-item "
+                            href="https://www.cesson-handball.com/nous-soutenir">Devenir partenaires</a>
+                    </div>
+                </li>
+                <li
+                    class="nav-item dropdown ">
+                    <a class="nav-link" href="#" id="navbarClub" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        Le club >
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarClub">
+                        <a class="dropdown-item "
+                            href="https://www.cesson-handball.com/presentation">Présentation</a>
+                        <a class="dropdown-item "
+                            href="https://www.cesson-handball.com/direction">Organigramme</a>
+                        <a class="dropdown-item "
+                            href="https://www.cesson-handball.com/competition">Compétitions</a>
+                        <a class="dropdown-item " href="https://www.cesson-handball.com/glaz-arena">Glaz
+                            Arena</a>
+                    </div>
+                </li>
+                <li class="nav-item ">
+                                            <a class="nav-link" href="https://app.grinta.eu/cesson-rennes-metropole-handball/adult/official" target="_blank">Boutique</a>
+                                    </li>
+                <li class="nav-item ">
+                    <div class="ticketing__nav">
+                        <img src="https://www.cesson-handball.com/images/ticketing.svg" width="20" height="20">
+                        <a class="nav-link" href="https://www.cesson-handball.com/billetterie">Billetterie</a>
+                    </div>
+                </li>
+            </ul>
+            <ul class="nav social-links d-lg-flex align-items-center">
+            <li class="nav-item">
+            <a class="nav-link nav-link-icon" href="https://fr-fr.facebook.com/irreductiblescessonnais/" target="_blank">
+                <i class="ch-icon ch-icon-facebook"></i>
+            </a>
+        </li>
+            <li class="nav-item">
+            <a class="nav-link nav-link-icon" href="https://www.instagram.com/crmhb/" target="_blank">
+                <i class="ch-icon ch-icon-instagram"></i>
+            </a>
+        </li>
+            <li class="nav-item">
+            <a class="nav-link nav-link-icon" href="https://twitter.com/crmhb" target="_blank">
+                <i class="ch-icon ch-icon-twitter"></i>
+            </a>
+        </li>
+            <li class="nav-item">
+            <a class="nav-link nav-link-icon" href="https://www.linkedin.com/company/crmhb-les-irr%C3%A9ductibles-cessonnais/?viewAsMember=true" target="_blank">
+                <i class="ch-icon ch-icon-linkedin"></i>
+            </a>
+        </li>
+        <li class="nav-item">
+        <a class="nav-link" href="https://www.lnh.fr/" target="_blank">
+            <img width="70" src="https://www.cesson-handball.com/img/logo-starligue.png" alt="Cesson Rennes Métropole Handball">
+        </a>
+    </li>
+</ul>
+        </div>
+
+
+            </div>
+</nav>
+
+        <header class="header">
+                            <section class="highlight">
+                                                        <img src="https://www.cesson-handball.com/storage/cache/a8f10a59f68fcf887813baa965365fd4.jpeg" alt="" class="highlight__image with-opacity">
+        <div class="highlight__content">
+    <div class="container">
+        <div class="match match-next">
+                            <h3 class="match__title text-center">Prochain match</h3>
+                <p class="match__date text-center">Fri 27.11.2026 | 20H00</p>
+                <div class="match__versus flex-column flex-lg-row">
+                    <div class="versus-team">
+    <img class="versus-team__logo" src="https://www.cesson-handball.com/storage/cache/83f850c012cb1b65e14abb017fe18181.png" alt="Montpellier Handball">
+    <div class="versus-team__body">
+        <h4 class="versus-team__body-title">Montpellier</h4>
+        <span class="versus-team__body-name">Montpellier Handball</span>
+    </div>
+</div>
+                    <div class="versus">VS</div>
+                    <div class="versus-team">
+    <img class="versus-team__logo" src="https://www.cesson-handball.com/img/logo-team.png" alt="Les Irreductibles">
+    <div class="versus-team__body">
+        <h4 class="versus-team__body-title">CRMHB</h4>
+        <span class="versus-team__body-name">Les Irreductibles</span>
+    </div>
+</div>
+                </div>
+                <div class="match__cta text-center">
+                                    </div>
+                    </div>
+    </div>
+</div>
+    <stats season="26/27"></stats>
+                                    </section>
+                    </header>
+        <main class="main flex-fill">
+                <section class="section-rankings matchs">
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="results">
+                                            <h3>Dernier match <span class="text-primary">résumé</span></h3>
+                    
+                                            <div class="match-prev">
+    <div class="match-prev__versus">
+                    <div class="versus-team">
+                <img class="versus-team__logo" src="https://www.cesson-handball.com/storage/cache/e10c1a97d360f2c82a6b1b28da69ac6f.png"
+                    alt="Dunkerque Handball Grand Littoral">
+                <h4 class="versus-team__city">Dunkerque</h4>
+            </div>
+
+            <div>
+                <div class="match-prev__day">
+                    <span class="text-primary">11<sup>ème</sup></span> journée
+                </div>
+                <div class="match-prev__date">
+                    Thu 19 November
+                </div>
+                                    <div class="match-prev__score text-secondary">
+                        <span class="text-primary">
+                            21
+                        </span>
+                        -
+                        21
+                    </div>
+                            </div>
+
+            <div class="versus-team">
+                <img class="versus-team__logo" src="https://www.cesson-handball.com/img/logo-team.png"
+                    alt="Les Irreductibles">
+                <h4 class="versus-team__city">CRMHB</h4>
+            </div>
+            </div>
+    <div class="match-prev__cover">
+        <div style="background-image: url(https://www.cesson-handball.com/storage/cache/2ae65dbb902a0f7d062086788671064b.jpeg)"
+            class="match-prev__bg-image"></div>
+                                </div>
+</div>
+                    
+                    
+                                    </div>
+            </div>
+            <div class="col-sm-8">
+                <div class="ranking">
+                    <h3>Classement <span class="text-primary">26/27</span></h3>
+                    <ranking></ranking>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+            <section class="calendar">
+            <div class="container-fluid calendar-container">
+                <div class="calendar">
+    <h3 class="text-secondary">Calendrier <span class="text-primary">26/27</span></h3>
+            
+        <div class="calendar-match justify-content-between align-items-center p-3 my-3 d-lg-flex d-none">
+            <div class="calendar-match__league">
+                                    <img src="https://www.cesson-handball.com/storage/cache/b3abb73bf0533052a323235d096f17a6.png"
+                        alt="Coupe de France" />
+                            </div>
+            <div class="calendar-match__day">
+                1er tour
+            </div>
+            <div class="calendar-match__versus flex-column flex-lg-row">
+                <div class="versus-team">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/storage/cache/b895f5ca07f40b00f1e0ff1937c1eaef.png"
+                        alt="Saintes Handball">
+                    <div class="versus-team__body">
+                        <p class="versus-team__body-title">Saintes</p>
+                    </div>
+                </div>
+                <div class="versus mx-4">VS</div>
+                <div class="versus-team">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/img/logo-team.png"
+                        alt="Les Irreductibles">
+                    <div class="versus-team__body">
+                        <p class="versus-team__body-title">CRMHB</p>
+                    </div>
+                </div>
+            </div>
+            <div class="calendar-match__date">
+                <p class="text-primary m-0">Sunday 30/08</p>
+                <p class="text-secondary m-0">à 18H00</p>
+            </div>
+            <div class="calendar-match__place">
+                <p class="text-primary m-0">Saintes</p>
+            </div>
+            <div class="calendar-match__place">
+                <p class="text-primary m-0">Grand Coudret</p>
+                <p class="text-secondary m-0">100 rue du Docteur Jean</p>
+            </div>
+            <div class="calendar-match__result text-center">
+                                                            <div class="calendar-match__score text-secondary">
+                            <span class="text-primary">
+                                23
+                            </span>
+                            -
+                            31
+                        </div>
+                                                </div>
+        </div>
+
+        
+        <div class="calendar-match d-sm-block d-lg-none p-2 my-3">
+            <div class="d-flex justify-content-center align-items-center">
+                <div class="versus-team text-center">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/storage/cache/b895f5ca07f40b00f1e0ff1937c1eaef.png"
+                        alt="Saintes Handball">
+                    <h4 class="versus-team__city">Saintes</h4>
+                </div>
+                <div class="mx-4 text-center">
+                    <div class="calendar-match__day text-primary">
+                        1er tour
+                    </div>
+                    <div class="versus">VS</div>
+                                                                        <div class="calendar-match__score text-secondary">
+                                <span class="text-primary">
+                                    23
+                                </span>
+                                -
+                                31
+                            </div>
+                                                            </div>
+                <div class="versus-team text-center">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/img/logo-team.png"
+                        alt="Les Irreductibles">
+                    <h4 class="versus-team__city">CRMHB</h4>
+                </div>
+            </div>
+            <div class="d-flex my-3 text-center">
+                <div class="calendar-match__date w-50">
+                    <p class="text-primary m-0">Sunday 30/08</p>
+                    <p class="text-secondary m-0">à 18H00</p>
+                </div>
+                <div class="calendar-match__place">
+                    <p class="text-primary m-0">Saintes</p>
+                </div>
+                <div class="calendar-match__place w-50">
+                    <p class="text-primary m-0">Grand Coudret</p>
+                    <p class="text-secondary m-0">100 rue du Docteur Jean
+                </div>
+            </div>
+
+                    </div>
+            
+        <div class="calendar-match justify-content-between align-items-center p-3 my-3 d-lg-flex d-none">
+            <div class="calendar-match__league">
+                                    <img src="https://www.cesson-handball.com/storage/cache/62b6dd61247e1c45f611541effedac95.png"
+                        alt="Liqui Moly Starligue" />
+                            </div>
+            <div class="calendar-match__day">
+                <span class="text-primary">1<sup>ème</sup></span> journée
+            </div>
+            <div class="calendar-match__versus flex-column flex-lg-row">
+                <div class="versus-team">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/img/logo-team.png"
+                        alt="Les Irreductibles">
+                    <div class="versus-team__body">
+                        <p class="versus-team__body-title">CRMHB</p>
+                    </div>
+                </div>
+                <div class="versus mx-4">VS</div>
+                <div class="versus-team">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/storage/cache/8b85dc13ddde96bca7cea0294e3fb6bb.png"
+                        alt="Nîmes">
+                    <div class="versus-team__body">
+                        <p class="versus-team__body-title">Nîmes</p>
+                    </div>
+                </div>
+            </div>
+            <div class="calendar-match__date">
+                <p class="text-primary m-0">Friday 04/09</p>
+                <p class="text-secondary m-0">à 20H30</p>
+            </div>
+            <div class="calendar-match__place">
+                <p class="text-primary m-0">Cesson-Sévigné</p>
+            </div>
+            <div class="calendar-match__place">
+                <p class="text-primary m-0">Glaz Arena</p>
+                <p class="text-secondary m-0">Chemin du Bois de la Justice</p>
+            </div>
+            <div class="calendar-match__result text-center">
+                                                            <div class="calendar-match__score text-secondary">
+                            <span class="text-primary">
+                                32
+                            </span>
+                            -
+                            34
+                        </div>
+                                                </div>
+        </div>
+
+        
+        <div class="calendar-match d-sm-block d-lg-none p-2 my-3">
+            <div class="d-flex justify-content-center align-items-center">
+                <div class="versus-team text-center">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/img/logo-team.png"
+                        alt="Les Irreductibles">
+                    <h4 class="versus-team__city">CRMHB</h4>
+                </div>
+                <div class="mx-4 text-center">
+                    <div class="calendar-match__day text-primary">
+                        <span class="text-primary">1<sup>ème</sup></span> journée
+                    </div>
+                    <div class="versus">VS</div>
+                                                                        <div class="calendar-match__score text-secondary">
+                                <span class="text-primary">
+                                    32
+                                </span>
+                                -
+                                34
+                            </div>
+                                                            </div>
+                <div class="versus-team text-center">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/storage/cache/8b85dc13ddde96bca7cea0294e3fb6bb.png"
+                        alt="Nîmes">
+                    <h4 class="versus-team__city">Nîmes</h4>
+                </div>
+            </div>
+            <div class="d-flex my-3 text-center">
+                <div class="calendar-match__date w-50">
+                    <p class="text-primary m-0">Friday 04/09</p>
+                    <p class="text-secondary m-0">à 20H30</p>
+                </div>
+                <div class="calendar-match__place">
+                    <p class="text-primary m-0">Cesson-Sévigné</p>
+                </div>
+                <div class="calendar-match__place w-50">
+                    <p class="text-primary m-0">Glaz Arena</p>
+                    <p class="text-secondary m-0">Chemin du Bois de la Justice
+                </div>
+            </div>
+
+                    </div>
+            
+        <div class="calendar-match justify-content-between align-items-center p-3 my-3 d-lg-flex d-none">
+            <div class="calendar-match__league">
+                                    <img src="https://www.cesson-handball.com/storage/cache/62b6dd61247e1c45f611541effedac95.png"
+                        alt="Liqui Moly Starligue" />
+                            </div>
+            <div class="calendar-match__day">
+                <span class="text-primary">2<sup>ème</sup></span> journée
+            </div>
+            <div class="calendar-match__versus flex-column flex-lg-row">
+                <div class="versus-team">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/storage/cache/7464f567a5a16b04d590357d7e448a9d.png"
+                        alt="Paris">
+                    <div class="versus-team__body">
+                        <p class="versus-team__body-title">Paris</p>
+                    </div>
+                </div>
+                <div class="versus mx-4">VS</div>
+                <div class="versus-team">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/img/logo-team.png"
+                        alt="Les Irreductibles">
+                    <div class="versus-team__body">
+                        <p class="versus-team__body-title">CRMHB</p>
+                    </div>
+                </div>
+            </div>
+            <div class="calendar-match__date">
+                <p class="text-primary m-0">Saturday 12/09</p>
+                <p class="text-secondary m-0">à 20H00</p>
+            </div>
+            <div class="calendar-match__place">
+                <p class="text-primary m-0">Paris</p>
+            </div>
+            <div class="calendar-match__place">
+                <p class="text-primary m-0">Stade Pierre de Coubertin</p>
+                <p class="text-secondary m-0">82 Av. Georges Lafont</p>
+            </div>
+            <div class="calendar-match__result text-center">
+                                                            <div class="calendar-match__score text-secondary">
+                            <span class="text-primary">
+                                30
+                            </span>
+                            -
+                            24
+                        </div>
+                                                </div>
+        </div>
+
+        
+        <div class="calendar-match d-sm-block d-lg-none p-2 my-3">
+            <div class="d-flex justify-content-center align-items-center">
+                <div class="versus-team text-center">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/storage/cache/7464f567a5a16b04d590357d7e448a9d.png"
+                        alt="Paris">
+                    <h4 class="versus-team__city">Paris</h4>
+                </div>
+                <div class="mx-4 text-center">
+                    <div class="calendar-match__day text-primary">
+                        <span class="text-primary">2<sup>ème</sup></span> journée
+                    </div>
+                    <div class="versus">VS</div>
+                                                                        <div class="calendar-match__score text-secondary">
+                                <span class="text-primary">
+                                    30
+                                </span>
+                                -
+                                24
+                            </div>
+                                                            </div>
+                <div class="versus-team text-center">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/img/logo-team.png"
+                        alt="Les Irreductibles">
+                    <h4 class="versus-team__city">CRMHB</h4>
+                </div>
+            </div>
+            <div class="d-flex my-3 text-center">
+                <div class="calendar-match__date w-50">
+                    <p class="text-primary m-0">Saturday 12/09</p>
+                    <p class="text-secondary m-0">à 20H00</p>
+                </div>
+                <div class="calendar-match__place">
+                    <p class="text-primary m-0">Paris</p>
+                </div>
+                <div class="calendar-match__place w-50">
+                    <p class="text-primary m-0">Stade Pierre de Coubertin</p>
+                    <p class="text-secondary m-0">82 Av. Georges Lafont
+                </div>
+            </div>
+
+                    </div>
+            
+        <div class="calendar-match justify-content-between align-items-center p-3 my-3 d-lg-flex d-none">
+            <div class="calendar-match__league">
+                                    <img src="https://www.cesson-handball.com/storage/cache/62b6dd61247e1c45f611541effedac95.png"
+                        alt="Liqui Moly Starligue" />
+                            </div>
+            <div class="calendar-match__day">
+                <span class="text-primary">3<sup>ème</sup></span> journée
+            </div>
+            <div class="calendar-match__versus flex-column flex-lg-row">
+                <div class="versus-team">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/img/logo-team.png"
+                        alt="Les Irreductibles">
+                    <div class="versus-team__body">
+                        <p class="versus-team__body-title">CRMHB</p>
+                    </div>
+                </div>
+                <div class="versus mx-4">VS</div>
+                <div class="versus-team">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/storage/cache/02e6080982d19071674700d1a6d3ddbb.png"
+                        alt="Aix">
+                    <div class="versus-team__body">
+                        <p class="versus-team__body-title">Aix-en-Provence</p>
+                    </div>
+                </div>
+            </div>
+            <div class="calendar-match__date">
+                <p class="text-primary m-0">Saturday 19/09</p>
+                <p class="text-secondary m-0">à 19H00</p>
+            </div>
+            <div class="calendar-match__place">
+                <p class="text-primary m-0">Cesson-Sévigné</p>
+            </div>
+            <div class="calendar-match__place">
+                <p class="text-primary m-0">Glaz Arena</p>
+                <p class="text-secondary m-0">Chemin du Bois la Justice</p>
+            </div>
+            <div class="calendar-match__result text-center">
+                                                            <div class="calendar-match__score text-secondary">
+                            <span class="text-primary">
+                                29
+                            </span>
+                            -
+                            28
+                        </div>
+                                                </div>
+        </div>
+
+        
+        <div class="calendar-match d-sm-block d-lg-none p-2 my-3">
+            <div class="d-flex justify-content-center align-items-center">
+                <div class="versus-team text-center">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/img/logo-team.png"
+                        alt="Les Irreductibles">
+                    <h4 class="versus-team__city">CRMHB</h4>
+                </div>
+                <div class="mx-4 text-center">
+                    <div class="calendar-match__day text-primary">
+                        <span class="text-primary">3<sup>ème</sup></span> journée
+                    </div>
+                    <div class="versus">VS</div>
+                                                                        <div class="calendar-match__score text-secondary">
+                                <span class="text-primary">
+                                    29
+                                </span>
+                                -
+                                28
+                            </div>
+                                                            </div>
+                <div class="versus-team text-center">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/storage/cache/02e6080982d19071674700d1a6d3ddbb.png"
+                        alt="Aix">
+                    <h4 class="versus-team__city">Aix-en-Provence</h4>
+                </div>
+            </div>
+            <div class="d-flex my-3 text-center">
+                <div class="calendar-match__date w-50">
+                    <p class="text-primary m-0">Saturday 19/09</p>
+                    <p class="text-secondary m-0">à 19H00</p>
+                </div>
+                <div class="calendar-match__place">
+                    <p class="text-primary m-0">Cesson-Sévigné</p>
+                </div>
+                <div class="calendar-match__place w-50">
+                    <p class="text-primary m-0">Glaz Arena</p>
+                    <p class="text-secondary m-0">Chemin du Bois la Justice
+                </div>
+            </div>
+
+                    </div>
+            
+        <div class="calendar-match justify-content-between align-items-center p-3 my-3 d-lg-flex d-none">
+            <div class="calendar-match__league">
+                                    <img src="https://www.cesson-handball.com/storage/cache/62b6dd61247e1c45f611541effedac95.png"
+                        alt="Liqui Moly Starligue" />
+                            </div>
+            <div class="calendar-match__day">
+                <span class="text-primary">4<sup>ème</sup></span> journée
+            </div>
+            <div class="calendar-match__versus flex-column flex-lg-row">
+                <div class="versus-team">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/storage/cache/d0fa8697f803af844019a4fe89bccbdd.png"
+                        alt="Chartres Métropole Handball">
+                    <div class="versus-team__body">
+                        <p class="versus-team__body-title">Chartres</p>
+                    </div>
+                </div>
+                <div class="versus mx-4">VS</div>
+                <div class="versus-team">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/img/logo-team.png"
+                        alt="Les Irreductibles">
+                    <div class="versus-team__body">
+                        <p class="versus-team__body-title">CRMHB</p>
+                    </div>
+                </div>
+            </div>
+            <div class="calendar-match__date">
+                <p class="text-primary m-0">Friday 25/09</p>
+                <p class="text-secondary m-0">à 20H00</p>
+            </div>
+            <div class="calendar-match__place">
+                <p class="text-primary m-0">Chartres</p>
+            </div>
+            <div class="calendar-match__place">
+                <p class="text-primary m-0">Le Colisée</p>
+                <p class="text-secondary m-0">28 Rue Danièle Casanova</p>
+            </div>
+            <div class="calendar-match__result text-center">
+                                                            <div class="calendar-match__score text-secondary">
+                            <span class="text-primary">
+                                31
+                            </span>
+                            -
+                            28
+                        </div>
+                                                </div>
+        </div>
+
+        
+        <div class="calendar-match d-sm-block d-lg-none p-2 my-3">
+            <div class="d-flex justify-content-center align-items-center">
+                <div class="versus-team text-center">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/storage/cache/d0fa8697f803af844019a4fe89bccbdd.png"
+                        alt="Chartres Métropole Handball">
+                    <h4 class="versus-team__city">Chartres</h4>
+                </div>
+                <div class="mx-4 text-center">
+                    <div class="calendar-match__day text-primary">
+                        <span class="text-primary">4<sup>ème</sup></span> journée
+                    </div>
+                    <div class="versus">VS</div>
+                                                                        <div class="calendar-match__score text-secondary">
+                                <span class="text-primary">
+                                    31
+                                </span>
+                                -
+                                28
+                            </div>
+                                                            </div>
+                <div class="versus-team text-center">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/img/logo-team.png"
+                        alt="Les Irreductibles">
+                    <h4 class="versus-team__city">CRMHB</h4>
+                </div>
+            </div>
+            <div class="d-flex my-3 text-center">
+                <div class="calendar-match__date w-50">
+                    <p class="text-primary m-0">Friday 25/09</p>
+                    <p class="text-secondary m-0">à 20H00</p>
+                </div>
+                <div class="calendar-match__place">
+                    <p class="text-primary m-0">Chartres</p>
+                </div>
+                <div class="calendar-match__place w-50">
+                    <p class="text-primary m-0">Le Colisée</p>
+                    <p class="text-secondary m-0">28 Rue Danièle Casanova
+                </div>
+            </div>
+
+                    </div>
+            
+        <div class="calendar-match justify-content-between align-items-center p-3 my-3 d-lg-flex d-none">
+            <div class="calendar-match__league">
+                                    <img src="https://www.cesson-handball.com/storage/cache/62b6dd61247e1c45f611541effedac95.png"
+                        alt="Liqui Moly Starligue" />
+                            </div>
+            <div class="calendar-match__day">
+                <span class="text-primary">5<sup>ème</sup></span> journée
+            </div>
+            <div class="calendar-match__versus flex-column flex-lg-row">
+                <div class="versus-team">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/img/logo-team.png"
+                        alt="Les Irreductibles">
+                    <div class="versus-team__body">
+                        <p class="versus-team__body-title">CRMHB</p>
+                    </div>
+                </div>
+                <div class="versus mx-4">VS</div>
+                <div class="versus-team">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/storage/cache/653cc768b3a9cba63804c23554cd97e3.png"
+                        alt="Limoges Handball">
+                    <div class="versus-team__body">
+                        <p class="versus-team__body-title">Limoges</p>
+                    </div>
+                </div>
+            </div>
+            <div class="calendar-match__date">
+                <p class="text-primary m-0">Saturday 03/10</p>
+                <p class="text-secondary m-0">à 20H30</p>
+            </div>
+            <div class="calendar-match__place">
+                <p class="text-primary m-0">Cesson-Sévigné</p>
+            </div>
+            <div class="calendar-match__place">
+                <p class="text-primary m-0">Glaz Arena</p>
+                <p class="text-secondary m-0">Chemin du Bois de la Justice</p>
+            </div>
+            <div class="calendar-match__result text-center">
+                                                            <div class="calendar-match__score text-secondary">
+                            <span class="text-primary">
+                                29
+                            </span>
+                            -
+                            31
+                        </div>
+                                                </div>
+        </div>
+
+        
+        <div class="calendar-match d-sm-block d-lg-none p-2 my-3">
+            <div class="d-flex justify-content-center align-items-center">
+                <div class="versus-team text-center">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/img/logo-team.png"
+                        alt="Les Irreductibles">
+                    <h4 class="versus-team__city">CRMHB</h4>
+                </div>
+                <div class="mx-4 text-center">
+                    <div class="calendar-match__day text-primary">
+                        <span class="text-primary">5<sup>ème</sup></span> journée
+                    </div>
+                    <div class="versus">VS</div>
+                                                                        <div class="calendar-match__score text-secondary">
+                                <span class="text-primary">
+                                    29
+                                </span>
+                                -
+                                31
+                            </div>
+                                                            </div>
+                <div class="versus-team text-center">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/storage/cache/653cc768b3a9cba63804c23554cd97e3.png"
+                        alt="Limoges Handball">
+                    <h4 class="versus-team__city">Limoges</h4>
+                </div>
+            </div>
+            <div class="d-flex my-3 text-center">
+                <div class="calendar-match__date w-50">
+                    <p class="text-primary m-0">Saturday 03/10</p>
+                    <p class="text-secondary m-0">à 20H30</p>
+                </div>
+                <div class="calendar-match__place">
+                    <p class="text-primary m-0">Cesson-Sévigné</p>
+                </div>
+                <div class="calendar-match__place w-50">
+                    <p class="text-primary m-0">Glaz Arena</p>
+                    <p class="text-secondary m-0">Chemin du Bois de la Justice
+                </div>
+            </div>
+
+                    </div>
+            
+        <div class="calendar-match justify-content-between align-items-center p-3 my-3 d-lg-flex d-none">
+            <div class="calendar-match__league">
+                                    <img src="https://www.cesson-handball.com/storage/cache/b3abb73bf0533052a323235d096f17a6.png"
+                        alt="Coupe de France" />
+                            </div>
+            <div class="calendar-match__day">
+                2ème journée
+            </div>
+            <div class="calendar-match__versus flex-column flex-lg-row">
+                <div class="versus-team">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/storage/cache/7fd969101627f6cba8107fde78ccb423.png"
+                        alt="Pontault-Combault Handball">
+                    <div class="versus-team__body">
+                        <p class="versus-team__body-title">Pontault-Combault</p>
+                    </div>
+                </div>
+                <div class="versus mx-4">VS</div>
+                <div class="versus-team">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/img/logo-team.png"
+                        alt="Les Irreductibles">
+                    <div class="versus-team__body">
+                        <p class="versus-team__body-title">CRMHB</p>
+                    </div>
+                </div>
+            </div>
+            <div class="calendar-match__date">
+                <p class="text-primary m-0">Tuesday 06/10</p>
+                <p class="text-secondary m-0">à 20H00</p>
+            </div>
+            <div class="calendar-match__place">
+                <p class="text-primary m-0">Pontault-Combault</p>
+            </div>
+            <div class="calendar-match__place">
+                <p class="text-primary m-0">Espace Roger-Boisrame</p>
+                <p class="text-secondary m-0"></p>
+            </div>
+            <div class="calendar-match__result text-center">
+                                                            <div class="calendar-match__score text-secondary">
+                            <span class="text-primary">
+                                22
+                            </span>
+                            -
+                            40
+                        </div>
+                                                </div>
+        </div>
+
+        
+        <div class="calendar-match d-sm-block d-lg-none p-2 my-3">
+            <div class="d-flex justify-content-center align-items-center">
+                <div class="versus-team text-center">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/storage/cache/7fd969101627f6cba8107fde78ccb423.png"
+                        alt="Pontault-Combault Handball">
+                    <h4 class="versus-team__city">Pontault-Combault</h4>
+                </div>
+                <div class="mx-4 text-center">
+                    <div class="calendar-match__day text-primary">
+                        2ème journée
+                    </div>
+                    <div class="versus">VS</div>
+                                                                        <div class="calendar-match__score text-secondary">
+                                <span class="text-primary">
+                                    22
+                                </span>
+                                -
+                                40
+                            </div>
+                                                            </div>
+                <div class="versus-team text-center">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/img/logo-team.png"
+                        alt="Les Irreductibles">
+                    <h4 class="versus-team__city">CRMHB</h4>
+                </div>
+            </div>
+            <div class="d-flex my-3 text-center">
+                <div class="calendar-match__date w-50">
+                    <p class="text-primary m-0">Tuesday 06/10</p>
+                    <p class="text-secondary m-0">à 20H00</p>
+                </div>
+                <div class="calendar-match__place">
+                    <p class="text-primary m-0">Pontault-Combault</p>
+                </div>
+                <div class="calendar-match__place w-50">
+                    <p class="text-primary m-0">Espace Roger-Boisrame</p>
+                    <p class="text-secondary m-0">
+                </div>
+            </div>
+
+                    </div>
+            
+        <div class="calendar-match justify-content-between align-items-center p-3 my-3 d-lg-flex d-none">
+            <div class="calendar-match__league">
+                                    <img src="https://www.cesson-handball.com/storage/cache/62b6dd61247e1c45f611541effedac95.png"
+                        alt="Liqui Moly Starligue" />
+                            </div>
+            <div class="calendar-match__day">
+                <span class="text-primary">6<sup>ème</sup></span> journée
+            </div>
+            <div class="calendar-match__versus flex-column flex-lg-row">
+                <div class="versus-team">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/storage/cache/b52a5ab430a2223a335b68ea3b90c838.png"
+                        alt="Saint-Raphaël Var Handball">
+                    <div class="versus-team__body">
+                        <p class="versus-team__body-title">Saint-Raphaël</p>
+                    </div>
+                </div>
+                <div class="versus mx-4">VS</div>
+                <div class="versus-team">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/img/logo-team.png"
+                        alt="Les Irreductibles">
+                    <div class="versus-team__body">
+                        <p class="versus-team__body-title">CRMHB</p>
+                    </div>
+                </div>
+            </div>
+            <div class="calendar-match__date">
+                <p class="text-primary m-0">Friday 09/10</p>
+                <p class="text-secondary m-0">à 19H30</p>
+            </div>
+            <div class="calendar-match__place">
+                <p class="text-primary m-0">Saint-Raphaël</p>
+            </div>
+            <div class="calendar-match__place">
+                <p class="text-primary m-0">Palais des Sports Jean-François Krakowski</p>
+                <p class="text-secondary m-0">Rue des Chataîgners - BP 503</p>
+            </div>
+            <div class="calendar-match__result text-center">
+                                                            <div class="calendar-match__score text-secondary">
+                            <span class="text-primary">
+                                37
+                            </span>
+                            -
+                            34
+                        </div>
+                                                </div>
+        </div>
+
+        
+        <div class="calendar-match d-sm-block d-lg-none p-2 my-3">
+            <div class="d-flex justify-content-center align-items-center">
+                <div class="versus-team text-center">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/storage/cache/b52a5ab430a2223a335b68ea3b90c838.png"
+                        alt="Saint-Raphaël Var Handball">
+                    <h4 class="versus-team__city">Saint-Raphaël</h4>
+                </div>
+                <div class="mx-4 text-center">
+                    <div class="calendar-match__day text-primary">
+                        <span class="text-primary">6<sup>ème</sup></span> journée
+                    </div>
+                    <div class="versus">VS</div>
+                                                                        <div class="calendar-match__score text-secondary">
+                                <span class="text-primary">
+                                    37
+                                </span>
+                                -
+                                34
+                            </div>
+                                                            </div>
+                <div class="versus-team text-center">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/img/logo-team.png"
+                        alt="Les Irreductibles">
+                    <h4 class="versus-team__city">CRMHB</h4>
+                </div>
+            </div>
+            <div class="d-flex my-3 text-center">
+                <div class="calendar-match__date w-50">
+                    <p class="text-primary m-0">Friday 09/10</p>
+                    <p class="text-secondary m-0">à 19H30</p>
+                </div>
+                <div class="calendar-match__place">
+                    <p class="text-primary m-0">Saint-Raphaël</p>
+                </div>
+                <div class="calendar-match__place w-50">
+                    <p class="text-primary m-0">Palais des Sports Jean-François Krakowski</p>
+                    <p class="text-secondary m-0">Rue des Chataîgners - BP 503
+                </div>
+            </div>
+
+                    </div>
+            
+        <div class="calendar-match justify-content-between align-items-center p-3 my-3 d-lg-flex d-none">
+            <div class="calendar-match__league">
+                                    <img src="https://www.cesson-handball.com/storage/cache/62b6dd61247e1c45f611541effedac95.png"
+                        alt="Liqui Moly Starligue" />
+                            </div>
+            <div class="calendar-match__day">
+                <span class="text-primary">7<sup>ème</sup></span> journée
+            </div>
+            <div class="calendar-match__versus flex-column flex-lg-row">
+                <div class="versus-team">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/img/logo-team.png"
+                        alt="Les Irreductibles">
+                    <div class="versus-team__body">
+                        <p class="versus-team__body-title">CRMHB</p>
+                    </div>
+                </div>
+                <div class="versus mx-4">VS</div>
+                <div class="versus-team">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/storage/cache/d55f660277bf73bc619acfbb9b6bea75.png"
+                        alt="Sélestat Handball">
+                    <div class="versus-team__body">
+                        <p class="versus-team__body-title">Sélestat</p>
+                    </div>
+                </div>
+            </div>
+            <div class="calendar-match__date">
+                <p class="text-primary m-0">Friday 16/10</p>
+                <p class="text-secondary m-0">à 20H30</p>
+            </div>
+            <div class="calendar-match__place">
+                <p class="text-primary m-0">Cesson-Sévigné</p>
+            </div>
+            <div class="calendar-match__place">
+                <p class="text-primary m-0">Glaz Arena</p>
+                <p class="text-secondary m-0">Chemin du Bois de la Justice</p>
+            </div>
+            <div class="calendar-match__result text-center">
+                                                            <div class="calendar-match__score text-secondary">
+                            <span class="text-primary">
+                                33
+                            </span>
+                            -
+                            36
+                        </div>
+                                                </div>
+        </div>
+
+        
+        <div class="calendar-match d-sm-block d-lg-none p-2 my-3">
+            <div class="d-flex justify-content-center align-items-center">
+                <div class="versus-team text-center">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/img/logo-team.png"
+                        alt="Les Irreductibles">
+                    <h4 class="versus-team__city">CRMHB</h4>
+                </div>
+                <div class="mx-4 text-center">
+                    <div class="calendar-match__day text-primary">
+                        <span class="text-primary">7<sup>ème</sup></span> journée
+                    </div>
+                    <div class="versus">VS</div>
+                                                                        <div class="calendar-match__score text-secondary">
+                                <span class="text-primary">
+                                    33
+                                </span>
+                                -
+                                36
+                            </div>
+                                                            </div>
+                <div class="versus-team text-center">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/storage/cache/d55f660277bf73bc619acfbb9b6bea75.png"
+                        alt="Sélestat Handball">
+                    <h4 class="versus-team__city">Sélestat</h4>
+                </div>
+            </div>
+            <div class="d-flex my-3 text-center">
+                <div class="calendar-match__date w-50">
+                    <p class="text-primary m-0">Friday 16/10</p>
+                    <p class="text-secondary m-0">à 20H30</p>
+                </div>
+                <div class="calendar-match__place">
+                    <p class="text-primary m-0">Cesson-Sévigné</p>
+                </div>
+                <div class="calendar-match__place w-50">
+                    <p class="text-primary m-0">Glaz Arena</p>
+                    <p class="text-secondary m-0">Chemin du Bois de la Justice
+                </div>
+            </div>
+
+                    </div>
+            
+        <div class="calendar-match justify-content-between align-items-center p-3 my-3 d-lg-flex d-none">
+            <div class="calendar-match__league">
+                                    <img src="https://www.cesson-handball.com/storage/cache/62b6dd61247e1c45f611541effedac95.png"
+                        alt="Liqui Moly Starligue" />
+                            </div>
+            <div class="calendar-match__day">
+                <span class="text-primary">8<sup>ème</sup></span> journée
+            </div>
+            <div class="calendar-match__versus flex-column flex-lg-row">
+                <div class="versus-team">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/storage/cache/c2a97cf5f4de9ccb8a3c4c8be33e88e3.png"
+                        alt="Tremblay Handball">
+                    <div class="versus-team__body">
+                        <p class="versus-team__body-title">Tremblay-en-France</p>
+                    </div>
+                </div>
+                <div class="versus mx-4">VS</div>
+                <div class="versus-team">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/img/logo-team.png"
+                        alt="Les Irreductibles">
+                    <div class="versus-team__body">
+                        <p class="versus-team__body-title">CRMHB</p>
+                    </div>
+                </div>
+            </div>
+            <div class="calendar-match__date">
+                <p class="text-primary m-0">Friday 23/10</p>
+                <p class="text-secondary m-0">à 20H30</p>
+            </div>
+            <div class="calendar-match__place">
+                <p class="text-primary m-0">Tremblay en France</p>
+            </div>
+            <div class="calendar-match__place">
+                <p class="text-primary m-0">Palais des Sports</p>
+                <p class="text-secondary m-0">Parc des Sports</p>
+            </div>
+            <div class="calendar-match__result text-center">
+                                                            <div class="calendar-match__score text-secondary">
+                            <span class="text-primary">
+                                34
+                            </span>
+                            -
+                            29
+                        </div>
+                                                </div>
+        </div>
+
+        
+        <div class="calendar-match d-sm-block d-lg-none p-2 my-3">
+            <div class="d-flex justify-content-center align-items-center">
+                <div class="versus-team text-center">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/storage/cache/c2a97cf5f4de9ccb8a3c4c8be33e88e3.png"
+                        alt="Tremblay Handball">
+                    <h4 class="versus-team__city">Tremblay-en-France</h4>
+                </div>
+                <div class="mx-4 text-center">
+                    <div class="calendar-match__day text-primary">
+                        <span class="text-primary">8<sup>ème</sup></span> journée
+                    </div>
+                    <div class="versus">VS</div>
+                                                                        <div class="calendar-match__score text-secondary">
+                                <span class="text-primary">
+                                    34
+                                </span>
+                                -
+                                29
+                            </div>
+                                                            </div>
+                <div class="versus-team text-center">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/img/logo-team.png"
+                        alt="Les Irreductibles">
+                    <h4 class="versus-team__city">CRMHB</h4>
+                </div>
+            </div>
+            <div class="d-flex my-3 text-center">
+                <div class="calendar-match__date w-50">
+                    <p class="text-primary m-0">Friday 23/10</p>
+                    <p class="text-secondary m-0">à 20H30</p>
+                </div>
+                <div class="calendar-match__place">
+                    <p class="text-primary m-0">Tremblay en France</p>
+                </div>
+                <div class="calendar-match__place w-50">
+                    <p class="text-primary m-0">Palais des Sports</p>
+                    <p class="text-secondary m-0">Parc des Sports
+                </div>
+            </div>
+
+                    </div>
+            
+        <div class="calendar-match justify-content-between align-items-center p-3 my-3 d-lg-flex d-none">
+            <div class="calendar-match__league">
+                                    <img src="https://www.cesson-handball.com/storage/cache/b3abb73bf0533052a323235d096f17a6.png"
+                        alt="Coupe de France" />
+                            </div>
+            <div class="calendar-match__day">
+                3ème journée
+            </div>
+            <div class="calendar-match__versus flex-column flex-lg-row">
+                <div class="versus-team">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/storage/cache/285cc431341885d4c45897d2882466a8.png"
+                        alt="Tremblay Handball">
+                    <div class="versus-team__body">
+                        <p class="versus-team__body-title">Tremblay-en-France</p>
+                    </div>
+                </div>
+                <div class="versus mx-4">VS</div>
+                <div class="versus-team">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/img/logo-team.png"
+                        alt="Les Irreductibles">
+                    <div class="versus-team__body">
+                        <p class="versus-team__body-title">CRMHB</p>
+                    </div>
+                </div>
+            </div>
+            <div class="calendar-match__date">
+                <p class="text-primary m-0">Tuesday 27/10</p>
+                <p class="text-secondary m-0">à 20H30</p>
+            </div>
+            <div class="calendar-match__place">
+                <p class="text-primary m-0">Tremblay-en-France</p>
+            </div>
+            <div class="calendar-match__place">
+                <p class="text-primary m-0">Palais des sports</p>
+                <p class="text-secondary m-0"></p>
+            </div>
+            <div class="calendar-match__result text-center">
+                                                            <div class="calendar-match__score text-secondary">
+                            <span class="text-primary">
+                                31
+                            </span>
+                            -
+                            32
+                        </div>
+                                                </div>
+        </div>
+
+        
+        <div class="calendar-match d-sm-block d-lg-none p-2 my-3">
+            <div class="d-flex justify-content-center align-items-center">
+                <div class="versus-team text-center">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/storage/cache/285cc431341885d4c45897d2882466a8.png"
+                        alt="Tremblay Handball">
+                    <h4 class="versus-team__city">Tremblay-en-France</h4>
+                </div>
+                <div class="mx-4 text-center">
+                    <div class="calendar-match__day text-primary">
+                        3ème journée
+                    </div>
+                    <div class="versus">VS</div>
+                                                                        <div class="calendar-match__score text-secondary">
+                                <span class="text-primary">
+                                    31
+                                </span>
+                                -
+                                32
+                            </div>
+                                                            </div>
+                <div class="versus-team text-center">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/img/logo-team.png"
+                        alt="Les Irreductibles">
+                    <h4 class="versus-team__city">CRMHB</h4>
+                </div>
+            </div>
+            <div class="d-flex my-3 text-center">
+                <div class="calendar-match__date w-50">
+                    <p class="text-primary m-0">Tuesday 27/10</p>
+                    <p class="text-secondary m-0">à 20H30</p>
+                </div>
+                <div class="calendar-match__place">
+                    <p class="text-primary m-0">Tremblay-en-France</p>
+                </div>
+                <div class="calendar-match__place w-50">
+                    <p class="text-primary m-0">Palais des sports</p>
+                    <p class="text-secondary m-0">
+                </div>
+            </div>
+
+                    </div>
+            
+        <div class="calendar-match justify-content-between align-items-center p-3 my-3 d-lg-flex d-none">
+            <div class="calendar-match__league">
+                                    <img src="https://www.cesson-handball.com/storage/cache/62b6dd61247e1c45f611541effedac95.png"
+                        alt="Liqui Moly Starligue" />
+                            </div>
+            <div class="calendar-match__day">
+                <span class="text-primary">9<sup>ème</sup></span> journée
+            </div>
+            <div class="calendar-match__versus flex-column flex-lg-row">
+                <div class="versus-team">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/img/logo-team.png"
+                        alt="Les Irreductibles">
+                    <div class="versus-team__body">
+                        <p class="versus-team__body-title">CRMHB</p>
+                    </div>
+                </div>
+                <div class="versus mx-4">VS</div>
+                <div class="versus-team">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/storage/cache/4565c5fc9799190df3a57a1d14f9e660.png"
+                        alt="HBC Nantes">
+                    <div class="versus-team__body">
+                        <p class="versus-team__body-title">Nantes</p>
+                    </div>
+                </div>
+            </div>
+            <div class="calendar-match__date">
+                <p class="text-primary m-0">Saturday 31/10</p>
+                <p class="text-secondary m-0">à 19H00</p>
+            </div>
+            <div class="calendar-match__place">
+                <p class="text-primary m-0">Cesson-Sévigné</p>
+            </div>
+            <div class="calendar-match__place">
+                <p class="text-primary m-0">Glaz Arena</p>
+                <p class="text-secondary m-0">Chemin du Bois de la Justice</p>
+            </div>
+            <div class="calendar-match__result text-center">
+                                                            <div class="calendar-match__score text-secondary">
+                            <span class="text-primary">
+                                37
+                            </span>
+                            -
+                            46
+                        </div>
+                                                </div>
+        </div>
+
+        
+        <div class="calendar-match d-sm-block d-lg-none p-2 my-3">
+            <div class="d-flex justify-content-center align-items-center">
+                <div class="versus-team text-center">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/img/logo-team.png"
+                        alt="Les Irreductibles">
+                    <h4 class="versus-team__city">CRMHB</h4>
+                </div>
+                <div class="mx-4 text-center">
+                    <div class="calendar-match__day text-primary">
+                        <span class="text-primary">9<sup>ème</sup></span> journée
+                    </div>
+                    <div class="versus">VS</div>
+                                                                        <div class="calendar-match__score text-secondary">
+                                <span class="text-primary">
+                                    37
+                                </span>
+                                -
+                                46
+                            </div>
+                                                            </div>
+                <div class="versus-team text-center">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/storage/cache/4565c5fc9799190df3a57a1d14f9e660.png"
+                        alt="HBC Nantes">
+                    <h4 class="versus-team__city">Nantes</h4>
+                </div>
+            </div>
+            <div class="d-flex my-3 text-center">
+                <div class="calendar-match__date w-50">
+                    <p class="text-primary m-0">Saturday 31/10</p>
+                    <p class="text-secondary m-0">à 19H00</p>
+                </div>
+                <div class="calendar-match__place">
+                    <p class="text-primary m-0">Cesson-Sévigné</p>
+                </div>
+                <div class="calendar-match__place w-50">
+                    <p class="text-primary m-0">Glaz Arena</p>
+                    <p class="text-secondary m-0">Chemin du Bois de la Justice
+                </div>
+            </div>
+
+                    </div>
+            
+        <div class="calendar-match justify-content-between align-items-center p-3 my-3 d-lg-flex d-none">
+            <div class="calendar-match__league">
+                                    <img src="https://www.cesson-handball.com/storage/cache/62b6dd61247e1c45f611541effedac95.png"
+                        alt="Liqui Moly Starligue" />
+                            </div>
+            <div class="calendar-match__day">
+                <span class="text-primary">10<sup>ème</sup></span> journée
+            </div>
+            <div class="calendar-match__versus flex-column flex-lg-row">
+                <div class="versus-team">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/img/logo-team.png"
+                        alt="Les Irreductibles">
+                    <div class="versus-team__body">
+                        <p class="versus-team__body-title">CRMHB</p>
+                    </div>
+                </div>
+                <div class="versus mx-4">VS</div>
+                <div class="versus-team">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/storage/cache/440932a5a0d4f699078e6668daf15e65.png"
+                        alt="FENIX Toulouse Handball">
+                    <div class="versus-team__body">
+                        <p class="versus-team__body-title">Toulouse</p>
+                    </div>
+                </div>
+            </div>
+            <div class="calendar-match__date">
+                <p class="text-primary m-0">Friday 13/11</p>
+                <p class="text-secondary m-0">à 20H30</p>
+            </div>
+            <div class="calendar-match__place">
+                <p class="text-primary m-0">Cesson-Sévigné</p>
+            </div>
+            <div class="calendar-match__place">
+                <p class="text-primary m-0">Glaz Arena</p>
+                <p class="text-secondary m-0">Chemin du Bois la Justice</p>
+            </div>
+            <div class="calendar-match__result text-center">
+                                                            <div class="calendar-match__score text-secondary">
+                            <span class="text-primary">
+                                29
+                            </span>
+                            -
+                            37
+                        </div>
+                                                </div>
+        </div>
+
+        
+        <div class="calendar-match d-sm-block d-lg-none p-2 my-3">
+            <div class="d-flex justify-content-center align-items-center">
+                <div class="versus-team text-center">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/img/logo-team.png"
+                        alt="Les Irreductibles">
+                    <h4 class="versus-team__city">CRMHB</h4>
+                </div>
+                <div class="mx-4 text-center">
+                    <div class="calendar-match__day text-primary">
+                        <span class="text-primary">10<sup>ème</sup></span> journée
+                    </div>
+                    <div class="versus">VS</div>
+                                                                        <div class="calendar-match__score text-secondary">
+                                <span class="text-primary">
+                                    29
+                                </span>
+                                -
+                                37
+                            </div>
+                                                            </div>
+                <div class="versus-team text-center">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/storage/cache/440932a5a0d4f699078e6668daf15e65.png"
+                        alt="FENIX Toulouse Handball">
+                    <h4 class="versus-team__city">Toulouse</h4>
+                </div>
+            </div>
+            <div class="d-flex my-3 text-center">
+                <div class="calendar-match__date w-50">
+                    <p class="text-primary m-0">Friday 13/11</p>
+                    <p class="text-secondary m-0">à 20H30</p>
+                </div>
+                <div class="calendar-match__place">
+                    <p class="text-primary m-0">Cesson-Sévigné</p>
+                </div>
+                <div class="calendar-match__place w-50">
+                    <p class="text-primary m-0">Glaz Arena</p>
+                    <p class="text-secondary m-0">Chemin du Bois la Justice
+                </div>
+            </div>
+
+                    </div>
+            
+        <div class="calendar-match justify-content-between align-items-center p-3 my-3 d-lg-flex d-none">
+            <div class="calendar-match__league">
+                                    <img src="https://www.cesson-handball.com/storage/cache/62b6dd61247e1c45f611541effedac95.png"
+                        alt="Liqui Moly Starligue" />
+                            </div>
+            <div class="calendar-match__day">
+                <span class="text-primary">11<sup>ème</sup></span> journée
+            </div>
+            <div class="calendar-match__versus flex-column flex-lg-row">
+                <div class="versus-team">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/storage/cache/e10c1a97d360f2c82a6b1b28da69ac6f.png"
+                        alt="Dunkerque Handball Grand Littoral">
+                    <div class="versus-team__body">
+                        <p class="versus-team__body-title">Dunkerque</p>
+                    </div>
+                </div>
+                <div class="versus mx-4">VS</div>
+                <div class="versus-team">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/img/logo-team.png"
+                        alt="Les Irreductibles">
+                    <div class="versus-team__body">
+                        <p class="versus-team__body-title">CRMHB</p>
+                    </div>
+                </div>
+            </div>
+            <div class="calendar-match__date">
+                <p class="text-primary m-0">Thursday 19/11</p>
+                <p class="text-secondary m-0">à 20H00</p>
+            </div>
+            <div class="calendar-match__place">
+                <p class="text-primary m-0">Dunkerque</p>
+            </div>
+            <div class="calendar-match__place">
+                <p class="text-primary m-0">Stades de Flandres</p>
+                <p class="text-secondary m-0">Avenue de Rosendaël</p>
+            </div>
+            <div class="calendar-match__result text-center">
+                                                            <div class="calendar-match__score text-secondary">
+                            <span class="text-primary">
+                                21
+                            </span>
+                            -
+                            21
+                        </div>
+                                                </div>
+        </div>
+
+        
+        <div class="calendar-match d-sm-block d-lg-none p-2 my-3">
+            <div class="d-flex justify-content-center align-items-center">
+                <div class="versus-team text-center">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/storage/cache/e10c1a97d360f2c82a6b1b28da69ac6f.png"
+                        alt="Dunkerque Handball Grand Littoral">
+                    <h4 class="versus-team__city">Dunkerque</h4>
+                </div>
+                <div class="mx-4 text-center">
+                    <div class="calendar-match__day text-primary">
+                        <span class="text-primary">11<sup>ème</sup></span> journée
+                    </div>
+                    <div class="versus">VS</div>
+                                                                        <div class="calendar-match__score text-secondary">
+                                <span class="text-primary">
+                                    21
+                                </span>
+                                -
+                                21
+                            </div>
+                                                            </div>
+                <div class="versus-team text-center">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/img/logo-team.png"
+                        alt="Les Irreductibles">
+                    <h4 class="versus-team__city">CRMHB</h4>
+                </div>
+            </div>
+            <div class="d-flex my-3 text-center">
+                <div class="calendar-match__date w-50">
+                    <p class="text-primary m-0">Thursday 19/11</p>
+                    <p class="text-secondary m-0">à 20H00</p>
+                </div>
+                <div class="calendar-match__place">
+                    <p class="text-primary m-0">Dunkerque</p>
+                </div>
+                <div class="calendar-match__place w-50">
+                    <p class="text-primary m-0">Stades de Flandres</p>
+                    <p class="text-secondary m-0">Avenue de Rosendaël
+                </div>
+            </div>
+
+                    </div>
+            
+        <div class="calendar-match justify-content-between align-items-center p-3 my-3 d-lg-flex d-none">
+            <div class="calendar-match__league">
+                                    <img src="https://www.cesson-handball.com/storage/cache/62b6dd61247e1c45f611541effedac95.png"
+                        alt="Liqui Moly Starligue" />
+                            </div>
+            <div class="calendar-match__day">
+                <span class="text-primary">12<sup>ème</sup></span> journée
+            </div>
+            <div class="calendar-match__versus flex-column flex-lg-row">
+                <div class="versus-team">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/storage/cache/83f850c012cb1b65e14abb017fe18181.png"
+                        alt="Montpellier Handball">
+                    <div class="versus-team__body">
+                        <p class="versus-team__body-title">Montpellier</p>
+                    </div>
+                </div>
+                <div class="versus mx-4">VS</div>
+                <div class="versus-team">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/img/logo-team.png"
+                        alt="Les Irreductibles">
+                    <div class="versus-team__body">
+                        <p class="versus-team__body-title">CRMHB</p>
+                    </div>
+                </div>
+            </div>
+            <div class="calendar-match__date">
+                <p class="text-primary m-0">Friday 27/11</p>
+                <p class="text-secondary m-0">à 20H00</p>
+            </div>
+            <div class="calendar-match__place">
+                <p class="text-primary m-0">Montpellier</p>
+            </div>
+            <div class="calendar-match__place">
+                <p class="text-primary m-0">FDI Stadium</p>
+                <p class="text-secondary m-0">1000 avenue du Val de Montferrand</p>
+            </div>
+            <div class="calendar-match__result text-center">
+                                    <div class="calendar-match__cta text-center">
+                                            </div>
+                            </div>
+        </div>
+
+        
+        <div class="calendar-match d-sm-block d-lg-none p-2 my-3">
+            <div class="d-flex justify-content-center align-items-center">
+                <div class="versus-team text-center">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/storage/cache/83f850c012cb1b65e14abb017fe18181.png"
+                        alt="Montpellier Handball">
+                    <h4 class="versus-team__city">Montpellier</h4>
+                </div>
+                <div class="mx-4 text-center">
+                    <div class="calendar-match__day text-primary">
+                        <span class="text-primary">12<sup>ème</sup></span> journée
+                    </div>
+                    <div class="versus">VS</div>
+                                    </div>
+                <div class="versus-team text-center">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/img/logo-team.png"
+                        alt="Les Irreductibles">
+                    <h4 class="versus-team__city">CRMHB</h4>
+                </div>
+            </div>
+            <div class="d-flex my-3 text-center">
+                <div class="calendar-match__date w-50">
+                    <p class="text-primary m-0">Friday 27/11</p>
+                    <p class="text-secondary m-0">à 20H00</p>
+                </div>
+                <div class="calendar-match__place">
+                    <p class="text-primary m-0">Montpellier</p>
+                </div>
+                <div class="calendar-match__place w-50">
+                    <p class="text-primary m-0">FDI Stadium</p>
+                    <p class="text-secondary m-0">1000 avenue du Val de Montferrand
+                </div>
+            </div>
+
+                            <div class="calendar-match__result text-center">
+                    <div class="calendar-match__cta">
+                                            </div>
+                </div>
+                    </div>
+            
+        <div class="calendar-match justify-content-between align-items-center p-3 my-3 d-lg-flex d-none">
+            <div class="calendar-match__league">
+                                    <img src="https://www.cesson-handball.com/storage/cache/62b6dd61247e1c45f611541effedac95.png"
+                        alt="Liqui Moly Starligue" />
+                            </div>
+            <div class="calendar-match__day">
+                <span class="text-primary">13<sup>ème</sup></span> journée
+            </div>
+            <div class="calendar-match__versus flex-column flex-lg-row">
+                <div class="versus-team">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/img/logo-team.png"
+                        alt="Les Irreductibles">
+                    <div class="versus-team__body">
+                        <p class="versus-team__body-title">CRMHB</p>
+                    </div>
+                </div>
+                <div class="versus mx-4">VS</div>
+                <div class="versus-team">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/storage/cache/87370b0b024101f6dc935412d448cf34.png"
+                        alt="Saran Handball">
+                    <div class="versus-team__body">
+                        <p class="versus-team__body-title">Saran</p>
+                    </div>
+                </div>
+            </div>
+            <div class="calendar-match__date">
+                <p class="text-primary m-0">Thursday 03/12</p>
+                <p class="text-secondary m-0">à 20H30</p>
+            </div>
+            <div class="calendar-match__place">
+                <p class="text-primary m-0">Cesson-Sévigné</p>
+            </div>
+            <div class="calendar-match__place">
+                <p class="text-primary m-0">Glaz Arena</p>
+                <p class="text-secondary m-0">Chemin du Bois de la Justice</p>
+            </div>
+            <div class="calendar-match__result text-center">
+                                    <div class="calendar-match__cta text-center">
+                        <a href="https://billetterie.cesson-handball.com/content#" target="_blank" class="btn btn-primary"
+            @click="sendGaPush('billetterie', 'site-billeterie')">
+            Réserver
+        </a>
+                        </div>
+                            </div>
+        </div>
+
+        
+        <div class="calendar-match d-sm-block d-lg-none p-2 my-3">
+            <div class="d-flex justify-content-center align-items-center">
+                <div class="versus-team text-center">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/img/logo-team.png"
+                        alt="Les Irreductibles">
+                    <h4 class="versus-team__city">CRMHB</h4>
+                </div>
+                <div class="mx-4 text-center">
+                    <div class="calendar-match__day text-primary">
+                        <span class="text-primary">13<sup>ème</sup></span> journée
+                    </div>
+                    <div class="versus">VS</div>
+                                    </div>
+                <div class="versus-team text-center">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/storage/cache/87370b0b024101f6dc935412d448cf34.png"
+                        alt="Saran Handball">
+                    <h4 class="versus-team__city">Saran</h4>
+                </div>
+            </div>
+            <div class="d-flex my-3 text-center">
+                <div class="calendar-match__date w-50">
+                    <p class="text-primary m-0">Thursday 03/12</p>
+                    <p class="text-secondary m-0">à 20H30</p>
+                </div>
+                <div class="calendar-match__place">
+                    <p class="text-primary m-0">Cesson-Sévigné</p>
+                </div>
+                <div class="calendar-match__place w-50">
+                    <p class="text-primary m-0">Glaz Arena</p>
+                    <p class="text-secondary m-0">Chemin du Bois de la Justice
+                </div>
+            </div>
+
+                            <div class="calendar-match__result text-center">
+                    <div class="calendar-match__cta">
+                        <a href="https://billetterie.cesson-handball.com/content#" target="_blank" class="btn btn-primary"
+            @click="sendGaPush('billetterie', 'site-billeterie')">
+            Réserver
+        </a>
+                        </div>
+                </div>
+                    </div>
+            
+        <div class="calendar-match justify-content-between align-items-center p-3 my-3 d-lg-flex d-none">
+            <div class="calendar-match__league">
+                                    <img src="https://www.cesson-handball.com/storage/cache/62b6dd61247e1c45f611541effedac95.png"
+                        alt="Liqui Moly Starligue" />
+                            </div>
+            <div class="calendar-match__day">
+                <span class="text-primary">14<sup>ème</sup></span> journée
+            </div>
+            <div class="calendar-match__versus flex-column flex-lg-row">
+                <div class="versus-team">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/storage/cache/5f6cea335b131629c7313c06a29042b6.png"
+                        alt="Chambéry Handball">
+                    <div class="versus-team__body">
+                        <p class="versus-team__body-title">Chambéry</p>
+                    </div>
+                </div>
+                <div class="versus mx-4">VS</div>
+                <div class="versus-team">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/img/logo-team.png"
+                        alt="Les Irreductibles">
+                    <div class="versus-team__body">
+                        <p class="versus-team__body-title">CRMHB</p>
+                    </div>
+                </div>
+            </div>
+            <div class="calendar-match__date">
+                <p class="text-primary m-0">Friday 11/12</p>
+                <p class="text-secondary m-0">à 20H00</p>
+            </div>
+            <div class="calendar-match__place">
+                <p class="text-primary m-0">Chambéry</p>
+            </div>
+            <div class="calendar-match__place">
+                <p class="text-primary m-0">Le Phare Grand Chambéry</p>
+                <p class="text-secondary m-0">800 Avenue du Grand Arietaz</p>
+            </div>
+            <div class="calendar-match__result text-center">
+                                    <div class="calendar-match__cta text-center">
+                                            </div>
+                            </div>
+        </div>
+
+        
+        <div class="calendar-match d-sm-block d-lg-none p-2 my-3">
+            <div class="d-flex justify-content-center align-items-center">
+                <div class="versus-team text-center">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/storage/cache/5f6cea335b131629c7313c06a29042b6.png"
+                        alt="Chambéry Handball">
+                    <h4 class="versus-team__city">Chambéry</h4>
+                </div>
+                <div class="mx-4 text-center">
+                    <div class="calendar-match__day text-primary">
+                        <span class="text-primary">14<sup>ème</sup></span> journée
+                    </div>
+                    <div class="versus">VS</div>
+                                    </div>
+                <div class="versus-team text-center">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/img/logo-team.png"
+                        alt="Les Irreductibles">
+                    <h4 class="versus-team__city">CRMHB</h4>
+                </div>
+            </div>
+            <div class="d-flex my-3 text-center">
+                <div class="calendar-match__date w-50">
+                    <p class="text-primary m-0">Friday 11/12</p>
+                    <p class="text-secondary m-0">à 20H00</p>
+                </div>
+                <div class="calendar-match__place">
+                    <p class="text-primary m-0">Chambéry</p>
+                </div>
+                <div class="calendar-match__place w-50">
+                    <p class="text-primary m-0">Le Phare Grand Chambéry</p>
+                    <p class="text-secondary m-0">800 Avenue du Grand Arietaz
+                </div>
+            </div>
+
+                            <div class="calendar-match__result text-center">
+                    <div class="calendar-match__cta">
+                                            </div>
+                </div>
+                    </div>
+            
+        <div class="calendar-match justify-content-between align-items-center p-3 my-3 d-lg-flex d-none">
+            <div class="calendar-match__league">
+                                    <img src="https://www.cesson-handball.com/storage/cache/b3abb73bf0533052a323235d096f17a6.png"
+                        alt="Coupe de France" />
+                            </div>
+            <div class="calendar-match__day">
+                1/4 de finale
+            </div>
+            <div class="calendar-match__versus flex-column flex-lg-row">
+                <div class="versus-team">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/storage/cache/d294b024fe3aa4667b2ad8e552db4f90.png"
+                        alt="Paris">
+                    <div class="versus-team__body">
+                        <p class="versus-team__body-title">Paris</p>
+                    </div>
+                </div>
+                <div class="versus mx-4">VS</div>
+                <div class="versus-team">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/img/logo-team.png"
+                        alt="Les Irreductibles">
+                    <div class="versus-team__body">
+                        <p class="versus-team__body-title">CRMHB</p>
+                    </div>
+                </div>
+            </div>
+            <div class="calendar-match__date">
+                <p class="text-primary m-0">Friday 18/12</p>
+                <p class="text-secondary m-0">à 20H00</p>
+            </div>
+            <div class="calendar-match__place">
+                <p class="text-primary m-0">Paris</p>
+            </div>
+            <div class="calendar-match__place">
+                <p class="text-primary m-0">Pierre de Coubertin</p>
+                <p class="text-secondary m-0">82 Av. Georges Lafont, 75016 Paris</p>
+            </div>
+            <div class="calendar-match__result text-center">
+                                    <div class="calendar-match__cta text-center">
+                                            </div>
+                            </div>
+        </div>
+
+        
+        <div class="calendar-match d-sm-block d-lg-none p-2 my-3">
+            <div class="d-flex justify-content-center align-items-center">
+                <div class="versus-team text-center">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/storage/cache/d294b024fe3aa4667b2ad8e552db4f90.png"
+                        alt="Paris">
+                    <h4 class="versus-team__city">Paris</h4>
+                </div>
+                <div class="mx-4 text-center">
+                    <div class="calendar-match__day text-primary">
+                        1/4 de finale
+                    </div>
+                    <div class="versus">VS</div>
+                                    </div>
+                <div class="versus-team text-center">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/img/logo-team.png"
+                        alt="Les Irreductibles">
+                    <h4 class="versus-team__city">CRMHB</h4>
+                </div>
+            </div>
+            <div class="d-flex my-3 text-center">
+                <div class="calendar-match__date w-50">
+                    <p class="text-primary m-0">Friday 18/12</p>
+                    <p class="text-secondary m-0">à 20H00</p>
+                </div>
+                <div class="calendar-match__place">
+                    <p class="text-primary m-0">Paris</p>
+                </div>
+                <div class="calendar-match__place w-50">
+                    <p class="text-primary m-0">Pierre de Coubertin</p>
+                    <p class="text-secondary m-0">82 Av. Georges Lafont, 75016 Paris
+                </div>
+            </div>
+
+                            <div class="calendar-match__result text-center">
+                    <div class="calendar-match__cta">
+                                            </div>
+                </div>
+                    </div>
+            
+        <div class="calendar-match justify-content-between align-items-center p-3 my-3 d-lg-flex d-none">
+            <div class="calendar-match__league">
+                                    <img src="https://www.cesson-handball.com/storage/cache/62b6dd61247e1c45f611541effedac95.png"
+                        alt="Liqui Moly Starligue" />
+                            </div>
+            <div class="calendar-match__day">
+                <span class="text-primary">15<sup>ème</sup></span> journée
+            </div>
+            <div class="calendar-match__versus flex-column flex-lg-row">
+                <div class="versus-team">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/storage/cache/49f50ff70f1aaf151e30d229556292d9.png"
+                        alt="Caen Handball">
+                    <div class="versus-team__body">
+                        <p class="versus-team__body-title">Caen</p>
+                    </div>
+                </div>
+                <div class="versus mx-4">VS</div>
+                <div class="versus-team">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/img/logo-team.png"
+                        alt="Les Irreductibles">
+                    <div class="versus-team__body">
+                        <p class="versus-team__body-title">CRMHB</p>
+                    </div>
+                </div>
+            </div>
+            <div class="calendar-match__date">
+                <p class="text-primary m-0">Tuesday 22/12</p>
+                <p class="text-secondary m-0">à 20H30</p>
+            </div>
+            <div class="calendar-match__place">
+                <p class="text-primary m-0">Caen</p>
+            </div>
+            <div class="calendar-match__place">
+                <p class="text-primary m-0">Palais des sports Caen La Mer</p>
+                <p class="text-secondary m-0">2 rue Michèle Guillais</p>
+            </div>
+            <div class="calendar-match__result text-center">
+                                    <div class="calendar-match__cta text-center">
+                                            </div>
+                            </div>
+        </div>
+
+        
+        <div class="calendar-match d-sm-block d-lg-none p-2 my-3">
+            <div class="d-flex justify-content-center align-items-center">
+                <div class="versus-team text-center">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/storage/cache/49f50ff70f1aaf151e30d229556292d9.png"
+                        alt="Caen Handball">
+                    <h4 class="versus-team__city">Caen</h4>
+                </div>
+                <div class="mx-4 text-center">
+                    <div class="calendar-match__day text-primary">
+                        <span class="text-primary">15<sup>ème</sup></span> journée
+                    </div>
+                    <div class="versus">VS</div>
+                                    </div>
+                <div class="versus-team text-center">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/img/logo-team.png"
+                        alt="Les Irreductibles">
+                    <h4 class="versus-team__city">CRMHB</h4>
+                </div>
+            </div>
+            <div class="d-flex my-3 text-center">
+                <div class="calendar-match__date w-50">
+                    <p class="text-primary m-0">Tuesday 22/12</p>
+                    <p class="text-secondary m-0">à 20H30</p>
+                </div>
+                <div class="calendar-match__place">
+                    <p class="text-primary m-0">Caen</p>
+                </div>
+                <div class="calendar-match__place w-50">
+                    <p class="text-primary m-0">Palais des sports Caen La Mer</p>
+                    <p class="text-secondary m-0">2 rue Michèle Guillais
+                </div>
+            </div>
+
+                            <div class="calendar-match__result text-center">
+                    <div class="calendar-match__cta">
+                                            </div>
+                </div>
+                    </div>
+            
+        <div class="calendar-match justify-content-between align-items-center p-3 my-3 d-lg-flex d-none">
+            <div class="calendar-match__league">
+                                    <img src="https://www.cesson-handball.com/storage/cache/62b6dd61247e1c45f611541effedac95.png"
+                        alt="Liqui Moly Starligue" />
+                            </div>
+            <div class="calendar-match__day">
+                <span class="text-primary">16<sup>ème</sup></span> journée
+            </div>
+            <div class="calendar-match__versus flex-column flex-lg-row">
+                <div class="versus-team">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/img/logo-team.png"
+                        alt="Les Irreductibles">
+                    <div class="versus-team__body">
+                        <p class="versus-team__body-title">CRMHB</p>
+                    </div>
+                </div>
+                <div class="versus mx-4">VS</div>
+                <div class="versus-team">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/storage/cache/8d758d728dfc8c39089b3b0b81bd920c.png"
+                        alt="PSG Handball">
+                    <div class="versus-team__body">
+                        <p class="versus-team__body-title">Paris</p>
+                    </div>
+                </div>
+            </div>
+            <div class="calendar-match__date">
+                <p class="text-primary m-0">Friday 05/02</p>
+                <p class="text-secondary m-0">à 20H30</p>
+            </div>
+            <div class="calendar-match__place">
+                <p class="text-primary m-0">Cesson-Sévigné</p>
+            </div>
+            <div class="calendar-match__place">
+                <p class="text-primary m-0">Glaz Arena</p>
+                <p class="text-secondary m-0">Chemin du Bois de la Justice</p>
+            </div>
+            <div class="calendar-match__result text-center">
+                                    <div class="calendar-match__cta text-center">
+                        <span class="btn btn-primary">A venir</span>
+                        </div>
+                            </div>
+        </div>
+
+        
+        <div class="calendar-match d-sm-block d-lg-none p-2 my-3">
+            <div class="d-flex justify-content-center align-items-center">
+                <div class="versus-team text-center">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/img/logo-team.png"
+                        alt="Les Irreductibles">
+                    <h4 class="versus-team__city">CRMHB</h4>
+                </div>
+                <div class="mx-4 text-center">
+                    <div class="calendar-match__day text-primary">
+                        <span class="text-primary">16<sup>ème</sup></span> journée
+                    </div>
+                    <div class="versus">VS</div>
+                                    </div>
+                <div class="versus-team text-center">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/storage/cache/8d758d728dfc8c39089b3b0b81bd920c.png"
+                        alt="PSG Handball">
+                    <h4 class="versus-team__city">Paris</h4>
+                </div>
+            </div>
+            <div class="d-flex my-3 text-center">
+                <div class="calendar-match__date w-50">
+                    <p class="text-primary m-0">Friday 05/02</p>
+                    <p class="text-secondary m-0">à 20H30</p>
+                </div>
+                <div class="calendar-match__place">
+                    <p class="text-primary m-0">Cesson-Sévigné</p>
+                </div>
+                <div class="calendar-match__place w-50">
+                    <p class="text-primary m-0">Glaz Arena</p>
+                    <p class="text-secondary m-0">Chemin du Bois de la Justice
+                </div>
+            </div>
+
+                            <div class="calendar-match__result text-center">
+                    <div class="calendar-match__cta">
+                        <span class="btn btn-primary">A venir</span>
+                        </div>
+                </div>
+                    </div>
+            
+        <div class="calendar-match justify-content-between align-items-center p-3 my-3 d-lg-flex d-none">
+            <div class="calendar-match__league">
+                                    <img src="https://www.cesson-handball.com/storage/cache/62b6dd61247e1c45f611541effedac95.png"
+                        alt="Liqui Moly Starligue" />
+                            </div>
+            <div class="calendar-match__day">
+                <span class="text-primary">17<sup>ème</sup></span> journée
+            </div>
+            <div class="calendar-match__versus flex-column flex-lg-row">
+                <div class="versus-team">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/storage/cache/f50a3db835969fe955cb2dd33b9a814c.png"
+                        alt="Provence Aix Université Club">
+                    <div class="versus-team__body">
+                        <p class="versus-team__body-title">Aix-en-Provence</p>
+                    </div>
+                </div>
+                <div class="versus mx-4">VS</div>
+                <div class="versus-team">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/img/logo-team.png"
+                        alt="Les Irreductibles">
+                    <div class="versus-team__body">
+                        <p class="versus-team__body-title">CRMHB</p>
+                    </div>
+                </div>
+            </div>
+            <div class="calendar-match__date">
+                <p class="text-primary m-0">Friday 12/02</p>
+                <p class="text-secondary m-0">à 20H30</p>
+            </div>
+            <div class="calendar-match__place">
+                <p class="text-primary m-0">Aix-en-Provence</p>
+            </div>
+            <div class="calendar-match__place">
+                <p class="text-primary m-0">Arena du Pays d&#039;Aix</p>
+                <p class="text-secondary m-0">1955 rue Claude Nicolas Ledoux</p>
+            </div>
+            <div class="calendar-match__result text-center">
+                                    <div class="calendar-match__cta text-center">
+                                            </div>
+                            </div>
+        </div>
+
+        
+        <div class="calendar-match d-sm-block d-lg-none p-2 my-3">
+            <div class="d-flex justify-content-center align-items-center">
+                <div class="versus-team text-center">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/storage/cache/f50a3db835969fe955cb2dd33b9a814c.png"
+                        alt="Provence Aix Université Club">
+                    <h4 class="versus-team__city">Aix-en-Provence</h4>
+                </div>
+                <div class="mx-4 text-center">
+                    <div class="calendar-match__day text-primary">
+                        <span class="text-primary">17<sup>ème</sup></span> journée
+                    </div>
+                    <div class="versus">VS</div>
+                                    </div>
+                <div class="versus-team text-center">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/img/logo-team.png"
+                        alt="Les Irreductibles">
+                    <h4 class="versus-team__city">CRMHB</h4>
+                </div>
+            </div>
+            <div class="d-flex my-3 text-center">
+                <div class="calendar-match__date w-50">
+                    <p class="text-primary m-0">Friday 12/02</p>
+                    <p class="text-secondary m-0">à 20H30</p>
+                </div>
+                <div class="calendar-match__place">
+                    <p class="text-primary m-0">Aix-en-Provence</p>
+                </div>
+                <div class="calendar-match__place w-50">
+                    <p class="text-primary m-0">Arena du Pays d&#039;Aix</p>
+                    <p class="text-secondary m-0">1955 rue Claude Nicolas Ledoux
+                </div>
+            </div>
+
+                            <div class="calendar-match__result text-center">
+                    <div class="calendar-match__cta">
+                                            </div>
+                </div>
+                    </div>
+            
+        <div class="calendar-match justify-content-between align-items-center p-3 my-3 d-lg-flex d-none">
+            <div class="calendar-match__league">
+                                    <img src="https://www.cesson-handball.com/storage/cache/62b6dd61247e1c45f611541effedac95.png"
+                        alt="Liqui Moly Starligue" />
+                            </div>
+            <div class="calendar-match__day">
+                <span class="text-primary">18<sup>ème</sup></span> journée
+            </div>
+            <div class="calendar-match__versus flex-column flex-lg-row">
+                <div class="versus-team">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/img/logo-team.png"
+                        alt="Les Irreductibles">
+                    <div class="versus-team__body">
+                        <p class="versus-team__body-title">CRMHB</p>
+                    </div>
+                </div>
+                <div class="versus mx-4">VS</div>
+                <div class="versus-team">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/storage/cache/39cb5411653d614296cbe0ebf2772558.png"
+                        alt="Saint-Raphaël Var Handball">
+                    <div class="versus-team__body">
+                        <p class="versus-team__body-title">Saint-Raphaël</p>
+                    </div>
+                </div>
+            </div>
+            <div class="calendar-match__date">
+                <p class="text-primary m-0">Friday 19/02</p>
+                <p class="text-secondary m-0">à 20H00</p>
+            </div>
+            <div class="calendar-match__place">
+                <p class="text-primary m-0">Cesson-Sévigné</p>
+            </div>
+            <div class="calendar-match__place">
+                <p class="text-primary m-0">Glaz Arena</p>
+                <p class="text-secondary m-0">Chemin du Bois de la Justice</p>
+            </div>
+            <div class="calendar-match__result text-center">
+                                    <div class="calendar-match__cta text-center">
+                        <span class="btn btn-primary">A venir</span>
+                        </div>
+                            </div>
+        </div>
+
+        
+        <div class="calendar-match d-sm-block d-lg-none p-2 my-3">
+            <div class="d-flex justify-content-center align-items-center">
+                <div class="versus-team text-center">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/img/logo-team.png"
+                        alt="Les Irreductibles">
+                    <h4 class="versus-team__city">CRMHB</h4>
+                </div>
+                <div class="mx-4 text-center">
+                    <div class="calendar-match__day text-primary">
+                        <span class="text-primary">18<sup>ème</sup></span> journée
+                    </div>
+                    <div class="versus">VS</div>
+                                    </div>
+                <div class="versus-team text-center">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/storage/cache/39cb5411653d614296cbe0ebf2772558.png"
+                        alt="Saint-Raphaël Var Handball">
+                    <h4 class="versus-team__city">Saint-Raphaël</h4>
+                </div>
+            </div>
+            <div class="d-flex my-3 text-center">
+                <div class="calendar-match__date w-50">
+                    <p class="text-primary m-0">Friday 19/02</p>
+                    <p class="text-secondary m-0">à 20H00</p>
+                </div>
+                <div class="calendar-match__place">
+                    <p class="text-primary m-0">Cesson-Sévigné</p>
+                </div>
+                <div class="calendar-match__place w-50">
+                    <p class="text-primary m-0">Glaz Arena</p>
+                    <p class="text-secondary m-0">Chemin du Bois de la Justice
+                </div>
+            </div>
+
+                            <div class="calendar-match__result text-center">
+                    <div class="calendar-match__cta">
+                        <span class="btn btn-primary">A venir</span>
+                        </div>
+                </div>
+                    </div>
+            
+        <div class="calendar-match justify-content-between align-items-center p-3 my-3 d-lg-flex d-none">
+            <div class="calendar-match__league">
+                                    <img src="https://www.cesson-handball.com/storage/cache/62b6dd61247e1c45f611541effedac95.png"
+                        alt="Liqui Moly Starligue" />
+                            </div>
+            <div class="calendar-match__day">
+                <span class="text-primary">19<sup>ème</sup></span> journée
+            </div>
+            <div class="calendar-match__versus flex-column flex-lg-row">
+                <div class="versus-team">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/storage/cache/40407e11fdb0e910f9328d90ee66644d.png"
+                        alt="USAM Nîmes">
+                    <div class="versus-team__body">
+                        <p class="versus-team__body-title">Nîmes</p>
+                    </div>
+                </div>
+                <div class="versus mx-4">VS</div>
+                <div class="versus-team">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/img/logo-team.png"
+                        alt="Les Irreductibles">
+                    <div class="versus-team__body">
+                        <p class="versus-team__body-title">CRMHB</p>
+                    </div>
+                </div>
+            </div>
+            <div class="calendar-match__date">
+                <p class="text-primary m-0">Friday 26/02</p>
+                <p class="text-secondary m-0">à 11H40</p>
+            </div>
+            <div class="calendar-match__place">
+                <p class="text-primary m-0">Nîmes</p>
+            </div>
+            <div class="calendar-match__place">
+                <p class="text-primary m-0">Le Parnasse</p>
+                <p class="text-secondary m-0">160 Avenue du Languedoc</p>
+            </div>
+            <div class="calendar-match__result text-center">
+                                    <div class="calendar-match__cta text-center">
+                                            </div>
+                            </div>
+        </div>
+
+        
+        <div class="calendar-match d-sm-block d-lg-none p-2 my-3">
+            <div class="d-flex justify-content-center align-items-center">
+                <div class="versus-team text-center">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/storage/cache/40407e11fdb0e910f9328d90ee66644d.png"
+                        alt="USAM Nîmes">
+                    <h4 class="versus-team__city">Nîmes</h4>
+                </div>
+                <div class="mx-4 text-center">
+                    <div class="calendar-match__day text-primary">
+                        <span class="text-primary">19<sup>ème</sup></span> journée
+                    </div>
+                    <div class="versus">VS</div>
+                                    </div>
+                <div class="versus-team text-center">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/img/logo-team.png"
+                        alt="Les Irreductibles">
+                    <h4 class="versus-team__city">CRMHB</h4>
+                </div>
+            </div>
+            <div class="d-flex my-3 text-center">
+                <div class="calendar-match__date w-50">
+                    <p class="text-primary m-0">Friday 26/02</p>
+                    <p class="text-secondary m-0">à 11H40</p>
+                </div>
+                <div class="calendar-match__place">
+                    <p class="text-primary m-0">Nîmes</p>
+                </div>
+                <div class="calendar-match__place w-50">
+                    <p class="text-primary m-0">Le Parnasse</p>
+                    <p class="text-secondary m-0">160 Avenue du Languedoc
+                </div>
+            </div>
+
+                            <div class="calendar-match__result text-center">
+                    <div class="calendar-match__cta">
+                                            </div>
+                </div>
+                    </div>
+            
+        <div class="calendar-match justify-content-between align-items-center p-3 my-3 d-lg-flex d-none">
+            <div class="calendar-match__league">
+                                    <img src="https://www.cesson-handball.com/storage/cache/62b6dd61247e1c45f611541effedac95.png"
+                        alt="Liqui Moly Starligue" />
+                            </div>
+            <div class="calendar-match__day">
+                <span class="text-primary">20<sup>ème</sup></span> journée
+            </div>
+            <div class="calendar-match__versus flex-column flex-lg-row">
+                <div class="versus-team">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/img/logo-team.png"
+                        alt="Les Irreductibles">
+                    <div class="versus-team__body">
+                        <p class="versus-team__body-title">CRMHB</p>
+                    </div>
+                </div>
+                <div class="versus mx-4">VS</div>
+                <div class="versus-team">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/storage/cache/0c51ae596b1f4c6791f37a5535c5a7d1.png"
+                        alt="Dunkerque Handball Grand Littoral">
+                    <div class="versus-team__body">
+                        <p class="versus-team__body-title">Dunkerque</p>
+                    </div>
+                </div>
+            </div>
+            <div class="calendar-match__date">
+                <p class="text-primary m-0">Friday 05/03</p>
+                <p class="text-secondary m-0">à 20H00</p>
+            </div>
+            <div class="calendar-match__place">
+                <p class="text-primary m-0">Cesson-Sévigné</p>
+            </div>
+            <div class="calendar-match__place">
+                <p class="text-primary m-0">Glaz Arena</p>
+                <p class="text-secondary m-0">Chemin du Bois de la Justice</p>
+            </div>
+            <div class="calendar-match__result text-center">
+                                    <div class="calendar-match__cta text-center">
+                        <span class="btn btn-primary">A venir</span>
+                        </div>
+                            </div>
+        </div>
+
+        
+        <div class="calendar-match d-sm-block d-lg-none p-2 my-3">
+            <div class="d-flex justify-content-center align-items-center">
+                <div class="versus-team text-center">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/img/logo-team.png"
+                        alt="Les Irreductibles">
+                    <h4 class="versus-team__city">CRMHB</h4>
+                </div>
+                <div class="mx-4 text-center">
+                    <div class="calendar-match__day text-primary">
+                        <span class="text-primary">20<sup>ème</sup></span> journée
+                    </div>
+                    <div class="versus">VS</div>
+                                    </div>
+                <div class="versus-team text-center">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/storage/cache/0c51ae596b1f4c6791f37a5535c5a7d1.png"
+                        alt="Dunkerque Handball Grand Littoral">
+                    <h4 class="versus-team__city">Dunkerque</h4>
+                </div>
+            </div>
+            <div class="d-flex my-3 text-center">
+                <div class="calendar-match__date w-50">
+                    <p class="text-primary m-0">Friday 05/03</p>
+                    <p class="text-secondary m-0">à 20H00</p>
+                </div>
+                <div class="calendar-match__place">
+                    <p class="text-primary m-0">Cesson-Sévigné</p>
+                </div>
+                <div class="calendar-match__place w-50">
+                    <p class="text-primary m-0">Glaz Arena</p>
+                    <p class="text-secondary m-0">Chemin du Bois de la Justice
+                </div>
+            </div>
+
+                            <div class="calendar-match__result text-center">
+                    <div class="calendar-match__cta">
+                        <span class="btn btn-primary">A venir</span>
+                        </div>
+                </div>
+                    </div>
+            
+        <div class="calendar-match justify-content-between align-items-center p-3 my-3 d-lg-flex d-none">
+            <div class="calendar-match__league">
+                                    <img src="https://www.cesson-handball.com/storage/cache/62b6dd61247e1c45f611541effedac95.png"
+                        alt="Liqui Moly Starligue" />
+                            </div>
+            <div class="calendar-match__day">
+                <span class="text-primary">21<sup>ème</sup></span> journée
+            </div>
+            <div class="calendar-match__versus flex-column flex-lg-row">
+                <div class="versus-team">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/storage/cache/f68c1deb1ea03d74d7ad3afea66d5757.png"
+                        alt="Limoges Handball">
+                    <div class="versus-team__body">
+                        <p class="versus-team__body-title">Limoges</p>
+                    </div>
+                </div>
+                <div class="versus mx-4">VS</div>
+                <div class="versus-team">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/img/logo-team.png"
+                        alt="Les Irreductibles">
+                    <div class="versus-team__body">
+                        <p class="versus-team__body-title">CRMHB</p>
+                    </div>
+                </div>
+            </div>
+            <div class="calendar-match__date">
+                <p class="text-primary m-0">Friday 19/03</p>
+                <p class="text-secondary m-0">à 20H00</p>
+            </div>
+            <div class="calendar-match__place">
+                <p class="text-primary m-0">Limoges</p>
+            </div>
+            <div class="calendar-match__place">
+                <p class="text-primary m-0">PDS Beaublanc</p>
+                <p class="text-secondary m-0">65, Rue de Bellac, Boulevard de Beaublanc</p>
+            </div>
+            <div class="calendar-match__result text-center">
+                                    <div class="calendar-match__cta text-center">
+                                            </div>
+                            </div>
+        </div>
+
+        
+        <div class="calendar-match d-sm-block d-lg-none p-2 my-3">
+            <div class="d-flex justify-content-center align-items-center">
+                <div class="versus-team text-center">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/storage/cache/f68c1deb1ea03d74d7ad3afea66d5757.png"
+                        alt="Limoges Handball">
+                    <h4 class="versus-team__city">Limoges</h4>
+                </div>
+                <div class="mx-4 text-center">
+                    <div class="calendar-match__day text-primary">
+                        <span class="text-primary">21<sup>ème</sup></span> journée
+                    </div>
+                    <div class="versus">VS</div>
+                                    </div>
+                <div class="versus-team text-center">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/img/logo-team.png"
+                        alt="Les Irreductibles">
+                    <h4 class="versus-team__city">CRMHB</h4>
+                </div>
+            </div>
+            <div class="d-flex my-3 text-center">
+                <div class="calendar-match__date w-50">
+                    <p class="text-primary m-0">Friday 19/03</p>
+                    <p class="text-secondary m-0">à 20H00</p>
+                </div>
+                <div class="calendar-match__place">
+                    <p class="text-primary m-0">Limoges</p>
+                </div>
+                <div class="calendar-match__place w-50">
+                    <p class="text-primary m-0">PDS Beaublanc</p>
+                    <p class="text-secondary m-0">65, Rue de Bellac, Boulevard de Beaublanc
+                </div>
+            </div>
+
+                            <div class="calendar-match__result text-center">
+                    <div class="calendar-match__cta">
+                                            </div>
+                </div>
+                    </div>
+            
+        <div class="calendar-match justify-content-between align-items-center p-3 my-3 d-lg-flex d-none">
+            <div class="calendar-match__league">
+                                    <img src="https://www.cesson-handball.com/storage/cache/62b6dd61247e1c45f611541effedac95.png"
+                        alt="Liqui Moly Starligue" />
+                            </div>
+            <div class="calendar-match__day">
+                <span class="text-primary">22<sup>ème</sup></span> journée
+            </div>
+            <div class="calendar-match__versus flex-column flex-lg-row">
+                <div class="versus-team">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/img/logo-team.png"
+                        alt="Les Irreductibles">
+                    <div class="versus-team__body">
+                        <p class="versus-team__body-title">CRMHB</p>
+                    </div>
+                </div>
+                <div class="versus mx-4">VS</div>
+                <div class="versus-team">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/storage/cache/8060255ccaf98ac21d655311460f7394.png"
+                        alt="Chambéry Handball">
+                    <div class="versus-team__body">
+                        <p class="versus-team__body-title">Chambéry</p>
+                    </div>
+                </div>
+            </div>
+            <div class="calendar-match__date">
+                <p class="text-primary m-0">Saturday 27/03</p>
+                <p class="text-secondary m-0">à 19H00</p>
+            </div>
+            <div class="calendar-match__place">
+                <p class="text-primary m-0">Cesson-Sévigné</p>
+            </div>
+            <div class="calendar-match__place">
+                <p class="text-primary m-0">Glaz Arena</p>
+                <p class="text-secondary m-0">Chemin du Bois de la Justice</p>
+            </div>
+            <div class="calendar-match__result text-center">
+                                    <div class="calendar-match__cta text-center">
+                        <span class="btn btn-primary">A venir</span>
+                        </div>
+                            </div>
+        </div>
+
+        
+        <div class="calendar-match d-sm-block d-lg-none p-2 my-3">
+            <div class="d-flex justify-content-center align-items-center">
+                <div class="versus-team text-center">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/img/logo-team.png"
+                        alt="Les Irreductibles">
+                    <h4 class="versus-team__city">CRMHB</h4>
+                </div>
+                <div class="mx-4 text-center">
+                    <div class="calendar-match__day text-primary">
+                        <span class="text-primary">22<sup>ème</sup></span> journée
+                    </div>
+                    <div class="versus">VS</div>
+                                    </div>
+                <div class="versus-team text-center">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/storage/cache/8060255ccaf98ac21d655311460f7394.png"
+                        alt="Chambéry Handball">
+                    <h4 class="versus-team__city">Chambéry</h4>
+                </div>
+            </div>
+            <div class="d-flex my-3 text-center">
+                <div class="calendar-match__date w-50">
+                    <p class="text-primary m-0">Saturday 27/03</p>
+                    <p class="text-secondary m-0">à 19H00</p>
+                </div>
+                <div class="calendar-match__place">
+                    <p class="text-primary m-0">Cesson-Sévigné</p>
+                </div>
+                <div class="calendar-match__place w-50">
+                    <p class="text-primary m-0">Glaz Arena</p>
+                    <p class="text-secondary m-0">Chemin du Bois de la Justice
+                </div>
+            </div>
+
+                            <div class="calendar-match__result text-center">
+                    <div class="calendar-match__cta">
+                        <span class="btn btn-primary">A venir</span>
+                        </div>
+                </div>
+                    </div>
+            
+        <div class="calendar-match justify-content-between align-items-center p-3 my-3 d-lg-flex d-none">
+            <div class="calendar-match__league">
+                                    <img src="https://www.cesson-handball.com/storage/cache/62b6dd61247e1c45f611541effedac95.png"
+                        alt="Liqui Moly Starligue" />
+                            </div>
+            <div class="calendar-match__day">
+                <span class="text-primary">23<sup>ème</sup></span> journée
+            </div>
+            <div class="calendar-match__versus flex-column flex-lg-row">
+                <div class="versus-team">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/storage/cache/667ee5120508609a968c4e85a5b5a9aa.png"
+                        alt="FENIX Toulouse Handball">
+                    <div class="versus-team__body">
+                        <p class="versus-team__body-title">Toulouse</p>
+                    </div>
+                </div>
+                <div class="versus mx-4">VS</div>
+                <div class="versus-team">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/img/logo-team.png"
+                        alt="Les Irreductibles">
+                    <div class="versus-team__body">
+                        <p class="versus-team__body-title">CRMHB</p>
+                    </div>
+                </div>
+            </div>
+            <div class="calendar-match__date">
+                <p class="text-primary m-0">Friday 02/04</p>
+                <p class="text-secondary m-0">à 18H00</p>
+            </div>
+            <div class="calendar-match__place">
+                <p class="text-primary m-0">Toulouse</p>
+            </div>
+            <div class="calendar-match__place">
+                <p class="text-primary m-0">Palais des Sports A. Brouat</p>
+                <p class="text-secondary m-0">3 rue Pierre Laplace</p>
+            </div>
+            <div class="calendar-match__result text-center">
+                                    <div class="calendar-match__cta text-center">
+                                            </div>
+                            </div>
+        </div>
+
+        
+        <div class="calendar-match d-sm-block d-lg-none p-2 my-3">
+            <div class="d-flex justify-content-center align-items-center">
+                <div class="versus-team text-center">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/storage/cache/667ee5120508609a968c4e85a5b5a9aa.png"
+                        alt="FENIX Toulouse Handball">
+                    <h4 class="versus-team__city">Toulouse</h4>
+                </div>
+                <div class="mx-4 text-center">
+                    <div class="calendar-match__day text-primary">
+                        <span class="text-primary">23<sup>ème</sup></span> journée
+                    </div>
+                    <div class="versus">VS</div>
+                                    </div>
+                <div class="versus-team text-center">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/img/logo-team.png"
+                        alt="Les Irreductibles">
+                    <h4 class="versus-team__city">CRMHB</h4>
+                </div>
+            </div>
+            <div class="d-flex my-3 text-center">
+                <div class="calendar-match__date w-50">
+                    <p class="text-primary m-0">Friday 02/04</p>
+                    <p class="text-secondary m-0">à 18H00</p>
+                </div>
+                <div class="calendar-match__place">
+                    <p class="text-primary m-0">Toulouse</p>
+                </div>
+                <div class="calendar-match__place w-50">
+                    <p class="text-primary m-0">Palais des Sports A. Brouat</p>
+                    <p class="text-secondary m-0">3 rue Pierre Laplace
+                </div>
+            </div>
+
+                            <div class="calendar-match__result text-center">
+                    <div class="calendar-match__cta">
+                                            </div>
+                </div>
+                    </div>
+            
+        <div class="calendar-match justify-content-between align-items-center p-3 my-3 d-lg-flex d-none">
+            <div class="calendar-match__league">
+                                    <img src="https://www.cesson-handball.com/storage/cache/62b6dd61247e1c45f611541effedac95.png"
+                        alt="Liqui Moly Starligue" />
+                            </div>
+            <div class="calendar-match__day">
+                <span class="text-primary">24<sup>ème</sup></span> journée
+            </div>
+            <div class="calendar-match__versus flex-column flex-lg-row">
+                <div class="versus-team">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/img/logo-team.png"
+                        alt="Les Irreductibles">
+                    <div class="versus-team__body">
+                        <p class="versus-team__body-title">CRMHB</p>
+                    </div>
+                </div>
+                <div class="versus mx-4">VS</div>
+                <div class="versus-team">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/storage/cache/918e37ba3970071181d7bcf8d0600bc2.png"
+                        alt="Montpellier Handball">
+                    <div class="versus-team__body">
+                        <p class="versus-team__body-title">Montpellier</p>
+                    </div>
+                </div>
+            </div>
+            <div class="calendar-match__date">
+                <p class="text-primary m-0">Friday 09/04</p>
+                <p class="text-secondary m-0">à 20H30</p>
+            </div>
+            <div class="calendar-match__place">
+                <p class="text-primary m-0">Cesson-Sévigné</p>
+            </div>
+            <div class="calendar-match__place">
+                <p class="text-primary m-0">Glaz Arena</p>
+                <p class="text-secondary m-0">Chemin du Bois de la Justice</p>
+            </div>
+            <div class="calendar-match__result text-center">
+                                    <div class="calendar-match__cta text-center">
+                        <span class="btn btn-primary">A venir</span>
+                        </div>
+                            </div>
+        </div>
+
+        
+        <div class="calendar-match d-sm-block d-lg-none p-2 my-3">
+            <div class="d-flex justify-content-center align-items-center">
+                <div class="versus-team text-center">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/img/logo-team.png"
+                        alt="Les Irreductibles">
+                    <h4 class="versus-team__city">CRMHB</h4>
+                </div>
+                <div class="mx-4 text-center">
+                    <div class="calendar-match__day text-primary">
+                        <span class="text-primary">24<sup>ème</sup></span> journée
+                    </div>
+                    <div class="versus">VS</div>
+                                    </div>
+                <div class="versus-team text-center">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/storage/cache/918e37ba3970071181d7bcf8d0600bc2.png"
+                        alt="Montpellier Handball">
+                    <h4 class="versus-team__city">Montpellier</h4>
+                </div>
+            </div>
+            <div class="d-flex my-3 text-center">
+                <div class="calendar-match__date w-50">
+                    <p class="text-primary m-0">Friday 09/04</p>
+                    <p class="text-secondary m-0">à 20H30</p>
+                </div>
+                <div class="calendar-match__place">
+                    <p class="text-primary m-0">Cesson-Sévigné</p>
+                </div>
+                <div class="calendar-match__place w-50">
+                    <p class="text-primary m-0">Glaz Arena</p>
+                    <p class="text-secondary m-0">Chemin du Bois de la Justice
+                </div>
+            </div>
+
+                            <div class="calendar-match__result text-center">
+                    <div class="calendar-match__cta">
+                        <span class="btn btn-primary">A venir</span>
+                        </div>
+                </div>
+                    </div>
+            
+        <div class="calendar-match justify-content-between align-items-center p-3 my-3 d-lg-flex d-none">
+            <div class="calendar-match__league">
+                                    <img src="https://www.cesson-handball.com/storage/cache/62b6dd61247e1c45f611541effedac95.png"
+                        alt="Liqui Moly Starligue" />
+                            </div>
+            <div class="calendar-match__day">
+                <span class="text-primary">25<sup>ème</sup></span> journée
+            </div>
+            <div class="calendar-match__versus flex-column flex-lg-row">
+                <div class="versus-team">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/img/logo-team.png"
+                        alt="Les Irreductibles">
+                    <div class="versus-team__body">
+                        <p class="versus-team__body-title">CRMHB</p>
+                    </div>
+                </div>
+                <div class="versus mx-4">VS</div>
+                <div class="versus-team">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/storage/cache/e62c6a83ba90094ccaed387e188af95d.png"
+                        alt="Caen Handball">
+                    <div class="versus-team__body">
+                        <p class="versus-team__body-title">Caen</p>
+                    </div>
+                </div>
+            </div>
+            <div class="calendar-match__date">
+                <p class="text-primary m-0">Wednesday 14/04</p>
+                <p class="text-secondary m-0">à 20H30</p>
+            </div>
+            <div class="calendar-match__place">
+                <p class="text-primary m-0">Cesson-Sévigné</p>
+            </div>
+            <div class="calendar-match__place">
+                <p class="text-primary m-0">Glaz Arena</p>
+                <p class="text-secondary m-0">Chemin du Bois de la Justice</p>
+            </div>
+            <div class="calendar-match__result text-center">
+                                    <div class="calendar-match__cta text-center">
+                        <span class="btn btn-primary">A venir</span>
+                        </div>
+                            </div>
+        </div>
+
+        
+        <div class="calendar-match d-sm-block d-lg-none p-2 my-3">
+            <div class="d-flex justify-content-center align-items-center">
+                <div class="versus-team text-center">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/img/logo-team.png"
+                        alt="Les Irreductibles">
+                    <h4 class="versus-team__city">CRMHB</h4>
+                </div>
+                <div class="mx-4 text-center">
+                    <div class="calendar-match__day text-primary">
+                        <span class="text-primary">25<sup>ème</sup></span> journée
+                    </div>
+                    <div class="versus">VS</div>
+                                    </div>
+                <div class="versus-team text-center">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/storage/cache/e62c6a83ba90094ccaed387e188af95d.png"
+                        alt="Caen Handball">
+                    <h4 class="versus-team__city">Caen</h4>
+                </div>
+            </div>
+            <div class="d-flex my-3 text-center">
+                <div class="calendar-match__date w-50">
+                    <p class="text-primary m-0">Wednesday 14/04</p>
+                    <p class="text-secondary m-0">à 20H30</p>
+                </div>
+                <div class="calendar-match__place">
+                    <p class="text-primary m-0">Cesson-Sévigné</p>
+                </div>
+                <div class="calendar-match__place w-50">
+                    <p class="text-primary m-0">Glaz Arena</p>
+                    <p class="text-secondary m-0">Chemin du Bois de la Justice
+                </div>
+            </div>
+
+                            <div class="calendar-match__result text-center">
+                    <div class="calendar-match__cta">
+                        <span class="btn btn-primary">A venir</span>
+                        </div>
+                </div>
+                    </div>
+            
+        <div class="calendar-match justify-content-between align-items-center p-3 my-3 d-lg-flex d-none">
+            <div class="calendar-match__league">
+                                    <img src="https://www.cesson-handball.com/storage/cache/62b6dd61247e1c45f611541effedac95.png"
+                        alt="Liqui Moly Starligue" />
+                            </div>
+            <div class="calendar-match__day">
+                <span class="text-primary">26<sup>ème</sup></span> journée
+            </div>
+            <div class="calendar-match__versus flex-column flex-lg-row">
+                <div class="versus-team">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/storage/cache/3ea3e2e420afbb44538c5f63d7a7d950.png"
+                        alt="HBC Nantes">
+                    <div class="versus-team__body">
+                        <p class="versus-team__body-title">HBC Nantes</p>
+                    </div>
+                </div>
+                <div class="versus mx-4">VS</div>
+                <div class="versus-team">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/img/logo-team.png"
+                        alt="Les Irreductibles">
+                    <div class="versus-team__body">
+                        <p class="versus-team__body-title">CRMHB</p>
+                    </div>
+                </div>
+            </div>
+            <div class="calendar-match__date">
+                <p class="text-primary m-0">Friday 16/04</p>
+                <p class="text-secondary m-0">à 20H30</p>
+            </div>
+            <div class="calendar-match__place">
+                <p class="text-primary m-0">Nantes</p>
+            </div>
+            <div class="calendar-match__place">
+                <p class="text-primary m-0">H Arena</p>
+                <p class="text-secondary m-0">Rue René Viviani</p>
+            </div>
+            <div class="calendar-match__result text-center">
+                                    <div class="calendar-match__cta text-center">
+                                            </div>
+                            </div>
+        </div>
+
+        
+        <div class="calendar-match d-sm-block d-lg-none p-2 my-3">
+            <div class="d-flex justify-content-center align-items-center">
+                <div class="versus-team text-center">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/storage/cache/3ea3e2e420afbb44538c5f63d7a7d950.png"
+                        alt="HBC Nantes">
+                    <h4 class="versus-team__city">HBC Nantes</h4>
+                </div>
+                <div class="mx-4 text-center">
+                    <div class="calendar-match__day text-primary">
+                        <span class="text-primary">26<sup>ème</sup></span> journée
+                    </div>
+                    <div class="versus">VS</div>
+                                    </div>
+                <div class="versus-team text-center">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/img/logo-team.png"
+                        alt="Les Irreductibles">
+                    <h4 class="versus-team__city">CRMHB</h4>
+                </div>
+            </div>
+            <div class="d-flex my-3 text-center">
+                <div class="calendar-match__date w-50">
+                    <p class="text-primary m-0">Friday 16/04</p>
+                    <p class="text-secondary m-0">à 20H30</p>
+                </div>
+                <div class="calendar-match__place">
+                    <p class="text-primary m-0">Nantes</p>
+                </div>
+                <div class="calendar-match__place w-50">
+                    <p class="text-primary m-0">H Arena</p>
+                    <p class="text-secondary m-0">Rue René Viviani
+                </div>
+            </div>
+
+                            <div class="calendar-match__result text-center">
+                    <div class="calendar-match__cta">
+                                            </div>
+                </div>
+                    </div>
+            
+        <div class="calendar-match justify-content-between align-items-center p-3 my-3 d-lg-flex d-none">
+            <div class="calendar-match__league">
+                                    <img src="https://www.cesson-handball.com/storage/cache/62b6dd61247e1c45f611541effedac95.png"
+                        alt="Liqui Moly Starligue" />
+                            </div>
+            <div class="calendar-match__day">
+                <span class="text-primary">27<sup>ème</sup></span> journée
+            </div>
+            <div class="calendar-match__versus flex-column flex-lg-row">
+                <div class="versus-team">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/img/logo-team.png"
+                        alt="Les Irreductibles">
+                    <div class="versus-team__body">
+                        <p class="versus-team__body-title">CRMHB</p>
+                    </div>
+                </div>
+                <div class="versus mx-4">VS</div>
+                <div class="versus-team">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/storage/cache/c46ef8b0fcf681362ce3285351e86836.png"
+                        alt="Tremblay Handball">
+                    <div class="versus-team__body">
+                        <p class="versus-team__body-title">Tremblay</p>
+                    </div>
+                </div>
+            </div>
+            <div class="calendar-match__date">
+                <p class="text-primary m-0">Friday 23/04</p>
+                <p class="text-secondary m-0">à 20H30</p>
+            </div>
+            <div class="calendar-match__place">
+                <p class="text-primary m-0">Cesson-Sévigné</p>
+            </div>
+            <div class="calendar-match__place">
+                <p class="text-primary m-0">Glaz Arena</p>
+                <p class="text-secondary m-0">Chemin du Bois de la Justice</p>
+            </div>
+            <div class="calendar-match__result text-center">
+                                    <div class="calendar-match__cta text-center">
+                        <span class="btn btn-primary">A venir</span>
+                        </div>
+                            </div>
+        </div>
+
+        
+        <div class="calendar-match d-sm-block d-lg-none p-2 my-3">
+            <div class="d-flex justify-content-center align-items-center">
+                <div class="versus-team text-center">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/img/logo-team.png"
+                        alt="Les Irreductibles">
+                    <h4 class="versus-team__city">CRMHB</h4>
+                </div>
+                <div class="mx-4 text-center">
+                    <div class="calendar-match__day text-primary">
+                        <span class="text-primary">27<sup>ème</sup></span> journée
+                    </div>
+                    <div class="versus">VS</div>
+                                    </div>
+                <div class="versus-team text-center">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/storage/cache/c46ef8b0fcf681362ce3285351e86836.png"
+                        alt="Tremblay Handball">
+                    <h4 class="versus-team__city">Tremblay</h4>
+                </div>
+            </div>
+            <div class="d-flex my-3 text-center">
+                <div class="calendar-match__date w-50">
+                    <p class="text-primary m-0">Friday 23/04</p>
+                    <p class="text-secondary m-0">à 20H30</p>
+                </div>
+                <div class="calendar-match__place">
+                    <p class="text-primary m-0">Cesson-Sévigné</p>
+                </div>
+                <div class="calendar-match__place w-50">
+                    <p class="text-primary m-0">Glaz Arena</p>
+                    <p class="text-secondary m-0">Chemin du Bois de la Justice
+                </div>
+            </div>
+
+                            <div class="calendar-match__result text-center">
+                    <div class="calendar-match__cta">
+                        <span class="btn btn-primary">A venir</span>
+                        </div>
+                </div>
+                    </div>
+            
+        <div class="calendar-match justify-content-between align-items-center p-3 my-3 d-lg-flex d-none">
+            <div class="calendar-match__league">
+                                    <img src="https://www.cesson-handball.com/storage/cache/62b6dd61247e1c45f611541effedac95.png"
+                        alt="Liqui Moly Starligue" />
+                            </div>
+            <div class="calendar-match__day">
+                <span class="text-primary">28<sup>ème</sup></span> journée
+            </div>
+            <div class="calendar-match__versus flex-column flex-lg-row">
+                <div class="versus-team">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/storage/cache/4d8f3007c8808ef515b2a61f0d243956.png"
+                        alt="Sélestat Handball">
+                    <div class="versus-team__body">
+                        <p class="versus-team__body-title">Sélestat</p>
+                    </div>
+                </div>
+                <div class="versus mx-4">VS</div>
+                <div class="versus-team">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/img/logo-team.png"
+                        alt="Les Irreductibles">
+                    <div class="versus-team__body">
+                        <p class="versus-team__body-title">CRMHB</p>
+                    </div>
+                </div>
+            </div>
+            <div class="calendar-match__date">
+                <p class="text-primary m-0">Friday 30/04</p>
+                <p class="text-secondary m-0">à 20H30</p>
+            </div>
+            <div class="calendar-match__place">
+                <p class="text-primary m-0">Sélestat</p>
+            </div>
+            <div class="calendar-match__place">
+                <p class="text-primary m-0">Centre Sportif Intercommunal</p>
+                <p class="text-secondary m-0">6 Avenue Adrien Zeller</p>
+            </div>
+            <div class="calendar-match__result text-center">
+                                    <div class="calendar-match__cta text-center">
+                                            </div>
+                            </div>
+        </div>
+
+        
+        <div class="calendar-match d-sm-block d-lg-none p-2 my-3">
+            <div class="d-flex justify-content-center align-items-center">
+                <div class="versus-team text-center">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/storage/cache/4d8f3007c8808ef515b2a61f0d243956.png"
+                        alt="Sélestat Handball">
+                    <h4 class="versus-team__city">Sélestat</h4>
+                </div>
+                <div class="mx-4 text-center">
+                    <div class="calendar-match__day text-primary">
+                        <span class="text-primary">28<sup>ème</sup></span> journée
+                    </div>
+                    <div class="versus">VS</div>
+                                    </div>
+                <div class="versus-team text-center">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/img/logo-team.png"
+                        alt="Les Irreductibles">
+                    <h4 class="versus-team__city">CRMHB</h4>
+                </div>
+            </div>
+            <div class="d-flex my-3 text-center">
+                <div class="calendar-match__date w-50">
+                    <p class="text-primary m-0">Friday 30/04</p>
+                    <p class="text-secondary m-0">à 20H30</p>
+                </div>
+                <div class="calendar-match__place">
+                    <p class="text-primary m-0">Sélestat</p>
+                </div>
+                <div class="calendar-match__place w-50">
+                    <p class="text-primary m-0">Centre Sportif Intercommunal</p>
+                    <p class="text-secondary m-0">6 Avenue Adrien Zeller
+                </div>
+            </div>
+
+                            <div class="calendar-match__result text-center">
+                    <div class="calendar-match__cta">
+                                            </div>
+                </div>
+                    </div>
+            
+        <div class="calendar-match justify-content-between align-items-center p-3 my-3 d-lg-flex d-none">
+            <div class="calendar-match__league">
+                                    <img src="https://www.cesson-handball.com/storage/cache/62b6dd61247e1c45f611541effedac95.png"
+                        alt="Liqui Moly Starligue" />
+                            </div>
+            <div class="calendar-match__day">
+                <span class="text-primary">29<sup>ème</sup></span> journée
+            </div>
+            <div class="calendar-match__versus flex-column flex-lg-row">
+                <div class="versus-team">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/img/logo-team.png"
+                        alt="Les Irreductibles">
+                    <div class="versus-team__body">
+                        <p class="versus-team__body-title">CRMHB</p>
+                    </div>
+                </div>
+                <div class="versus mx-4">VS</div>
+                <div class="versus-team">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/storage/cache/9640feee4164d18c681b4873855a5e67.png"
+                        alt="Chartres Handball">
+                    <div class="versus-team__body">
+                        <p class="versus-team__body-title">Chartres</p>
+                    </div>
+                </div>
+            </div>
+            <div class="calendar-match__date">
+                <p class="text-primary m-0">Thursday 13/05</p>
+                <p class="text-secondary m-0">à 20H30</p>
+            </div>
+            <div class="calendar-match__place">
+                <p class="text-primary m-0">Cesson-Sévigné</p>
+            </div>
+            <div class="calendar-match__place">
+                <p class="text-primary m-0">Glaz Arena</p>
+                <p class="text-secondary m-0">Chemin du Bois de la Justice</p>
+            </div>
+            <div class="calendar-match__result text-center">
+                                    <div class="calendar-match__cta text-center">
+                        <span class="btn btn-primary">A venir</span>
+                        </div>
+                            </div>
+        </div>
+
+        
+        <div class="calendar-match d-sm-block d-lg-none p-2 my-3">
+            <div class="d-flex justify-content-center align-items-center">
+                <div class="versus-team text-center">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/img/logo-team.png"
+                        alt="Les Irreductibles">
+                    <h4 class="versus-team__city">CRMHB</h4>
+                </div>
+                <div class="mx-4 text-center">
+                    <div class="calendar-match__day text-primary">
+                        <span class="text-primary">29<sup>ème</sup></span> journée
+                    </div>
+                    <div class="versus">VS</div>
+                                    </div>
+                <div class="versus-team text-center">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/storage/cache/9640feee4164d18c681b4873855a5e67.png"
+                        alt="Chartres Handball">
+                    <h4 class="versus-team__city">Chartres</h4>
+                </div>
+            </div>
+            <div class="d-flex my-3 text-center">
+                <div class="calendar-match__date w-50">
+                    <p class="text-primary m-0">Thursday 13/05</p>
+                    <p class="text-secondary m-0">à 20H30</p>
+                </div>
+                <div class="calendar-match__place">
+                    <p class="text-primary m-0">Cesson-Sévigné</p>
+                </div>
+                <div class="calendar-match__place w-50">
+                    <p class="text-primary m-0">Glaz Arena</p>
+                    <p class="text-secondary m-0">Chemin du Bois de la Justice
+                </div>
+            </div>
+
+                            <div class="calendar-match__result text-center">
+                    <div class="calendar-match__cta">
+                        <span class="btn btn-primary">A venir</span>
+                        </div>
+                </div>
+                    </div>
+            
+        <div class="calendar-match justify-content-between align-items-center p-3 my-3 d-lg-flex d-none">
+            <div class="calendar-match__league">
+                                    <img src="https://www.cesson-handball.com/storage/cache/62b6dd61247e1c45f611541effedac95.png"
+                        alt="Liqui Moly Starligue" />
+                            </div>
+            <div class="calendar-match__day">
+                <span class="text-primary">30<sup>ème</sup></span> journée
+            </div>
+            <div class="calendar-match__versus flex-column flex-lg-row">
+                <div class="versus-team">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/storage/cache/e415acf2dfc833e42bd47fb0471dd367.png"
+                        alt="Saran Handball">
+                    <div class="versus-team__body">
+                        <p class="versus-team__body-title">Saran</p>
+                    </div>
+                </div>
+                <div class="versus mx-4">VS</div>
+                <div class="versus-team">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/img/logo-team.png"
+                        alt="Les Irreductibles">
+                    <div class="versus-team__body">
+                        <p class="versus-team__body-title">CRMHB</p>
+                    </div>
+                </div>
+            </div>
+            <div class="calendar-match__date">
+                <p class="text-primary m-0">Wednesday 19/05</p>
+                <p class="text-secondary m-0">à 20H30</p>
+            </div>
+            <div class="calendar-match__place">
+                <p class="text-primary m-0">Orléans</p>
+            </div>
+            <div class="calendar-match__place">
+                <p class="text-primary m-0">Palais des Sports Jean Ros</p>
+                <p class="text-secondary m-0">14 rue Eugène Vignat</p>
+            </div>
+            <div class="calendar-match__result text-center">
+                                    <div class="calendar-match__cta text-center">
+                                            </div>
+                            </div>
+        </div>
+
+        
+        <div class="calendar-match d-sm-block d-lg-none p-2 my-3">
+            <div class="d-flex justify-content-center align-items-center">
+                <div class="versus-team text-center">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/storage/cache/e415acf2dfc833e42bd47fb0471dd367.png"
+                        alt="Saran Handball">
+                    <h4 class="versus-team__city">Saran</h4>
+                </div>
+                <div class="mx-4 text-center">
+                    <div class="calendar-match__day text-primary">
+                        <span class="text-primary">30<sup>ème</sup></span> journée
+                    </div>
+                    <div class="versus">VS</div>
+                                    </div>
+                <div class="versus-team text-center">
+                    <img class="versus-team__logo" src="https://www.cesson-handball.com/img/logo-team.png"
+                        alt="Les Irreductibles">
+                    <h4 class="versus-team__city">CRMHB</h4>
+                </div>
+            </div>
+            <div class="d-flex my-3 text-center">
+                <div class="calendar-match__date w-50">
+                    <p class="text-primary m-0">Wednesday 19/05</p>
+                    <p class="text-secondary m-0">à 20H30</p>
+                </div>
+                <div class="calendar-match__place">
+                    <p class="text-primary m-0">Orléans</p>
+                </div>
+                <div class="calendar-match__place w-50">
+                    <p class="text-primary m-0">Palais des Sports Jean Ros</p>
+                    <p class="text-secondary m-0">14 rue Eugène Vignat
+                </div>
+            </div>
+
+                            <div class="calendar-match__result text-center">
+                    <div class="calendar-match__cta">
+                                            </div>
+                </div>
+                    </div>
+    
+    </div>
+            </div>
+        </section>
+            </main>
+        <footer class="footer">
+            <div class="footer__main">
+    <div class="container-fluid">
+        <div class="footer-title">
+            <a class="footer-title__brand" href="https://www.cesson-handball.com">
+                <img src="https://www.cesson-handball.com/img/logo.png" alt="Cesson Rennes Métropole Handball">
+            </a>
+            <div class="footer-title__body">
+                <h3>Cesson Rennes Métropole Handball</h3>
+                <span class="footer-title__contact">Contact</span>
+            </div>
+        </div>
+        <div class="footer-body">
+            <div class="row">
+                                    <div class="col-lg-3 mb-5">
+    <h4>Secteur Pro</h4>
+
+            <div class="person">
+                            <h5 class="person__function">
+                    Responsable administratif
+                </h5>
+                                        <p class="person__name">Nicolas LEMONNE</p>
+                                        <p class="person__contact">
+                    nicolas.lemonne@cesson-handball.com<br>
+                    07 89 31 50 25
+                </p>
+                    </div>
+            <div class="person">
+                            <h5 class="person__function">
+                    Chargée Promotion-Marketing - Billetterie
+                </h5>
+                                        <p class="person__name">Anne-Laure MARCHAND</p>
+                                        <p class="person__contact">
+                    anne-laure@cesson-handball.com<br>
+                    06 69 97 68 39 / 02 23 45 07 19
+                </p>
+                    </div>
+            <div class="person">
+                            <h5 class="person__function">
+                    Chargé Clientèle Entreprises
+                </h5>
+                                        <p class="person__name">Gabin CLÉMENCEAU</p>
+                                        <p class="person__contact">
+                    gabin.clemenceau@cesson-handball.com<br>
+                    06 73 26 97 35
+                </p>
+                    </div>
+            <div class="person">
+                            <h5 class="person__function">
+                    Chargé Clientèle Entreprises
+                </h5>
+                                        <p class="person__name">Olivier LAZ</p>
+                                        <p class="person__contact">
+                    olivier.laz@cesson-handball.com<br>
+                    06 70 45 94 23
+                </p>
+                    </div>
+            <div class="person">
+                            <h5 class="person__function">
+                    Chargé de communication
+                </h5>
+                                        <p class="person__name">Corentin JOUHIER</p>
+                                        <p class="person__contact">
+                    corentin.jouhier@cesson-handball.com<br>
+                    06 75 14 09 76
+                </p>
+                    </div>
+    </div>
+                                <div class="col-lg-3 mb-5">
+                    <h4>La Glaz Arena</h4>
+                    <div class="footer__place-photo">
+                        <img src="https://www.cesson-handball.com/img/glaz-arena-v2.jpg" alt="Chemin du Bois de la Justice, 35510 CESSON-SEVIGNE">
+                    </div>
+                    <div class="footer__address">
+                        <i class="ch-icon ch-icon-google-map"></i>
+                        <p>Chemin du Bois de la Justice<br>35510 CESSON-SEVIGNE</p>
+                    </div>
+                    <a class="btn btn-primary" href="https://www.cesson-handball.com/billetterie">Réserver</a>
+                </div>
+                                    <div class="col-lg-3 mb-5">
+    <h4>Secteur Amateur</h4>
+
+            <div class="person">
+                            <h5 class="person__function">
+                    Suivi social et administratif du centre de formation / Entraîneur jeunes
+                </h5>
+                                        <p class="person__name">Benjamin BOUTHEMY</p>
+                                        <p class="person__contact">
+                    bouthemy.handball@gmail.com<br>
+                    06 76 20 00 41
+                </p>
+                    </div>
+            <div class="person">
+                            <h5 class="person__function">
+                    Chargé de Communication (Secteur Amateur)
+                </h5>
+                                        <p class="person__name">Raphaël DOUCOURÉ</p>
+                                        <p class="person__contact">
+                    raphaeldoucoure.crmhb@gmail.com<br>
+                    
+                </p>
+                    </div>
+    </div>
+                            </div>
+        </div>
+    </div>
+</div>
+<div class="footer__nav bg-primary text-white">
+    <div class="container-fluid">
+        <div class="d-lg-flex align-items-center">
+            <ul class="nav flex-column flex-lg-row mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link text-center" href="https://www.cesson-handball.com/mentions-legales">Mentions légales</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-center" href="https://www.cesson-handball.com/conditions-generales-de-ventes">CGV</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-center" href="https://www.cesson-handball.com/contact">Contact</a>
+                </li>
+            </ul>
+            <div class="d-none d-lg-inline-block">
+                <span class="copyright d-inline-block mr-4">Copyright <strong>CRMHB 2026-27</strong></span>
+                <span class="useweb d-inline-block">Conception <strong><a href="https://www.useweb.fr" target="_blank">Useweb</a></strong></span>
+            </div>
+        </div>
+    </div>
+</div>
+        </footer>
+
+        
+                    <div id="area">
+    <div class="popup">
+        <div id="imgB">
+            <a href="https://offres.useweb.fr/nanosites?utm_source=display-crmhb&amp;utm_medium=display&amp;utm_campaign=banniere-site" target="_blank">
+                <img id="imgPopup" src="https://www.cesson-handball.com/storage/cache/5fc2bfc8249d9a72e25eaa636f4ae697.jpeg">
+            </a>
+        </div>
+        <button id="popup__close" class="close-button">x</button>
+    </div>
+</div>
+
+            </div>
+
+    <script type="application/json" data-settings-selector="settings-json">
+        {"rankingUrl":"https:\/\/www.cesson-handball.com\/ranking"}
+    </script>
+        <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let close = document.getElementById('popup__close');
+            close.addEventListener("click", function() {
+                let area = document.getElementById('area');
+                area.classList.add('hidePopup');
+            });
+        });
+    </script>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.js"></script>
+    <script>
+        window.addEventListener("load", function() {
+            window.cookieconsent.initialise({
+                "palette": {
+                    "popup": {
+                        "background": "#283593",
+                        "text": "#fff"
+                    },
+                    "button": {
+                        "background": "#ff1d6a",
+                        "text": "#fff"
+                    }
+                },
+                "theme": "edgeless",
+                "content": {
+                    "message": "Ce site utilise des cookies pour vous garantir la meilleure expérience sur notre site.",
+                    "dismiss": "J'ai compris !",
+                    "link": "En savoir plus",
+                    "href": "/mentions-legales",
+                    "target": "_self"
+                }
+            })
+        });
+    </script>
+</body>
+
+</html>
