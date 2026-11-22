@@ -29,7 +29,8 @@ pratique de Cesson-Sévigné à partir de données publiques. Aucun compte, aucu
   pollens et pollution, passage du bus, **trains habituels** (retard de 5 min ou plus, suppression) et **spectacles
   favoris** (rappel la veille).
 - **Guide de démarrage** : vos déplacements (voiture, bus et métro, train) règlent l'accueil et l'onglet Bouger ;
-  cartes compactes ou détaillées ; tous les onglets se réordonnent.
+  cartes compactes ou détaillées ; cartes de l'accueil, de Sortir (et vos équipements) et d'Environnement (avec le rappel
+  de collecte et les alertes) ; tous les onglets se réordonnent.
 
 ## Backend (collecteurs Python → fichiers JSON statiques)
 

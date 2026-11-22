@@ -63,23 +63,26 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.yogistudio.cesson.CessonApp
 import com.yogistudio.cesson.core.donnees.EtatModule
-import com.yogistudio.cesson.core.preferences.ACCUEIL
 import com.yogistudio.cesson.core.preferences.ConfigAccueil
 import com.yogistudio.cesson.core.preferences.ordonnerTuiles
 import com.yogistudio.cesson.pratique.CARBURANT_PAR_DEFAUT
 import com.yogistudio.cesson.pratique.carburants
 import com.yogistudio.cesson.pratique.carburantsProposes
+import com.yogistudio.cesson.rappels.ReglageAlerteEpisodes
+import com.yogistudio.cesson.rappels.ReglageAlertePollens
+import com.yogistudio.cesson.rappels.ReglageAlerteVigilance
 import com.yogistudio.cesson.rappels.ReglageRappelCollecte
 import com.yogistudio.cesson.transport.ChoixArret
 import com.yogistudio.cesson.transport.ChoixDestination
 import com.yogistudio.cesson.transport.lignesStar
 import kotlinx.coroutines.launch
 
-private const val NB_ETAPES = 6
+private const val NB_ETAPES = 7
 
 /**
  * Guide de démarrage, au premier lancement puis depuis le menu : bienvenue, déplacements (voiture, bus et métro,
- * train, avec leurs réglages), cartes compactes ou détaillées, cartes de l'accueil, réglages personnels. Chaque choix est enregistré aussitôt (sur le téléphone) : « Passer » à
+ * train, avec leurs réglages), cartes compactes ou détaillées, cartes de l'accueil, sorties (cartes de l'onglet Sortir et
+ * équipements), environnement (cartes de l'onglet Environnement, rappel de collecte et alertes). Chaque choix est enregistré aussitôt (sur le téléphone) : « Passer » à
  * n'importe quelle étape garde ce qui a déjà été choisi.
  */
 @Composable
@@ -101,7 +104,8 @@ fun EcranGuide(app: CessonApp, onTerminer: () -> Unit) {
                 1 -> EtapeDeplacements(app)
                 2 -> EtapeCartes(app)
                 3 -> EtapeAccueil(app)
-                4 -> EtapeReglages(app)
+                4 -> EtapeSorties(app)
+                5 -> EtapeEnvironnement(app)
                 else -> EtapeFin()
             }
         }
@@ -342,38 +346,57 @@ private fun ChoixCartes(
 
 @Composable
 private fun EtapeAccueil(app: CessonApp) {
-    val portee = rememberCoroutineScope()
-    val config by remember { app.preferences.configOnglet(ACCUEIL) }.collectAsState(initial = null)
-    val cfg = config ?: return
-    val ordre = ordonnerTuiles(ONGLET_ACCUEIL.tuiles.map { it.id }, cfg.ordre)
     TitreEtape("Votre accueil")
     Text("Gardez les cartes qui vous servent. Les autres restent disponibles dans les onglets.",
         style = MaterialTheme.typography.bodyLarge)
-    ordre.mapNotNull { id -> ONGLET_ACCUEIL.tuiles.firstOrNull { it.id == id } }.forEach { tuile ->
+    ChoixTuiles(app, ONGLET_ACCUEIL)
+}
+
+/** Cartes de l'onglet Sortir, rappels par l'étoile, et équipements suivis (carte Équipements du même onglet). */
+@Composable
+private fun EtapeSorties(app: CessonApp) {
+    TitreEtape("Vos sorties")
+    Text("Les cartes de l'onglet Sortir : gardez celles qui vous intéressent.", style = MaterialTheme.typography.bodyLarge)
+    ChoixTuiles(app, ONGLET_SORTIR)
+    Text("Touchez l'étoile d'un spectacle ou d'un match de handball pour recevoir un rappel la veille à 18h.",
+        style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+
+    SousTitre("Mes équipements")
+    Text("Piscine, médiathèque, golf… Ceux que vous gardez s'affichent dans la carte Équipements, avec leurs horaires du jour.",
+        style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+    ReglageEquipements(app)
+}
+
+/** Un interrupteur par carte de l'onglet, dans l'ordre choisi ; masquer une carte l'enregistre aussitôt. */
+@Composable
+private fun ChoixTuiles(app: CessonApp, onglet: OngletTuiles) {
+    val portee = rememberCoroutineScope()
+    val config by remember(onglet.id) { app.preferences.configOnglet(onglet.id) }.collectAsState(initial = null)
+    val cfg = config ?: return
+    val ordre = ordonnerTuiles(onglet.tuiles.map { it.id }, cfg.ordre)
+    ordre.mapNotNull { id -> onglet.tuiles.firstOrNull { it.id == id } }.forEach { tuile ->
         val visible = tuile.id !in cfg.masquees
         LigneInterrupteur(tuile.titre, visible) { afficher ->
             val m = if (afficher) cfg.masquees - tuile.id else cfg.masquees + tuile.id
-            portee.launch { app.preferences.enregistrerOnglet(ACCUEIL, ConfigAccueil(ordre, m)) }
+            portee.launch { app.preferences.enregistrerOnglet(onglet.id, ConfigAccueil(ordre, m)) }
         }
     }
 }
 
+/** Cartes de l'onglet Environnement, puis les notifications qui vont avec (toutes calculées sur le téléphone). */
 @Composable
-private fun EtapeReglages(app: CessonApp) {
-    val portee = rememberCoroutineScope()
-    TitreEtape("Vos réglages")
-    Text("Facultatif : ils personnalisent les cartes. Ils restent sur votre téléphone.",
-        style = MaterialTheme.typography.bodyLarge)
+private fun EtapeEnvironnement(app: CessonApp) {
+    TitreEtape("Votre environnement")
+    Text("Les cartes de l'onglet Environnement : gardez celles qui vous intéressent.", style = MaterialTheme.typography.bodyLarge)
+    ChoixTuiles(app, ONGLET_ENVIRONNEMENT)
 
-    // Mes équipements
-    SousTitre("Mes équipements")
-    Text("Ceux que vous gardez s'affichent dans la carte Équipements de l'onglet Sortir.",
+    SousTitre("Vos alertes")
+    Text("Facultatives. Elles sont calculées sur votre téléphone, sans compte.",
         style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
-    ReglageEquipements(app)
-
-    // Rappel de collecte
-    SousTitre("Ma collecte de déchets")
     ReglageRappelCollecte(app)
+    ReglageAlerteVigilance(app)
+    ReglageAlertePollens(app)
+    ReglageAlerteEpisodes(app)
 }
 
 @Composable
