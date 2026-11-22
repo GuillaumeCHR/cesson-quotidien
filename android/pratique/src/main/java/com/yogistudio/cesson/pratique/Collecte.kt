@@ -9,6 +9,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import java.time.Instant
 import java.time.LocalDate
+import java.time.LocalTime
 import java.time.format.TextStyle
 import java.util.Locale
 
@@ -64,18 +65,18 @@ fun avisEnCours(d: DonneesCollecte, maintenant: Instant): List<AvisCollecte> {
 }
 
 /** Heure du rappel de la veille (notification). */
-const val HEURE_RAPPEL = 19
+val HEURE_RAPPEL: LocalTime = LocalTime.of(17, 30)
 
-/** Prochain rappel strictement après [maintenant] : la veille d'un passage, à 19h. */
+/** Prochain rappel strictement après [maintenant] : la veille d'un passage, à 17h30. */
 fun prochainRappel(d: DonneesCollecte, maintenant: Instant): Instant? =
     d.passages.map { it.date }.distinct().sorted()
-        .map { it.minusDays(1).atTime(HEURE_RAPPEL, 0).atZone(FuseauCesson).toInstant() }
+        .map { it.minusDays(1).atTime(HEURE_RAPPEL).atZone(FuseauCesson).toInstant() }
         .firstOrNull { it.isAfter(maintenant) }
 
-/** Bacs à rappeler maintenant : collecte demain, et il est 19h passées (jusqu'à minuit). */
+/** Bacs à rappeler maintenant : collecte demain, et il est 17h30 passées (jusqu'à minuit). */
 fun bacsARappeler(d: DonneesCollecte, maintenant: Instant): List<FluxCollecte> {
     val z = maintenant.atZone(FuseauCesson)
-    if (z.hour < HEURE_RAPPEL) return emptyList()
+    if (z.toLocalTime() < HEURE_RAPPEL) return emptyList()
     val demain = z.toLocalDate().plusDays(1)
     return d.flux.filter { f -> d.passages.any { it.flux == f.id && it.date == demain } }
 }

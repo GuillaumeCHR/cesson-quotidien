@@ -32,7 +32,7 @@ import java.time.Instant
 import java.util.concurrent.TimeUnit
 
 /**
- * Rappel de collecte la veille à 19h, calculé sur le téléphone à partir du calendrier en cache :
+ * Rappel de collecte la veille à 17h30, calculé sur le téléphone à partir du calendrier en cache :
  * aucun serveur ne sait qui reçoit quoi. WorkManager réveille l'app à l'heure prévue (à quelques
  * minutes près, selon la mise en veille d'Android) ; chaque passage planifie le suivant.
  */

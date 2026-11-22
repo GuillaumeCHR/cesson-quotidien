@@ -28,13 +28,13 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.yogistudio.cesson.CessonApp
 import kotlinx.coroutines.launch
 
-/** Interrupteur « Me le rappeler la veille à 19h », avec la demande de permission d'Android 13+. */
+/** Interrupteur « Me le rappeler la veille à 17h30 », avec la demande de permission d'Android 13+. */
 @Composable
 fun ReglageRappelCollecte(app: CessonApp) {
     val context = LocalContext.current
     val portee = rememberCoroutineScope()
     val actif by app.preferences.rappelCollecteActif.collectAsStateWithLifecycle(false)
-    InterrupteurNotification("Me le rappeler la veille à 19h", "Notification calculée sur le téléphone, sans serveur.", actif) { valeur ->
+    InterrupteurNotification("Me le rappeler la veille à 17h30", "Notification calculée sur le téléphone, sans serveur.", actif) { valeur ->
         portee.launch {
             app.preferences.activerRappelCollecte(valeur)
             RappelsCollecte.planifier(context)
