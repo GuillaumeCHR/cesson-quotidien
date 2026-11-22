@@ -15,6 +15,8 @@ data class DonneesCirculation(
     @SerialName("axes_cesson") val axesCesson: List<AxeCesson> = emptyList(),
     /** Tracés de la rocade est et des axes de Cesson, du moins au plus chargé (le plus grave se dessine par-dessus). */
     val troncons: List<TronconTrace> = emptyList(),
+    /** Même principe à l'échelle de Rennes et de sa première couronne : rocade entière, voies rapides, grands axes. */
+    @SerialName("troncons_metropole") val tronconsMetropole: List<TronconTrace> = emptyList(),
 )
 
 /** Un tronçon et son tracé : points [lon, lat]. La rocade est dessinée plus épaisse que les rues de Cesson. */

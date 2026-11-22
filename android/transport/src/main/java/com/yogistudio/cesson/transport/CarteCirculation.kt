@@ -37,8 +37,8 @@ private fun ton(e: EtatTrafic) = when (e) {
 /**
  * Circulation : rocade est de Rennes (le long de Cesson), dans les deux sens, avec les ralentissements situés entre
  * deux portes ; puis les axes de Cesson : en compact, ceux qui ne sont pas fluides ; en détaillé, tous, du plus chargé
- * au plus fluide (les non mesurés en dernier). Un plan de Cesson (plus petit en compact) les montre en
- * couleur au-dessus du texte. Données de Rennes Métropole, relues toutes les 3 min.
+ * au plus fluide (les non mesurés en dernier). Un plan de Rennes et de sa couronne, Cesson mise en évidence (plus petit
+ * en compact), montre en couleur la rocade entière et les grands axes au-dessus du texte. Données de Rennes Métropole, relues toutes les 3 min.
  */
 @Composable
 fun CarteCirculation(etat: EtatModule<DonneesCirculation>, modifier: Modifier = Modifier) {
@@ -53,7 +53,7 @@ fun CarteCirculation(etat: EtatModule<DonneesCirculation>, modifier: Modifier = 
                 // Compact : la rocade (deux sens, sans le détail des portes), puis « Dans Cesson » : 3 axes au plus, sans vitesses.
                 val compact = LocalCompact.current
                 Column(verticalArrangement = Arrangement.spacedBy(if (compact) 6.dp else 10.dp)) {
-                    // Le plan de Cesson, chaque tronçon dans la couleur de son état ; en compact, plus petit.
+                    // Le plan, chaque tronçon dans la couleur de son état ; en compact, plus petit.
                     if (d.troncons.isNotEmpty()) PlanCirculation(d, compact = compact)
                     if (!compact) Text("Rocade est de Rennes", style = MaterialTheme.typography.titleSmall, modifier = Modifier.semantics { heading() })
                     d.rocadeEst.forEach { s -> LigneSens(if (compact) s.copy(ralentissements = emptyList()) else s) }

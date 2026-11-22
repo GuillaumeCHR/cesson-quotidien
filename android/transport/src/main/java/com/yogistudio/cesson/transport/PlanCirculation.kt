@@ -2,6 +2,7 @@ package com.yogistudio.cesson.transport
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.material3.MaterialTheme
@@ -15,11 +16,13 @@ import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.StrokeJoin
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.graphics.drawscope.clipRect
 import androidx.compose.ui.graphics.drawscope.translate
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.unit.dp
 import com.yogistudio.cesson.core.carte.CarteCesson
+import com.yogistudio.cesson.core.carte.CarteRennes
 import com.yogistudio.cesson.core.ui.LocalSombre
 import com.yogistudio.cesson.core.ui.Palette
 import kotlin.math.min
@@ -44,11 +47,14 @@ private fun epaisseur(e: EtatTrafic, rocade: Boolean = false) = (if (rocade) 2f 
 /** Tracés projetés sur la carte de Cesson (coordonnées x, y à plat, comme CarteCesson). */
 private class TraceProjete(val etat: EtatTrafic, val rocade: Boolean, val xy: FloatArray)
 
-private fun projeter(troncons: List<TronconTrace>): List<TraceProjete> = troncons.mapNotNull { t ->
+private fun projeter(
+    troncons: List<TronconTrace>,
+    projection: (Double, Double) -> Pair<Float, Float> = CarteCesson::projeter,
+): List<TraceProjete> = troncons.mapNotNull { t ->
     if (t.points.size < 2) return@mapNotNull null
     val xy = FloatArray(t.points.size * 2)
     t.points.forEachIndexed { i, p ->
-        val (x, y) = CarteCesson.projeter(p[0], p[1])
+        val (x, y) = projection(p[0], p[1])
         xy[2 * i] = x
         xy[2 * i + 1] = y
     }
@@ -72,6 +78,10 @@ private fun chemin(xy: FloatArray, echelle: Float, ferme: Boolean) = Path().appl
  */
 @Composable
 fun PlanCirculation(d: DonneesCirculation, modifier: Modifier = Modifier, compact: Boolean = false) {
+    if (d.tronconsMetropole.isNotEmpty()) {
+        PlanMetropole(d.tronconsMetropole, modifier, compact)
+        return
+    }
     val sombre = LocalSombre.current
     val schema = MaterialTheme.colorScheme
     // Compact : plus petit, et seulement les tronçons mesurés (les non mesurés brouilleraient le dessin à cette taille).
@@ -81,13 +91,7 @@ fun PlanCirculation(d: DonneesCirculation, modifier: Modifier = Modifier, compac
     val hauteur = if (compact) 80.dp else 130.dp
     val bleu = if (sombre) Color(0xFF9DCAF0) else Palette.BleuVilaine
     val inconnu = schema.outline
-    val resume = remember(d.troncons) {
-        val n = d.troncons.groupingBy { it.etat }.eachCount()
-        listOfNotNull(
-            n[EtatTrafic.BLOQUE]?.let { "$it bloqués" }, n[EtatTrafic.SATURE]?.let { "$it saturés" },
-            n[EtatTrafic.DENSE]?.let { "$it denses" }, n[EtatTrafic.FLUIDE]?.let { "$it fluides" },
-        ).joinToString(", ").ifEmpty { "aucun tronçon mesuré" }
-    }
+    val resume = remember(d.troncons) { resumer(d.troncons) }
     Box(modifier.fillMaxWidth().height(hauteur), contentAlignment = Alignment.Center) {
         Canvas(
             Modifier.fillMaxWidth().height(hauteur).clearAndSetSemantics {
@@ -107,6 +111,68 @@ fun PlanCirculation(d: DonneesCirculation, modifier: Modifier = Modifier, compac
                 traces.forEach { t ->
                     drawPath(chemin(t.xy, echelle, ferme = false), couleur(t.etat, sombre, inconnu),
                         style = Stroke(epaisseur(t.etat, t.rocade).dp.toPx(), cap = StrokeCap.Round, join = StrokeJoin.Round))
+                }
+            }
+        }
+    }
+}
+
+private fun resumer(troncons: List<TronconTrace>): String {
+    val n = troncons.groupingBy { it.etat }.eachCount()
+    return listOfNotNull(
+        n[EtatTrafic.BLOQUE]?.let { "$it bloqués" }, n[EtatTrafic.SATURE]?.let { "$it saturés" },
+        n[EtatTrafic.DENSE]?.let { "$it denses" }, n[EtatTrafic.FLUIDE]?.let { "$it fluides" },
+    ).joinToString(", ").ifEmpty { "aucun tronçon mesuré" }
+}
+
+/**
+ * Plan de Rennes et de sa première couronne : limites des communes, Cesson-Sévigné teintée et cernée, Vilaine et Ille
+ * en bleu, puis la rocade entière, les voies rapides et les grands axes de la métropole (et les rues de Cesson) dans
+ * la couleur de leur état. Les voies rapides sont épaisses, les rues fines.
+ */
+@Composable
+private fun PlanMetropole(troncons: List<TronconTrace>, modifier: Modifier, compact: Boolean) {
+    val sombre = LocalSombre.current
+    val schema = MaterialTheme.colorScheme
+    val traces = remember(troncons, compact) {
+        projeter(if (compact) troncons.filter { it.etat != EtatTrafic.INCONNU } else troncons, CarteRennes::projeter)
+    }
+    val bleu = if (sombre) Color(0xFF9DCAF0) else Palette.BleuVilaine
+    val inconnu = schema.outline.copy(alpha = 0.6f)
+    val resume = remember(troncons) { resumer(troncons) }
+    val taille = if (compact) Modifier.height(110.dp) else Modifier.aspectRatio(CarteRennes.LARGEUR / CarteRennes.HAUTEUR)
+    Canvas(
+        modifier.fillMaxWidth().then(taille).clearAndSetSemantics {
+            contentDescription = "Plan de la circulation à Rennes et autour, Cesson-Sévigné mise en évidence : $resume. " +
+                "Le résumé suit en texte."
+        },
+    ) {
+        val echelle = min(size.width / CarteRennes.LARGEUR, size.height / CarteRennes.HAUTEUR)
+        val origine = Offset((size.width - CarteRennes.LARGEUR * echelle) / 2, (size.height - CarteRennes.HAUTEUR * echelle) / 2)
+        clipRect {
+            translate(origine.x, origine.y) {
+                val trait = Stroke(0.75.dp.toPx(), join = StrokeJoin.Round)
+                CarteRennes.communes.forEach { c ->
+                    val contour = chemin(c.contour, echelle, ferme = true)
+                    when (c.insee) {
+                        CarteRennes.INSEE_CESSON -> {
+                            drawPath(contour, schema.primary.copy(alpha = if (sombre) 0.22f else 0.14f))
+                            drawPath(contour, schema.primary, style = Stroke(1.5.dp.toPx(), join = StrokeJoin.Round))
+                        }
+                        CarteRennes.INSEE_RENNES -> {
+                            drawPath(contour, schema.surfaceVariant.copy(alpha = 0.6f))
+                            drawPath(contour, schema.outline.copy(alpha = 0.7f), style = trait)
+                        }
+                        else -> drawPath(contour, schema.outlineVariant, style = trait)
+                    }
+                }
+                CarteRennes.rivieres.forEach {
+                    drawPath(chemin(it, echelle, ferme = false), bleu,
+                        style = Stroke(1.25.dp.toPx(), cap = StrokeCap.Round, join = StrokeJoin.Round))
+                }
+                traces.forEach { t ->
+                    drawPath(chemin(t.xy, echelle, ferme = false), couleur(t.etat, sombre, inconnu),
+                        style = Stroke(epaisseur(t.etat, t.rocade).dp.toPx() * 0.8f, cap = StrokeCap.Round, join = StrokeJoin.Round))
                 }
             }
         }

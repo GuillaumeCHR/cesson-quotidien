@@ -116,6 +116,15 @@ dl.detail dd { margin: 0; }
 .plan-circulation * { vector-effect: non-scaling-stroke; }
 .plan-commune { fill: var(--neutre); fill-opacity: .6; stroke: var(--doux); stroke-width: 1; stroke-linejoin: round; }
 .plan-vilaine { fill: none; stroke: var(--bleu); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+/* Plan de Rennes et de sa couronne : toute la largeur, en proportion du cadre ; débordements coupés. */
+.plan-circulation.metropole { height: auto; aspect-ratio: 1000 / 676; overflow: hidden; }
+.plan-circulation.metropole.compact { height: 110px; aspect-ratio: auto; }
+.plan-voisine { fill: none; stroke: var(--trait); stroke-width: .75; stroke-linejoin: round; }
+.plan-rennes { fill: var(--neutre); fill-opacity: .6; stroke: var(--doux); stroke-opacity: .5; stroke-width: .75; stroke-linejoin: round; }
+.plan-cesson { fill: var(--primaire); fill-opacity: .14; stroke: var(--primaire); stroke-width: 1.5; stroke-linejoin: round; }
+.plan-vilaine.riviere { stroke-width: 1.25; }
+.metropole .plan-trafic { stroke-width: calc(var(--e) * .8px); }
+.metropole .plan-trafic.rocade { stroke-width: calc(var(--e) * 1.6px); }
 .plan-trafic { fill: none; stroke-linecap: round; stroke-linejoin: round; --e: 1.5; stroke-width: calc(var(--e) * 1px); }
 .plan-trafic.rocade { stroke-width: calc(var(--e) * 2px); }
 .plan-trafic.fluide { stroke: var(--trafic-fluide); }

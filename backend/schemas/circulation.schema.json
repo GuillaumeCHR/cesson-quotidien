@@ -60,6 +60,14 @@
           },
           "title": "Troncons",
           "type": "array"
+        },
+        "troncons_metropole": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/Troncon"
+          },
+          "title": "Troncons Metropole",
+          "type": "array"
         }
       },
       "required": [

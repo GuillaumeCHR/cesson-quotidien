@@ -108,6 +108,20 @@ def test_traces_pour_le_plan():
     assert sum(len(t.points) for t in d.troncons) < 2343 / 3
 
 
+def test_traces_pour_le_plan_de_la_metropole():
+    # Une voie rapide de l'ouest de Rennes et un grand axe du centre s'ajoutent à la rocade et aux rues de Cesson.
+    brut = copie()
+    voie_rapide = {**brut[0], "denomination": "Route nationale 24", "insee": 35238, "hierarchie": "Réseau national"}
+    centre = {**brut[0], "denomination": "Boulevard de la Liberté", "insee": 35238, "hierarchie": "Réseau d'armature"}
+    d = CollecteurCirculation().convertir(brut + [voie_rapide, centre], MAINTENANT)
+    assert len(d.troncons) == 316  # le plan de Cesson ne change pas
+    assert len(d.troncons_metropole) == len(brut) + 2
+    rocade = [t for t, b in zip(d.troncons_metropole, brut) if b["denomination"] == "Route nationale 136"]
+    assert sum(t.rocade for t in d.troncons_metropole) >= len(rocade) + 1  # voie rapide épaisse
+    gravites = [GRAVITE.index(t.etat) for t in d.troncons_metropole]
+    assert gravites == sorted(gravites)
+
+
 def test_simplifier_garde_les_extremites_et_les_virages():
     droite = [[-1.6, 48.1], [-1.59995, 48.1], [-1.5999, 48.1]]
     assert simplifier(droite) == [[-1.6, 48.1], [-1.5999, 48.1]]

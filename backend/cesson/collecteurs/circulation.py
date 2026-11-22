@@ -7,7 +7,9 @@ Le jeu ne nomme pas les échangeurs de la rocade : chaque tronçon est situé en
 proches (positions relevées dans OpenStreetMap). Le sens est déduit de la géométrie : en circulation à droite,
 la rocade intérieure tourne dans le sens des aiguilles d'une montre.
 
-Pour le plan de la carte, chaque tronçon garde aussi son tracé, simplifié (à quelques mètres près) et arrondi.
+Pour le plan de la carte, chaque tronçon garde aussi son tracé, simplifié (à quelques mètres près) et arrondi :
+`troncons` pour le plan de Cesson (rocade est et rues de Cesson), `troncons_metropole` pour le plan de Rennes et de
+sa première couronne (rocade entière, voies rapides, grands axes et boulevards de Rennes, plus les rues de Cesson).
 """
 
 from __future__ import annotations
@@ -29,6 +31,10 @@ INSEE_CESSON = 35051
 CENTRE_RENNES = (48.1113, -1.6800)
 # La rocade est : les tronçons à l'est de cette longitude (Porte des Longs Champs à Porte des Loges).
 LONGITUDE_EST = -1.632
+# Grands axes de la métropole pour le plan élargi (hiérarchie du jeu : voies rapides, routes départementales,
+# boulevards et radiales de Rennes) ; le réseau national est tracé épais.
+NATIONAL, ARMATURE, PRINCIPAL = "Réseau national", "Réseau d'armature", "Réseau de distribution principale"
+TOLERANCE_METROPOLE = 0.0002  # degrés, une quinzaine de mètres : invisible à l'échelle de la métropole
 
 # Portes de la rocade est, dans le sens des aiguilles d'une montre (OpenStreetMap, highway=motorway_junction).
 PORTES = [
@@ -86,6 +92,8 @@ class DonneesCirculation(Modele):
     axes_cesson: list[Axe]  # du plus chargé au plus fluide
     # Tracés de la rocade est et des axes de Cesson, du moins au plus chargé : le plus grave se dessine par-dessus.
     troncons: list[Troncon] = []
+    # Même principe à l'échelle de la métropole : rocade entière et voies rapides (épaisses), grands axes, rues de Cesson.
+    troncons_metropole: list[Troncon] = []
 
 
 TOLERANCE_TRACE = 0.00008  # degrés, de 6 à 9 m : invisible à l'échelle de la commune
@@ -179,8 +187,9 @@ class CollecteurCirculation(Collecteur[DonneesCirculation]):
 
     def telecharger(self, client: httpx.Client) -> Any:
         r = obtenir_rennes(client, URL, params={
-            "where": f'denomination="{ROCADE}" or insee={INSEE_CESSON}',
-            "select": "datetime,averagevehiclespeed,trafficstatus,traveltimereliability,denomination,insee,geo_shape",
+            "where": f'denomination="{ROCADE}" or insee={INSEE_CESSON} or hierarchie in ("{NATIONAL}", "{ARMATURE}", "{PRINCIPAL}")',
+            "select": "datetime,averagevehiclespeed,trafficstatus,traveltimereliability,denomination,insee,hierarchie,"
+                      "geo_shape",
         })
         try:
             return r.json()
@@ -240,7 +249,15 @@ class CollecteurCirculation(Collecteur[DonneesCirculation]):
                  for nom, v in axes.items() if not nom.startswith("Rond-point")]
         liste.sort(key=lambda a: (-GRAVITE.index(a.etat), a.nom))
         traces.sort(key=lambda t: GRAVITE.index(t.etat))
-        return DonneesCirculation(mesure_le=mesure, rocade_est=rocade, axes_cesson=liste, troncons=traces)
+        metropole = [
+            Troncon(etat=etat(t), rocade=t["denomination"] == ROCADE or t.get("hierarchie") == NATIONAL,
+                    points=simplifier(t["geo_shape"]["geometry"]["coordinates"],
+                                      TOLERANCE_TRACE if t.get("insee") == INSEE_CESSON else TOLERANCE_METROPOLE))
+            for t in brut
+        ]
+        metropole.sort(key=lambda t: GRAVITE.index(t.etat))
+        return DonneesCirculation(mesure_le=mesure, rocade_est=rocade, axes_cesson=liste, troncons=traces,
+                                  troncons_metropole=metropole)
 
     def valide_jusqu_a(self, donnees: DonneesCirculation, maintenant: datetime) -> datetime:
         # Le trafic change vite : la carte passe en « données anciennes » après deux collectes manquées.
