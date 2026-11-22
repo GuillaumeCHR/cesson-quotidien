@@ -1,6 +1,6 @@
 """Conditions de circulation : rocade de Rennes à l'est (RN136, le long de Cesson) et axes de Cesson-Sévigné.
 
-Source : « État du trafic en temps réel » de Rennes Métropole (données FCD, Licence Ouverte), mis à jour
+Source : « État du trafic en temps réel » de Rennes Métropole (données FCD, ODbL), mis à jour
 chaque minute, un enregistrement par tronçon et par sens : vitesse moyenne et état (fluide, dense, saturé).
 
 Le jeu ne nomme pas les échangeurs de la rocade : chaque tronçon est situé entre les deux portes les plus
@@ -18,7 +18,8 @@ from typing import Any
 
 import httpx
 
-from ..commun.collecteur import Collecteur, ErreurValidation, obtenir
+from ..commun.collecteur import Collecteur, ErreurValidation
+from ..commun.rennes_metropole import obtenir_rennes
 from ..commun.horaires import PARIS, heure_de_pointe
 from ..commun.modele import Modele
 
@@ -171,13 +172,13 @@ def vitesse_moyenne(troncons: list[tuple[int | None, float]]) -> int | None:
 class CollecteurCirculation(Collecteur[DonneesCirculation]):
     module = "circulation"
     source = "Rennes Métropole, état du trafic en temps réel"
-    licence = "Licence Ouverte 2.0 ; positions des portes : OpenStreetMap (ODbL)"
+    licence = "ODbL (Rennes Métropole et positions des portes OpenStreetMap)"
     url_source = "https://data.rennesmetropole.fr/explore/dataset/etat-du-trafic-en-temps-reel/"
     fraicheur = timedelta(minutes=30)  # la plus longue des cadences (la nuit) ; voir deploy/crontab
     modele_donnees = DonneesCirculation
 
     def telecharger(self, client: httpx.Client) -> Any:
-        r = obtenir(client, URL, params={
+        r = obtenir_rennes(client, URL, params={
             "where": f'denomination="{ROCADE}" or insee={INSEE_CESSON}',
             "select": "datetime,averagevehiclespeed,trafficstatus,traveltimereliability,denomination,insee,geo_shape",
         })

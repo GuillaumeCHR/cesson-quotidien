@@ -6,7 +6,7 @@ Cesson (module trains), le retour de cette gare. L'app reçoit toutes les gares 
 serveur ne sait pas laquelle.
 
 Mêmes sources que le module trains (GTFS national et GTFS-RT SNCF, Licence Ouverte), plus la liste des gares de
-voyageurs (SNCF, Licence Ouverte) pour situer chaque gare dans son département. Extraction une fois par jour, gardée
+voyageurs (SNCF, ODbL) pour situer chaque gare dans son département. Extraction une fois par jour, gardée
 dans l'état (`trains_retour_horaires.json`) ; temps réel à chaque collecte.
 """
 
@@ -164,7 +164,7 @@ def extraire(zip_gtfs: bytes, gares: dict[str, dict], aujourdhui: date) -> dict:
 class CollecteurTrainsRetour(Collecteur[DonneesTrainsRetour]):
     module = "trains_retour"
     source = "SNCF (GTFS, GTFS-RT et gares de voyageurs)"
-    licence = "Licence Ouverte 2.0"
+    licence = "Licence Ouverte 2.0 (horaires) ; ODbL (liste des gares)"
     url_source = "https://transport.data.gouv.fr/datasets/horaires-sncf"
     fraicheur = timedelta(minutes=10)
     modele_donnees = DonneesTrainsRetour

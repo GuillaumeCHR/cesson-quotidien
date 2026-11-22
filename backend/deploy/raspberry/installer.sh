@@ -65,6 +65,7 @@ install -d -o root -g cesson -m 750 "$RACINE/secrets"
 [[ -s $RACINE/secrets/meteofrance.env ]] || echo "Attention : $RACINE/secrets/meteofrance.env manque, la vigilance météo restera vide."
 [[ -s $RACINE/secrets/acceslibre.env ]] || echo "Attention : $RACINE/secrets/acceslibre.env manque, l'accessibilité des lieux restera vide."
 [[ -s $RACINE/secrets/tmdb.env ]] || echo "Attention : $RACINE/secrets/tmdb.env manque, les films du cinéma resteront sans fiche."
+[[ -s $RACINE/secrets/rennes.env ]] || echo "Remarque : $RACINE/secrets/rennes.env manque, circulation et déchèterie appelleront Rennes Métropole sans clé (quota de l'adresse IP)."
 
 etape "Code et environnement Python"
 # Le code appartient à root : l'utilisateur cesson ne peut écrire que public, etat et log.

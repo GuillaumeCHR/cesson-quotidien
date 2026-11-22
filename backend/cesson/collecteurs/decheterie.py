@@ -13,7 +13,8 @@ from typing import Any
 
 import httpx
 
-from ..commun.collecteur import Collecteur, ErreurValidation, obtenir
+from ..commun.collecteur import Collecteur, ErreurValidation
+from ..commun.rennes_metropole import obtenir_rennes
 from ..commun.modele import Modele
 
 URL = "https://data.rennesmetropole.fr/api/explore/v2.1/catalog/datasets/decheteries_plateformes_vegetaux/records"
@@ -72,7 +73,7 @@ class CollecteurDecheterie(Collecteur[DonneesDecheterie]):
     modele_donnees = DonneesDecheterie
 
     def telecharger(self, client: httpx.Client) -> Any:
-        r = obtenir(client, URL, params={"where": f'code_insee="{INSEE}"', "limit": 20})
+        r = obtenir_rennes(client, URL, params={"where": f'code_insee="{INSEE}"', "limit": 20})
         try:
             return r.json()
         except ValueError as e:

@@ -77,6 +77,8 @@ private val CREDITS = listOf(
         "A lu le calendrier des collectes scanné, case par case, et retrouvé ses 50 dates par le calcul."),
     Bloc("Transports", "STAR (Rennes Métropole, Keolis Rennes) et SNCF",
         "Métro, bus et trains en temps réel, sous licence ODbL et Licence Ouverte. Quand le temps réel manque, l'app le dit."),
+    Bloc("Circulation", "Rennes Métropole",
+        "L'état du trafic sur la rocade et dans Cesson, relu toutes les quelques minutes, sous licence ODbL."),
     Bloc("La Vilaine", "Hub'Eau et Vigicrues (SCHAPI)",
         "Ils surveillent la rivière à Pont Briand. Nous ne faisons que relayer, et renvoyer vers eux."),
     Bloc("Météo", "Open-Meteo, modèles de Météo-France",

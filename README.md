@@ -54,7 +54,8 @@ Planification et service : `backend/deploy/crontab`, `backend/deploy/nginx.conf`
 4. Ensuite, le Pi se met à jour seul depuis GitHub, toutes les heures, une fois les tests du commit réussis.
 
 Identifiants des API à compte, saisis à la main dans `/srv/cesson/secrets/` (root:cesson, 640), jamais dans le dépôt :
-`atmo.env` (Atmo Data), `meteofrance.env` (vigilance), `acceslibre.env`, `star.env` et `tmdb.env` (« jeton=… », jeton
+`atmo.env` (Atmo Data), `meteofrance.env` (vigilance), `acceslibre.env`, `star.env`, `rennes.env` (« cle_api=… », compte data.rennesmetropole.fr :
+circulation et déchèterie, sinon quota anonyme de l'adresse IP) et `tmdb.env` (« jeton=… », jeton
 d'accès en lecture TMDB, pour les fiches des films). Sans l'un d'eux, seul le module concerné reste vide ou incomplet.
 Les affiches des films et les vignettes des spectacles sont téléchargées par le Pi : les téléphones ne contactent
 ni TMDB ni OpenAgenda.
