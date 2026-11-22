@@ -1,6 +1,7 @@
 // Cesson'App, version web. Mêmes données que l'app Android : les fichiers JSON publiés par le serveur de l'app,
-// et les prochains passages du métro et des bus demandés directement à STAR. Aucun traceur, aucun cookie ;
-// rien n'est enregistré dans le navigateur, sauf le cache hors connexion du service worker.
+// et les prochains passages du métro et des bus demandés directement à STAR. Aucun traceur, aucun cookie.
+// Le navigateur garde le cache hors connexion du service worker et, dans son stockage local, les choix des cartes
+// « Mon trajet » (arrêts et gare) : ils ne quittent jamais l'appareil.
 
 import { STAR_CLE } from "./config.js";
 import CARTE from "./carte-cesson.js";
@@ -239,42 +240,118 @@ async function carteVilaine() {
   ), f);
 }
 
-async function carteDeparts() {
-  const corps = el("div", {}, el("p", { classe: "doux" }, "Interrogation de STAR…"));
-  const c = carte("Métro et bus ViaSilva", corps, null, { source: "STAR (Rennes Métropole, Keolis Rennes), temps réel, ODbL" });
-  (async () => {
-    try {
-      const [metro, bus] = await Promise.all([
-        star("tco-metro-circulation-passages-tr", `nomarret="${POLE_VIASILVA}"`),
-        star("tco-bus-circulation-passages-tr", `nomarret="${POLE_VIASILVA}"`)]);
-      const departs = [
-        ...metro.filter((p) => p.depart).map((p) => ({ ligne: p.nomcourtligne, metro: true, destination: p.destination, heure: p.depart, arret: p.nomarret })),
-        ...bus.filter((p) => (p.depart || p.departtheorique) && (!p.visibilite || p.visibilite === "Grand public"))
-          .map((p) => ({ ligne: p.nomcourtligne, metro: false, destination: p.destination, heure: p.depart || p.departtheorique, arret: p.nomarret,
-            theorique: p.precision !== "Temps réel" })),
-      ].filter((d) => sansAccents(d.destination).replace(/[^a-z]/g, "") !== sansAccents(d.arret).replace(/[^a-z]/g, ""))
-        .filter((d) => new Date(d.heure) > Date.now() - 30000)
-        .sort((a, b) => new Date(a.heure) - new Date(b.heure));
-      const groupes = new Map();
-      for (const d of departs) {
-        const k = `${d.ligne}|${d.destination}`;
-        if (!groupes.has(k)) groupes.set(k, []);
-        if (groupes.get(k).length < 3) groupes.get(k).push(d);
-      }
-      const lignes = [...groupes.values()].sort((a, b) => (b[0].metro - a[0].metro) || (new Date(a[0].heure) - new Date(b[0].heure)));
-      if (lignes.length === 0) { corps.replaceChildren(el("p", { classe: "vide" }, "Aucun départ annoncé pour l'instant.")); return; }
-      corps.replaceChildren(el("ul", { classe: "liste" }, lignes.map((g) => el("li", { classe: "ligne" },
-        el("span", { classe: "ligne-star", style: null, "data-ligne": g[0].ligne }, g[0].ligne),
-        el("span", { classe: "etire" }, g[0].destination),
-        el("span", { classe: "chiffre" }, attente(g[0].heure)),
-        g[1] && el("span", { classe: "doux" }, attente(g[1].heure)))))
-      );
-      colorerLignes(corps);
-    } catch (e) {
-      corps.replaceChildren(el("p", {}, e.message), lien("https://www.star.fr/", "Horaires sur star.fr", "bouton"));
+/** Prochains passages du métro et des bus à l'arrêt [nomarret], 2 par ligne et destination, dans [corps]. */
+async function remplirPassages(corps, nomarret) {
+  corps.replaceChildren(el("p", { classe: "doux" }, "Interrogation de STAR…"));
+  const nom = nomarret.replace(/"/g, "");
+  try {
+    const [metro, bus] = await Promise.all([
+      star("tco-metro-circulation-passages-tr", `nomarret="${nom}"`),
+      star("tco-bus-circulation-passages-tr", `nomarret="${nom}"`)]);
+    const departs = [
+      ...metro.filter((p) => p.depart).map((p) => ({ ligne: p.nomcourtligne, metro: true, destination: p.destination, heure: p.depart, arret: p.nomarret })),
+      ...bus.filter((p) => (p.depart || p.departtheorique) && (!p.visibilite || p.visibilite === "Grand public"))
+        .map((p) => ({ ligne: p.nomcourtligne, metro: false, destination: p.destination, heure: p.depart || p.departtheorique, arret: p.nomarret,
+          theorique: p.precision !== "Temps réel" })),
+    ].filter((d) => sansAccents(d.destination).replace(/[^a-z]/g, "") !== sansAccents(d.arret).replace(/[^a-z]/g, ""))
+      .filter((d) => new Date(d.heure) > Date.now() - 30000)
+      .sort((a, b) => new Date(a.heure) - new Date(b.heure));
+    const groupes = new Map();
+    for (const d of departs) {
+      const k = `${d.ligne}|${d.destination}`;
+      if (!groupes.has(k)) groupes.set(k, []);
+      if (groupes.get(k).length < 3) groupes.get(k).push(d);
     }
-  })();
-  return c;
+    const lignes = [...groupes.values()].sort((a, b) => (b[0].metro - a[0].metro) || (new Date(a[0].heure) - new Date(b[0].heure)));
+    if (lignes.length === 0) { corps.replaceChildren(el("p", { classe: "vide" }, "Aucun départ annoncé pour l'instant.")); return; }
+    corps.replaceChildren(el("ul", { classe: "liste" }, lignes.map((g) => el("li", { classe: "ligne" },
+      el("span", { classe: "ligne-star", style: null, "data-ligne": g[0].ligne }, g[0].ligne),
+      el("span", { classe: "etire" }, g[0].destination),
+      el("span", { classe: "chiffre" }, attente(g[0].heure)),
+      g[1] && el("span", { classe: "doux" }, attente(g[1].heure)))))
+    );
+    colorerLignes(corps);
+  } catch (e) {
+    corps.replaceChildren(el("p", {}, e.message), lien("https://www.star.fr/", "Horaires sur star.fr", "bouton"));
+  }
+}
+
+async function carteDeparts() {
+  const corps = el("div");
+  remplirPassages(corps, POLE_VIASILVA);
+  return carte("Métro et bus ViaSilva", corps, null, { source: "STAR (Rennes Métropole, Keolis Rennes), temps réel, ODbL" });
+}
+
+// Choix des cartes « Mon trajet » (arrêt, destination, gare), gardés dans le stockage local du navigateur, sur
+// l'appareil seulement. Stockage bloqué (navigation privée, données effacées) : les choix durent le temps de la visite.
+const CLE_CHOIX = "cessonapp-choix";
+function lireChoix() {
+  try { return JSON.parse(localStorage.getItem(CLE_CHOIX)) || {}; } catch { return {}; }
+}
+function enregistrerChoix() {
+  try {
+    localStorage.setItem(CLE_CHOIX, JSON.stringify({ arret: trajet.arret, destination: trajet.destination, gare: trajetTrain.gare }));
+  } catch { /* stockage indisponible : le choix vaut pour la visite */ }
+}
+const apresMidi = () => parseInt(fmt({ hour: "numeric", hourCycle: "h23" }).format(new Date()), 10) >= 13;
+/** Remplace le contenu de [noeud] ; les listes sont aplaties et les valeurs vides ignorées, comme dans el(). */
+const remplacer = (noeud, ...enfants) => noeud.replaceChildren(...enfants.flat(Infinity).filter((c) => c != null && c !== false));
+const choix = lireChoix();
+const texte = (v) => typeof v === "string" && v ? v : null;
+// Le sens (aller ou retour) n'est pas gardé : il se choisit selon l'heure à chaque visite, comme dans l'app.
+const trajet = { arret: texte(choix.arret), destination: texte(choix.destination), retour: null };
+const trajetTrain = { gare: texte(choix.gare), retour: null };
+
+/** Rangée Aller / Retour ; [retour] est l'état actuel, [changer] reçoit le nouveau. */
+function allerRetour(retour, changer) {
+  return el("div", { classe: "puces", role: "group" },
+    el("button", { type: "button", "aria-pressed": String(!retour), onclick: () => changer(false) }, "Aller"),
+    el("button", { type: "button", "aria-pressed": String(retour), onclick: () => changer(true) }, "Retour"));
+}
+
+/**
+ * Mon trajet réseau Star : un arrêt à Cesson et, si l'on veut, une destination sur tout le réseau. Aller : les bus et
+ * métros en approche de l'arrêt de Cesson ; retour : ceux en approche de la destination (comme l'app).
+ */
+async function carteMonTrajet() {
+  const f = await module("lignes_star");
+  if (!f) return absent("Mon trajet réseau Star");
+  const d = f.donnees;
+  const corps = el("div");
+  // Un choix gardé d'une visite précédente qui n'existe plus dans le réseau est oublié.
+  if (trajet.arret && !d.arrets.some((a) => a.nom === trajet.arret)) trajet.arret = null;
+  if (trajet.destination && !d.reseau.some((a) => a.nom === trajet.destination)) trajet.destination = null;
+  const rendre = () => {
+    const retour = trajet.destination && (trajet.retour ?? apresMidi());
+    const choixArret = el("select", { id: "trajet-arret", onchange: (e) => { trajet.arret = e.target.value || null; enregistrerChoix(); rendre(); } },
+      el("option", { value: "" }, "Choisir un arrêt"),
+      [...d.arrets].sort((a, b) => a.nom.localeCompare(b.nom, "fr")).map((a) =>
+        el("option", { value: a.nom, selected: a.nom === trajet.arret }, a.nom)));
+    const noms = new Set(d.reseau.map((a) => a.nom));
+    const choixDestination = el("input", {
+      id: "trajet-destination", list: "trajet-reseau", value: trajet.destination || "", placeholder: "Rechercher un arrêt", autocomplete: "off",
+      onchange: (e) => {
+        const v = e.target.value.trim();
+        if (v && !noms.has(v)) { e.target.setCustomValidity("Aucun arrêt du réseau STAR ne porte ce nom."); e.target.reportValidity(); return; }
+        e.target.setCustomValidity("");
+        trajet.destination = v || null; trajet.retour = null; enregistrerChoix(); rendre();
+      },
+    });
+    const passages = el("div");
+    const origine = retour ? trajet.destination : trajet.arret;
+    remplacer(corps,
+      el("div", { classe: "choix" },
+        el("label", { for: "trajet-arret" }, "À Cesson"), choixArret,
+        el("label", { for: "trajet-destination" }, "Destination"), choixDestination,
+        el("datalist", { id: "trajet-reseau" }, d.reseau.map((a) => el("option", { value: a.nom })))),
+      trajet.destination && allerRetour(retour, (v) => { trajet.retour = v; rendre(); }),
+      origine ? [el("p", { classe: "doux petit" }, `Départs de ${origine}`), passages]
+        : el("p", { classe: "vide" }, "Choisissez votre arrêt à Cesson et, si vous voulez, votre destination n'importe où sur le réseau STAR."),
+    );
+    if (origine) remplirPassages(passages, origine);
+  };
+  rendre();
+  return carte("Mon trajet réseau Star", corps, null, { source: "STAR (Rennes Métropole, Keolis Rennes), temps réel, ODbL" });
 }
 
 /** Couleurs officielles des lignes (module lignes_star). */
@@ -372,18 +449,63 @@ async function carteCirculation(complet = true) {
   ), f);
 }
 
+const nomJour = (iso) => iso === isoJour() ? "Aujourd'hui" : iso === isoJour(1) ? "Demain" : majuscule(fmt({ weekday: "long" }).format(jourCalendaire(iso)));
+const SOURCE_ATMO = "Source : Atmo France / AASQA (Air Breizh)";
+
+/** Qualité de l'air : indice ATMO du jour (et du lendemain une fois publié), polluant en cause. */
 async function carteAir() {
-  const [air, pol] = await Promise.all([module("qualite_air"), module("pollens")]);
-  if (!air && !pol) return absent("Qualité de l'air et pollens");
-  const ja = air?.donnees?.jours?.find((j) => j.date === isoJour());
-  const jp = pol?.donnees?.jours?.find((j) => j.date === isoJour());
-  return carte("Qualité de l'air et pollens", el("div", {},
-    ja && el("p", { classe: "ligne" }, el("span", { classe: "etire" }, "Qualité de l'air (Rennes Métropole)"),
-      el("span", { classe: "pastille", style: `background:${/^#[0-9a-f]{6}$/i.test(ja.couleur) ? ja.couleur : "#888"};color:#14211C` }, ja.libelle)),
-    jp && el("p", { classe: "ligne" }, el("span", { classe: "etire" }, "Indice pollen (Cesson)"), pastille(jp.libelle, jp.alerte ? "orange" : "neutre")),
-    jp?.responsables?.length > 0 && el("p", { classe: "doux petit" }, `Pollens responsables : ${jp.responsables.join(", ")}`),
-    el("p", { classe: "doux petit" }, "Source : Atmo France / AASQA (Air Breizh)"),
-  ), air || pol);
+  const f = await module("qualite_air");
+  if (!f) return absent("Qualité de l'air", "Indice ATMO pas encore reçu. Air Breizh le publie chaque jour vers 16h.");
+  const d = f.donnees;
+  const jours = d.jours.filter((j) => j.date >= isoJour());
+  const cause = (j) => (j.responsables || []).map((p) => j.sous_indices?.find((x) => x.polluant === p)?.nom || p).join(", ");
+  return carte("Qualité de l'air", el("div", {},
+    jours.length === 0 ? el("p", { classe: "vide" }, "Pas d'indice pour aujourd'hui : Air Breizh ne l'a pas encore publié.") :
+      el("ul", { classe: "liste" }, jours.map((j) => el("li", { classe: "ligne" },
+        el("span", { classe: "etire" }, el("strong", {}, nomJour(j.date)), el("br"),
+          el("span", { classe: "doux petit" }, cause(j) ? `Dû à ${cause(j)}` : "Indice ATMO")),
+        el("span", { classe: "pastille", style: `background:${/^#[0-9a-f]{6}$/i.test(j.couleur) ? j.couleur : "#888"};color:#14211C` }, j.libelle)))),
+    el("p", { classe: "doux petit" }, `Indice calculé pour ${d.zone}, qui vaut pour Cesson.`),
+    lien("https://www.airbreizh.asso.fr/", "Conseils et cartes sur Air Breizh", "bouton"),
+    el("p", { classe: "doux petit" }, SOURCE_ATMO)), f);
+}
+
+/** Indice pollen de Cesson : aujourd'hui et les jours suivants, espèces en cause. */
+async function cartePollens() {
+  const f = await module("pollens");
+  if (!f) return absent("Indice pollen", "Indice pollen pas encore reçu. Air Breizh le publie chaque jour vers 16h.");
+  const d = f.donnees;
+  const jours = d.jours.filter((j) => j.date >= isoJour());
+  const j = jours[0];
+  const especes = (x) => (x.especes || []).filter((e) => e.code >= 3).sort((a, b) => b.code - a.code).map((e) => e.nom);
+  return carte("Indice pollen", el("div", {},
+    !j ? el("p", { classe: "vide" }, "Pas d'indice pour aujourd'hui : Air Breizh ne l'a pas encore publié.") : [
+      j.alerte && el("p", {}, pastille("Alerte pollens d'Air Breizh", "orange")),
+      el("ul", { classe: "liste" }, jours.map((x) => el("li", { classe: "ligne" },
+        el("span", { classe: "etire" }, el("strong", {}, nomJour(x.date)),
+          especes(x).length > 0 && [el("br"), el("span", { classe: "doux petit" }, `Surtout ${especes(x).join(", ")}`)]),
+        pastille(x.libelle, x.alerte ? "orange" : x.code >= 3 ? "jaune" : "neutre")))),
+    ],
+    el("p", { classe: "doux petit" }, `Indice calculé pour ${d.commune}.`),
+    el("p", { classe: "doux petit" }, SOURCE_ATMO)), f);
+}
+
+/** Épisodes de pollution : procédures préfectorales d'aujourd'hui et de demain. */
+async function carteEpisodes() {
+  const f = await module("episodes_pollution");
+  if (!f) return absent("Épisodes de pollution");
+  const d = f.donnees;
+  const ETATS = { information: ["Information et recommandation", "jaune"], alerte: ["Alerte", "orange"], alerte_persistance: ["Alerte sur persistance", "rouge"] };
+  const aVenir = d.jours.filter((j) => j.date >= isoJour() && j.date <= isoJour(1) && j.etat && j.etat !== "aucun");
+  return carte("Épisodes de pollution", el("div", {},
+    aVenir.length === 0 ? [el("p", {}, pastille("Aucun épisode", "ouvert"), " ni aujourd'hui ni demain"),
+      el("p", { classe: "doux petit" }, `Aucune procédure préfectorale en ${d.zone}.`)] :
+      [el("ul", { classe: "liste" }, aVenir.map((j) => { const [libelle, ton] = ETATS[j.etat] || [j.etat, "orange"]; return el("li", { classe: "ligne" },
+        el("span", { classe: "etire" }, el("strong", {}, nomJour(j.date)), el("br"),
+          el("span", { classe: "doux petit" }, (j.polluants || []).filter((p) => p.etat === j.etat).map((p) => p.nom).join(", "))),
+        pastille(libelle, ton)); })),
+      lien("https://www.airbreizh.asso.fr/", "Recommandations sur Air Breizh", "bouton")],
+    el("p", { classe: "doux petit" }, SOURCE_ATMO)), f);
 }
 
 async function carteActus(flux = "ville", titre = "Actualités de la ville") {
@@ -396,20 +518,63 @@ async function carteActus(flux = "ville", titre = "Actualités de la ville") {
 
 // --- Bouger ---------------------------------------------------------------------------------------
 
-async function carteTrains() {
-  const f = await module("trains");
-  if (!f) return absent("Trains à Halte-Cesson");
-  const d = f.donnees;
-  const futurs = d.departs.filter((x) => new Date(x.heure_reelle || x.heure_theorique) > Date.now());
-  return carte("Trains à Halte-Cesson", el("div", {}, d.directions.map((dir) => {
-    const liste = futurs.filter((x) => x.direction === dir.id).slice(0, 3);
-    return el("div", {}, el("h3", {}, dir.libelle), liste.length === 0 ? el("p", { classe: "vide" }, "Pas de train annoncé.") :
-      el("ul", { classe: "liste" }, liste.map((x) => el("li", { classe: "ligne" },
-        el("span", { classe: "chiffre" }, heure(x.heure_reelle || x.heure_theorique)),
-        el("span", { classe: "etire" }, `${x.ligne} · ${x.destination}`),
-        x.statut === "supprime" ? pastille("Supprimé", "ferme") : x.statut === "retard" ? pastille(`+${x.retard_min || "?"} min`, "jaune")
-          : x.statut === "a_l_heure" ? pastille("À l'heure", "ouvert") : pastille("Théorique", "neutre")))));
-  }), lien(d.halte.url || "https://www.ter.sncf.com/bretagne", "Horaires TER BreizhGo", "bouton")), f);
+const DEPARTEMENTS = { 35: "Ille-et-Vilaine", 44: "Loire-Atlantique", 56: "Morbihan", 22: "Côtes-d'Armor", 53: "Mayenne", 50: "Manche", 75: "Paris" };
+const statutTrain = (x) => x.statut === "supprime" ? pastille("Supprimé", "ferme") : x.statut === "retard" ? pastille(`+${x.retard_min || "?"} min`, "jaune")
+  : x.statut === "a_l_heure" ? pastille("À l'heure", "ouvert") : pastille("Horaire prévu", "neutre");
+
+/**
+ * Mon trajet en train : l'aller part de la halte de Cesson (deux sens) ; le retour, de la gare choisie (Ille-et-Vilaine,
+ * départements voisins ou Paris), avec seulement les trains qui vont ensuite à Rennes ou à Cesson (comme l'app).
+ * [complet] : 3 trains par sens et 4 au retour ; sinon 2.
+ */
+async function carteTrains(complet = true) {
+  const [f, r] = await Promise.all([module("trains"), module("trains_retour")]);
+  if (!f) return absent("Mon trajet en train");
+  const d = f.donnees, gares = r?.donnees?.gares || [];
+  const n = complet ? 3 : 2;
+  const corps = el("div");
+  const aller = () => {
+    const futurs = d.departs.filter((x) => new Date(x.heure_reelle || x.heure_theorique) > Date.now());
+    return d.directions.map((dir) => {
+      const liste = futurs.filter((x) => x.direction === dir.id).slice(0, n);
+      return el("div", {}, el("h3", {}, dir.libelle), liste.length === 0 ? el("p", { classe: "vide" }, "Pas de train annoncé.") :
+        el("ul", { classe: "liste" }, liste.map((x) => el("li", { classe: "ligne" },
+          el("span", { classe: "chiffre" }, heure(x.heure_reelle || x.heure_theorique)),
+          el("span", { classe: "etire" }, `${x.ligne} · ${x.destination}`), statutTrain(x)))));
+    });
+  };
+  const retour = (gare) => {
+    const trains = r.donnees.departs.filter((x) => x.arret === gare && new Date(x.heure_reelle || x.heure_theorique) > Date.now() - 120000)
+      .sort((a, b) => new Date(a.heure_theorique) - new Date(b.heure_theorique)).slice(0, complet ? 4 : 2);
+    return [el("h3", {}, "Trains vers Rennes ou Cesson uniquement"),
+      !r.donnees.temps_reel_disponible && el("p", { classe: "doux petit" }, "Temps réel SNCF indisponible : horaires prévus."),
+      trains.length === 0 ? el("p", { classe: "vide" }, "Aucun train vers Rennes ou Cesson dans les 12 prochaines heures.") :
+        el("ul", { classe: "liste" }, trains.map((x) => el("li", { classe: "ligne" },
+          el("span", { classe: "chiffre" }, heure(x.statut === "retard" && x.heure_reelle ? x.heure_reelle : x.heure_theorique)),
+          el("span", { classe: "etire" }, `${x.ligne} · n° ${x.numero}`, el("br"),
+            el("span", { classe: "doux petit" }, `arrivée à ${x.arrivee} à ${heure(x.heure_arrivee)}`)),
+          statutTrain(x))))];
+  };
+  const rendre = () => {
+    const gare = gares.find((g) => g.id === trajetTrain.gare);
+    const sensRetour = gare && (trajetTrain.retour ?? apresMidi());
+    const parDepartement = Object.entries(DEPARTEMENTS).map(([code, nom]) => [nom, code, gares.filter((g) => g.departement === code)])
+      .filter(([, , liste]) => liste.length);
+    remplacer(corps,
+      gares.length > 0 && el("div", { classe: "choix" },
+        el("label", { for: "train-gare" }, "Destination"),
+        el("select", { id: "train-gare", onchange: (e) => { trajetTrain.gare = e.target.value || null; trajetTrain.retour = null; enregistrerChoix(); rendre(); } },
+          el("option", { value: "" }, "Aucune destination"),
+          parDepartement.map(([nom, code, liste]) => el("optgroup", { label: `${nom} (${code})` },
+            liste.map((g) => el("option", { value: g.id, selected: g.id === trajetTrain.gare }, g.nom)))))),
+      gare && allerRetour(sensRetour, (v) => { trajetTrain.retour = v; rendre(); }),
+      gare && el("p", { classe: "doux petit" }, sensRetour ? `Départs de ${gare.nom}` : "Départs de la halte de Cesson"),
+      sensRetour ? retour(gare.id) : aller(),
+      complet && lien(d.halte.url || "https://www.ter.sncf.com/bretagne", "Horaires TER BreizhGo", "bouton"),
+    );
+  };
+  rendre();
+  return carte("Mon trajet en train", corps, f);
 }
 
 async function carteParcRelais() {
@@ -583,24 +748,105 @@ async function carteVacances() {
 async function carteInfosFamilles() {
   const f = await module("familles");
   const a = (f?.donnees?.actualites || []).filter((x) => !x.au || x.au >= isoJour()).slice(0, 6);
-  if (!a.length) return absent("Infos familles");
-  return carte("Infos familles", el("div", {}, el("ul", { classe: "liste" }, a.map((x) => el("li", {},
-    lien(x.lien, x.titre), x.resume && el("div", { classe: "doux petit" }, x.resume)))),
-  lien("https://portail-familles.ville-cesson-sevigne.fr/", "Portail familles", "bouton")), f);
+  if (!a.length) return absent("Infos du portail familles");
+  return carte("Infos du portail familles", el("div", {}, el("ul", { classe: "liste" }, a.map((x) => el("li", {},
+    lien(x.lien, x.titre), x.resume && el("div", { classe: "doux petit" }, x.resume))))), f);
+}
+
+/** Portail familles (inscriptions, réservations, factures) et pages utiles de la ville. */
+function cartePortailFamilles() {
+  const LIENS = [
+    ["Démarches scolaires (inscriptions)", "https://www.ville-cesson-sevigne.fr/demarches-scolaires/"],
+    ["Accueil de loisirs et périscolaire (2-11 ans)", "https://www.ville-cesson-sevigne.fr/accueil_enfant_2_11_ans/"],
+    ["Stages pendant les vacances", "https://www.ville-cesson-sevigne.fr/stages-vacances-scolaires/"],
+    ["Relais petite enfance et modes de garde", "https://www.ville-cesson-sevigne.fr/relais-petite-enfance/"],
+  ];
+  return carte("Portail familles", el("div", {},
+    el("p", {}, "Inscriptions à la cantine, au périscolaire et à l'accueil de loisirs, réservations et factures : tout se fait sur le portail de la ville, avec votre compte."),
+    lien("https://portail-familles.ville-cesson-sevigne.fr/", "Ouvrir le portail familles", "bouton plein"),
+    el("ul", { classe: "liste" }, LIENS.map(([nom, url]) => el("li", {}, lien(url, nom))))));
 }
 
 // --- Pratique -------------------------------------------------------------------------------------
 
+/**
+ * Démarches (comme l'app) : carte d'identité et passeport, signalement, urbanisme, police municipale ; une rubrique
+ * dépliée à la fois.
+ */
+async function carteDemarches() {
+  const f = await module("equipements");
+  const lieu = (id) => f?.donnees?.equipements?.find((e) => e.lieu.id === id);
+  const accueil = (e) => e?.espaces?.[0] && el("p", {}, ...etiquetteOuverture(ouverture(e.espaces[0].jours)));
+  const rubriques = [
+    ["Carte d'identité et passeport", [
+      el("p", {}, "1. Faites la pré-demande en ligne, gratuite, sur le seul site officiel (ANTS)."),
+      el("p", {}, "2. Prenez rendez-vous à la mairie (Espace Citoyen) pour déposer le dossier et les empreintes."),
+      el("div", { classe: "pastilles" },
+        lien("https://www.ville-cesson-sevigne.fr/carte-nationale-didentite-cni-et-passeport/", "Prendre rendez-vous en mairie", "bouton plein"),
+        lien("https://passeport.ants.gouv.fr/demarches-en-ligne", "Pré-demande sur ants.gouv.fr", "bouton")),
+      el("p", { classe: "doux petit" }, "Les mineurs viennent au rendez-vous ; dès 12 ans, aussi au retrait. Délais plus longs avant l'été. Méfiez-vous des sites payants : la démarche est gratuite."),
+    ]],
+    ["Faire un signalement", [
+      el("h3", {}, "À la ville"),
+      el("p", { classe: "petit" }, "Parcs, espaces verts et aires de jeux, élagage, chemins piétons, bâtiments publics, plaques de rue, propreté."),
+      lien("https://www.ville-cesson-sevigne.fr/faire-un-signalement/", "Signaler à la ville", "bouton plein"),
+      el("h3", {}, "À Rennes Métropole"),
+      el("p", { classe: "petit" }, "Voirie (trou, barrière, ralentisseur), éclairage public, eau et assainissement, déchets."),
+      el("div", { classe: "pastilles" },
+        lien("https://demarches.rennes.fr/RENNES.Guichet/workflow_url?ECITIZ_ACTIVITY_PATH=Citoyen&IDCOLLECTIVITE=RENNES&TS=SVE&TASK=CREATE_SVE&THEMATIQUE=SIGNAL", "Formulaire de la Métropole", "bouton"),
+        tel("02 23 62 10 10")),
+      el("p", { classe: "doux petit" }, "Par téléphone : 8h30-17h30 en semaine, 9h-12h30 le samedi. Aussi par l'application « Ici Rennes »."),
+    ]],
+    ["Urbanisme", [
+      el("p", {}, "Permis de construire, déclaration préalable : les demandes se déposent en ligne, sur le service de la ville."),
+      lien("https://urbanisme.ville-cesson-sevigne.fr/NetADS/sve/CESSON35051", "Déposer une demande en ligne", "bouton plein"),
+      el("ul", { classe: "liste" }, [
+        ["Déclaration préalable", "Petits travaux (extension modeste, façade, abri…). À Cesson, aussi pour toute clôture."],
+        ["Permis de construire", "Construction neuve ou agrandissement important."],
+        ["Permis d'aménager", "Lotissement, aménagement de terrain."],
+        ["Permis de démolir", "À Cesson, obligatoire pour démolir toute construction."],
+      ].map(([nom, quand]) => el("li", {}, el("strong", {}, nom), el("div", { classe: "doux petit" }, quand)))),
+      el("details", {}, el("summary", {}, "À savoir"), el("ul", { classe: "liste" }, [
+        "L'arrêté s'affiche sur le terrain dès sa réception et pendant tous les travaux ; le délai de recours est de deux mois à partir de cet affichage.",
+        "Une autorisation vaut 3 ans pour commencer les travaux, prorogeable deux fois un an ; des travaux arrêtés plus d'un an la rendent caduque.",
+        "À renvoyer en mairie : la déclaration d'ouverture de chantier (permis de construire) et l'attestation d'achèvement et de conformité (DAACT).",
+      ].map((t) => el("li", { classe: "petit" }, t)))),
+      el("h3", {}, "Service urbanisme"),
+      el("p", { classe: "petit" }, "Mairie annexe, 1 place de la Chalotais. Dépôt papier possible aux heures d'ouverture."),
+      accueil(lieu("equipement:service_urbanisme")),
+      el("div", { classe: "pastilles" }, tel("02 99 83 52 00"), lien("https://www.ville-cesson-sevigne.fr/les-autorisations-durbanisme/", "Page de la ville", "bouton")),
+    ]],
+    ["Police municipale", [
+      el("p", {}, el("strong", {}, "En cas d'urgence, appelez le 17 (police) ou le 112.")),
+      el("div", { classe: "pastilles" }, tel("17"), tel("112")),
+      el("h3", {}, "Hôtel des Polices"),
+      el("p", { classe: "petit" }, "6 mail de Bourgchevreuil. Police municipale et police nationale au même endroit."),
+      accueil(lieu("equipement:police_municipale")),
+      el("p", { classe: "doux petit" }, "Du lundi au vendredi de 9h à 18h ; le samedi de 7h à 12h, police municipale seule."),
+      el("div", { classe: "pastilles" }, tel("02 99 83 52 14"), tel("06 09 35 73 92"),
+        lien("mailto:police.municipale@ville-cesson-sevigne.fr", "Courriel", "bouton")),
+      el("p", { classe: "petit" }, "Police nationale : ", tel("02 57 87 10 05", "02 57 87 10 05", null)),
+      el("div", { classe: "pastilles" },
+        lien("https://www.ville-cesson-sevigne.fr/operation-tranquilite-vacances/", "Surveillance pendant vos vacances", "bouton"),
+        lien("https://www.ville-cesson-sevigne.fr/contacts/lhotel-des-polices-police-municipale-et-police-nationale/", "Page de la ville", "bouton")),
+    ]],
+  ];
+  const blocs = rubriques.map(([titre, contenu]) => el("details", { classe: "rubrique", name: "demarches" }, el("summary", {}, titre), el("div", {}, contenu)));
+  // Une rubrique ouverte à la fois, aussi dans les navigateurs qui ignorent l'attribut name des <details>.
+  for (const b of blocs) b.addEventListener("toggle", () => { if (b.open) for (const x of blocs) if (x !== b) x.open = false; });
+  return carte("Démarches", el("div", {}, blocs), f);
+}
+
 async function carteCollecte() {
   const f = await module("collecte");
-  if (!f) return absent("Collecte des déchets");
+  if (!f) return absent("Ma collecte de déchets");
   const d = f.donnees;
   const flux = new Map(d.flux.map((x) => [x.id, x]));
   const prochains = d.flux.map((x) => d.passages.filter((p) => p.flux === x.id && p.date >= isoJour()).sort((a, b) => a.date.localeCompare(b.date))[0])
     .filter(Boolean).sort((a, b) => a.date.localeCompare(b.date));
   const avis = (d.avis || []).filter((a) => a.au >= isoJour());
   const quand = (j) => j === isoJour() ? "Aujourd'hui" : j === isoJour(1) ? "Demain" : majuscule(fmt({ weekday: "long", day: "numeric", month: "short" }).format(jourCalendaire(j)));
-  return carte("Collecte des déchets", el("div", {},
+  return carte("Ma collecte de déchets", el("div", {},
     el("ul", { classe: "liste" }, prochains.map((p) => { const x = flux.get(p.flux); return el("li", { classe: "ligne" },
       el("span", { classe: "etire" }, `Bac ${x.bac} · ${x.nom}`, el("br"), el("span", { classe: "doux petit" }, majuscule(x.regle))),
       el("strong", {}, quand(p.date))); })),
@@ -786,7 +1032,7 @@ async function carteSources() {
 function carteAPropos() {
   return carte("À propos", el("div", {},
     el("p", {}, el("strong", {}, "Cesson'App"), ", version web : l'information pratique de Cesson-Sévigné, à partir de données publiques. Éditée par Yogi Studio."),
-    el("p", {}, "Aucun compte, aucune publicité, aucune donnée collectée. Le site ne dépose aucun cookie ; votre navigateur télécharge les mêmes fichiers publics que tout le monde."),
+    el("p", {}, "Aucun compte, aucune publicité, aucune donnée collectée. Le site ne dépose aucun cookie ; votre navigateur télécharge les mêmes fichiers publics que tout le monde. Vos choix de « Mon trajet » restent dans votre navigateur, sur cet appareil : ils ne nous sont jamais envoyés."),
     el("p", {}, "Application non officielle : elle n'est éditée ni par la Ville de Cesson-Sévigné ni par Rennes Métropole. Elle ne remplace ni les canaux officiels de la ville, ni Vigicrues, ni FR-Alert."),
     el("p", {}, "Sur Android, l'application ajoute les rappels de collecte, les alertes (bus, pollens, vigilance) et le widget."),
     el("div", { classe: "pastilles" }, lien("https://www.ville-cesson-sevigne.fr/", "Ville de Cesson-Sévigné", "bouton"), lien("https://www.vigicrues.gouv.fr/", "Vigicrues", "bouton"),
@@ -797,12 +1043,13 @@ function carteAPropos() {
 // --- Onglets --------------------------------------------------------------------------------------
 
 const ONGLETS = {
-  aujourdhui: { titre: "Aujourd'hui", cartes: [carteMeteo, carteDeparts, () => carteCirculation(false), carteAir, () => carteActus()] },
-  bouger: { titre: "Bouger", cartes: [carteDeparts, carteTrains, carteParcRelais, carteCirculation, carteCarburants, carteBornes] },
-  sortir: { titre: "Sortir", cartes: [carteSaison, carteCinema, carteAgenda, () => carteEquipements()] },
-  familles: { titre: "Familles", cartes: [carteMenus, carteVacances, carteInfosFamilles] },
-  environnement: { titre: "Environnement", cartes: [carteAir, carteVilaine, carteEau, carteCollecte, carteDechetterie] },
-  pratique: { titre: "Pratique", cartes: [cartePharmacies, carteUrgences, carteAccessibilite, carteDefibrillateurs] },
+  // Mêmes cartes, dans le même ordre, que les onglets de l'app (android/app/…/ui/Accueil.kt).
+  aujourdhui: { titre: "Aujourd'hui", cartes: [carteMeteo, carteMonTrajet, () => carteTrains(false), () => carteCirculation(false), carteAir, () => carteActus()] },
+  bouger: { titre: "Bouger", cartes: [carteDeparts, carteParcRelais, carteTrains, carteMonTrajet, carteCirculation, carteCarburants, carteBornes] },
+  sortir: { titre: "Sortir", cartes: [carteSaison, carteAgenda, carteCinema, () => carteEquipements()] },
+  familles: { titre: "Familles", cartes: [carteMenus, carteVacances, carteInfosFamilles, cartePortailFamilles] },
+  environnement: { titre: "Environnement", cartes: [carteAir, cartePollens, carteEpisodes, carteVilaine, carteEau, carteCollecte, carteDechetterie] },
+  pratique: { titre: "Pratique", cartes: [carteDemarches, cartePharmacies, carteUrgences, carteDefibrillateurs, carteAccessibilite] },
   apropos: { titre: "À propos", cartes: [carteAPropos, carteSources] },
 };
 

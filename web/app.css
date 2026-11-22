@@ -87,6 +87,16 @@ ul.liste > li:first-child { border-top: 0; }
 .puces button[aria-pressed="true"] { background: var(--bleu); border-color: var(--bleu); color: var(--carte); }
 .bouton { display: inline-block; margin-top: 8px; padding: 8px 18px; border-radius: 20px; border: 1px solid var(--trait); background: transparent; color: var(--primaire); font-weight: 700; text-decoration: none; cursor: pointer; }
 .bouton.plein { background: var(--primaire-fond); border-color: var(--primaire-fond); }
+/* Choix des cartes « Mon trajet » : libellé au-dessus du champ, pleine largeur. */
+.choix { display: grid; gap: 4px; margin-bottom: 10px; }
+.choix label { font-size: 14px; font-weight: 700; color: var(--doux); margin-top: 4px; }
+.choix select, .choix input { width: 100%; padding: 10px 12px; border-radius: 12px; border: 1px solid var(--trait); background: var(--fond); color: var(--texte); font: inherit; }
+/* Démarches : rubriques dépliables, une à la fois. */
+.rubrique { border-top: 1px solid var(--trait); padding: 12px 0; }
+.rubrique:first-of-type { border-top: 0; }
+.rubrique > summary { font-weight: 700; }
+.rubrique > div { padding-top: 6px; }
+.rubrique h3 { margin: 12px 0 2px; }
 input[type="search"] { width: 100%; padding: 12px 14px; border-radius: 12px; border: 1px solid var(--trait); background: var(--fond); color: var(--texte); font: inherit; }
 details > summary { cursor: pointer; list-style: none; }
 details > summary::-webkit-details-marker { display: none; }
