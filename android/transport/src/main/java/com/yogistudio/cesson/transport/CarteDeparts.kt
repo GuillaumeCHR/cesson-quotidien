@@ -76,6 +76,8 @@ fun CarteDeparts(
     alerteArmee: Pair<String, String>? = null,
     /** Ligne préférée : ses directions passent en tête, avec une étoile. */
     lignePreferee: String? = null,
+    /** En tête de carte, avant les départs (les arrêts du trajet, aller ou retour). */
+    entete: @Composable () -> Unit = {},
     pied: @Composable () -> Unit = {},
 ) {
     var etat by remember(nomArret) { mutableStateOf(EtatDeparts()) }
@@ -101,6 +103,7 @@ fun CarteDeparts(
         // Compact : 4 directions, 2 passages chacune, sans la légende.
         val compact = LocalCompact.current
         Column(verticalArrangement = Arrangement.spacedBy(if (compact) 8.dp else 10.dp)) {
+            entete()
             when {
                 recus == null && !etat.erreur -> TexteBientot("Interrogation de STAR…")
                 recus == null -> LigneHorsConnexion("Impossible de joindre STAR pour le moment.")

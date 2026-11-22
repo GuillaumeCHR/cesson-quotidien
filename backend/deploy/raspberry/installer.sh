@@ -15,7 +15,7 @@ set -euo pipefail
 # Arguments suivants : modules à recollecter quoi qu'il arrive (leur saisie ou leur collecteur a changé).
 AUTO=0; [[ ${1:-} == --auto ]] && { AUTO=1; shift; }
 TOUCHES=" $* "
-MODULES="vilaine meteo vigicrues carburants lignes_star trains equipements collecte actus circulation usages_eau defibrillateurs bornes agenda cinema vacances_scolaires familles qualite_air pollens episodes_pollution vigilance_meteo pharmacies accessibilite decheterie"
+MODULES="vilaine meteo vigicrues carburants lignes_star trains trains_retour equipements collecte actus circulation usages_eau defibrillateurs bornes agenda cinema vacances_scolaires familles qualite_air pollens episodes_pollution vigilance_meteo pharmacies accessibilite decheterie"
 
 SOURCE=$(cd "$(dirname "$0")/../.." && pwd)   # le dossier backend copié sur le Pi
 RACINE=/srv/cesson

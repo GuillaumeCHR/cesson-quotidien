@@ -1,0 +1,238 @@
+{
+  "$defs": {
+    "DepartRetour": {
+      "additionalProperties": false,
+      "properties": {
+        "arret": {
+          "title": "Arret",
+          "type": "string"
+        },
+        "ligne": {
+          "title": "Ligne",
+          "type": "string"
+        },
+        "mode": {
+          "$ref": "#/$defs/Mode"
+        },
+        "destination": {
+          "title": "Destination",
+          "type": "string"
+        },
+        "heure_theorique": {
+          "format": "date-time",
+          "title": "Heure Theorique",
+          "type": "string"
+        },
+        "heure_reelle": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Heure Reelle"
+        },
+        "statut": {
+          "$ref": "#/$defs/StatutDepart"
+        },
+        "numero": {
+          "title": "Numero",
+          "type": "string"
+        },
+        "retard_min": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Retard Min"
+        },
+        "arrivee": {
+          "title": "Arrivee",
+          "type": "string"
+        },
+        "heure_arrivee": {
+          "format": "date-time",
+          "title": "Heure Arrivee",
+          "type": "string"
+        }
+      },
+      "required": [
+        "arret",
+        "ligne",
+        "mode",
+        "destination",
+        "heure_theorique",
+        "statut",
+        "numero",
+        "arrivee",
+        "heure_arrivee"
+      ],
+      "title": "DepartRetour",
+      "type": "object"
+    },
+    "DonneesTrainsRetour": {
+      "additionalProperties": false,
+      "properties": {
+        "gares": {
+          "items": {
+            "$ref": "#/$defs/GareRetour"
+          },
+          "title": "Gares",
+          "type": "array"
+        },
+        "departs": {
+          "items": {
+            "$ref": "#/$defs/DepartRetour"
+          },
+          "title": "Departs",
+          "type": "array"
+        },
+        "temps_reel_disponible": {
+          "title": "Temps Reel Disponible",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "gares",
+        "departs",
+        "temps_reel_disponible"
+      ],
+      "title": "DonneesTrainsRetour",
+      "type": "object"
+    },
+    "Etat": {
+      "enum": [
+        "ok",
+        "perime",
+        "erreur"
+      ],
+      "title": "Etat",
+      "type": "string"
+    },
+    "GareRetour": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "nom": {
+          "title": "Nom",
+          "type": "string"
+        },
+        "departement": {
+          "title": "Departement",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "nom",
+        "departement"
+      ],
+      "title": "GareRetour",
+      "type": "object"
+    },
+    "Meta": {
+      "additionalProperties": false,
+      "description": "Accompagne chaque fichier publié : source, licence et fraîcheur.",
+      "properties": {
+        "source": {
+          "title": "Source",
+          "type": "string"
+        },
+        "licence": {
+          "title": "Licence",
+          "type": "string"
+        },
+        "url_source": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Url Source"
+        },
+        "recupere_le": {
+          "format": "date-time",
+          "title": "Recupere Le",
+          "type": "string"
+        },
+        "valide_jusqu_a": {
+          "format": "date-time",
+          "title": "Valide Jusqu A",
+          "type": "string"
+        },
+        "etat": {
+          "$ref": "#/$defs/Etat",
+          "default": "ok"
+        }
+      },
+      "required": [
+        "source",
+        "licence",
+        "recupere_le",
+        "valide_jusqu_a"
+      ],
+      "title": "Meta",
+      "type": "object"
+    },
+    "Mode": {
+      "enum": [
+        "bus",
+        "metro",
+        "train"
+      ],
+      "title": "Mode",
+      "type": "string"
+    },
+    "StatutDepart": {
+      "enum": [
+        "a_l_heure",
+        "retard",
+        "supprime",
+        "theorique"
+      ],
+      "title": "StatutDepart",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "module": {
+      "title": "Module",
+      "type": "string"
+    },
+    "version_schema": {
+      "default": 1,
+      "title": "Version Schema",
+      "type": "integer"
+    },
+    "meta": {
+      "$ref": "#/$defs/Meta"
+    },
+    "donnees": {
+      "$ref": "#/$defs/DonneesTrainsRetour"
+    }
+  },
+  "required": [
+    "module",
+    "meta",
+    "donnees"
+  ],
+  "title": "FichierModule[DonneesTrainsRetour]",
+  "type": "object"
+}

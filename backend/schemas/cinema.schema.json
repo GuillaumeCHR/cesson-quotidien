@@ -68,6 +68,162 @@
       "title": "Etat",
       "type": "string"
     },
+    "Fiche": {
+      "additionalProperties": false,
+      "properties": {
+        "tmdb": {
+          "title": "Tmdb",
+          "type": "integer"
+        },
+        "titre": {
+          "title": "Titre",
+          "type": "string"
+        },
+        "titre_original": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Titre Original"
+        },
+        "annee": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Annee"
+        },
+        "realisateurs": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "Realisateurs",
+          "type": "array"
+        },
+        "distribution": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "Distribution",
+          "type": "array"
+        },
+        "duree_min": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Duree Min"
+        },
+        "genres": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "Genres",
+          "type": "array"
+        },
+        "synopsis": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Synopsis"
+        },
+        "resume": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Resume"
+        },
+        "classification": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Classification"
+        },
+        "affiche": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Affiche"
+        },
+        "wikipedia": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Wikipedia"
+        },
+        "allocine": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Allocine"
+        },
+        "page_tmdb": {
+          "title": "Page Tmdb",
+          "type": "string"
+        }
+      },
+      "required": [
+        "tmdb",
+        "titre",
+        "page_tmdb"
+      ],
+      "title": "Fiche",
+      "type": "object"
+    },
     "Film": {
       "additionalProperties": false,
       "properties": {
@@ -91,6 +247,17 @@
           },
           "title": "Seances",
           "type": "array"
+        },
+        "fiche": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Fiche"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
         }
       },
       "required": [

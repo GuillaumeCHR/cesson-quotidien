@@ -2,7 +2,10 @@ package com.yogistudio.cesson.ui
 
 import androidx.compose.material.icons.rounded.Pool
 import com.yogistudio.cesson.transport.ChoixArret
+import com.yogistudio.cesson.transport.ChoixDestination
 import com.yogistudio.cesson.transport.lignesStar
+import androidx.compose.material.icons.rounded.Train
+import com.yogistudio.cesson.rappels.ReglageGareDestination
 import androidx.compose.material.icons.rounded.DirectionsBus
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.runtime.mutableStateOf
@@ -31,6 +34,7 @@ import android.app.UiModeManager
 import android.content.Context
 import android.os.Build
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.material3.TextButton
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -133,6 +137,7 @@ fun EcranReglages(app: CessonApp) {
         }
         CarteNotifications(app)
         CarteMonArretReglage(app)
+        CarteMonTrajetTrain(app)
         CarteMonCarburant(app)
         CarteDonnee("Mes équipements", Icons.Rounded.Pool) {
             Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
@@ -162,7 +167,7 @@ fun appliquerAffichageSysteme(context: Context, mode: String) {
 
 /**
  * Les notifications de l'app, calculées sur le téléphone : rappel de collecte la veille, vigilance météo, trains
- * favoris, pollens et épisodes de pollution. Les spectacles favoris se choisissent sur la carte Saison culturelle. L'alerte de passage du bus n'est pas ici : elle s'arme ligne par ligne sur la carte « Mon arrêt de bus ».
+ * favoris, pollens et épisodes de pollution. Les spectacles favoris se choisissent sur la carte Saison culturelle. L'alerte de passage du bus n'est pas ici : elle s'arme ligne par ligne sur la carte « Mon trajet réseau Star ».
  */
 @Composable
 private fun CarteNotifications(app: CessonApp) {
@@ -209,7 +214,20 @@ private fun CarteMonCarburant(app: CessonApp) {
     }
 }
 
-/** Mon arrêt de bus et ma ligne préférée : ceux de la carte « Mon arrêt de bus » et de ses alertes de passage. */
+/** Gare de destination de « Mon trajet en train » : celle des départs du retour. */
+@Composable
+private fun CarteMonTrajetTrain(app: CessonApp) {
+    CarteDonnee("Mon trajet en train", Icons.Rounded.Train) {
+        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            Text("Votre trajet habituel : la carte « Mon trajet en train » montre les trains de la halte de Cesson à " +
+                "l'aller, et ceux de votre gare de destination au retour, vers Rennes ou Cesson uniquement.",
+                style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            ReglageGareDestination(app)
+        }
+    }
+}
+
+/** Mon arrêt, ma destination et ma ligne préférée : ceux de la carte « Mon trajet réseau Star » et de ses alertes. */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 private fun CarteMonArretReglage(app: CessonApp) {
@@ -220,12 +238,23 @@ private fun CarteMonArretReglage(app: CessonApp) {
     val arret by app.preferences.arretSuivi.collectAsStateWithLifecycle(null)
     val alerteJson by app.preferences.alerteBus.collectAsStateWithLifecycle(null)
     val lignePreferee by app.preferences.lignePreferee.collectAsStateWithLifecycle(null)
+    val destination by app.preferences.destinationSuivie.collectAsStateWithLifecycle(null)
     var choix by remember { mutableStateOf(false) }
-    CarteDonnee("Mon arrêt de bus", Icons.Rounded.DirectionsBus) {
+    var choixDestination by remember { mutableStateOf(false) }
+    CarteDonnee("Mon trajet réseau Star", Icons.Rounded.DirectionsBus) {
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            Text(arret ?: "Aucun arrêt choisi", style = MaterialTheme.typography.bodyLarge)
-            Text("Ses prochains passages s'affichent sur la carte « Mon arrêt de bus », avec les alertes de passage.",
+            Text("Votre trajet habituel : la carte « Mon trajet réseau Star » montre les bus et métros en approche de " +
+                "votre arrêt à Cesson à l'aller, et de votre destination au retour, avec les alertes de passage.",
                 style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            Text("Mon arrêt, à Cesson", style = MaterialTheme.typography.titleSmall)
+            Text(arret ?: "Aucun arrêt choisi", style = MaterialTheme.typography.bodyLarge)
+            OutlinedButton(onClick = { choix = true }, enabled = donnees != null) {
+                Text(when {
+                    donnees == null -> "Liste des arrêts en cours de chargement…"
+                    arret == null -> "Choisir mon arrêt"
+                    else -> "Changer mon arrêt"
+                })
+            }
             val desservies = donnees?.arrets?.firstOrNull { it.nom == arret }?.lignes.orEmpty()
             if (desservies.isNotEmpty()) {
                 Text("Ma ligne préférée", style = MaterialTheme.typography.titleSmall)
@@ -240,13 +269,24 @@ private fun CarteMonArretReglage(app: CessonApp) {
                     }
                 }
             }
-            OutlinedButton(onClick = { choix = true }, enabled = donnees != null) {
-                Text(when {
-                    donnees == null -> "Liste des arrêts en cours de chargement…"
-                    arret == null -> "Choisir mon arrêt"
-                    else -> "Changer d'arrêt"
-                })
+            Text("Ma destination, sur tout le réseau STAR", style = MaterialTheme.typography.titleSmall)
+            Text("Facultatif : la carte propose alors « Aller » et « Retour ».",
+                style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            Text(destination ?: "Aucun : tous les départs", style = MaterialTheme.typography.bodyLarge)
+            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                OutlinedButton(onClick = { choixDestination = true }, enabled = !donnees?.reseau.isNullOrEmpty()) {
+                    Text(if (destination == null) "Choisir ma destination" else "Changer de destination")
+                }
+                if (destination != null) TextButton(onClick = { portee.launch { app.preferences.enregistrerDestination(null) } }) {
+                    Text("Retirer")
+                }
             }
+        }
+    }
+    if (choixDestination && donnees != null) {
+        ChoixDestination(donnees, destination, onFermer = { choixDestination = false }) {
+            portee.launch { app.preferences.enregistrerDestination(it) }
+            choixDestination = false
         }
     }
     if (choix && donnees != null) {

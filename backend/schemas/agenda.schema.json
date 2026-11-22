@@ -132,6 +132,42 @@
           "default": "autre",
           "title": "Famille",
           "type": "string"
+        },
+        "vignette": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Vignette"
+        },
+        "credit_photo": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Credit Photo"
+        },
+        "statut": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Statut"
         }
       },
       "required": [

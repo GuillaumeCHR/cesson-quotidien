@@ -33,6 +33,8 @@ class PreferencesLocales(private val context: Context) {
     private val carburant = stringPreferencesKey("carburant_suivi")
     private val arret = stringPreferencesKey("arret_suivi")
     private val cleLignePreferee = stringPreferencesKey("ligne_preferee")
+    private val cleDestination = stringPreferencesKey("arret_destination")
+    private val cleGareDestination = stringPreferencesKey("gare_destination")
     private val rappelCollecte = booleanPreferencesKey("rappel_collecte")
     private val cleAccueilDetaille = booleanPreferencesKey("accueil_detaille")
     private val dernierRappel = stringPreferencesKey("rappel_collecte_dernier")
@@ -122,14 +124,28 @@ class PreferencesLocales(private val context: Context) {
         context.preferencesCesson.edit { it[carburant] = code }
     }
 
-    /** Nom STAR de l'arrêt de la carte « Mon arrêt », null tant qu'aucun n'est choisi. */
+    /** Nom STAR de l'arrêt de la carte « Mon trajet réseau Star », null tant qu'aucun n'est choisi. */
     val arretSuivi: Flow<String?> = context.preferencesCesson.data.map { it[arret] }
 
     suspend fun enregistrerArret(nom: String) {
         context.preferencesCesson.edit { it[arret] = nom }
     }
 
-    /** Ligne affichée en premier sur la carte « Mon arrêt de bus » (nom court : « C2 », « 64 »), null sans préférence. */
+    /** Nom STAR de la destination de « Mon trajet réseau Star » (tout le réseau, départs du retour), null sans. */
+    val destinationSuivie: Flow<String?> = context.preferencesCesson.data.map { it[cleDestination] }
+
+    suspend fun enregistrerDestination(nom: String?) {
+        context.preferencesCesson.edit { if (nom == null) it.remove(cleDestination) else it[cleDestination] = nom }
+    }
+
+    /** Code UIC de la gare de destination de « Mon trajet en train » (départs du retour), null sans. */
+    val gareDestination: Flow<String?> = context.preferencesCesson.data.map { it[cleGareDestination] }
+
+    suspend fun enregistrerGareDestination(uic: String?) {
+        context.preferencesCesson.edit { if (uic == null) it.remove(cleGareDestination) else it[cleGareDestination] = uic }
+    }
+
+    /** Ligne affichée en premier sur la carte « Mon trajet réseau Star » (nom court : « C2 », « 64 »), null sans préférence. */
     val lignePreferee: Flow<String?> = context.preferencesCesson.data.map { it[cleLignePreferee] }
 
     suspend fun enregistrerLignePreferee(ligne: String?) {

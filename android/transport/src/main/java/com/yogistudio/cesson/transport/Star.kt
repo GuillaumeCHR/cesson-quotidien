@@ -27,7 +27,12 @@ import java.time.Instant
 
 /** Miroir de DonneesLignesStar (backend/cesson/collecteurs/lignes_star.py). */
 @Serializable
-data class DonneesLignesStar(val lignes: List<LigneStar> = emptyList(), val arrets: List<ArretStar> = emptyList())
+data class DonneesLignesStar(
+    val lignes: List<LigneStar> = emptyList(),
+    val arrets: List<ArretStar> = emptyList(),
+    /** Tous les arrêts du réseau, pour choisir la destination de « Mon trajet réseau Star » n'importe où. */
+    val reseau: List<ArretStar> = emptyList(),
+)
 
 /** Arrêt de Cesson, quais regroupés ; [nom] est celui des jeux temps réel. */
 @Serializable

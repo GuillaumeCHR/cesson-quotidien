@@ -6,7 +6,7 @@ import java.time.Instant
 import kotlin.math.abs
 
 /**
- * Alerte de passage armée sur « Mon arrêt de bus » : prévenir quand le bus visé est à [delaiMin] minutes.
+ * Alerte de passage armée sur « Mon trajet réseau Star » : prévenir quand le bus visé est à [delaiMin] minutes.
  * Gardée sur le téléphone ; seul le nom de l'arrêt part chez STAR, comme pour la carte.
  */
 @Serializable

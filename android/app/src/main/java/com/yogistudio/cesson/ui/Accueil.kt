@@ -138,6 +138,7 @@ import com.yogistudio.cesson.rappels.ReglageAlertePollens
 import com.yogistudio.cesson.transport.CarteDeparts
 import com.yogistudio.cesson.transport.CarteMonArret
 import com.yogistudio.cesson.transport.CarteTrains
+import com.yogistudio.cesson.transport.trainsRetour
 import com.yogistudio.cesson.transport.lignesStar
 import com.yogistudio.cesson.transport.trains
 import kotlinx.coroutines.launch
@@ -156,8 +157,8 @@ private val VILAINE = Tuile("vilaine", "La Vilaine et les crues", Icons.Rounded.
 }
 private val VIASILVA = Tuile("arrets", "Métro et bus ViaSilva", Icons.Rounded.DirectionsBus) { DepartsViaSilva(it) }
 private val PARC_RELAIS = Tuile("parc_relais", "Parc relais ViaSilva", Icons.Rounded.LocalParking) { CarteParcRelais(it.star) }
-private val MON_ARRET = Tuile("mon_arret", "Mon arrêt de bus", Icons.Rounded.DirectionsBus) { MonArret(it) }
-private val TRAINS = Tuile("trains", "Trains à Halte-Cesson", Icons.Rounded.Train) { TrainsHalte(it) }
+private val MON_ARRET = Tuile("mon_arret", "Mon trajet réseau Star", Icons.Rounded.DirectionsBus) { MonArret(it) }
+private val TRAINS = Tuile("trains", "Mon trajet en train", Icons.Rounded.Train) { TrainsHalte(it) }
 private val COLLECTE = Tuile("collecte", "Ma collecte de déchets", Icons.Rounded.DeleteOutline) { CollecteCesson(it) }
 private val CARBURANTS = Tuile("carburants", "Prix des carburants", Icons.Rounded.LocalGasStation) { CarburantsCesson(it) }
 private val CIRCULATION = Tuile("circulation", "Circulation", Icons.Rounded.DirectionsCar) { app ->
@@ -335,17 +336,25 @@ fun CarburantsCesson(app: CessonApp) {
     CarteCarburants(etat, suivi, onChoisir = { portee.launch { app.preferences.enregistrerCarburant(it) } })
 }
 
-/** Trains à la halte : données du backend, relues toutes les 2 min tant que la carte est visible. */
+/**
+ * « Mon trajet en train » : l'aller depuis la halte de Cesson, le retour depuis la gare de destination choisie. Données
+ * du backend, relues toutes les 2 min tant que la carte est visible ; la gare reste dans les préférences du téléphone.
+ */
 @Composable
 fun TrainsHalte(app: CessonApp) {
     val etat by remember(app) { app.depot.trains() }.collectAsStateWithLifecycle(EtatModule.Absent)
+    val retour by remember(app) { app.depot.trainsRetour() }.collectAsStateWithLifecycle(EtatModule.Absent)
     val favoris by app.preferences.trainsFavoris.collectAsStateWithLifecycle(null)
+    val gare by app.preferences.gareDestination.collectAsStateWithLifecycle(null)
+    val portee = rememberCoroutineScope()
     CarteTrains(etat, rafraichir = { app.depot.rafraichir() }, favoris = com.yogistudio.cesson.transport.lireTrainsFavoris(favoris),
-        reglageFavoris = { com.yogistudio.cesson.rappels.ReglageTrainsFavoris(app) })
+        reglageFavoris = { com.yogistudio.cesson.rappels.ReglageTrainsFavoris(app) },
+        retour = (retour as? EtatModule.Disponible)?.fichier?.donnees, gare = gare,
+        onChoisirGare = { g -> portee.launch { app.preferences.enregistrerGareDestination(g) } })
 }
 
 /**
- * Carte « Mon arrêt » : l'arrêt choisi et l'alerte de passage restent dans les préférences du téléphone.
+ * Carte « Mon trajet réseau Star » : l'arrêt choisi et l'alerte de passage restent dans les préférences du téléphone.
  * Armer une alerte demande la permission de notification (Android 13+) la première fois.
  */
 @Composable
@@ -357,12 +366,14 @@ fun MonArret(app: CessonApp) {
     val alerte = remember(alerteJson) { alerteJson?.let { runCatching { JsonCesson.decodeFromString(AlerteBus.serializer(), it) }.getOrNull() } }
     val delai by app.preferences.delaiAlerteBus.collectAsStateWithLifecycle(DELAI_ALERTE_DEFAUT)
     val lignePreferee by app.preferences.lignePreferee.collectAsStateWithLifecycle(null)
+    val destination by app.preferences.destinationSuivie.collectAsStateWithLifecycle(null)
     val portee = rememberCoroutineScope()
     val messages = LocalMessages.current
     var enAttente by remember { mutableStateOf<Direction?>(null) }
 
     fun armer(d: Direction) {
-        val a = arret ?: return
+        // Au retour, l'alerte vise l'arrêt de destination d'où part le bus.
+        val a = d.departs.firstOrNull()?.arret ?: arret ?: return
         val bus = departAViser(d.departs, d.ligne, d.destination, delai, Instant.now())
         portee.launch {
             if (bus == null) {
@@ -391,6 +402,8 @@ fun MonArret(app: CessonApp) {
         delaiAlerte = delai,
         lignePreferee = lignePreferee,
         onLignePreferee = { l -> portee.launch { app.preferences.enregistrerLignePreferee(l) } },
+        destination = destination,
+        onDestination = { d -> portee.launch { app.preferences.enregistrerDestination(d) } },
         onAlerter = { d ->
             when {
                 alerte?.ligne == d.ligne && alerte.destination == d.destination -> portee.launch { AlertesBus.annuler(context) }

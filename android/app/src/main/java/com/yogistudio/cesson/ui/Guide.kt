@@ -71,6 +71,7 @@ import com.yogistudio.cesson.pratique.carburants
 import com.yogistudio.cesson.pratique.carburantsProposes
 import com.yogistudio.cesson.rappels.ReglageRappelCollecte
 import com.yogistudio.cesson.transport.ChoixArret
+import com.yogistudio.cesson.transport.ChoixDestination
 import com.yogistudio.cesson.transport.lignesStar
 import kotlinx.coroutines.launch
 
@@ -175,6 +176,10 @@ private fun EtapeDeplacements(app: CessonApp) {
     ChoixDeplacement("En train", "Trains à la halte de Cesson, retards et suppressions en temps réel.",
         Icons.Rounded.Train, MODE_TRAIN in modes) { basculer(MODE_TRAIN) }
     if (MODE_TRAIN in modes) Column(Modifier.padding(start = 12.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+        SousTitre("Mon trajet en train")
+        Text("Au retour, la carte montre les trains de votre gare de destination vers Rennes ou Cesson uniquement.",
+            style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        com.yogistudio.cesson.rappels.ReglageGareDestination(app)
         SousTitre("Mon train habituel")
         ReglageTrainsFavoris(app)
     }
@@ -217,10 +222,18 @@ private fun MonArretGuide(app: CessonApp) {
     val lignes by remember { app.depot.lignesStar() }.collectAsStateWithLifecycle(EtatModule.Absent)
     val donneesLignes = (lignes as? EtatModule.Disponible)?.fichier?.donnees
     val arret by app.preferences.arretSuivi.collectAsStateWithLifecycle(null)
+    val destination by app.preferences.destinationSuivie.collectAsStateWithLifecycle(null)
     var choixArret by rememberSaveable { mutableStateOf(false) }
-    SousTitre("Mon arrêt de bus")
+    var choixDestination by rememberSaveable { mutableStateOf(false) }
+    SousTitre("Mon trajet réseau Star")
+    Text("Votre trajet habituel : la carte montre les bus et métros en approche de votre arrêt à Cesson à " +
+        "l'aller, et de votre destination au retour.",
+        style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
     Row(verticalAlignment = Alignment.CenterVertically) {
-        Text(arret ?: "Aucun arrêt choisi", style = MaterialTheme.typography.bodyLarge, modifier = Modifier.weight(1f))
+        Column(Modifier.weight(1f)) {
+            Text("Mon arrêt, à Cesson", style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            Text(arret ?: "Aucun arrêt choisi", style = MaterialTheme.typography.bodyLarge)
+        }
         OutlinedButton(onClick = { choixArret = true }, enabled = !donneesLignes?.arrets.isNullOrEmpty()) {
             Text(if (arret == null) "Choisir" else "Changer")
         }
@@ -229,6 +242,22 @@ private fun MonArretGuide(app: CessonApp) {
         ChoixArret(donneesLignes.arrets, donneesLignes, actuel = arret, onFermer = { choixArret = false }) {
             portee.launch { app.preferences.enregistrerArret(it) }
             choixArret = false
+        }
+    }
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        Column(Modifier.weight(1f)) {
+            Text("Ma destination, sur tout le réseau STAR", style = MaterialTheme.typography.labelLarge,
+                color = MaterialTheme.colorScheme.onSurfaceVariant)
+            Text(destination ?: "Facultatif : pour le retour", style = MaterialTheme.typography.bodyLarge)
+        }
+        OutlinedButton(onClick = { choixDestination = true }, enabled = !donneesLignes?.reseau.isNullOrEmpty()) {
+            Text(if (destination == null) "Choisir" else "Changer")
+        }
+    }
+    if (choixDestination && donneesLignes != null) {
+        ChoixDestination(donneesLignes, destination, onFermer = { choixDestination = false }) {
+            portee.launch { app.preferences.enregistrerDestination(it) }
+            choixDestination = false
         }
     }
 

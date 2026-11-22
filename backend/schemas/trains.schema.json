@@ -135,6 +135,14 @@
           "title": "Departs",
           "type": "array"
         },
+        "horaires": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/HoraireTrain"
+          },
+          "title": "Horaires",
+          "type": "array"
+        },
         "temps_reel_disponible": {
           "title": "Temps Reel Disponible",
           "type": "boolean"
@@ -157,6 +165,40 @@
       ],
       "title": "Etat",
       "type": "string"
+    },
+    "HoraireTrain": {
+      "additionalProperties": false,
+      "description": "Départ régulier de la halte, pour choisir un train favori (« le 7h08 vers Rennes »).",
+      "properties": {
+        "heure": {
+          "title": "Heure",
+          "type": "string"
+        },
+        "direction": {
+          "title": "Direction",
+          "type": "string"
+        },
+        "destination": {
+          "title": "Destination",
+          "type": "string"
+        },
+        "dates": {
+          "items": {
+            "format": "date",
+            "type": "string"
+          },
+          "title": "Dates",
+          "type": "array"
+        }
+      },
+      "required": [
+        "heure",
+        "direction",
+        "destination",
+        "dates"
+      ],
+      "title": "HoraireTrain",
+      "type": "object"
     },
     "Lieu": {
       "additionalProperties": false,

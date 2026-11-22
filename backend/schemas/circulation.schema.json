@@ -52,6 +52,14 @@
           },
           "title": "Axes Cesson",
           "type": "array"
+        },
+        "troncons": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/Troncon"
+          },
+          "title": "Troncons",
+          "type": "array"
         }
       },
       "required": [
@@ -192,6 +200,36 @@
         "etat"
       ],
       "title": "Sens",
+      "type": "object"
+    },
+    "Troncon": {
+      "additionalProperties": false,
+      "properties": {
+        "etat": {
+          "title": "Etat",
+          "type": "string"
+        },
+        "rocade": {
+          "default": false,
+          "title": "Rocade",
+          "type": "boolean"
+        },
+        "points": {
+          "items": {
+            "items": {
+              "type": "number"
+            },
+            "type": "array"
+          },
+          "title": "Points",
+          "type": "array"
+        }
+      },
+      "required": [
+        "etat",
+        "points"
+      ],
+      "title": "Troncon",
       "type": "object"
     }
   },

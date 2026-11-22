@@ -204,14 +204,15 @@ def index_rt(flux: rt.FeedMessage) -> dict[tuple[str, str], rt.TripUpdate]:
     return index
 
 
-def appliquer_rt(theorique: datetime, train: dict, tu: rt.TripUpdate | None
+def appliquer_rt(theorique: datetime, train: dict, tu: rt.TripUpdate | None, arret: str = ARRET
                  ) -> tuple[StatutDepart, datetime | None, int | None]:
+    """Statut au départ de [arret] ; train["arrets_avant"] : les arrêts qui le précèdent, dans l'ordre."""
     if tu is None:
         return StatutDepart.THEORIQUE, None, None
     if tu.trip.schedule_relationship == rt.TripDescriptor.CANCELED:
         return StatutDepart.SUPPRIME, None, None
     # Le retard vaut celui de la dernière mise à jour à Cesson ou avant (propagation GTFS-RT).
-    rang = {s: i for i, s in enumerate(train["arrets_avant"] + [ARRET])}
+    rang = {s: i for i, s in enumerate(train["arrets_avant"] + [arret])}
     retenue = None
     for s in tu.stop_time_update:
         i = rang.get(s.stop_id)
@@ -219,10 +220,10 @@ def appliquer_rt(theorique: datetime, train: dict, tu: rt.TripUpdate | None
             retenue = s
     if retenue is None:
         return StatutDepart.THEORIQUE, None, None
-    if retenue.stop_id == ARRET and retenue.schedule_relationship == rt.TripUpdate.StopTimeUpdate.SKIPPED:
+    if retenue.stop_id == arret and retenue.schedule_relationship == rt.TripUpdate.StopTimeUpdate.SKIPPED:
         return StatutDepart.SUPPRIME, None, None
     evt = retenue.departure if retenue.HasField("departure") else retenue.arrival
-    if retenue.stop_id == ARRET and evt.time:
+    if retenue.stop_id == arret and evt.time:
         reelle = datetime.fromtimestamp(evt.time, timezone.utc)
     else:
         reelle = theorique + timedelta(seconds=evt.delay)

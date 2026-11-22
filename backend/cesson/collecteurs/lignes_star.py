@@ -7,6 +7,9 @@ La liste n'est pas saisie : elle est déduite chaque nuit de la topologie publi�
 Les prochains passages, eux, ne passent pas par ce backend : l'app les demande directement à STAR.
 Ce module lui fournit la liste des lignes et leurs couleurs pour les afficher, et la liste des arrêts
 de la commune (regroupés par nom, les deux quais ensemble) pour la carte « Mon arrêt ».
+
+S'y ajoutent tous les arrêts du réseau (nom et lignes) pour choisir la destination de « Mon trajet réseau Star »,
+n'importe où sur le réseau.
 """
 
 from __future__ import annotations
@@ -59,9 +62,17 @@ class ArretStar(Modele):
     lignes: list[str]  # noms courts, dans l'ordre des lignes
 
 
+class ArretReseau(Modele):
+    """Arrêt du réseau entier, pour la recherche de la destination : ni coordonnées ni couleurs."""
+    nom: str
+    modes: list[Mode]
+    lignes: list[str]  # noms courts
+
+
 class DonneesLignesStar(Modele):
     lignes: list[LigneStar]
     arrets: list[ArretStar] = []
+    reseau: list[ArretReseau] = []
 
 
 def cle_alphabetique(nom: str) -> str:
@@ -128,6 +139,9 @@ class CollecteurLignesStar(Collecteur[DonneesLignesStar]):
                                where="estversionactive='Oui' and visibilite='Grand public'",
                                select="id,nomcourt,nomlong,nomfamillecommerciale,couleurligne,couleurtexteligne"),
             "lignes_metro": lire("tco-metro-topologie-lignes-td"),
+            # Réseau entier : un couple (ligne, arrêt) par ligne.
+            "reseau_bus": lire("tco-bus-topologie-dessertes-td", select="idligne,nomarret", group_by="idligne,nomarret"),
+            "reseau_metro": lire("tco-metro-topologie-dessertes-td", select="idligne,nomarret", group_by="idligne,nomarret"),
         }
 
     def valider(self, brut: Any) -> None:
@@ -142,6 +156,9 @@ class CollecteurLignesStar(Collecteur[DonneesLignesStar]):
             raise ErreurValidation(f"seulement {len(brut['bus']) + len(brut['metro'])} ligne(s) à Cesson")
         if not brut["metro"]:
             raise ErreurValidation("le métro b ne dessert plus Cesson d'après la topologie : à vérifier")
+        for cle in ("reseau_bus", "reseau_metro"):
+            if not isinstance(brut.get(cle), list) or not brut[cle]:
+                raise ErreurValidation(f"{cle} : liste non vide attendue")
 
     def convertir(self, brut: Any, maintenant: datetime) -> DonneesLignesStar:
         lignes = []
@@ -162,7 +179,31 @@ class CollecteurLignesStar(Collecteur[DonneesLignesStar]):
                     couleur_texte=(l.get("couleurtexteligne") or "#ffffff").lower(),
                 ))
         lignes.sort(key=_cle_tri)
-        return DonneesLignesStar(lignes=lignes, arrets=self._arrets(brut, lignes))
+        return DonneesLignesStar(lignes=lignes, arrets=self._arrets(brut, lignes), reseau=self._reseau(brut))
+
+    @staticmethod
+    def _reseau(brut: Any) -> list[ArretReseau]:
+        """Tous les arrêts des lignes grand public, regroupés par nom ; absents d'un ancien brut, listes vides."""
+        toutes = []  # (mode, id, nom court, clé de tri)
+        for mode, topo in ((Mode.METRO, brut["lignes_metro"]), (Mode.BUS, brut["lignes_bus"])):
+            for l in topo:
+                ligne = LigneStar(id=str(l["id"]), nom_court=l["nomcourt"], nom_long=l["nomcourt"], mode=mode,
+                                  famille=l.get("nomfamillecommerciale"), couleur="#000000", couleur_texte="#ffffff")
+                toutes.append((mode, ligne.id, ligne.nom_court, _cle_tri(ligne)))
+        info = {(m, i): (n, k) for m, i, n, k in toutes}
+        par_nom: dict[str, dict] = {}
+        for mode, dessertes in ((Mode.METRO, brut.get("reseau_metro") or []), (Mode.BUS, brut.get("reseau_bus") or [])):
+            for d in dessertes:
+                cle = (mode, str(d.get("idligne")))
+                if cle not in info or not d.get("nomarret"):
+                    continue  # ligne non grand public
+                a = par_nom.setdefault(d["nomarret"], {"modes": set(), "lignes": set()})
+                a["modes"].add(mode)
+                a["lignes"].add(cle)
+        reseau = [ArretReseau(nom=nom, modes=sorted(a["modes"], key=lambda m: m != Mode.METRO),
+                              lignes=[info[k][0] for k in sorted(a["lignes"], key=lambda k: info[k][1])])
+                  for nom, a in par_nom.items()]
+        return sorted(reseau, key=lambda a: cle_alphabetique(a.nom))
 
     @staticmethod
     def _arrets(brut: Any, lignes: list[LigneStar]) -> list[ArretStar]:

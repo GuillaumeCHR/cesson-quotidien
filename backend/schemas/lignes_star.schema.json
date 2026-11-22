@@ -1,5 +1,36 @@
 {
   "$defs": {
+    "ArretReseau": {
+      "additionalProperties": false,
+      "description": "Arrêt du réseau entier, pour la recherche de la destination : ni coordonnées ni couleurs.",
+      "properties": {
+        "nom": {
+          "title": "Nom",
+          "type": "string"
+        },
+        "modes": {
+          "items": {
+            "$ref": "#/$defs/Mode"
+          },
+          "title": "Modes",
+          "type": "array"
+        },
+        "lignes": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Lignes",
+          "type": "array"
+        }
+      },
+      "required": [
+        "nom",
+        "modes",
+        "lignes"
+      ],
+      "title": "ArretReseau",
+      "type": "object"
+    },
     "ArretStar": {
       "additionalProperties": false,
       "properties": {
@@ -73,6 +104,14 @@
             "$ref": "#/$defs/ArretStar"
           },
           "title": "Arrets",
+          "type": "array"
+        },
+        "reseau": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/ArretReseau"
+          },
+          "title": "Reseau",
           "type": "array"
         }
       },

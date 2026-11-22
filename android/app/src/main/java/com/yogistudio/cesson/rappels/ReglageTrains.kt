@@ -43,6 +43,8 @@ import com.yogistudio.cesson.transport.heureLisible
 import com.yogistudio.cesson.transport.libelleJours
 import com.yogistudio.cesson.transport.lireTrainsFavoris
 import com.yogistudio.cesson.transport.trains
+import com.yogistudio.cesson.transport.trainsRetour
+import com.yogistudio.cesson.transport.ChoixGare
 import kotlinx.coroutines.launch
 
 private val INITIALES = listOf("L", "M", "M", "J", "V", "S", "D")
@@ -165,6 +167,40 @@ private fun EditeurTrain(
                 Text("Enregistrer")
             }
             TextButton(onClick = onAnnuler) { Text("Annuler") }
+        }
+    }
+}
+
+/**
+ * Gare de destination de « Mon trajet en train » (Ille-et-Vilaine, départements voisins, Paris) : la carte en montre
+ * les départs vers Rennes ou Cesson au retour. Partagé par les Réglages et le guide de démarrage.
+ */
+@Composable
+fun ReglageGareDestination(app: CessonApp) {
+    val portee = rememberCoroutineScope()
+    val retour by remember(app) { app.depot.trainsRetour() }.collectAsStateWithLifecycle(EtatModule.Absent)
+    val donnees = (retour as? EtatModule.Disponible)?.fichier?.donnees
+    val gare by app.preferences.gareDestination.collectAsStateWithLifecycle(null)
+    var choix by remember { mutableStateOf(false) }
+    val nom = gare?.let { g -> donnees?.gares?.firstOrNull { it.id == g }?.nom ?: "Gare choisie" }
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        Column(Modifier.weight(1f)) {
+            Text("Ma gare de destination", style = MaterialTheme.typography.labelLarge,
+                color = MaterialTheme.colorScheme.onSurfaceVariant)
+            Text(nom ?: "Facultatif : pour le retour", style = MaterialTheme.typography.bodyLarge)
+        }
+        OutlinedButton(onClick = { choix = true }, enabled = !donnees?.gares.isNullOrEmpty()) {
+            Text(when {
+                donnees == null -> "Chargement…"
+                gare == null -> "Choisir"
+                else -> "Changer"
+            })
+        }
+    }
+    if (choix && donnees != null) {
+        ChoixGare(donnees.gares, gare, onFermer = { choix = false }) {
+            portee.launch { app.preferences.enregistrerGareDestination(it) }
+            choix = false
         }
     }
 }

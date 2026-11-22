@@ -26,7 +26,8 @@ def brut() -> dict:
             "metro": sorted({d["idligne"] for d in lire("metro_dessertes")}),
             "points_bus": lire("bus_arrets"), "points_metro": lire("metro_arrets"),
             "dessertes_bus": lire("bus_dessertes"), "dessertes_metro": lire("metro_dessertes"),
-            "lignes_bus": lire("bus_lignes"), "lignes_metro": lire("metro_lignes")}
+            "lignes_bus": lire("bus_lignes"), "lignes_metro": lire("metro_lignes"),
+            "reseau_bus": lire("reseau_bus_dessertes"), "reseau_metro": lire("reseau_metro_dessertes")}
 
 
 def test_conversion_fixture_reelle():
@@ -55,7 +56,19 @@ def test_arrets_regroupes_par_nom():
     assert 40 <= len(d.arrets) <= 60
 
 
+def test_reseau_entier():
+    d = CollecteurLignesStar().convertir(brut(), MAINTENANT)
+    par_nom = {a.nom: a for a in d.reseau}
+    # Hors de Cesson aussi, avec métro et bus réunis sous un même nom.
+    assert len(d.reseau) > 500
+    assert par_nom["République"].modes[0] == Mode.METRO and "a" in par_nom["République"].lignes
+    assert par_nom["Gares"].lignes[:2] == ["a", "b"]
+    noms = [a.nom for a in d.reseau]
+    assert noms == sorted(noms, key=cle_alphabetique)
+
+
 @pytest.mark.parametrize("modif", [
+    lambda b: b.update(reseau_bus=[]),
     lambda b: b.update(metro=[]),
     lambda b: b.update(bus=["0002"], metro=["1002"]),
     lambda b: b["lignes_bus"][0].update(couleurligne="rouge"),
@@ -77,10 +90,13 @@ def test_collecte_complete(tmp_path, monkeypatch, avec_cle):
     monkeypatch.setenv("CESSON_STAR_IDENTIFIANTS", str(cle))
     publieur, sante = Publieur(tmp_path / "public"), Sante(tmp_path / "etat", url_alerte="")
     with respx.mock() as mock:
+        # Les dessertes servent deux fois : arrêts de Cesson (filtrées par idarret), puis réseau entier.
+        for jeu, cesson, reseau in [("tco-bus-topologie-dessertes-td", "bus_dessertes", "reseau_bus_dessertes"),
+                                    ("tco-metro-topologie-dessertes-td", "metro_dessertes", "reseau_metro_dessertes")]:
+            mock.get(url(jeu)).mock(side_effect=lambda req, c=cesson, r=reseau: httpx.Response(
+                200, json=lire(c if "where" in req.url.params else r)))
         for jeu, nom in [("tco-bus-topologie-pointsarret-td", "bus_arrets"),
                          ("tco-metro-topologie-pointsarret-td", "metro_arrets"),
-                         ("tco-bus-topologie-dessertes-td", "bus_dessertes"),
-                         ("tco-metro-topologie-dessertes-td", "metro_dessertes"),
                          ("tco-bus-topologie-lignes-td", "bus_lignes"),
                          ("tco-metro-topologie-lignes-td", "metro_lignes")]:
             mock.get(url(jeu)).mock(return_value=httpx.Response(200, json=lire(nom)))
@@ -90,4 +106,4 @@ def test_collecte_complete(tmp_path, monkeypatch, avec_cle):
     assert r.etat == Etat.OK, r.erreur
     assert autorisations == ({"Apikey 0123abcd"} if avec_cle else {None})
     f = FichierModule[DonneesLignesStar].model_validate_json(publieur.chemin("lignes_star").read_text())
-    assert f.meta.licence == "ODbL" and len(f.donnees.lignes) > 10
+    assert f.meta.licence == "ODbL" and len(f.donnees.lignes) > 10 and len(f.donnees.reseau) > 500
