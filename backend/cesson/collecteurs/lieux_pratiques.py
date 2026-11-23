@@ -71,7 +71,7 @@ class CollecteurDefibrillateurs(Collecteur[DonneesDefibrillateurs]):
     module = "defibrillateurs"
     source = "Géo'DAE, base nationale des défibrillateurs (ministère de la Santé)"
     licence = "Licence Ouverte 2.0"
-    url_source = "https://geodae.atlasante.fr/"
+    url_source = "https://www.data.gouv.fr/datasets/geodae-base-nationale-des-defibrillateurs"
     fraicheur = timedelta(days=7)
     modele_donnees = DonneesDefibrillateurs
 

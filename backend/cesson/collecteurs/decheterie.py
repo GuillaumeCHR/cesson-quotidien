@@ -68,7 +68,7 @@ class CollecteurDecheterie(Collecteur[DonneesDecheterie]):
     module = "decheterie"
     source = "Rennes Métropole (déchetteries et plateformes végétaux)"
     licence = "ODbL"
-    url_source = "https://metropole.rennes.fr/pratique/infos-demarches/dechets-proprete/les-decheteries-de-rennes-metropole/"
+    url_source = "https://data.rennesmetropole.fr/explore/dataset/decheteries_plateformes_vegetaux/"
     fraicheur = timedelta(days=1)
     modele_donnees = DonneesDecheterie
 

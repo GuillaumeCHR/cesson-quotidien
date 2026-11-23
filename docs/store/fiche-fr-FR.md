@@ -59,24 +59,23 @@ Aucun compte, aucune publicité, aucune donnée collectée
 Une idée, une erreur ? Le menu « Vos idées » ouvre un message pré-rempli.
 
 Sources officielles (détail et date de chaque donnée dans l'app, menu « Sources et licences ») :
-• Métro, bus, parc relais : STAR, Rennes Métropole – data.explore.star.fr
-• Trains : SNCF – transport.data.gouv.fr/datasets/horaires-sncf
-• Circulation : Rennes Métropole – data.rennesmetropole.fr
-• Niveau de la Vilaine : Hub'Eau – hubeau.eaufrance.fr
-• Vigilance crues : Vigicrues – vigicrues.gouv.fr
-• Vigilance météo : Météo-France – vigilance.meteofrance.fr
-• Météo : Open-Meteo (modèles Météo-France) – open-meteo.com
-• Air, pollens, pollution : Air Breizh – airbreizh.asso.fr
-• Restrictions d'eau : VigiEau – vigieau.gouv.fr
-• Carburants : ministère de l'Économie – prix-carburants.gouv.fr
-• Bornes de recharge : base nationale IRVE – transport.data.gouv.fr
-• Défibrillateurs : Géo'DAE, ministère de la Santé – geodae.atlasante.fr
-• Accessibilité : acceslibre – acceslibre.beta.gouv.fr
-• Vacances scolaires : ministère de l'Éducation nationale – data.education.gouv.fr
-• Collecte, déchetteries : Rennes Métropole – metropole.rennes.fr
-• Actualités, équipements, démarches : Ville de Cesson-Sévigné – ville-cesson-sevigne.fr
-• Cantine, familles : portail-familles.ville-cesson-sevigne.fr
-• Agenda, saison culturelle : OpenAgenda – openagenda.com
-• Handball : cesson-handball.com
-• Cinéma : Le Sévigné – cinesevigne.fr ; fiches des films : TMDB – themoviedb.org, Wikidata
-• Carte, pharmacies : OpenStreetMap – openstreetmap.org
+• Métro, bus, parc relais : STAR – https://data.explore.star.fr
+• Trains : SNCF – https://transport.data.gouv.fr/datasets/horaires-sncf
+• Circulation, déchetteries : Rennes Métropole – https://data.rennesmetropole.fr
+• Niveau de la Vilaine : Hub'Eau – https://hubeau.eaufrance.fr
+• Vigilance crues : Vigicrues – https://www.vigicrues.gouv.fr
+• Vigilance météo : Météo-France – https://vigilance.meteofrance.fr
+• Météo : Open-Meteo – https://open-meteo.com
+• Air, pollens : Air Breizh – https://www.airbreizh.asso.fr
+• Restrictions d'eau : VigiEau – https://vigieau.gouv.fr
+• Carburants : https://www.prix-carburants.gouv.fr
+• Bornes de recharge : IRVE – https://transport.data.gouv.fr
+• Défibrillateurs : Géo'DAE – https://www.data.gouv.fr/datasets/geodae-base-nationale-des-defibrillateurs
+• Accessibilité : https://acceslibre.beta.gouv.fr
+• Vacances scolaires : https://data.education.gouv.fr
+• Collecte, actualités, équipements, démarches : Ville de Cesson-Sévigné – https://www.ville-cesson-sevigne.fr
+• Cantine, familles : https://portail-familles.ville-cesson-sevigne.fr
+• Agenda, saison culturelle : https://openagenda.com
+• Handball : https://www.cesson-handball.com
+• Cinéma : https://www.cinesevigne.fr ; films : https://www.themoviedb.org
+• Carte, pharmacies : https://www.openstreetmap.org
