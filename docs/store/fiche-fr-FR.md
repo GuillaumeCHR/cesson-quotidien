@@ -76,6 +76,6 @@ Sources officielles (détail et date de chaque donnée dans l'app, menu « Sourc
 • Collecte, actualités, équipements, démarches : Ville de Cesson-Sévigné – https://www.ville-cesson-sevigne.fr
 • Cantine, familles : https://portail-familles.ville-cesson-sevigne.fr
 • Agenda, saison culturelle : https://openagenda.com
-• Handball : https://www.cesson-handball.com
+• Handball : club CRMHB – https://www.cesson-handball.com
 • Cinéma : https://www.cinesevigne.fr ; films : https://www.themoviedb.org
 • Carte, pharmacies : https://www.openstreetmap.org
