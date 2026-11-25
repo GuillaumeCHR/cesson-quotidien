@@ -52,6 +52,64 @@ class TrainsFavorisTest {
         assertNull(alerteTrain(f, jeudi, train(StatutTrain.SUPPRIME), setOf(supprime!!.cle)))
     }
 
+    // Jeudi 19/11, le 7h08 vers Rennes : 06:08 UTC.
+    private val prevu = Instant.parse("2026-11-19T06:08:00Z")
+    private fun publie(statut: StatutTrain, retard: Int? = null, fin: Instant? = null) =
+        train(statut, retard).copy(visibleJusquA = fin)
+    private fun surveille(a: Instant, vararg departs: DepartTrain) = f.departSurveille(a, horaires, departs.toList()) { false }
+
+    @Test
+    fun surveilleDUneHeureAvantJusquAuDepartPrevu() {
+        assertNull(surveille(prevu.minusSeconds(61 * 60), publie(StatutTrain.A_L_HEURE)))
+        assertNotNull(surveille(prevu.minusSeconds(60 * 60), publie(StatutTrain.A_L_HEURE)))
+        // À l'heure : la surveillance s'arrête 2 min après le départ.
+        assertNotNull(surveille(prevu.plusSeconds(120), publie(StatutTrain.A_L_HEURE)))
+        assertNull(surveille(prevu.plusSeconds(121), publie(StatutTrain.A_L_HEURE)))
+    }
+
+    @Test
+    fun trainEnRetardSurveilleJusquASonDepartReel() {
+        // +25 min : encore surveillé 20 min après l'heure prévue, et le retard aggravé déclenche une nouvelle alerte.
+        val retard = publie(StatutTrain.RETARD, 25, fin = prevu.plusSeconds(27 * 60))
+        val suivi = surveille(prevu.plusSeconds(20 * 60), retard)
+        assertEquals(retard, suivi?.publie)
+        val premiere = alerteTrain(f, jeudi, train(StatutTrain.RETARD, 10), emptySet())!!
+        assertEquals("Train de 7h08 : +25 min", alerteTrain(f, jeudi, suivi!!.publie!!, setOf(premiere.cle))?.titre)
+        // Parti : plus rien.
+        assertNull(surveille(prevu.plusSeconds(28 * 60), retard))
+    }
+
+    @Test
+    fun suppressionAnnonceeApresLHeurePrevue() {
+        val supprime = publie(StatutTrain.SUPPRIME, fin = prevu.plusSeconds(32 * 60))
+        val suivi = surveille(prevu.plusSeconds(10 * 60), supprime)
+        assertEquals("Train de 7h08 supprimé", alerteTrain(f, jeudi, suivi!!.publie!!, emptySet())?.titre)
+    }
+
+    @Test
+    fun jamaisPlusDe90MinApresLHeurePrevue() {
+        val enorme = publie(StatutTrain.RETARD, 170, fin = prevu.plusSeconds(172 * 60))
+        assertNotNull(surveille(prevu.plusSeconds(90 * 60), enorme))
+        assertNull(surveille(prevu.plusSeconds(91 * 60), enorme))
+        // Sans train publié (serveur muet) : 2 min après l'heure prévue.
+        assertEquals(prevu.plusSeconds(120), finSurveillance(prevu, null))
+    }
+
+    @Test
+    fun reveils() {
+        val retard = publie(StatutTrain.RETARD, 25, fin = prevu.plusSeconds(27 * 60))
+        // La veille au soir : une heure avant le départ.
+        assertEquals(prevu.minusSeconds(3600),
+            prochainReveil(listOf(f), Instant.parse("2026-11-18T20:00:00Z"), horaires, listOf(retard)) { false })
+        // Après l'heure prévue, train en retard pas parti : dans 5 min.
+        val apres = prevu.plusSeconds(15 * 60)
+        assertEquals(apres.plusSeconds(300), prochainReveil(listOf(f), apres, horaires, listOf(retard)) { false })
+        // Train parti : prochain réveil vendredi, une heure avant.
+        assertEquals(Instant.parse("2026-11-20T05:08:00Z"),
+            prochainReveil(listOf(f), prevu.plusSeconds(30 * 60), horaires, listOf(retard)) { false })
+        assertNull(prochainReveil(emptyList(), apres, horaires, listOf(retard)) { false })
+    }
+
     @Test
     fun libelles() {
         assertEquals("du lundi au vendredi", libelleJours(JOURS_OUVRES))

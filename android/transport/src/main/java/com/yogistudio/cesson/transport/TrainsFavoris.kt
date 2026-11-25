@@ -26,9 +26,14 @@ data class TrainFavori(
 
 val JOURS_OUVRES = listOf(1, 2, 3, 4, 5)
 const val RETARD_SIGNALE_MIN = 5
-/** Surveillance : de 60 min avant le départ prévu jusqu'au départ, toutes les 5 min. */
+/**
+ * Surveillance : de 60 min avant le départ prévu jusqu'au départ effectif, toutes les 5 min. Un train en retard ou
+ * supprimé reste surveillé après son heure prévue, tant que le serveur l'affiche, au plus 90 min : un retard qui
+ * s'aggrave ou une suppression annoncée tard sont ainsi signalés.
+ */
 val DEBUT_SURVEILLANCE: Duration = Duration.ofMinutes(60)
 val PAS_SURVEILLANCE: Duration = Duration.ofMinutes(5)
+val SURVEILLANCE_MAX_APRES: Duration = Duration.ofMinutes(90)
 
 private val serialiseurFavoris = ListSerializer(TrainFavori.serializer())
 
@@ -60,6 +65,44 @@ fun TrainFavori.prochainDepart(maintenant: Instant, horaires: List<HoraireTrain>
         .filter { j -> connus == null || j in connus || (finConnue != null && j.isAfter(finConnue)) }
         .map { depart(it) }
         .firstOrNull { it.toInstant().isAfter(maintenant) }
+}
+
+/** Départ d'un train favori en cours de surveillance, avec le train publié par le serveur qui lui correspond. */
+data class DepartSurveille(val prevu: ZonedDateTime, val fin: Instant, val publie: DepartTrain?)
+
+/**
+ * Fin de surveillance d'un départ prévu à [prevu] : la fin d'affichage du train publié (départ réel d'un train en
+ * retard, départ du suivant pour un train supprimé), sinon 2 min après l'heure prévue ; jamais plus de 90 min après.
+ */
+fun finSurveillance(prevu: Instant, publie: DepartTrain?): Instant {
+    val fin = publie?.let { finAffichage(it.visibleJusquA, it.heureReelle, it.heureTheorique) } ?: prevu.plusSeconds(120)
+    return minOf(maxOf(fin, prevu.plusSeconds(120)), prevu.plus(SURVEILLANCE_MAX_APRES))
+}
+
+/** Le départ du favori à surveiller à [maintenant] (une heure avant son horaire, jusqu'au départ effectif), ou null. */
+fun TrainFavori.departSurveille(
+    maintenant: Instant, horaires: List<HoraireTrain>, departs: List<DepartTrain>, estFerie: (LocalDate) -> Boolean,
+): DepartSurveille? {
+    // Une seconde de plus : prochainDepart ne garde que les départs strictement après l'instant donné.
+    val prevu = prochainDepart(maintenant.minus(SURVEILLANCE_MAX_APRES).minusSeconds(1), horaires, estFerie) ?: return null
+    val jour = prevu.toLocalDate()
+    val publie = departs.firstOrNull { estLe(it) && it.heureTheorique.atZone(FuseauCesson).toLocalDate() == jour }
+    val fin = finSurveillance(prevu.toInstant(), publie)
+    val enCours = !maintenant.isBefore(prevu.toInstant().minus(DEBUT_SURVEILLANCE)) && !maintenant.isAfter(fin)
+    return if (enCours) DepartSurveille(prevu, fin, publie) else null
+}
+
+/**
+ * Prochain réveil des alertes : dans 5 min si un favori est en cours de surveillance, sinon une heure avant le
+ * prochain départ d'un favori ; null s'il n'y a rien à surveiller.
+ */
+fun prochainReveil(
+    favoris: List<TrainFavori>, maintenant: Instant, horaires: List<HoraireTrain>, departs: List<DepartTrain>,
+    estFerie: (LocalDate) -> Boolean,
+): Instant? {
+    if (favoris.any { it.departSurveille(maintenant, horaires, departs, estFerie) != null }) return maintenant.plus(PAS_SURVEILLANCE)
+    val prochain = favoris.mapNotNull { it.prochainDepart(maintenant, horaires, estFerie) }.minOrNull() ?: return null
+    return maxOf(prochain.toInstant().minus(DEBUT_SURVEILLANCE), maintenant)
 }
 
 /** Ce qu'il faut dire d'un train favori, ou null si tout va bien (ou si l'information n'est pas encore là). */

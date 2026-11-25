@@ -19,14 +19,12 @@ import com.yogistudio.cesson.core.donnees.EtatModule
 import com.yogistudio.cesson.core.ui.FuseauCesson
 import com.yogistudio.cesson.pratique.estFerie
 import com.yogistudio.cesson.transport.AlerteTrain
-import com.yogistudio.cesson.transport.DEBUT_SURVEILLANCE
-import com.yogistudio.cesson.transport.PAS_SURVEILLANCE
 import com.yogistudio.cesson.transport.TrainFavori
 import com.yogistudio.cesson.transport.alerteTrain
 import com.yogistudio.cesson.transport.ecrireTrainsFavoris
-import com.yogistudio.cesson.transport.estLe
+import com.yogistudio.cesson.transport.departSurveille
 import com.yogistudio.cesson.transport.lireTrainsFavoris
-import com.yogistudio.cesson.transport.prochainDepart
+import com.yogistudio.cesson.transport.prochainReveil
 import com.yogistudio.cesson.transport.trains
 import kotlinx.coroutines.flow.first
 import java.time.Duration
@@ -36,8 +34,9 @@ import java.util.concurrent.TimeUnit
 
 /**
  * Trains favoris (« le 7h08 vers Rennes ») : WorkManager réveille l'app une heure avant le départ prévu, puis toutes
- * les 5 min jusqu'au départ ; l'app relit les trains publiés par le serveur (temps réel SNCF) et prévient seulement
- * en cas de suppression ou de retard de 5 min ou plus. Aucun serveur ne sait quel train vous prenez.
+ * les 5 min jusqu'au départ effectif (un train en retard ou supprimé reste suivi après son heure prévue, au plus
+ * 90 min) ; l'app relit les trains publiés par le serveur (temps réel SNCF) et prévient seulement en cas de
+ * suppression ou de retard de 5 min ou plus. Aucun serveur ne sait quel train vous prenez.
  */
 object AlertesTrains {
     private const val TRAVAIL = "alertes_trains"
@@ -58,17 +57,15 @@ object AlertesTrains {
         context.getSystemService(NotificationManager::class.java).createNotificationChannel(canal)
     }
 
-    /** Prochain réveil : une heure avant le prochain départ surveillé, ou dans 5 min si on est déjà dans l'heure. */
+    /** Prochain réveil : dans 5 min si un favori est surveillé, sinon une heure avant le prochain départ d'un favori. */
     suspend fun planifier(context: Context, maintenant: Instant = Instant.now()) {
         val wm = WorkManager.getInstance(context)
-        val favoris = favoris(context)
-        val prochain = favoris.mapNotNull { it.prochainDepart(maintenant, horaires(context), ::estFerie) }.minOrNull()
-        if (prochain == null) {
+        val donnees = trains(context)
+        val quand = prochainReveil(favoris(context), maintenant, donnees?.horaires.orEmpty(), donnees?.departs.orEmpty(), ::estFerie)
+        if (quand == null) {
             wm.cancelUniqueWork(TRAVAIL)
             return
         }
-        val debut = prochain.toInstant().minus(DEBUT_SURVEILLANCE)
-        val quand = if (maintenant.isBefore(debut)) debut else minOf(maintenant.plus(PAS_SURVEILLANCE), prochain.toInstant())
         wm.enqueueUniqueWork(
             TRAVAIL, ExistingWorkPolicy.REPLACE,
             OneTimeWorkRequestBuilder<TravailAlertesTrains>()
@@ -86,12 +83,8 @@ object AlertesTrains {
         val aujourdhui = maintenant.atZone(FuseauCesson).toLocalDate()
         val deja = app.preferences.alertesTrainsEnvoyees.first()
         val alertes = favoris.mapNotNull { f ->
-            val depart = f.prochainDepart(maintenant.minusSeconds(120), donnees.horaires, ::estFerie)
-            if (depart == null || depart.toLocalDate() != aujourdhui || maintenant.isBefore(depart.toInstant().minus(DEBUT_SURVEILLANCE))) {
-                return@mapNotNull null
-            }
-            donnees.departs.firstOrNull { f.estLe(it) && it.heureTheorique.atZone(FuseauCesson).toLocalDate() == aujourdhui }
-                ?.let { alerteTrain(f, aujourdhui, it, deja) }
+            val suivi = f.departSurveille(maintenant, donnees.horaires, donnees.departs, ::estFerie) ?: return@mapNotNull null
+            suivi.publie?.let { alerteTrain(f, suivi.prevu.toLocalDate(), it, deja) }
         }
         if (alertes.isEmpty() || !RappelsCollecte.notificationsAutorisees(context)) return
         val envoyees = alertes.filter { envoyer(context, it) }.map { it.cle }
@@ -102,8 +95,8 @@ object AlertesTrains {
         }.toSet())
     }
 
-    private suspend fun horaires(context: Context) =
-        (app(context).depot.trains().first() as? EtatModule.Disponible)?.fichier?.donnees?.horaires.orEmpty()
+    private suspend fun trains(context: Context) =
+        (app(context).depot.trains().first() as? EtatModule.Disponible)?.fichier?.donnees
 
     private fun envoyer(context: Context, a: AlerteTrain): Boolean {
         val ouvrir = PendingIntent.getActivity(
