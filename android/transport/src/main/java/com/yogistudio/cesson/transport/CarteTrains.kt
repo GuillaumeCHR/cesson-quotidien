@@ -136,7 +136,7 @@ fun CarteTrains(
                         }
                     }
                     d.directions.forEach { dir ->
-                        val trains = departsDeLaDirection(d, dir.id, maintenant).take(if (compact) 1 else PAR_DIRECTION)
+                        val trains = prochainsEtPasses(departsDeLaDirection(d, dir.id, maintenant), if (compact) 1 else PAR_DIRECTION, maintenant) { it.heureTheorique }
                         Column(verticalArrangement = Arrangement.spacedBy(if (compact) 2.dp else 6.dp)) {
                             Text(dir.libelle, style = MaterialTheme.typography.titleSmall,
                                 modifier = Modifier.semantics { heading() })
@@ -167,8 +167,8 @@ private fun Retour(retour: DonneesTrainsRetour?, gare: String, maintenant: Insta
         Text("Temps réel SNCF indisponible : horaires prévus, sans retards ni suppressions.",
             style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
     }
-    val trains = departsDeLaGare(retour, gare, maintenant).take(if (compact) 2 else 4)
-    if (trains.isEmpty()) TexteBientot("Aucun train vers Rennes ou Cesson dans les 12 prochaines heures.")
+    val trains = prochainsEtPasses(departsDeLaGare(retour, gare, maintenant), if (compact) 2 else 4, maintenant) { it.heureTheorique }
+    if (trains.isEmpty()) TexteBientot("Plus de train vers Rennes ou Cesson aujourd'hui.")
     trains.forEach { LigneRetour(it, maintenant, detail = !compact) }
 }
 

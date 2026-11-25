@@ -31,4 +31,12 @@ class TrainsRetourTest {
             depart("87471300", 20)))
         assertEquals(listOf("820", "840"), departsDeLaGare(d, "87471300", maintenant).map { it.numero })
     }
+
+    @Test
+    fun seulementLesTrainsDuJour() {
+        // 16h00 UTC = 17h00 à Cesson : un train à 23h30 (heure de Cesson) reste, celui du lendemain matin non.
+        val d = DonneesTrainsRetour(gares, listOf(depart("87471300", 6 * 60 + 30), depart("87471300", 7 * 60 + 30),
+            depart("87471300", 14 * 60)))
+        assertEquals(listOf("8390"), departsDeLaGare(d, "87471300", maintenant).map { it.numero })
+    }
 }

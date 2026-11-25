@@ -149,3 +149,64 @@ def test_temps_reel_en_panne_publie_les_horaires_prevus(tmp_path, monkeypatch):
     assert r.etat == Etat.OK
     f = FichierModule[DonneesTrains].model_validate_json(publieur.chemin("trains").read_text())
     assert not f.donnees.temps_reel_disponible
+
+
+# --- Rémanence des retards et des suppressions ----------------------------------------------------
+
+def test_train_supprime_garde_jusqu_au_suivant(tmp_path):
+    """Un train supprimé reste affiché après son heure prévue, jusqu'au départ du train suivant vers la même
+    direction (au plus une heure)."""
+    a = prochains(1)[0]
+    meme_direction = [t for t in prochains(20) if t["direction"] == a["direction"] and t is not a]
+    suivant = heure_gtfs("20261116", meme_direction[0]["depart"])
+    depart_a = heure_gtfs("20261116", a["depart"])
+    f = flux(mise_a_jour(a, supprime=True))
+    c = CollecteurTrains(dossier_etat=tmp_path)
+    x = next(x for x in c.convertir({"horaires": HORAIRES, "flux": f}, MAINTENANT).departs if x.numero == a["numero"])
+    attendu = min(suivant + timedelta(minutes=2), depart_a + timedelta(hours=1))
+    assert x.statut == StatutDepart.SUPPRIME and x.visible_jusqu_a == attendu
+    # 5 min après son horaire, le flux ne parle plus du train : il reste affiché, toujours supprimé.
+    plus_tard = depart_a + timedelta(minutes=5)
+    if plus_tard < attendu:
+        d = c.convertir({"horaires": HORAIRES, "flux": flux()}, plus_tard)
+        x = next(x for x in d.departs if x.numero == a["numero"])
+        assert x.statut == StatutDepart.SUPPRIME
+    # Après le départ du train suivant, il disparaît.
+    d = c.convertir({"horaires": HORAIRES, "flux": flux()}, attendu + timedelta(seconds=1))
+    assert all(x.numero != a["numero"] for x in d.departs)
+
+
+def test_retard_garde_quand_le_flux_n_en_parle_plus(tmp_path):
+    (a,) = prochains(1)
+    depart_a = heure_gtfs("20261116", a["depart"])
+    c = CollecteurTrains(dossier_etat=tmp_path)
+    c.convertir({"horaires": HORAIRES, "flux": flux(mise_a_jour(a, retard_s=20 * 60))}, MAINTENANT)
+    # 5 min après l'heure prévue, le flux a « oublié » le train, qui n'est pas parti : le retard reste.
+    d = c.convertir({"horaires": HORAIRES, "flux": flux()}, depart_a + timedelta(minutes=5))
+    x = next(x for x in d.departs if x.numero == a["numero"])
+    assert x.statut == StatutDepart.RETARD and x.retard_min == 20
+    assert x.visible_jusqu_a == depart_a + timedelta(minutes=22)
+    # Parti (heure réelle + 2 min dépassée) : il disparaît.
+    d = c.convertir({"horaires": HORAIRES, "flux": flux()}, depart_a + timedelta(minutes=23))
+    assert all(x.numero != a["numero"] for x in d.departs)
+
+
+def test_memoire_perimee_ignoree(tmp_path):
+    (a,) = prochains(1)
+    c = CollecteurTrains(dossier_etat=tmp_path)
+    c.convertir({"horaires": HORAIRES, "flux": flux(mise_a_jour(a, retard_s=3 * 3600))}, MAINTENANT)
+    assert (tmp_path / "trains_memoire.json").exists()
+    # Plus de 90 min sans confirmation du flux : le retard n'est plus repris.
+    d = c.convertir({"horaires": HORAIRES, "flux": flux()}, MAINTENANT + timedelta(minutes=91))
+    assert all(x.statut == StatutDepart.THEORIQUE for x in d.departs if x.numero == a["numero"])
+
+
+def test_les_trains_passes_ne_prennent_pas_la_place_des_prochains(tmp_path):
+    a = prochains(1)[0]
+    depart_a = heure_gtfs("20261116", a["depart"])
+    c = CollecteurTrains(dossier_etat=tmp_path)
+    c.convertir({"horaires": HORAIRES, "flux": flux(mise_a_jour(a, retard_s=40 * 60))}, MAINTENANT)
+    d = c.convertir({"horaires": HORAIRES, "flux": flux()}, depart_a + timedelta(minutes=10))
+    a_venir = [x for x in d.departs if x.direction == a["direction"] and x.heure_theorique >= depart_a + timedelta(minutes=10)]
+    assert any(x.numero == a["numero"] for x in d.departs)
+    assert len(a_venir) == 8  # les 8 prochains, en plus du train en retard

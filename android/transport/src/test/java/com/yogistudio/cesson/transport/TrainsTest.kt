@@ -43,6 +43,34 @@ class TrainsTest {
     }
 
     @Test
+    fun trainSupprimeGardeJusquAFinFixeeParLeServeur() {
+        val premier = decoder().departs.first { it.direction == "rennes" }
+        val fin = premier.heureTheorique.plusSeconds(40 * 60)
+        val supprime = premier.copy(statut = StatutTrain.SUPPRIME, visibleJusquA = fin)
+        val d = decoder().let { it.copy(departs = listOf(supprime) + it.departs.drop(1)) }
+        // 20 min après son horaire : toujours là, barré « supprimé ».
+        val apres20 = departsDeLaDirection(d, "rennes", premier.heureTheorique.plusSeconds(20 * 60))
+        assertEquals(StatutTrain.SUPPRIME, apres20.first().statut)
+        // Fin d'affichage dépassée : retiré.
+        assertTrue(departsDeLaDirection(d, "rennes", fin.plusSeconds(1)).none { it.numero == premier.numero })
+    }
+
+    @Test
+    fun sansFinDuServeurDeuxMinutesApresLeDepart() {
+        val t = Instant.parse("2026-11-15T12:00:00Z")
+        assertEquals(t.plusSeconds(120), finAffichage(null, null, t))
+        assertEquals(t.plusSeconds(600 + 120), finAffichage(null, t.plusSeconds(600), t))
+        assertEquals(t.plusSeconds(3600), finAffichage(t.plusSeconds(3600), null, t))
+    }
+
+    @Test
+    fun lesTrainsPassesSAjoutentAuxProchains() {
+        val maintenant = Instant.parse("2026-11-15T12:00:00Z")
+        val heures = listOf(-600L, 300L, 900L, 1500L).map { maintenant.plusSeconds(it) }
+        assertEquals(heures.take(3), prochainsEtPasses(heures, 2, maintenant) { it })
+    }
+
+    @Test
     fun statutsEnToutesLettres() {
         val t = decoder().departs.first()
         assertEquals("+7 min", libelleStatut(t.copy(statut = StatutTrain.RETARD, retardMin = 7)))

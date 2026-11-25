@@ -51,6 +51,18 @@ const aujourdhui = (decalage = 0) => fmt({ year: "numeric", month: "2-digit", da
   .formatToParts(new Date(Date.now() + decalage * 86400000))
   .reduce((a, p) => ({ ...a, [p.type]: p.value }), {});
 const isoJour = (decalage = 0) => { const p = aujourdhui(decalage); return `${p.year}-${p.month}-${p.day}`; };
+/** Jour à Cesson d'un horodatage, « 2026-11-17 ». */
+const jourCesson = (d) => new Date(d).toLocaleDateString("sv-SE", { timeZone: FUSEAU });
+/** Train encore à afficher : jusqu'à la fin fixée par le serveur (départ réel d'un train en retard, train suivant
+ * pour un supprimé), sinon 2 min après son départ. */
+const trainVisible = (x) => (x.visible_jusqu_a ? new Date(x.visible_jusqu_a)
+  : new Date(new Date(x.heure_reelle || x.heure_theorique).getTime() + 120000)) > Date.now();
+/** Les n prochains trains, plus ceux dont l'horaire prévu est passé (en retard ou supprimés), qui ne prennent pas
+ * leur place. [liste] triée par horaire prévu. */
+const prochainsEtPasses = (liste, n) => {
+  const passe = (x) => new Date(x.heure_theorique) < Date.now();
+  return [...liste.filter(passe), ...liste.filter((x) => !passe(x)).slice(0, n)];
+};
 const majuscule = (s) => s ? s[0].toUpperCase() + s.slice(1) : s;
 const sansAccents = (s) => (s || "").normalize("NFD").replace(/\p{M}+/gu, "").toLowerCase();
 const euros = (n) => n.toLocaleString("fr-FR", { minimumFractionDigits: 3, maximumFractionDigits: 3 }) + " €";
@@ -534,21 +546,23 @@ async function carteTrains(complet = true) {
   const n = complet ? 3 : 2;
   const corps = el("div");
   const aller = () => {
-    const futurs = d.departs.filter((x) => new Date(x.heure_reelle || x.heure_theorique) > Date.now());
+    const futurs = d.departs.filter((x) => jourCesson(x.heure_theorique) === isoJour() && trainVisible(x))
+      .sort((a, b) => new Date(a.heure_theorique) - new Date(b.heure_theorique));
     return d.directions.map((dir) => {
-      const liste = futurs.filter((x) => x.direction === dir.id).slice(0, n);
-      return el("div", {}, el("h3", {}, dir.libelle), liste.length === 0 ? el("p", { classe: "vide" }, "Pas de train annoncé.") :
+      const liste = prochainsEtPasses(futurs.filter((x) => x.direction === dir.id), n);
+      return el("div", {}, el("h3", {}, dir.libelle), liste.length === 0 ? el("p", { classe: "vide" }, "Plus de train aujourd'hui.") :
         el("ul", { classe: "liste" }, liste.map((x) => el("li", { classe: "ligne" },
           el("span", { classe: "chiffre" }, heure(x.heure_reelle || x.heure_theorique)),
           el("span", { classe: "etire" }, `${x.ligne} · ${x.destination}`), statutTrain(x)))));
     });
   };
   const retour = (gare) => {
-    const trains = r.donnees.departs.filter((x) => x.arret === gare && new Date(x.heure_reelle || x.heure_theorique) > Date.now() - 120000)
-      .sort((a, b) => new Date(a.heure_theorique) - new Date(b.heure_theorique)).slice(0, complet ? 4 : 2);
+    const trains = prochainsEtPasses(r.donnees.departs.filter((x) => x.arret === gare
+      && jourCesson(x.heure_theorique) === isoJour() && trainVisible(x))
+      .sort((a, b) => new Date(a.heure_theorique) - new Date(b.heure_theorique)), complet ? 4 : 2);
     return [el("h3", {}, "Trains vers Rennes ou Cesson uniquement"),
       !r.donnees.temps_reel_disponible && el("p", { classe: "doux petit" }, "Temps réel SNCF indisponible : horaires prévus."),
-      trains.length === 0 ? el("p", { classe: "vide" }, "Aucun train vers Rennes ou Cesson dans les 12 prochaines heures.") :
+      trains.length === 0 ? el("p", { classe: "vide" }, "Plus de train vers Rennes ou Cesson aujourd'hui.") :
         el("ul", { classe: "liste" }, trains.map((x) => el("li", { classe: "ligne" },
           el("span", { classe: "chiffre" }, heure(x.statut === "retard" && x.heure_reelle ? x.heure_reelle : x.heure_theorique)),
           el("span", { classe: "etire" }, `${x.ligne} · n° ${x.numero}`, el("br"),

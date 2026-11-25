@@ -81,6 +81,19 @@
           ],
           "default": null,
           "title": "Retard Min"
+        },
+        "visible_jusqu_a": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Visible Jusqu A"
         }
       },
       "required": [

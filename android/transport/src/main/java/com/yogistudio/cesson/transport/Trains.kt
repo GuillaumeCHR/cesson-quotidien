@@ -38,6 +38,8 @@ data class DepartTrain(
     val numero: String,
     val direction: String,
     @SerialName("retard_min") val retardMin: Int? = null,
+    /** Fin d'affichage fixée par le serveur : départ réel d'un train en retard, train suivant pour un supprimé. */
+    @SerialName("visible_jusqu_a") val visibleJusquA: Horodatage? = null,
 )
 
 @Serializable
@@ -53,16 +55,29 @@ const val MODULE_TRAINS = "trains"
 fun DepotModules.trains(): Flow<EtatModule<DonneesTrains>> = suivre(MODULE_TRAINS, DonneesTrains.serializer())
 
 /**
- * Départs encore à venir aujourd'hui (à Cesson) dans une direction ; un train supprimé reste
- * affiché, barré. Le jour est celui de l'horaire prévu : un train de 23h55 retardé après minuit
- * reste un train du jour.
+ * Départs encore visibles aujourd'hui (à Cesson) dans une direction ; un train supprimé reste
+ * affiché, barré, jusqu'au départ du train suivant. Le jour est celui de l'horaire prévu : un train
+ * de 23h55 retardé après minuit reste un train du jour.
  */
 fun departsDeLaDirection(d: DonneesTrains, direction: String, maintenant: Instant): List<DepartTrain> {
     val aujourdhui = maintenant.atZone(FuseauCesson).toLocalDate()
     return d.departs.filter { it.direction == direction }
         .filter { it.heureTheorique.atZone(FuseauCesson).toLocalDate() == aujourdhui }
-        .filter { (it.heureReelle ?: it.heureTheorique).isAfter(maintenant.minusSeconds(120)) }
+        .filter { finAffichage(it.visibleJusquA, it.heureReelle, it.heureTheorique).isAfter(maintenant) }
         .sortedBy { it.heureTheorique }
+}
+
+/** Fin d'affichage d'un départ : celle du serveur, sinon 2 min après son départ (données d'un ancien serveur). */
+fun finAffichage(visibleJusquA: Instant?, reelle: Instant?, theorique: Instant): Instant =
+    visibleJusquA ?: (reelle ?: theorique).plusSeconds(120)
+
+/**
+ * Les [n] prochains départs, plus ceux dont l'horaire prévu est passé (en retard, ou supprimés) : gardés par le
+ * serveur pour ne pas perdre l'information, ils ne prennent pas la place des prochains.
+ */
+fun <T> prochainsEtPasses(departs: List<T>, n: Int, maintenant: Instant, theorique: (T) -> Instant): List<T> {
+    val (passes, aVenir) = departs.partition { theorique(it).isBefore(maintenant) }
+    return passes + aVenir.take(n)
 }
 
 /** Libellé du statut, toujours en texte : la couleur ne porte jamais seule l'information. */

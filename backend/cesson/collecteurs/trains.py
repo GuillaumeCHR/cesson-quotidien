@@ -8,7 +8,8 @@ Deux sources SNCF, sous Licence Ouverte (transport.data.gouv.fr) :
 - le GTFS-RT national (trip updates), pour le temps réel : retard, suppression, arrêt non
   desservi. Il ne couvre que les trains en circulation ou partant dans l'heure, et la SNCF ne
   garantit pas sa couverture pour les TER : un train absent du flux est publié comme « horaire
-  théorique », jamais comme « à l'heure ».
+  théorique », jamais comme « à l'heure ». Le dernier retard ou la suppression connus d'un train sont gardés
+  (`trains_memoire.json`) quand le flux cesse d'en parler avant son départ (voir memoire_trains).
 
 Cadence : toutes les 2 min en journée. Le téléphone ne télécharge jamais le flux national.
 """
@@ -33,18 +34,18 @@ from ..commun.collecteur import Collecteur, ErreurValidation, Resultat, obtenir
 from ..commun.modele import Coord, Depart, Lieu, Mode, Modele, StatutDepart
 from ..commun.publication import Publieur, ecrire_atomique
 from ..commun.sante import Sante
+from .memoire_trains import FENETRE_PASSE, TOLERANCE_PASSE, MemoireTrains, depart_suivant, visible_jusqu_a
 
 URL_GTFS = "https://eu.ftp.opendatasoft.com/sncf/plandata/Export_OpenData_SNCF_GTFS_NewTripId.zip"
 URL_RT = "https://proxy.transport.data.gouv.fr/resource/sncf-gtfs-rt-trip-updates"
 ARRET = "StopPoint:OCETrain TER-87334490"
 PARIS = ZoneInfo("Europe/Paris")
 FICHIER_HORAIRES = "trains_horaires.json"
+FICHIER_MEMOIRE = "trains_memoire.json"
 JOURS_GARDES = 8  # le fichier d'état couvre une semaine : une panne du GTFS ne prive pas de trains
 AGE_MAX_HORAIRES = timedelta(hours=20)
 PAR_DIRECTION = 8  # la carte en montre 3 ; les autres servent aux alertes des trains favoris (dans l'heure qui précède)
 HORIZON = timedelta(hours=24)
-# Un départ affiché jusqu'à 2 min après son heure : le train peut être encore à quai.
-TOLERANCE_PASSE = timedelta(minutes=2)
 
 HALTE = Lieu(
     id="sncf:87334490",
@@ -70,6 +71,8 @@ class DepartTrain(Depart):
     numero: str
     direction: str  # id de Direction
     retard_min: int | None = None
+    # Fin d'affichage : départ réel (+2 min) d'un train en retard, départ du train suivant pour un train supprimé.
+    visible_jusqu_a: datetime | None = None
 
 
 class HoraireTrain(Modele):
@@ -288,18 +291,18 @@ class CollecteurTrains(Collecteur[DonneesTrains]):
 
     def convertir(self, brut: Any, maintenant: datetime) -> DonneesTrains:
         index = index_rt(brut["flux"]) if brut["flux"] is not None else {}
+        memoire = MemoireTrains(self.dossier_etat / FICHIER_MEMOIRE if self.dossier_etat else None)
         departs: list[DepartTrain] = []
         dans_l_heure = trouves = 0
         for t in brut["horaires"]["trains"]:
             for jour in t["dates"]:
                 theorique = heure_gtfs(jour, t["depart"])
-                if not maintenant - TOLERANCE_PASSE - timedelta(hours=1) <= theorique <= maintenant + HORIZON:
+                if not maintenant - FENETRE_PASSE <= theorique <= maintenant + HORIZON:
                     continue
                 tu = index.get((t["numero"], jour))
-                statut, reelle, retard = appliquer_rt(theorique, t, tu)
-                if (reelle or theorique) < maintenant - TOLERANCE_PASSE:
-                    continue  # parti
-                if theorique <= maintenant + timedelta(hours=1):
+                statut, reelle, retard = memoire.completer(f"{t['numero']}|{jour}|{ARRET}",
+                                                           *appliquer_rt(theorique, t, tu), maintenant)
+                if maintenant - TOLERANCE_PASSE - timedelta(hours=1) <= theorique <= maintenant + timedelta(hours=1):
                     dans_l_heure += 1
                     trouves += tu is not None
                 departs.append(DepartTrain(
@@ -307,10 +310,20 @@ class CollecteurTrains(Collecteur[DonneesTrains]):
                     heure_theorique=theorique, heure_reelle=reelle, statut=statut,
                     numero=t["numero"], direction=t["direction"], retard_min=retard,
                 ))
+        memoire.enregistrer(maintenant)
         departs.sort(key=lambda d: d.heure_theorique)
+        for i, d in enumerate(departs):
+            suivant = depart_suivant(departs, i, lambda x, d=d: x.direction == d.direction)
+            fin = visible_jusqu_a(d.statut, d.heure_theorique, d.heure_reelle, suivant)
+            departs[i] = d.model_copy(update={"visible_jusqu_a": fin})
+        # Les trains dont l'horaire est passé (en retard, ou supprimés) s'ajoutent aux prochains, sans les évincer.
         gardes, vus = [], {}
         for d in departs:
-            if vus.get(d.direction, 0) < PAR_DIRECTION:
+            if d.visible_jusqu_a < maintenant:
+                continue  # parti
+            if d.heure_theorique < maintenant:
+                gardes.append(d)
+            elif vus.get(d.direction, 0) < PAR_DIRECTION:
                 gardes.append(d)
                 vus[d.direction] = vus.get(d.direction, 0) + 1
         return DonneesTrains(halte=HALTE, directions=list(DIRECTIONS.values()), departs=gardes,

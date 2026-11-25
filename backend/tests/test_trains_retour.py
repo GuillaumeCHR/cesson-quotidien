@@ -88,3 +88,30 @@ def test_collecte_avec_retard(tmp_path):
     assert retarde.heure_arrivee == heure_gtfs("20261123", prochain["heure_arrivee"]) + timedelta(minutes=10)
     noms = [g.nom for g in d.gares]
     assert "Paris Montparnasse" in noms and noms.index("Laval") < noms.index("Vitré")
+
+
+def test_retour_supprime_garde_jusqu_au_suivant(tmp_path):
+    """Comme à l'aller : un train supprimé reste affiché jusqu'au départ du suivant depuis la même gare."""
+    jour = [d for d in HORAIRES["departs"] if "20261123" in d["dates"] and heure_gtfs("20261123", d["depart"]) > MAINTENANT]
+    gare = max({d["gare"] for d in jour}, key=lambda g: sum(d["gare"] == g for d in jour))  # la gare la plus desservie
+    a, b = sorted((d for d in jour if d["gare"] == gare), key=lambda d: heure_gtfs("20261123", d["depart"]))[:2]
+    tu = rt.TripUpdate()
+    tu.trip.trip_id = f"OCESN{a['numero']}F:autre-version"
+    tu.trip.start_date = "20261123"
+    tu.trip.schedule_relationship = rt.TripDescriptor.CANCELED
+    vide = rt.FeedMessage()
+    vide.header.gtfs_realtime_version = "2.0"
+    plein = rt.FeedMessage()
+    plein.CopyFrom(vide)
+    plein.entity.add(id="0").trip_update.CopyFrom(tu)
+    depart_a, depart_b = heure_gtfs("20261123", a["depart"]), heure_gtfs("20261123", b["depart"])
+    c = CollecteurTrainsRetour(dossier_etat=tmp_path)
+    c.convertir({"horaires": HORAIRES, "flux": plein}, MAINTENANT)
+    apres = depart_a + timedelta(minutes=3)
+    if apres < min(depart_b, depart_a + timedelta(hours=1)):
+        d = c.convertir({"horaires": HORAIRES, "flux": vide}, apres)
+        x = next(x for x in d.departs if x.numero == a["numero"] and x.arret == gare)
+        assert x.statut == StatutDepart.SUPPRIME
+    fin = min(depart_b + timedelta(minutes=2), depart_a + timedelta(hours=1))
+    d = c.convertir({"horaires": HORAIRES, "flux": vide}, fin + timedelta(seconds=1))
+    assert not any(x.numero == a["numero"] and x.arret == gare for x in d.departs)

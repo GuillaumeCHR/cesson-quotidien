@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import com.yogistudio.cesson.core.donnees.DepotModules
 import com.yogistudio.cesson.core.donnees.EtatModule
 import com.yogistudio.cesson.core.modele.Horodatage
+import com.yogistudio.cesson.core.ui.FuseauCesson
 import com.yogistudio.cesson.core.ui.TexteBientot
 import kotlinx.coroutines.flow.Flow
 import kotlinx.serialization.SerialName
@@ -60,6 +61,8 @@ data class DepartRetour(
     @SerialName("retard_min") val retardMin: Int? = null,
     val arrivee: String,
     @SerialName("heure_arrivee") val heureArrivee: Horodatage,
+    /** Fin d'affichage fixée par le serveur : départ réel d'un train en retard, train suivant pour un supprimé. */
+    @SerialName("visible_jusqu_a") val visibleJusquA: Horodatage? = null,
 )
 
 const val MODULE_TRAINS_RETOUR = "trains_retour"
@@ -67,11 +70,17 @@ const val MODULE_TRAINS_RETOUR = "trains_retour"
 fun DepotModules.trainsRetour(): Flow<EtatModule<DonneesTrainsRetour>> =
     suivre(MODULE_TRAINS_RETOUR, DonneesTrainsRetour.serializer())
 
-/** Prochains départs de la gare [gare] vers Rennes ou Cesson ; un train supprimé reste affiché, barré. */
-fun departsDeLaGare(d: DonneesTrainsRetour, gare: String, maintenant: Instant): List<DepartRetour> =
-    d.departs.filter { it.arret == gare }
-        .filter { (it.heureReelle ?: it.heureTheorique).isAfter(maintenant.minusSeconds(120)) }
+/**
+ * Départs encore visibles aujourd'hui (à Cesson) de la gare [gare] vers Rennes ou Cesson, comme pour l'aller ; un train
+ * supprimé reste affiché, barré, jusqu'au départ du suivant. Le jour est celui de l'horaire prévu.
+ */
+fun departsDeLaGare(d: DonneesTrainsRetour, gare: String, maintenant: Instant): List<DepartRetour> {
+    val aujourdhui = maintenant.atZone(FuseauCesson).toLocalDate()
+    return d.departs.filter { it.arret == gare }
+        .filter { it.heureTheorique.atZone(FuseauCesson).toLocalDate() == aujourdhui }
+        .filter { finAffichage(it.visibleJusquA, it.heureReelle, it.heureTheorique).isAfter(maintenant) }
         .sortedBy { it.heureTheorique }
+}
 
 /** Même texte que pour l'aller, la couleur ne portant jamais seule l'information. */
 fun libelleStatut(t: DepartRetour): String = when (t.statut) {

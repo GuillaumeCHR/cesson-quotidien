@@ -7,7 +7,8 @@ serveur ne sait pas laquelle.
 
 Mêmes sources que le module trains (GTFS national et GTFS-RT SNCF, Licence Ouverte), plus la liste des gares de
 voyageurs (SNCF, ODbL) pour situer chaque gare dans son département. Extraction une fois par jour, gardée
-dans l'état (`trains_retour_horaires.json`) ; temps réel à chaque collecte.
+dans l'état (`trains_retour_horaires.json`) ; temps réel à chaque collecte, avec la même rémanence des retards et
+des suppressions que l'aller (`trains_retour_memoire.json`, voir memoire_trains).
 """
 
 from __future__ import annotations
@@ -27,9 +28,10 @@ from ..commun.modele import Depart, Mode, Modele, StatutDepart
 from ..commun.publication import Publieur, ecrire_atomique
 from ..commun.sante import Sante
 from .lignes_star import cle_alphabetique
+from .memoire_trains import FENETRE_PASSE, MemoireTrains, depart_suivant, visible_jusqu_a
 from .trains import (
-    AGE_MAX_HORAIRES, JOURS_GARDES, PARIS, TOLERANCE_PASSE, URL_GTFS, URL_RT, appliquer_rt, decoder_rt, heure_gtfs,
-    index_rt, numero_train,
+    AGE_MAX_HORAIRES, JOURS_GARDES, PARIS, URL_GTFS, URL_RT, appliquer_rt, decoder_rt, heure_gtfs, index_rt,
+    numero_train,
 )
 
 URL_GARES = "https://ressources.data.sncf.com/api/explore/v2.1/catalog/datasets/gares-de-voyageurs/exports/json"
@@ -37,6 +39,7 @@ DEPARTEMENTS = ("35", "44", "56", "22", "53", "50", "75")
 UIC_CESSON, UIC_RENNES = "87334490", "87471003"
 ARRIVEES = {UIC_CESSON: "Cesson-Sévigné", UIC_RENNES: "Rennes"}
 FICHIER_HORAIRES = "trains_retour_horaires.json"
+FICHIER_MEMOIRE = "trains_retour_memoire.json"
 HORIZON = timedelta(hours=12)
 PAR_GARE = 6
 MIN_GARES = 20
@@ -70,6 +73,8 @@ class DepartRetour(Depart):
     retard_min: int | None = None
     arrivee: str  # « Cesson-Sévigné » ou « Rennes » : le premier des deux où le train s'arrête ensuite
     heure_arrivee: datetime  # prévue, décalée du retard connu au départ
+    # Fin d'affichage : départ réel (+2 min) d'un train en retard, départ du train suivant pour un train supprimé.
+    visible_jusqu_a: datetime | None = None
 
 
 class DonneesTrainsRetour(Modele):
@@ -215,25 +220,36 @@ class CollecteurTrainsRetour(Collecteur[DonneesTrainsRetour]):
 
     def convertir(self, brut: Any, maintenant: datetime) -> DonneesTrainsRetour:
         index = index_rt(brut["flux"]) if brut["flux"] is not None else {}
+        memoire = MemoireTrains(self.dossier_etat / FICHIER_MEMOIRE if self.dossier_etat else None)
         departs: list[DepartRetour] = []
         for t in brut["horaires"]["departs"]:
             for jour in t["dates"]:
                 theorique = heure_gtfs(jour, t["depart"])
-                if not maintenant - TOLERANCE_PASSE - timedelta(hours=1) <= theorique <= maintenant + HORIZON:
+                if not maintenant - FENETRE_PASSE <= theorique <= maintenant + HORIZON:
                     continue
-                statut, reelle, retard = appliquer_rt(theorique, t, index.get((t["numero"], jour)), t["stop_id"])
-                if (reelle or theorique) < maintenant - TOLERANCE_PASSE:
-                    continue
+                statut, reelle, retard = memoire.completer(
+                    f"{t['numero']}|{jour}|{t['gare']}",
+                    *appliquer_rt(theorique, t, index.get((t["numero"], jour)), t["stop_id"]), maintenant)
                 arrivee = heure_gtfs(jour, t["heure_arrivee"]) + timedelta(minutes=retard or 0)
                 departs.append(DepartRetour(
                     arret=t["gare"], ligne=t["ligne"], mode=Mode.TRAIN, destination=t["destination"],
                     heure_theorique=theorique, heure_reelle=reelle, statut=statut, numero=t["numero"],
                     retard_min=retard, arrivee=ARRIVEES[t["arrivee"]], heure_arrivee=arrivee,
                 ))
+        memoire.enregistrer(maintenant)
         departs.sort(key=lambda d: (d.arret, d.heure_theorique))
+        for i, d in enumerate(departs):
+            # Le train suivant depuis la même gare, vers Rennes ou Cesson : il remplace le train supprimé.
+            suivant = depart_suivant(departs, i, lambda x, d=d: x.arret == d.arret)
+            fin = visible_jusqu_a(d.statut, d.heure_theorique, d.heure_reelle, suivant)
+            departs[i] = d.model_copy(update={"visible_jusqu_a": fin})
         gardes, vus = [], {}
         for d in departs:
-            if vus.get(d.arret, 0) < PAR_GARE:
+            if d.visible_jusqu_a < maintenant:
+                continue  # parti
+            if d.heure_theorique < maintenant:
+                gardes.append(d)  # en retard ou supprimé, horaire passé : en plus des prochains
+            elif vus.get(d.arret, 0) < PAR_GARE:
                 gardes.append(d)
                 vus[d.arret] = vus.get(d.arret, 0) + 1
         gares = sorted((GareRetour(**g) for g in brut["horaires"]["gares"]), key=lambda g: cle_alphabetique(g.nom))
