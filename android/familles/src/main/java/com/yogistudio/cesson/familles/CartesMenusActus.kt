@@ -38,10 +38,11 @@ import java.time.format.DateTimeFormatter
 import java.util.Locale
 
 private val PUCE_JOUR = DateTimeFormatter.ofPattern("EEE d", Locale.FRENCH)
+private val PUCE_JOUR_MOIS = DateTimeFormatter.ofPattern("EEE d MMM", Locale.FRENCH)
 
 /** Menus de la cantine : un jour à la fois (puces de la semaine), rubrique par rubrique. */
 @Composable
-fun CarteMenus(etat: EtatModule<DonneesFamilles>, modifier: Modifier = Modifier) {
+fun CarteMenus(etat: EtatModule<DonneesFamilles>, modifier: Modifier = Modifier, vacances: DonneesVacances? = null) {
     val maintenant = rememberMaintenant()
     val uri = LocalUriHandler.current
     val titre = "Menus de la cantine"
@@ -52,20 +53,30 @@ fun CarteMenus(etat: EtatModule<DonneesFamilles>, modifier: Modifier = Modifier)
         is EtatModule.Disponible -> {
             val d = etat.fichier.donnees
             val ici = maintenant.atZone(FuseauCesson)
-            val jours = joursDeMenu(d, ici.toLocalDate())
+            val aujourdhui = ici.toLocalDate()
+            val vue = vueMenus(d, vacances, aujourdhui)
+            val jours = vue.jours
             var choisi by rememberSaveable(jours.firstOrNull()?.jour) {
                 mutableIntStateOf(jourParDefaut(jours, ici.toLocalDate(), ici.toLocalTime()))
             }
             CarteDonnee(titre, Icons.Rounded.Restaurant, modifier, etat.fraicheur, maintenant) {
                 Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                    vue.enCours?.let { p ->
+                        Pastille(p.nom, Ton.NEUTRE)
+                        Text(texteVacancesEnCours(p, aujourdhui, vue.menusPendant), style = MaterialTheme.typography.bodyMedium)
+                    }
                     if (jours.isEmpty()) {
-                        TexteBientot("Pas de menu publié pour les prochains jours (vacances, ou menu du mois pas encore en ligne).")
+                        TexteBientot(if (vue.enCours != null) "Menu de la reprise pas encore en ligne."
+                            else "Pas de menu publié pour les prochains jours (menu du mois pas encore en ligne).")
                     } else {
                         Row(Modifier.horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                             jours.forEachIndexed { i, m ->
                                 FilterChip(
                                     selected = i == choisi, onClick = { choisi = i },
-                                    label = { Text(if (m.jour == ici.toLocalDate()) "Aujourd'hui" else PUCE_JOUR.format(m.jour).replaceFirstChar { it.uppercase() }) },
+                                    label = {
+                                        val format = if (pucePorteLeMois(m.jour, aujourdhui)) PUCE_JOUR_MOIS else PUCE_JOUR
+                                        Text(if (m.jour == aujourdhui) "Aujourd'hui" else format.format(m.jour).replaceFirstChar { it.uppercase() })
+                                    },
                                 )
                             }
                         }
@@ -88,6 +99,7 @@ fun CarteMenus(etat: EtatModule<DonneesFamilles>, modifier: Modifier = Modifier)
                             }
                         }
                     }
+                    vue.ensuite?.let { Text(texteVacancesEnsuite(it), style = MaterialTheme.typography.bodyMedium) }
                     if (LocalCompact.current) return@Column  // compact : le menu du jour, sans le pied
                     d.restaurants?.let {
                         Text("Restaurants scolaires de $it. Menu susceptible de changer selon les livraisons.",

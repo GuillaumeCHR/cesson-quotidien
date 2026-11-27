@@ -38,6 +38,9 @@ fun prochainControleAir(maintenant: Instant, creneaux: List<LocalTime> = CONTROL
 /** Seuils proposés pour l'alerte pollens, avec leur libellé. */
 val SEUILS_POLLENS: List<Int> = listOf(3, 4, 5)
 
+/** Seuils proposés pour l'alerte qualité de l'air : dégradé (par défaut), mauvais, très mauvais. */
+val SEUILS_QUALITE_AIR: List<Int> = listOf(3, 4, 5)
+
 data class NotificationAir(val cle: String, val titre: String, val texte: String)
 
 private fun quand(d: LocalDate, aujourdhui: LocalDate) = if (d == aujourdhui) "aujourd'hui" else "demain"
@@ -63,6 +66,32 @@ fun notificationsPollens(d: DonneesPollens, aujourdhui: LocalDate, seuil: Int, d
             )
         }
         .filter { it.cle !in dejaEnvoyees }
+
+/**
+ * Indice ATMO d'aujourd'hui et de demain, dès [seuil] (3 dégradé, 4 mauvais, 5 très mauvais). On prévient de nouveau
+ * si l'indice s'aggrave pour un jour déjà signalé (la clé porte le niveau), jamais s'il s'améliore.
+ */
+fun notificationsQualiteAir(d: DonneesQualiteAir, aujourdhui: LocalDate, seuil: Int, dejaEnvoyees: Set<String>): List<NotificationAir> =
+    d.jours.filter { !it.date.isBefore(aujourdhui) && it.date.isBefore(aujourdhui.plusDays(2)) }
+        .filter { it.code in seuil..6 }
+        .filter { j ->
+            val dejaSignale = dejaEnvoyees.filter { it.startsWith("air:${j.date}:") }
+                .mapNotNull { it.substringAfterLast(":").toIntOrNull() }.maxOrNull() ?: 0
+            j.code > dejaSignale
+        }
+        .map { j ->
+            val niveau = libelleAtmo(j.code).lowercase(Locale.FRANCE)
+            val cause = j.responsables.joinToString(" et ") { nomPolluant(it) }
+            NotificationAir(
+                cle = "air:${j.date}:${j.code}",
+                titre = "Qualité de l'air : indice $niveau ${quand(j.date, aujourdhui)}",
+                texte = buildString {
+                    append("Indice ATMO $niveau pour ${d.zone}")
+                    if (cause.isNotEmpty()) append(", dû à $cause")
+                    append(". Source : Atmo France / Air Breizh.")
+                },
+            )
+        }
 
 /**
  * Procédures préfectorales d'aujourd'hui et de demain. On prévient de nouveau si la procédure s'aggrave

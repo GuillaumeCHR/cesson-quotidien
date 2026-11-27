@@ -52,6 +52,7 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -70,19 +71,24 @@ import com.yogistudio.cesson.pratique.carburants
 import com.yogistudio.cesson.pratique.carburantsProposes
 import com.yogistudio.cesson.rappels.ReglageAlerteEpisodes
 import com.yogistudio.cesson.rappels.ReglageAlertePollens
+import com.yogistudio.cesson.rappels.ReglageAlerteQualiteAir
 import com.yogistudio.cesson.rappels.ReglageAlerteVigilance
 import com.yogistudio.cesson.rappels.ReglageRappelCollecte
 import com.yogistudio.cesson.transport.ChoixArret
 import com.yogistudio.cesson.transport.ChoixDestination
 import com.yogistudio.cesson.transport.lignesStar
 import kotlinx.coroutines.launch
+import com.yogistudio.cesson.actus.agenda
+import com.yogistudio.cesson.actus.saisonParJour
+import com.yogistudio.cesson.core.ui.FuseauCesson
+import com.yogistudio.cesson.rappels.RappelsSpectacles
 
-private const val NB_ETAPES = 7
+private const val NB_ETAPES = 8
 
 /**
  * Guide de démarrage, au premier lancement puis depuis le menu : bienvenue, déplacements (voiture, bus et métro,
  * train, avec leurs réglages), cartes compactes ou détaillées, cartes de l'accueil, sorties (cartes de l'onglet Sortir et
- * équipements), environnement (cartes de l'onglet Environnement, rappel de collecte et alertes). Chaque choix est enregistré aussitôt (sur le téléphone) : « Passer » à
+ * équipements), spectacles réservés, environnement (cartes de l'onglet Environnement, rappel de collecte et alertes). Chaque choix est enregistré aussitôt (sur le téléphone) : « Passer » à
  * n'importe quelle étape garde ce qui a déjà été choisi.
  */
 @Composable
@@ -105,7 +111,8 @@ fun EcranGuide(app: CessonApp, onTerminer: () -> Unit) {
                 2 -> EtapeCartes(app)
                 3 -> EtapeAccueil(app)
                 4 -> EtapeSorties(app)
-                5 -> EtapeEnvironnement(app)
+                5 -> EtapeSpectacles(app)
+                6 -> EtapeEnvironnement(app)
                 else -> EtapeFin()
             }
         }
@@ -367,6 +374,51 @@ private fun EtapeSorties(app: CessonApp) {
     ReglageEquipements(app)
 }
 
+/**
+ * Spectacles réservés : la liste des spectacles de la saison culturelle encore à venir, une case par spectacle. Cocher
+ * un spectacle le met en favori (étoile de la carte Saison culturelle) : rappel la veille à 18h, alerte s'il est annulé.
+ */
+@Composable
+private fun EtapeSpectacles(app: CessonApp) {
+    val context = LocalContext.current
+    val portee = rememberCoroutineScope()
+    val agenda by remember(app) { app.depot.agenda() }.collectAsStateWithLifecycle(EtatModule.Absent)
+    val favoris by app.preferences.spectaclesFavoris.collectAsStateWithLifecycle(emptySet())
+    val aujourdhui = java.time.LocalDate.now(FuseauCesson)
+    TitreEtape("Vos spectacles réservés")
+    Text("Cochez les spectacles de la saison culturelle pour lesquels vous avez des places : un rappel la veille à 18h, " +
+        "et une alerte si la Ville l'annule ou le reporte.", style = MaterialTheme.typography.bodyLarge)
+    val spectacles = (agenda as? EtatModule.Disponible)?.fichier?.donnees
+        ?.let { d -> saisonParJour(d, aujourdhui).flatMap { (jour, evts) -> evts.map { jour to it } } }.orEmpty()
+    if (spectacles.isEmpty()) {
+        Text("La liste des spectacles n'est pas encore arrivée. Vous pourrez les cocher plus tard avec l'étoile de la carte " +
+            "Saison culturelle, dans l'onglet Sortir.", style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant)
+        return
+    }
+    spectacles.forEach { (jour, e) ->
+        val coche = e.id in favoris
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.fillMaxWidth()
+                .toggleable(value = coche, role = Role.Checkbox, onValueChange = {
+                    portee.launch { RappelsSpectacles.basculer(context, e.id) }
+                })
+                .padding(vertical = 4.dp),
+        ) {
+            Checkbox(checked = coche, onCheckedChange = null)
+            Spacer(Modifier.width(12.dp))
+            Column(Modifier.weight(1f)) {
+                Text(e.titre, style = MaterialTheme.typography.bodyLarge)
+                Text(listOfNotNull(JOUR_SPECTACLE_GUIDE.format(jour).replaceFirstChar { it.uppercase() }, e.lieu).joinToString(" · "),
+                    style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            }
+        }
+    }
+}
+
+private val JOUR_SPECTACLE_GUIDE = java.time.format.DateTimeFormatter.ofPattern("EEEE d MMMM", java.util.Locale.FRENCH)
+
 /** Un interrupteur par carte de l'onglet, dans l'ordre choisi ; masquer une carte l'enregistre aussitôt. */
 @Composable
 private fun ChoixTuiles(app: CessonApp, onglet: OngletTuiles) {
@@ -395,6 +447,7 @@ private fun EtapeEnvironnement(app: CessonApp) {
         style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
     ReglageRappelCollecte(app)
     ReglageAlerteVigilance(app)
+    ReglageAlerteQualiteAir(app)
     ReglageAlertePollens(app)
     ReglageAlerteEpisodes(app)
 }

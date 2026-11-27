@@ -27,6 +27,8 @@ import com.yogistudio.cesson.environnement.clesAirAGarder
 import com.yogistudio.cesson.environnement.episodesPollution
 import com.yogistudio.cesson.environnement.notificationsEpisodes
 import com.yogistudio.cesson.environnement.notificationsPollens
+import com.yogistudio.cesson.environnement.notificationsQualiteAir
+import com.yogistudio.cesson.environnement.qualiteAir
 import com.yogistudio.cesson.environnement.pollens
 import com.yogistudio.cesson.environnement.prochainControleAir
 import kotlinx.coroutines.flow.first
@@ -35,7 +37,7 @@ import java.time.Instant
 import java.util.concurrent.TimeUnit
 
 /**
- * Alertes pollens, épisodes de pollution et vigilance météo, décidées sur le téléphone (voir environnement/NotificationsAir.kt) :
+ * Alertes qualité de l'air, pollens, épisodes de pollution et vigilance météo, décidées sur le téléphone (voir environnement/NotificationsAir.kt) :
  * aucun serveur de notification, aucun identifiant d'appareil. WorkManager réveille l'app aux heures de contrôle
  * (7h30, 11h30, 16h30, 18h30, et chaque heure de 7h35 à 22h35 si l'alerte de vigilance est active, à quelques
  * minutes près) ; chaque passage planifie le suivant.
@@ -49,7 +51,9 @@ object AlertesAir {
         val app = context.applicationContext as CessonApp
         val wm = WorkManager.getInstance(context)
         val p = app.preferences
-        if (!p.alertePollensActive.first() && !p.alerteEpisodesActive.first() && !p.alerteVigilanceActive.first()) {
+        if (!p.alerteQualiteAirActive.first() && !p.alertePollensActive.first() && !p.alerteEpisodesActive.first() &&
+            !p.alerteVigilanceActive.first()
+        ) {
             wm.cancelUniqueWork(TRAVAIL)
             return
         }
@@ -63,8 +67,8 @@ object AlertesAir {
     }
 
     fun creerCanal(context: Context) {
-        val canal = NotificationChannel(CANAL, "Pollens et pollution", NotificationManager.IMPORTANCE_DEFAULT).apply {
-            description = "Indice pollen élevé et épisodes de pollution à Cesson, aujourd'hui ou demain."
+        val canal = NotificationChannel(CANAL, "Qualité de l'air, pollens et pollution", NotificationManager.IMPORTANCE_DEFAULT).apply {
+            description = "Qualité de l'air dégradée, indice pollen élevé et épisodes de pollution à Cesson, aujourd'hui ou demain."
         }
         val vigilance = NotificationChannel(CANAL_VIGILANCE, "Vigilance météo", NotificationManager.IMPORTANCE_HIGH).apply {
             description = "Vigilance jaune, orange ou rouge de Météo-France en Ille-et-Vilaine, aujourd'hui ou demain."
@@ -79,6 +83,11 @@ object AlertesAir {
         val aujourdhui = maintenant.atZone(FuseauCesson).toLocalDate()
         val deja = p.alertesAirEnvoyees.first()
         val aEnvoyer = buildList {
+            if (p.alerteQualiteAirActive.first()) {
+                (app.depot.qualiteAir().first() as? EtatModule.Disponible)?.takeIf { !it.fraicheur.estPerimee(maintenant) }?.let {
+                    addAll(notificationsQualiteAir(it.fichier.donnees, aujourdhui, p.seuilQualiteAir.first(), deja))
+                }
+            }
             if (p.alertePollensActive.first()) {
                 (app.depot.pollens().first() as? EtatModule.Disponible)?.takeIf { !it.fraicheur.estPerimee(maintenant) }?.let {
                     addAll(notificationsPollens(it.fichier.donnees, aujourdhui, p.seuilPollens.first(), deja))

@@ -100,7 +100,7 @@ private fun PastilleAtmo(libelle: String, argb: Long, code: Int, modifier: Modif
 }
 
 @Composable
-fun CarteQualiteAir(etat: EtatModule<DonneesQualiteAir>, modifier: Modifier = Modifier) {
+fun CarteQualiteAir(etat: EtatModule<DonneesQualiteAir>, modifier: Modifier = Modifier, reglageAlerte: @Composable () -> Unit = {}) {
     val maintenant = rememberMaintenant()
     val titre = "Qualité de l'air"
     when (etat) {
@@ -122,6 +122,7 @@ fun CarteQualiteAir(etat: EtatModule<DonneesQualiteAir>, modifier: Modifier = Mo
                         JourQualiteAir(j, nomJour(j.date, aujourdhui), principal = i == 0 && !compact)
                         if (i == 0 && !compact) JaugeAtmo(j.code)
                     }
+                    reglageAlerte()
                     MentionAtmo()
                     if (!compact) {
                         jours.firstOrNull()?.takeIf { it.sousIndices.isNotEmpty() }?.let { SousIndices(it) }

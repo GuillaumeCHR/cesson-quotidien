@@ -44,6 +44,8 @@ class PreferencesLocales(private val context: Context) {
     private val cleAlertesAirEnvoyees = stringSetPreferencesKey("alertes_air_envoyees")
     private val cleAlerteVigilance = booleanPreferencesKey("alerte_vigilance")
     private val cleSeuilVigilance = stringPreferencesKey("alerte_vigilance_seuil")
+    private val cleAlerteQualiteAir = booleanPreferencesKey("alerte_qualite_air")
+    private val cleSeuilQualiteAir = intPreferencesKey("alerte_qualite_air_seuil")
     private val cleTrainsFavoris = stringPreferencesKey("trains_favoris")
     private val cleAlertesTrainsEnvoyees = stringSetPreferencesKey("alertes_trains_envoyees")
     private val cleSpectaclesFavoris = stringSetPreferencesKey("spectacles_favoris")
@@ -208,6 +210,20 @@ class PreferencesLocales(private val context: Context) {
         context.preferencesCesson.edit { it[cleSeuilVigilance] = seuil }
     }
 
+    /** Alerte qualité de l'air (indice ATMO) : désactivée tant que l'utilisateur ne l'a pas demandée. */
+    val alerteQualiteAirActive: Flow<Boolean> = context.preferencesCesson.data.map { it[cleAlerteQualiteAir] ?: false }
+
+    suspend fun activerAlerteQualiteAir(actif: Boolean) {
+        context.preferencesCesson.edit { it[cleAlerteQualiteAir] = actif }
+    }
+
+    /** Indice ATMO à partir duquel prévenir (3 dégradé, 4 mauvais, 5 très mauvais). */
+    val seuilQualiteAir: Flow<Int> = context.preferencesCesson.data.map { it[cleSeuilQualiteAir] ?: SEUIL_QUALITE_AIR_DEFAUT }
+
+    suspend fun enregistrerSeuilQualiteAir(seuil: Int) {
+        context.preferencesCesson.edit { it[cleSeuilQualiteAir] = seuil }
+    }
+
     /** Trains favoris (liste JSON de TrainFavori, module transport) : prévenir d'un retard ou d'une suppression. */
     val trainsFavoris: Flow<String?> = context.preferencesCesson.data.map { it[cleTrainsFavoris] }
 
@@ -261,6 +277,9 @@ class PreferencesLocales(private val context: Context) {
 
 /** Par défaut, on prévient à partir d'un indice pollen « élevé ». */
 const val SEUIL_POLLENS_DEFAUT = 4
+
+/** Par défaut, on prévient dès un indice ATMO « dégradé ». */
+const val SEUIL_QUALITE_AIR_DEFAUT = 3
 
 /** Par défaut, on prévient dès la vigilance météo jaune. */
 const val SEUIL_VIGILANCE_DEFAUT = "JAUNE"

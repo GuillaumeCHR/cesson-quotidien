@@ -15,6 +15,9 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.yogistudio.cesson.CessonApp
 import com.yogistudio.cesson.core.preferences.SEUIL_POLLENS_DEFAUT
+import com.yogistudio.cesson.core.preferences.SEUIL_QUALITE_AIR_DEFAUT
+import com.yogistudio.cesson.environnement.SEUILS_QUALITE_AIR
+import com.yogistudio.cesson.environnement.libelleAtmo
 import com.yogistudio.cesson.core.preferences.SEUIL_VIGILANCE_DEFAUT
 import com.yogistudio.cesson.environnement.CouleurVigilance
 import com.yogistudio.cesson.environnement.SEUILS_VIGILANCE
@@ -22,6 +25,42 @@ import com.yogistudio.cesson.environnement.nom
 import com.yogistudio.cesson.environnement.SEUILS_POLLENS
 import com.yogistudio.cesson.environnement.libellePollen
 import kotlinx.coroutines.launch
+
+/** « Me prévenir d'un air dégradé », puis l'indice ATMO à partir duquel prévenir (dégradé par défaut). */
+@OptIn(ExperimentalLayoutApi::class)
+@Composable
+fun ReglageAlerteQualiteAir(app: CessonApp) {
+    val context = LocalContext.current
+    val portee = rememberCoroutineScope()
+    val actif by app.preferences.alerteQualiteAirActive.collectAsStateWithLifecycle(false)
+    val seuil by app.preferences.seuilQualiteAir.collectAsStateWithLifecycle(SEUIL_QUALITE_AIR_DEFAUT)
+    Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+        InterrupteurNotification(
+            "Me prévenir d'une qualité de l'air dégradée",
+            "Aujourd'hui ou demain, dès l'indice « ${libelleAtmo(seuil).lowercase()} ». Calculé sur le téléphone.",
+            actif,
+        ) { valeur ->
+            portee.launch {
+                app.preferences.activerAlerteQualiteAir(valeur)
+                AlertesAir.planifier(context)
+                if (valeur) AlertesAir.verifier(context)
+            }
+        }
+        if (actif) {
+            Text("Me prévenir à partir de", style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant)
+            FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                SEUILS_QUALITE_AIR.forEach { s ->
+                    FilterChip(
+                        selected = s == seuil,
+                        onClick = { portee.launch { app.preferences.enregistrerSeuilQualiteAir(s); AlertesAir.verifier(context) } },
+                        label = { Text(libelleAtmo(s), maxLines = 1, softWrap = false) },
+                    )
+                }
+            }
+        }
+    }
+}
 
 /** « Me prévenir des pollens », puis le niveau à partir duquel prévenir. */
 @OptIn(ExperimentalLayoutApi::class)

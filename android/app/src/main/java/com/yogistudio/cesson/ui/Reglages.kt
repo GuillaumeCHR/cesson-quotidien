@@ -21,6 +21,7 @@ import androidx.compose.foundation.layout.FlowRow
 import com.yogistudio.cesson.rappels.ReglageRappelCollecte
 import com.yogistudio.cesson.rappels.ReglageAlerteEpisodes
 import com.yogistudio.cesson.rappels.ReglageAlertePollens
+import com.yogistudio.cesson.rappels.ReglageAlerteQualiteAir
 import com.yogistudio.cesson.rappels.ReglageAlerteVigilance
 import com.yogistudio.cesson.rappels.AlertesBus
 import com.yogistudio.cesson.transport.AlerteBus
@@ -167,7 +168,7 @@ fun appliquerAffichageSysteme(context: Context, mode: String) {
 
 /**
  * Les notifications de l'app, calculées sur le téléphone : rappel de collecte la veille, vigilance météo, trains
- * favoris, pollens et épisodes de pollution. Les spectacles favoris se choisissent sur la carte Saison culturelle. L'alerte de passage du bus n'est pas ici : elle s'arme ligne par ligne sur la carte « Mon trajet réseau Star ».
+ * favoris, qualité de l'air, pollens et épisodes de pollution. Les spectacles favoris se choisissent sur la carte Saison culturelle. L'alerte de passage du bus n'est pas ici : elle s'arme ligne par ligne sur la carte « Mon trajet réseau Star ».
  */
 @Composable
 private fun CarteNotifications(app: CessonApp) {
@@ -181,6 +182,9 @@ private fun CarteNotifications(app: CessonApp) {
             HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
             Text("Mes trains", style = MaterialTheme.typography.titleSmall, modifier = Modifier.semantics { heading() })
             com.yogistudio.cesson.rappels.ReglageTrainsFavoris(app)
+            HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
+            Text("Qualité de l'air", style = MaterialTheme.typography.titleSmall, modifier = Modifier.semantics { heading() })
+            ReglageAlerteQualiteAir(app)
             HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
             Text("Pollens", style = MaterialTheme.typography.titleSmall, modifier = Modifier.semantics { heading() })
             ReglageAlertePollens(app)

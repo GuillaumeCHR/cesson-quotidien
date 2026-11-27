@@ -14,7 +14,42 @@ class NotificationsAirTest {
         File("src/test/resources/pollens.json").readText()).donnees
     private val episodes = JsonCesson.decodeFromString(FichierModule.serializer(DonneesEpisodes.serializer()),
         File("src/test/resources/episodes_pollution.json").readText()).donnees
+    private val air = JsonCesson.decodeFromString(FichierModule.serializer(DonneesQualiteAir.serializer()),
+        File("src/test/resources/qualite_air.json").readText()).donnees
     private val le16 = LocalDate.parse("2026-11-16")
+
+    /** Indice ATMO de demain (17/11) passé à [code], ozone en cause. */
+    private fun airDemain(code: Int) = air.copy(jours = air.jours.map { j ->
+        if (j.date != le16.plusDays(1)) j else j.copy(code = code, libelle = libelleAtmo(code), responsables = listOf("o3"))
+    })
+
+    @Test
+    fun airMoyenNePrevientPas() {
+        assertTrue(notificationsQualiteAir(air, le16, 3, emptySet()).isEmpty())
+    }
+
+    @Test
+    fun airDegradeDemainAuSeuilParDefaut() {
+        val n = notificationsQualiteAir(airDemain(3), le16, 3, emptySet()).single()
+        assertEquals("air:2026-11-17:3", n.cle)
+        assertEquals("Qualité de l'air : indice dégradé demain", n.titre)
+        assertEquals("Indice ATMO dégradé pour Rennes Métropole, dû à l'ozone (O₃). Source : Atmo France / Air Breizh.", n.texte)
+    }
+
+    @Test
+    fun airSeuilChoisiRespecte() {
+        assertTrue(notificationsQualiteAir(airDemain(3), le16, 4, emptySet()).isEmpty())
+        assertEquals(1, notificationsQualiteAir(airDemain(4), le16, 4, emptySet()).size)
+    }
+
+    @Test
+    fun airAggravationSeulement() {
+        val deja = setOf("air:2026-11-17:3")
+        assertTrue(notificationsQualiteAir(airDemain(3), le16, 3, deja).isEmpty())
+        assertEquals("air:2026-11-17:4", notificationsQualiteAir(airDemain(4), le16, 3, deja).single().cle)
+        // Redescendu de mauvais à dégradé : rien de plus.
+        assertTrue(notificationsQualiteAir(airDemain(3), le16, 3, deja + "air:2026-11-17:4").isEmpty())
+    }
 
     /** Pollens de demain (17/11) passés à [code], graminées en tête. */
     private fun pollensDemain(code: Int, alerte: Boolean = false) = pollens.copy(jours = pollens.jours.map { j ->

@@ -138,6 +138,7 @@ import com.yogistudio.cesson.pratique.collecte
 import com.yogistudio.cesson.rappels.ReglageRappelCollecte
 import com.yogistudio.cesson.rappels.ReglageAlerteEpisodes
 import com.yogistudio.cesson.rappels.ReglageAlertePollens
+import com.yogistudio.cesson.rappels.ReglageAlerteQualiteAir
 import com.yogistudio.cesson.transport.CarteDeparts
 import com.yogistudio.cesson.transport.CarteMonArret
 import com.yogistudio.cesson.transport.CarteTrains
@@ -170,7 +171,7 @@ private val CIRCULATION = Tuile("circulation", "Circulation", Icons.Rounded.Dire
 }
 private val AIR = Tuile("air", "Qualité de l'air", Icons.Rounded.Air) { app ->
     val etat by remember(app) { app.depot.qualiteAir() }.collectAsStateWithLifecycle(EtatModule.Absent)
-    CarteQualiteAir(etat)
+    CarteQualiteAir(etat, reglageAlerte = { ReglageAlerteQualiteAir(app) })
 }
 private val POLLENS = Tuile("pollens", "Indice pollen", Icons.Rounded.LocalFlorist) { app ->
     val etat by remember(app) { app.depot.pollens() }.collectAsStateWithLifecycle(EtatModule.Absent)
@@ -258,7 +259,8 @@ private val VACANCES = Tuile("vacances", "Vacances scolaires", Icons.Rounded.Bea
 private val PORTAIL_FAMILLES = Tuile("portail_familles", "Portail familles", Icons.Rounded.FamilyRestroom) { CartePortailFamilles() }
 private val MENUS = Tuile("menus", "Menus de la cantine", Icons.Rounded.Restaurant) { app ->
     val etat by remember(app) { app.depot.familles() }.collectAsStateWithLifecycle(EtatModule.Absent)
-    CarteMenus(etat)
+    val vacances by remember(app) { app.depot.vacancesScolaires() }.collectAsStateWithLifecycle(EtatModule.Absent)
+    CarteMenus(etat, vacances = (vacances as? EtatModule.Disponible)?.fichier?.donnees)
 }
 private val ACTUS_FAMILLES = Tuile("actus_familles", "Infos familles", Icons.Rounded.Campaign) { app ->
     val etat by remember(app) { app.depot.familles() }.collectAsStateWithLifecycle(EtatModule.Absent)
