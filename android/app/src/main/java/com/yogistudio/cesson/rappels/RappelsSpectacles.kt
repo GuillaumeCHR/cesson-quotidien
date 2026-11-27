@@ -55,7 +55,12 @@ object RappelsSpectacles {
 
     suspend fun planifier(context: Context, maintenant: Instant = Instant.now()) {
         val wm = WorkManager.getInstance(context)
-        if (app(context).preferences.spectaclesFavoris.first().isEmpty()) {
+        val p = app(context).preferences
+        val favoris = p.spectaclesFavoris.first()
+        // On ne se réveille que pour les favoris dont les rappels sont allumés.
+        val (matchs, spectacles) = favoris.partition { it.startsWith(PREFIXE_FAVORI_MATCH) }
+        val utile = (spectacles.isNotEmpty() && p.rappelsSpectaclesActifs.first()) || (matchs.isNotEmpty() && p.rappelsMatchsActifs.first())
+        if (!utile) {
             wm.cancelUniqueWork(TRAVAIL)
             return
         }
@@ -86,7 +91,7 @@ object RappelsSpectacles {
                 val encore = d.evenements.filter { !it.au.isBefore(ici.toLocalDate()) }.map { it.id }.toSet()
                 gardes = gardes - spectacles.filter { it !in encore }.toSet()
             }
-            rappels += rappelsSpectacles(d, spectacles.toSet(), ici, deja)
+            if (p.rappelsSpectaclesActifs.first()) rappels += rappelsSpectacles(d, spectacles.toSet(), ici, deja)
         }
         (app.depot.handball().first() as? EtatModule.Disponible)?.let { etat ->
             val d = etat.fichier.donnees
@@ -94,7 +99,7 @@ object RappelsSpectacles {
                 val encore = d.aVenir.map { it.cleFavori() }.toSet()
                 gardes = gardes - matchs.filter { it !in encore }.toSet()
             }
-            rappels += rappelsMatchs(d, matchs.toSet(), ici, deja)
+            if (p.rappelsMatchsActifs.first()) rappels += rappelsMatchs(d, matchs.toSet(), ici, deja)
         }
         if (gardes != favoris) p.enregistrerSpectaclesFavoris(gardes)
         if (rappels.isEmpty() || !RappelsCollecte.notificationsAutorisees(context)) return

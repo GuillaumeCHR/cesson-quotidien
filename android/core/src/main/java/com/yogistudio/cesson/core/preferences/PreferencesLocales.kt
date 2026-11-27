@@ -49,6 +49,8 @@ class PreferencesLocales(private val context: Context) {
     private val cleTrainsFavoris = stringPreferencesKey("trains_favoris")
     private val cleAlertesTrainsEnvoyees = stringSetPreferencesKey("alertes_trains_envoyees")
     private val cleSpectaclesFavoris = stringSetPreferencesKey("spectacles_favoris")
+    private val cleRappelsSpectaclesActifs = booleanPreferencesKey("rappels_spectacles_actifs")
+    private val cleRappelsMatchsActifs = booleanPreferencesKey("rappels_matchs_actifs")
     private val cleRappelsSpectaclesEnvoyes = stringSetPreferencesKey("rappels_spectacles_envoyes")
     private val cleDeplacements = stringSetPreferencesKey("deplacements")
     private val cleMotorisation = stringPreferencesKey("motorisation")
@@ -239,6 +241,23 @@ class PreferencesLocales(private val context: Context) {
     }
 
     /** Spectacles favoris (identifiants de l'agenda, « openagenda:70693599 ») : rappel la veille à 18h. */
+    /**
+     * Notifications des spectacles favoris de la saison culturelle (rappel la veille, annulation) : actives par défaut.
+     * Les éteindre garde les étoiles ; les matchs de handball ont leur propre réglage.
+     */
+    val rappelsSpectaclesActifs: Flow<Boolean> = context.preferencesCesson.data.map { it[cleRappelsSpectaclesActifs] ?: true }
+
+    suspend fun activerRappelsSpectacles(actif: Boolean) {
+        context.preferencesCesson.edit { it[cleRappelsSpectaclesActifs] = actif }
+    }
+
+    /** Notifications des matchs de handball favoris (rappel la veille) : actives par défaut ; les éteindre garde les étoiles. */
+    val rappelsMatchsActifs: Flow<Boolean> = context.preferencesCesson.data.map { it[cleRappelsMatchsActifs] ?: true }
+
+    suspend fun activerRappelsMatchs(actif: Boolean) {
+        context.preferencesCesson.edit { it[cleRappelsMatchsActifs] = actif }
+    }
+
     val spectaclesFavoris: Flow<Set<String>> = context.preferencesCesson.data.map { it[cleSpectaclesFavoris] ?: emptySet() }
 
     suspend fun basculerSpectacleFavori(id: String) {
