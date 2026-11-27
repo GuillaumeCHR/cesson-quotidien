@@ -53,7 +53,7 @@ fun CarteVacances(etat: EtatModule<DonneesVacances>, modifier: Modifier = Modifi
                             Pastille("En vacances", Ton.OUVERT)
                             Text(s.periode.nomAffiche, style = MaterialTheme.typography.titleMedium)
                             Text(
-                                s.periode.reprise?.let { "Reprise ${jourLong(it)}" } ?: "Jusqu'au ${jourLong(s.periode.dernierJour())}",
+                                "Reprise ${jourLong(s.periode.jourDeReprise())}",
                                 style = MaterialTheme.typography.bodyMedium,
                             )
                         }
@@ -63,7 +63,7 @@ fun CarteVacances(etat: EtatModule<DonneesVacances>, modifier: Modifier = Modifi
                             }
                             Text(s.periode.nomAffiche, style = MaterialTheme.typography.titleMedium)
                             Text(
-                                if (s.periode.pont) "Pas de classe le ${s.periode.dates()}"
+                                if (s.periode.pont) "Pas de classe le ${s.periode.dates()}, reprise ${jourLong(s.periode.jourDeReprise())}"
                                 else "Dernier jour de classe ${jourLong(s.periode.du.minusDays(1))}, " +
                                     (s.periode.reprise?.let { "reprise ${jourLong(it)}" } ?: "fin pas encore publiée"),
                                 style = MaterialTheme.typography.bodyMedium,

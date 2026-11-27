@@ -829,7 +829,7 @@ async function carteMenus() {
 async function carteVacances() {
   const f = await module("vacances_scolaires");
   if (!f) return absent("Vacances scolaires");
-  const p = f.donnees.periodes.filter((x) => x.reprise > isoJour()).sort((a, b) => a.du.localeCompare(b.du));
+  const p = f.donnees.periodes.filter((x) => jourDeReprise(x) > isoJour()).sort((a, b) => a.du.localeCompare(b.du));
   const prochaine = p[0];
   if (!prochaine) return absent("Vacances scolaires");
   const enCours = prochaine.du <= isoJour();
@@ -838,7 +838,8 @@ async function carteVacances() {
   return carte("Vacances scolaires", el("div", {},
     pastille(enCours ? "En cours" : semaines <= 0 ? "Bientôt" : `Dans ${semaines} semaine${semaines > 1 ? "s" : ""}`, enCours ? "ouvert" : "neutre"),
     el("h3", {}, nomVacances(prochaine)),
-    el("p", {}, `Dernier jour de classe ${FMT_JOUR.format(veille).replace(/ 1 /, " 1er ")}, reprise ${jourLong(prochaine.reprise)}.`),
+    el("p", {}, prochaine.pont ? `Pas de classe le ${jourLong(prochaine.du)}, reprise ${jourLong(jourDeReprise(prochaine))}.`
+      : `Dernier jour de classe ${FMT_JOUR.format(veille).replace(/ 1 /, " 1er ")}, reprise ${jourLong(jourDeReprise(prochaine))}.`),
     el("p", { classe: "doux petit" }, `${f.donnees.zone}, académie de ${f.donnees.academie}.`)), f);
 }
 
