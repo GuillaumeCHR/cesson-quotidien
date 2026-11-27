@@ -756,18 +756,61 @@ async function carteEquipements(garder = (e) => !["equipement:decheterie", "equi
 
 // --- Familles -------------------------------------------------------------------------------------
 
+/** « 2026-12-19 » décalé de [n] jours. */
+const decaler = (iso, n) => { const d = new Date(`${iso}T12:00:00Z`); d.setUTCDate(d.getUTCDate() + n); return d.toISOString().slice(0, 10); };
+/** Lundi de la semaine d'un jour ISO. */
+const lundiDe = (iso) => decaler(iso, -((new Date(`${iso}T12:00:00Z`).getUTCDay() + 6) % 7));
+/** Dernier jour sans classe d'une période de vacances (le jour même pour un pont). */
+const dernierJourVacances = (p) => p.pont ? p.du : (p.reprise ? decaler(p.reprise, -1) : p.du);
+const RUBRIQUES_MENU = [["hors_doeuvre", "Entrée"], ["plat", "Plat"], ["laitier", "Laitage"], ["dessert", "Dessert"], ["gouter", "Goûter"]];
+
+/**
+ * Comme vueMenus (android/familles/Familles.kt) : les puces s'arrêtent avant des vacances (annoncées dessous) ; pendant
+ * les vacances, « Pas de cantine jusqu'au…, reprise le… » puis les menus de la reprise. Un vrai menu publié pendant les
+ * vacances reste affiché, une simple mention est écartée.
+ */
+function vueMenus(menusTous, periodes, auj) {
+  const periodeDe = (j) => periodes.find((p) => j >= p.du && j <= dernierJourVacances(p));
+  const vraiMenu = (m) => !m.note && RUBRIQUES_MENU.some(([k]) => m[k]?.length);
+  const candidats = menusTous.filter((m) => m.jour >= auj).sort((a, b) => a.jour.localeCompare(b.jour))
+    .filter((m) => !periodeDe(m.jour) || vraiMenu(m));
+  const enCours = periodeDe(auj);
+  const menusPendant = !!enCours && candidats.some((m) => m.jour <= dernierJourVacances(enCours));
+  const premier = candidats[0]?.jour;
+  const coupure = premier && periodes.filter((p) => !p.pont && p !== enCours && p.du > premier)
+    .sort((a, b) => a.du.localeCompare(b.du))[0];
+  const jours = candidats.filter((m) => !coupure || m.jour < coupure.du).slice(0, 5);
+  const ensuite = coupure && jours.length && coupure.du <= decaler(jours[jours.length - 1].jour, 7) ? coupure : null;
+  return { jours, enCours, menusPendant, ensuite };
+}
+
 async function carteMenus() {
-  const f = await module("familles");
-  const menus = (f?.donnees?.menus || []).filter((m) => m.jour >= isoJour()).slice(0, 5);
-  if (!menus.length) return absent("Menus de la cantine", "Pas de menu publié pour les prochains jours.");
-  const libelle = (j) => j === isoJour() ? "Aujourd'hui" : majuscule(fmt({ weekday: "short", day: "numeric" }).format(jourCalendaire(j)));
-  const RUBRIQUES = [["hors_doeuvre", "Entrée"], ["plat", "Plat"], ["laitier", "Laitage"], ["dessert", "Dessert"], ["gouter", "Goûter"]];
+  const [f, v] = await Promise.all([module("familles"), module("vacances_scolaires")]);
+  if (!f) return absent("Menus de la cantine");
+  const auj = isoJour();
+  const { jours, enCours, menusPendant, ensuite } = vueMenus(f.donnees.menus || [], v?.donnees?.periodes || [], auj);
+  const long = (iso) => FMT_JOUR.format(jourCalendaire(iso));
+  const libelle = (j) => j === auj ? "Aujourd'hui"
+    : majuscule(fmt(lundiDe(j) === lundiDe(auj) ? { weekday: "short", day: "numeric" } : { weekday: "short", day: "numeric", month: "short" })
+      .format(jourCalendaire(j)));
+  // Après le déjeuner (14h), le menu du prochain jour.
+  const apresDejeuner = Number(fmt({ hour: "numeric", hourCycle: "h23" }).format(new Date())) >= 14;
+  const initial = (jours[0]?.jour === auj && apresDejeuner && jours[1]) ? jours[1].jour : jours[0]?.jour;
+  const vacances = enCours && [
+    pastille(enCours.nom, "neutre"),
+    el("p", {}, `${menusPendant ? enCours.nom : "Pas de cantine"} ${dernierJourVacances(enCours) === auj ? "aujourd'hui"
+      : `jusqu'au ${long(dernierJourVacances(enCours))}`}, reprise le ${long(enCours.reprise || decaler(dernierJourVacances(enCours), 1))}.`),
+  ];
   return carte("Menus de la cantine", el("div", {},
-    puces(menus.map((m) => [m.jour, libelle(m.jour)]), menus[0].jour, (j) => {
-      const m = menus.find((x) => x.jour === j);
-      return el("dl", { classe: "detail" }, RUBRIQUES.filter(([k]) => m[k]?.length).map(([k, nom]) => [el("dt", {}, nom), el("dd", {}, m[k].join(", "))]));
-    }),
-    el("p", { classe: "doux petit" }, `Restaurants scolaires de ${f.donnees.restaurants}. Menu susceptible de changer selon les livraisons.`),
+    vacances,
+    jours.length ? puces(jours.map((m) => [m.jour, libelle(m.jour)]), initial, (j) => {
+      const m = jours.find((x) => x.jour === j);
+      if (m.note) return el("div", {}, pastille("Pas de cantine", "neutre"), el("p", {}, m.note));
+      return el("dl", { classe: "detail" }, RUBRIQUES_MENU.filter(([k]) => m[k]?.length).map(([k, nom]) => [el("dt", {}, nom), el("dd", {}, m[k].join(", "))]));
+    }) : el("p", { classe: "vide" }, enCours ? "Menu de la reprise pas encore en ligne." : "Pas de menu publié pour les prochains jours (menu du mois pas encore en ligne)."),
+    ensuite && el("p", {}, `Puis ${ensuite.nom[0].toLowerCase()}${ensuite.nom.slice(1)} à partir du ${long(ensuite.du)}` +
+      (ensuite.reprise ? `, reprise le ${long(ensuite.reprise)}` : "") + "."),
+    f.donnees.restaurants && el("p", { classe: "doux petit" }, `Restaurants scolaires de ${f.donnees.restaurants}. Menu susceptible de changer selon les livraisons.`),
     f.donnees.menu_pdf && lien(f.donnees.menu_pdf, "Menu du mois (PDF)", "bouton")), f);
 }
 
