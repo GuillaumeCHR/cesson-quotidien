@@ -94,14 +94,14 @@ fun pucePorteLeMois(jour: LocalDate, aujourdhui: LocalDate): Boolean = lundi(jou
 
 /** « Pas de cantine jusqu'au dimanche 3 janvier, reprise le lundi 4 janvier. » */
 fun texteVacancesEnCours(p: Periode, aujourdhui: LocalDate, menusPendant: Boolean): String {
-    val reprise = p.reprise ?: p.dernierJour().plusDays(1)
+    val reprise = p.jourDeReprise()
     val fin = p.dernierJour()
-    val debut = if (menusPendant) p.nom else "Pas de cantine"
+    val debut = if (menusPendant) p.nomAffiche else "Pas de cantine"
     val jusqua = if (fin == aujourdhui) "aujourd'hui" else "jusqu'au ${jourLong(fin)}"
     return "$debut $jusqua, reprise le ${jourLong(reprise)}."
 }
 
 /** « Puis vacances de Noël à partir du samedi 19 décembre, reprise le lundi 4 janvier. » */
 fun texteVacancesEnsuite(p: Periode): String =
-    "Puis ${p.nom.replaceFirstChar { it.lowercase() }} à partir du ${jourLong(p.du)}" +
+    "Puis ${p.nomAffiche.replaceFirstChar { it.lowercase() }} à partir du ${jourLong(p.du)}" +
         (p.reprise?.let { ", reprise le ${jourLong(it)}" } ?: "") + "."

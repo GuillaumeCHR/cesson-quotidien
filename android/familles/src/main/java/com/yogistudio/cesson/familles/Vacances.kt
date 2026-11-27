@@ -48,7 +48,21 @@ fun situation(d: DonneesVacances, aujourdhui: LocalDate): SituationScolaire {
 private val JOUR = DateTimeFormatter.ofPattern("EEEE d MMMM", Locale.FRENCH)
 private val JOUR_COURT = DateTimeFormatter.ofPattern("d MMM", Locale.FRENCH)
 
-fun jourLong(d: LocalDate): String = JOUR.format(d)
+/** « mercredi 1er septembre », « lundi 4 janvier ». */
+fun jourLong(d: LocalDate): String =
+    if (d.dayOfMonth == 1) JOUR.format(d).replaceFirst(" 1 ", " 1er ") else JOUR.format(d)
+
+/**
+ * Nom à afficher : l'API écrit « Vacances d'Hiver », « de Printemps », « d'Été » ; en français, la saison prend une
+ * minuscule (Noël, la Toussaint et l'Ascension gardent la leur).
+ */
+val Periode.nomAffiche: String
+    get() = nom.replace("d'Hiver", "d'hiver").replace("de Printemps", "de printemps")
+        .replace("d'Été", "d'été").replace("d'Automne", "d'automne")
+
+/** Jour de la reprise ; pour un pont (sans reprise publiée), le jour de semaine qui suit. */
+fun Periode.jourDeReprise(): LocalDate = reprise ?: generateSequence(dernierJour().plusDays(1)) { it.plusDays(1) }
+    .first { it.dayOfWeek.value <= 5 }
 
 /** « du 19 déc. au 3 janv. », « vendredi 7 mai » pour un pont. */
 fun Periode.dates(): String = when {

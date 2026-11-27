@@ -761,6 +761,18 @@ const decaler = (iso, n) => { const d = new Date(`${iso}T12:00:00Z`); d.setUTCDa
 /** Lundi de la semaine d'un jour ISO. */
 const lundiDe = (iso) => decaler(iso, -((new Date(`${iso}T12:00:00Z`).getUTCDay() + 6) % 7));
 /** Dernier jour sans classe d'une période de vacances (le jour même pour un pont). */
+/** « Vacances d'Hiver » (API) → « Vacances d'hiver » : la saison prend une minuscule, pas Noël ni la Toussaint. */
+const nomVacances = (p) => p.nom.replace("d'Hiver", "d'hiver").replace("de Printemps", "de printemps")
+  .replace("d'Été", "d'été").replace("d'Automne", "d'automne");
+/** « mercredi 1er septembre ». */
+const jourLong = (iso) => FMT_JOUR.format(jourCalendaire(iso)).replace(/ 1 /, " 1er ");
+/** Jour de la reprise ; pour un pont (sans reprise publiée), le jour de semaine qui suit. */
+const jourDeReprise = (p) => {
+  if (p.reprise) return p.reprise;
+  let j = decaler(dernierJourVacances(p), 1);
+  while ([0, 6].includes(new Date(`${j}T12:00:00Z`).getUTCDay())) j = decaler(j, 1);
+  return j;
+};
 const dernierJourVacances = (p) => p.pont ? p.du : (p.reprise ? decaler(p.reprise, -1) : p.du);
 const RUBRIQUES_MENU = [["hors_doeuvre", "Entrée"], ["plat", "Plat"], ["laitier", "Laitage"], ["dessert", "Dessert"], ["gouter", "Goûter"]];
 
@@ -789,7 +801,7 @@ async function carteMenus() {
   if (!f) return absent("Menus de la cantine");
   const auj = isoJour();
   const { jours, enCours, menusPendant, ensuite } = vueMenus(f.donnees.menus || [], v?.donnees?.periodes || [], auj);
-  const long = (iso) => FMT_JOUR.format(jourCalendaire(iso));
+  const long = jourLong;
   const libelle = (j) => j === auj ? "Aujourd'hui"
     : majuscule(fmt(lundiDe(j) === lundiDe(auj) ? { weekday: "short", day: "numeric" } : { weekday: "short", day: "numeric", month: "short" })
       .format(jourCalendaire(j)));
@@ -797,9 +809,9 @@ async function carteMenus() {
   const apresDejeuner = Number(fmt({ hour: "numeric", hourCycle: "h23" }).format(new Date())) >= 14;
   const initial = (jours[0]?.jour === auj && apresDejeuner && jours[1]) ? jours[1].jour : jours[0]?.jour;
   const vacances = enCours && [
-    pastille(enCours.nom, "neutre"),
-    el("p", {}, `${menusPendant ? enCours.nom : "Pas de cantine"} ${dernierJourVacances(enCours) === auj ? "aujourd'hui"
-      : `jusqu'au ${long(dernierJourVacances(enCours))}`}, reprise le ${long(enCours.reprise || decaler(dernierJourVacances(enCours), 1))}.`),
+    pastille(nomVacances(enCours), "neutre"),
+    el("p", {}, `${menusPendant ? nomVacances(enCours) : "Pas de cantine"} ${dernierJourVacances(enCours) === auj ? "aujourd'hui"
+      : `jusqu'au ${long(dernierJourVacances(enCours))}`}, reprise le ${long(jourDeReprise(enCours))}.`),
   ];
   return carte("Menus de la cantine", el("div", {},
     vacances,
@@ -808,7 +820,7 @@ async function carteMenus() {
       if (m.note) return el("div", {}, pastille("Pas de cantine", "neutre"), el("p", {}, m.note));
       return el("dl", { classe: "detail" }, RUBRIQUES_MENU.filter(([k]) => m[k]?.length).map(([k, nom]) => [el("dt", {}, nom), el("dd", {}, m[k].join(", "))]));
     }) : el("p", { classe: "vide" }, enCours ? "Menu de la reprise pas encore en ligne." : "Pas de menu publié pour les prochains jours (menu du mois pas encore en ligne)."),
-    ensuite && el("p", {}, `Puis ${ensuite.nom[0].toLowerCase()}${ensuite.nom.slice(1)} à partir du ${long(ensuite.du)}` +
+    ensuite && el("p", {}, `Puis ${nomVacances(ensuite)[0].toLowerCase()}${nomVacances(ensuite).slice(1)} à partir du ${long(ensuite.du)}` +
       (ensuite.reprise ? `, reprise le ${long(ensuite.reprise)}` : "") + "."),
     f.donnees.restaurants && el("p", { classe: "doux petit" }, `Restaurants scolaires de ${f.donnees.restaurants}. Menu susceptible de changer selon les livraisons.`),
     f.donnees.menu_pdf && lien(f.donnees.menu_pdf, "Menu du mois (PDF)", "bouton")), f);
@@ -825,8 +837,8 @@ async function carteVacances() {
   const veille = new Date(jourCalendaire(prochaine.du) - 86400000);
   return carte("Vacances scolaires", el("div", {},
     pastille(enCours ? "En cours" : semaines <= 0 ? "Bientôt" : `Dans ${semaines} semaine${semaines > 1 ? "s" : ""}`, enCours ? "ouvert" : "neutre"),
-    el("h3", {}, prochaine.nom),
-    el("p", {}, `Dernier jour de classe ${FMT_JOUR.format(veille)}, reprise ${FMT_JOUR.format(jourCalendaire(prochaine.reprise))}.`),
+    el("h3", {}, nomVacances(prochaine)),
+    el("p", {}, `Dernier jour de classe ${FMT_JOUR.format(veille).replace(/ 1 /, " 1er ")}, reprise ${jourLong(prochaine.reprise)}.`),
     el("p", { classe: "doux petit" }, `${f.donnees.zone}, académie de ${f.donnees.academie}.`)), f);
 }
 

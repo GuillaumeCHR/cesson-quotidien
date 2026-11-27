@@ -92,4 +92,17 @@ class FamillesTest {
         assertEquals(null, vue.ensuite)
         assertTrue(vue.jours.none { pucePorteLeMois(it.jour, LocalDate.of(2026, 11, 16)) })
     }
+
+    @Test
+    fun toutesLesPeriodesBienEcrites() {
+        val textes = vacances.periodes.map { texteVacancesEnCours(it, it.du, menusPendant = false) }
+        textes.forEach { println(it) }
+        assertEquals("Pas de cantine jusqu'au dimanche 7 mars, reprise le lundi 8 mars.", textes[1])
+        assertEquals("Pas de cantine aujourd'hui, reprise le lundi 10 mai.", textes[3]) // pont de l'Ascension
+        assertEquals("Pas de cantine jusqu'au mercredi 1er septembre, reprise le jeudi 2 septembre.", textes[4])
+        assertEquals(listOf("Vacances de Noël", "Vacances d'hiver", "Vacances de printemps", "Pont de l'Ascension",
+            "Vacances d'été", "Vacances de la Toussaint", "Vacances de Noël", "Vacances d'hiver"), vacances.periodes.map { it.nomAffiche })
+        assertEquals("Puis vacances d'été à partir du samedi 3 juillet, reprise le jeudi 2 septembre.",
+            texteVacancesEnsuite(vacances.periodes[4]))
+    }
 }

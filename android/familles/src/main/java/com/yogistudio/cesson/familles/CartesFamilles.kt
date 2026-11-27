@@ -51,7 +51,7 @@ fun CarteVacances(etat: EtatModule<DonneesVacances>, modifier: Modifier = Modifi
                     when (val s = situation(d, aujourdhui)) {
                         is SituationScolaire.EnVacances -> {
                             Pastille("En vacances", Ton.OUVERT)
-                            Text(s.periode.nom, style = MaterialTheme.typography.titleMedium)
+                            Text(s.periode.nomAffiche, style = MaterialTheme.typography.titleMedium)
                             Text(
                                 s.periode.reprise?.let { "Reprise ${jourLong(it)}" } ?: "Jusqu'au ${jourLong(s.periode.dernierJour())}",
                                 style = MaterialTheme.typography.bodyMedium,
@@ -61,7 +61,7 @@ fun CarteVacances(etat: EtatModule<DonneesVacances>, modifier: Modifier = Modifi
                             Row(verticalAlignment = Alignment.CenterVertically) {
                                 Pastille(dansJours(s.dansJours).replaceFirstChar { it.uppercase() }, Ton.NEUTRE)
                             }
-                            Text(s.periode.nom, style = MaterialTheme.typography.titleMedium)
+                            Text(s.periode.nomAffiche, style = MaterialTheme.typography.titleMedium)
                             Text(
                                 if (s.periode.pont) "Pas de classe le ${s.periode.dates()}"
                                 else "Dernier jour de classe ${jourLong(s.periode.du.minusDays(1))}, " +
@@ -77,7 +77,7 @@ fun CarteVacances(etat: EtatModule<DonneesVacances>, modifier: Modifier = Modifi
                         HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
                         suivantes.forEach { p ->
                             Row(Modifier.fillMaxWidth()) {
-                                Text(p.nom, style = MaterialTheme.typography.bodyMedium, modifier = Modifier.weight(1f))
+                                Text(p.nomAffiche, style = MaterialTheme.typography.bodyMedium, modifier = Modifier.weight(1f))
                                 Text(p.dates(), style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.Medium)
                             }
                         }

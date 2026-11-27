@@ -62,7 +62,7 @@ fun CarteMenus(etat: EtatModule<DonneesFamilles>, modifier: Modifier = Modifier,
             CarteDonnee(titre, Icons.Rounded.Restaurant, modifier, etat.fraicheur, maintenant) {
                 Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
                     vue.enCours?.let { p ->
-                        Pastille(p.nom, Ton.NEUTRE)
+                        Pastille(p.nomAffiche, Ton.NEUTRE)
                         Text(texteVacancesEnCours(p, aujourdhui, vue.menusPendant), style = MaterialTheme.typography.bodyMedium)
                     }
                     if (jours.isEmpty()) {
